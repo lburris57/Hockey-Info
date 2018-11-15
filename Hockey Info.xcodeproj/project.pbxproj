@@ -12,6 +12,7 @@
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
 		76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */; };
+		76D60B6C219DFB9F0058EEB0 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		76D60B60219D06110058EEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D60B63219D06110058EEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76D60B65219D06110058EEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +60,19 @@
 				76D60B5B219D060F0058EEB0 /* ViewController.swift */,
 				76D60B5D219D060F0058EEB0 /* Main.storyboard */,
 				76D60B60219D06110058EEB0 /* Assets.xcassets */,
+				76D60B6D219DFC0E0058EEB0 /* Xibs */,
 				76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */,
 				76D60B65219D06110058EEB0 /* Info.plist */,
 			);
 			path = "Hockey Info";
+			sourceTree = "<group>";
+		};
+		76D60B6D219DFC0E0058EEB0 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */,
+			);
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +135,7 @@
 			files = (
 				76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */,
 				76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */,
+				76D60B6C219DFB9F0058EEB0 /* ScoreCell.xib in Resources */,
 				76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
