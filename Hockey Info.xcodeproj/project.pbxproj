@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
+		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
 		76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* ViewController.swift */; };
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
 		76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */; };
-		76D60B6C219DFB9F0058EEB0 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
+		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76D60B56219D060F0058EEB0 /* Hockey Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hockey Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D60B59219D060F0058EEB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D60B5B219D060F0058EEB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +26,6 @@
 		76D60B60219D06110058EEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D60B63219D06110058EEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76D60B65219D06110058EEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,8 @@
 		76D60B4D219D060F0058EEB0 = {
 			isa = PBXGroup;
 			children = (
+				769F46E5219E543000E89895 /* ScoreCell.swift */,
+				769F46E6219E543000E89895 /* ScoreCell.xib */,
 				76D60B58219D060F0058EEB0 /* Hockey Info */,
 				76D60B57219D060F0058EEB0 /* Products */,
 			);
@@ -60,19 +64,10 @@
 				76D60B5B219D060F0058EEB0 /* ViewController.swift */,
 				76D60B5D219D060F0058EEB0 /* Main.storyboard */,
 				76D60B60219D06110058EEB0 /* Assets.xcassets */,
-				76D60B6D219DFC0E0058EEB0 /* Xibs */,
 				76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */,
 				76D60B65219D06110058EEB0 /* Info.plist */,
 			);
 			path = "Hockey Info";
-			sourceTree = "<group>";
-		};
-		76D60B6D219DFC0E0058EEB0 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				76D60B6B219DFB9F0058EEB0 /* ScoreCell.xib */,
-			);
-			path = Xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +130,7 @@
 			files = (
 				76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */,
 				76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */,
-				76D60B6C219DFB9F0058EEB0 /* ScoreCell.xib in Resources */,
+				769F46E8219E543000E89895 /* ScoreCell.xib in Resources */,
 				76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */,
+				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
