@@ -10,6 +10,8 @@ import UIKit
 
 class ScoreCell: UITableViewCell
 {
+    static let reusableIdentifier = "scoreCell"
+    
     @IBOutlet weak var timeRemaining: UITextField!
     
     @IBOutlet weak var visitingTeamName: UITextField!
@@ -32,10 +34,10 @@ class ScoreCell: UITableViewCell
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-    
 }
