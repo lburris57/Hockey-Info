@@ -11,6 +11,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 {
     @IBOutlet var scoreView: UITableView!
     
+    let fullDateFormatter = DateFormatter()
+    let timeFormatter = DateFormatter()
+    
     var timesRemaining = ["12:42", "09:47"]
     var visitingTeamNames = ["BLUE JACKETS", "OILERS"]
     var visitingTeamRecords = ["44-17-10", "47-14-10"]
@@ -18,22 +21,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var homeTeamRecords = ["47-14-10", "44-17-10"]
     var visitingTeamScores = ["2", "1"]
     var homeTeamScores = ["5", "2"]
-    var periods = ["3", "2"]
+    var periods = ["3rd", "2nd"]
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        scoreView.frame.origin.x = view.safeAreaInsets.left
-        scoreView.frame.origin.y = view.safeAreaInsets.top
-        scoreView.frame.size.width = view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right
-        scoreView.frame.size.height = 300
+        fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy at hh:mm a"
+        timeFormatter.dateFormat = "hh:mm a"
         
         scoreView.dataSource = self
         scoreView.delegate = self
         
         let nib = UINib(nibName: "ScoreCell", bundle: nil)
         scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
+    }
+    
+    override var prefersStatusBarHidden: Bool
+    {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return "Scores for " + fullDateFormatter.string(from: Date()) + " at " + timeFormatter.string(from: Date())
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.adjustsFontSizeToFitWidth = true
+        
+        view.tintColor = UIColor.black
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -59,4 +79,3 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
 }
-
