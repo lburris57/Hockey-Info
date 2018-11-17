@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         super.viewDidLoad()
         
-        fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy at hh:mm a"
+        fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
         timeFormatter.dateFormat = "hh:mm a"
         
         scoreView.dataSource = self
