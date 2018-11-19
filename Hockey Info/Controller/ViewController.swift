@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SwifterSwift
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
@@ -18,6 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let shortDateFormatter = DateFormatter()
     let fullDateFormatter = DateFormatter()
     let timeFormatter = DateFormatter()
+    let dateStringFormatter = DateFormatter()
     
     var timesRemaining = ["12:42", "09:47"]
     var visitingTeamNames = ["BLUE JACKETS", "OILERS"]
@@ -105,64 +107,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         Alamofire.request(
             "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json",
-            headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!]
-            )
+            headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!])
             .responseJSON
             { (response) in
                 
                 switch response.result
                 {
                     case .success:
-                        
+                    
+                        //  Create the JSON object and populate it
                         let json = JSON(response.result.value!)
                         
                         print("Original JSON is:\n \(json)")
                         
+                        //  Get the last updated on value
                         let lastUpdatedOn = json["lastUpdatedOn"].stringValue
-                        
-                        //print("Response is:\n\(response)")
-                        
-                        //print("Value of json is: \(json)")
                         
                         print("Value of lastUpdatedOn is: \(lastUpdatedOn)")
                     
-                        //guard let jsonData = response.value else {print("Error retrieving json data"); return}
-                        //print("jsonData: \(jsonData)")
+                        let trimmedString = lastUpdatedOn.slicing(from: 0, length: 10)
                     
-                        /*do{
-                         //let scoreboard = try JSONDecoder().decode(Scoreboard.self, from: jsonData)
-                         //print("Last updated date: \(scoreboard.lastUpdatedOn)")
-                         print("Last updated date: ")
-                     
-                         }catch {
-                         //print("Error: \(error)")
-                         }*/
+                        print("Value of trimmed string is: " + trimmedString!)
+                    
+                        let convertedDate = trimmedString!.date
+                    
+                        print("Value of convertedDate is: \(convertedDate!)")
                     
                     case .failure(let error):
+                        
                         print(error)
-                    
                 }
-                //                    guard response.result.isSuccess else
-                //                    {
-                //                        print("Error while fetching data: \(response.result.error!)")
-                //                        return
-                //                    }
-                //
-                //                    guard let responseJSON = response.result.value as? [String: Any] else
-                //                    {
-                //                        print("Invalid JSON information received from the service")
-                //                        return
-                //                    }
-                //
-                //                    do
-                //                    {
-                //                        //  Decode the JSON file into a TeamInfo object
-                //                        let scoreboard = try JSONDecoder().decode(Scoreboard.self, from: data)
-                //                    }
-                //                    catch
-                //                    {
-                //                        print("Error decoding JSON")
-                //                    }
         }
     }
 }
