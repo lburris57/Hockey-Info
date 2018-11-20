@@ -9,17 +9,16 @@ import Foundation
 
 struct GameScore
 {
-    let gameList: [Game]
-    let periodSummary: PeriodSummary
-    let isUnplayed: Bool
-    let isInProgress: Bool
-    let isCompleted: Bool
-    let awayScore: UInt
-    let awayShots: UInt
-    let homeScore: UInt
-    let homeShots: UInt
-    let currentPeriod: UInt
-    let currentPeriodSecondsRemaining = 0
+    var periodSummary: PeriodSummary? = nil
+    var isUnplayed: Bool? = nil
+    var isInProgress: Bool? = nil
+    var isCompleted: Bool? = nil
+    var awayScore: UInt? = nil
+    var awayShots: UInt? = nil
+    var homeScore: UInt? = nil
+    var homeShots: UInt? = nil
+    var currentPeriod: String? = nil
+    var currentPeriodSecondsRemaining = 0
 }
 
 extension GameScore

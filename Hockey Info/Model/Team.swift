@@ -9,8 +9,8 @@ import Foundation
 
 struct Team
 {
-    let ID: UInt
-    let city: String
-    let name: String
-    let abbreviation: String
+    var ID: UInt? = nil
+    var city: String? = nil
+    var name: String? = nil
+    var abbreviation: String? = nil
 }

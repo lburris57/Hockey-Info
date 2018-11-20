@@ -30,6 +30,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var homeTeamScores = ["5", "2"]
     var periods = ["3rd", "2nd"]
     
+    var game = Game()
+    var homeTeam = Team()
+    var awayTeam = Team()
+    var gameScore = GameScore()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -78,7 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return timesRemaining.count
+        return 1 //timesRemaining.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -87,14 +92,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         scoreView.rowHeight = CGFloat(130.0)
         
+        print("In numberOfRowsInSection method...")
+        
         cell.timeRemaining.text = timesRemaining[indexPath.row] + " remaining"
+        cell.visitingTeamName.text = game.awayTeam?.name
+        cell.visitingTeamRecord.text = visitingTeamRecords[indexPath.row]
+        cell.homeTeamName.text = game.homeTeam?.name
+        cell.homeTeamRecord.text = homeTeamRecords[indexPath.row]
+        cell.visitingTeamScore.text = "\(game.gameScore?.awayScore ?? 0)"
+        cell.homeTeamScore.text = "\(game.gameScore?.homeScore ?? 0)"
+        cell.period.text = game.gameScore?.currentPeriod
+        
+        /*cell.timeRemaining.text = timesRemaining[indexPath.row] + " remaining"
         cell.visitingTeamName.text = visitingTeamNames[indexPath.row]
         cell.visitingTeamRecord.text = visitingTeamRecords[indexPath.row]
         cell.homeTeamName.text = homeTeamNames[indexPath.row]
         cell.homeTeamRecord.text = homeTeamRecords[indexPath.row]
         cell.visitingTeamScore.text = visitingTeamScores[indexPath.row]
         cell.homeTeamScore.text = homeTeamScores[indexPath.row]
-        cell.period.text = periods[indexPath.row]
+        cell.period.text = periods[indexPath.row]*/
         
         return cell
     }
@@ -102,15 +118,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Network code
     func downloadGameData()
     {
+        print("In downloadGameData method...")
+        
         print("https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json")
         //https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181021/games.json
         
         Alamofire.request(
-            "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json",
+            
+            "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181118/games.json",
             headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!])
             .responseJSON
             { (response) in
-                
                 switch response.result
                 {
                     case .success:
@@ -132,6 +150,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let convertedDate = trimmedString!.date
                     
                         print("Value of convertedDate is: \(convertedDate!)")
+                    
+                        let homeTeamString = TeamNames.getTeamName(json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue)
+                        let awayTeamString = TeamNames.getTeamName(json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue)
+                        let playedStatus = json["games"][0]["schedule"]["playedStatus"].stringValue
+                        var currentPeriod = json["games"][0]["score"]["currentPeriod"].stringValue
+                        let homeScoreTotal = json["games"][0]["score"]["homeScoreTotal"].stringValue
+                        let awayScoreTotal = json["games"][0]["score"]["awayScoreTotal"].stringValue
+                        
+                        if(currentPeriod == "")
+                        {
+                            currentPeriod = "F"
+                        }
+                        
+                        print("Home team value is: " + homeTeamString)
+                        print("Away team value is: " + awayTeamString)
+                        print("Played status value is: " + playedStatus)
+                        print("Current period value is: " + currentPeriod)
+                        print("homeScoreTotal value is: " + homeScoreTotal)
+                        print("awayScoreTotal value is: " + awayScoreTotal)
+                    
+                        self.gameScore.currentPeriod = currentPeriod
+                        self.gameScore.homeScore = UInt(homeScoreTotal)
+                        self.gameScore.awayScore = UInt(awayScoreTotal)
+                        self.homeTeam.name = homeTeamString
+                        self.awayTeam.name = awayTeamString
+                        self.game.gameScore = self.gameScore
+                        self.game.homeTeam = self.homeTeam
+                        self.game.awayTeam = self.awayTeam
+                        self.game.date = trimmedString
+                    
+                        print("Current period value is: " + self.gameScore.currentPeriod! )
                     
                     case .failure(let error):
                         
