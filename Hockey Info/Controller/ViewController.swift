@@ -34,6 +34,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad()
     {
+        print("In viewDidLoad method...")
+        
         super.viewDidLoad()
         
         fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
@@ -46,6 +48,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
         
         games = networkManager.retrieveScores(scoreView) ?? [Game]()
+        
+        print("Leaving viewDidLoad method...")
     }
     
     override var prefersStatusBarHidden: Bool
@@ -63,32 +67,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     /// - Returns: String representation of the section header text
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
+        print("In titleForHeaderInSection method...")
+        
         return "Scores for " + fullDateFormatter.string(from: today) + " at " + timeFormatter.string(from: today)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
+        print("In willDisplayHeaderView method...")
+        
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.white
         header.textLabel?.adjustsFontSizeToFitWidth = true
         
         view.tintColor = UIColor.black
+        
+        print("Leaving willDisplayHeaderView method...")
     }
 
     // MARK: - Scores Table Cell Code
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        print("In numberOfRowsInSection method...")
+        
         return games.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        print("In cellForRowAt method...")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell") as! ScoreCell
         
         scoreView.rowHeight = CGFloat(130.0)
-        
-        print("In numberOfRowsInSection method...")
         
         if(games.count > 0)
         {
@@ -101,6 +113,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.homeTeamScore.text = "\(games[indexPath.row].gameScore?.homeScore ?? 0)"
             cell.period.text = games[indexPath.row].gameScore?.currentPeriod
         }
+        
+        print("Leaving cellForRowAt method...")
         
         return cell
     }

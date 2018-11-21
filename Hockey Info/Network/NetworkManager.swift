@@ -25,7 +25,6 @@ class NetworkManager
     //fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
     //timeFormatter.dateFormat = "hh:mm a"
     
-    
     var game = Game()
     var homeTeam = TeamInfo()
     var awayTeam = TeamInfo()
