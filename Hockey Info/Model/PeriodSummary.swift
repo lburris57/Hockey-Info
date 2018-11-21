@@ -9,5 +9,5 @@ import Foundation
 
 struct PeriodSummary
 {
-    var periodList: [Period]? = nil
+    var periodList: [Period]?
 }

@@ -9,15 +9,15 @@ import Foundation
 
 struct GameScore
 {
-    var periodSummary: PeriodSummary? = nil
-    var isUnplayed: Bool? = nil
-    var isInProgress: Bool? = nil
-    var isCompleted: Bool? = nil
-    var awayScore: UInt? = nil
-    var awayShots: UInt? = nil
-    var homeScore: UInt? = nil
-    var homeShots: UInt? = nil
-    var currentPeriod: String? = nil
+    var periodSummary: PeriodSummary?
+    var isUnplayed: Bool = false
+    var isInProgress: Bool = false
+    var isCompleted: Bool = false
+    var awayScore: UInt = 0
+    var awayShots: UInt = 0
+    var homeScore: UInt = 0
+    var homeShots: UInt = 0
+    var currentPeriod: String = ""
     var currentPeriodSecondsRemaining = 0
 }
 

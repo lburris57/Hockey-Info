@@ -19,9 +19,11 @@
 		76F0AD0D21A2305800249F28 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD0C21A2305800249F28 /* Game.swift */; };
 		76F0AD0F21A2309F00249F28 /* PeriodSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD0E21A2309F00249F28 /* PeriodSummary.swift */; };
 		76F0AD1121A230C900249F28 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1021A230C900249F28 /* Period.swift */; };
-		76F0AD1321A2311D00249F28 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1221A2311D00249F28 /* Team.swift */; };
-		76F0AD1621A249D200249F28 /* TeamNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1521A249D200249F28 /* TeamNames.swift */; };
-		76F0AD1821A354B900249F28 /* TeamIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1721A354B900249F28 /* TeamIDs.swift */; };
+		76F0AD1321A2311D00249F28 /* TeamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1221A2311D00249F28 /* TeamInfo.swift */; };
+		76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD1521A249D200249F28 /* TeamManager.swift */; };
+		76F118C121A4C4C1009E5F67 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C021A4C4C1009E5F67 /* Team.swift */; };
+		76F118C321A4C719009E5F67 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C221A4C719009E5F67 /* Player.swift */; };
+		76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C521A4D537009E5F67 /* NetworkManager.swift */; };
 		772B6025421B3DE3331C384B /* Pods_Hockey_Info.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,9 +43,11 @@
 		76F0AD0C21A2305800249F28 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		76F0AD0E21A2309F00249F28 /* PeriodSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSummary.swift; sourceTree = "<group>"; };
 		76F0AD1021A230C900249F28 /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
-		76F0AD1221A2311D00249F28 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
-		76F0AD1521A249D200249F28 /* TeamNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamNames.swift; sourceTree = "<group>"; };
-		76F0AD1721A354B900249F28 /* TeamIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamIDs.swift; sourceTree = "<group>"; };
+		76F0AD1221A2311D00249F28 /* TeamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfo.swift; sourceTree = "<group>"; };
+		76F0AD1521A249D200249F28 /* TeamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamManager.swift; sourceTree = "<group>"; };
+		76F118C021A4C4C1009E5F67 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		76F118C221A4C719009E5F67 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		76F118C521A4D537009E5F67 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		96E07D2F0940FA8A3635712C /* Pods-Hockey Info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.debug.xcconfig"; sourceTree = "<group>"; };
 		E3619F0A6A1F92A56F6525C4 /* Pods-Hockey Info.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,7 +85,9 @@
 		76D60B58219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXGroup;
 			children = (
-				76F0AD1421A2336900249F28 /* Utils */,
+				76F118C721A4DBFF009E5F67 /* Data Manager */,
+				76F118C421A4D4E3009E5F67 /* Network */,
+				76F0AD1421A2336900249F28 /* Data Model */,
 				76D60B59219D060F0058EEB0 /* AppDelegate.swift */,
 				76F0AD07219FCD0000249F28 /* Model */,
 				76F0AD06219FCCBB00249F28 /* Controller */,
@@ -119,18 +125,34 @@
 				76F0AD0C21A2305800249F28 /* Game.swift */,
 				76F0AD0E21A2309F00249F28 /* PeriodSummary.swift */,
 				76F0AD1021A230C900249F28 /* Period.swift */,
-				76F0AD1221A2311D00249F28 /* Team.swift */,
+				76F0AD1221A2311D00249F28 /* TeamInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		76F0AD1421A2336900249F28 /* Utils */ = {
+		76F0AD1421A2336900249F28 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				76F0AD1721A354B900249F28 /* TeamIDs.swift */,
-				76F0AD1521A249D200249F28 /* TeamNames.swift */,
+				76F118C021A4C4C1009E5F67 /* Team.swift */,
+				76F118C221A4C719009E5F67 /* Player.swift */,
 			);
-			path = Utils;
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
+		76F118C421A4D4E3009E5F67 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				76F118C521A4D537009E5F67 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		76F118C721A4DBFF009E5F67 /* Data Manager */ = {
+			isa = PBXGroup;
+			children = (
+				76F0AD1521A249D200249F28 /* TeamManager.swift */,
+			);
+			path = "Data Manager";
 			sourceTree = "<group>";
 		};
 		94206E9051B91E02CF05169A /* Frameworks */ = {
@@ -230,6 +252,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -239,6 +264,9 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -277,14 +305,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76F0AD1321A2311D00249F28 /* Team.swift in Sources */,
+				76F118C121A4C4C1009E5F67 /* Team.swift in Sources */,
+				76F0AD1321A2311D00249F28 /* TeamInfo.swift in Sources */,
 				76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */,
 				76F0AD0D21A2305800249F28 /* Game.swift in Sources */,
 				76F0AD1121A230C900249F28 /* Period.swift in Sources */,
+				76F118C321A4C719009E5F67 /* Player.swift in Sources */,
 				76F0AD0F21A2309F00249F28 /* PeriodSummary.swift in Sources */,
-				76F0AD1821A354B900249F28 /* TeamIDs.swift in Sources */,
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
-				76F0AD1621A249D200249F28 /* TeamNames.swift in Sources */,
+				76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */,
+				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
 				76F0AD0B21A2300F00249F28 /* Scoreboard.swift in Sources */,
 				76F0AD0921A22E2A00249F28 /* GameScore.swift in Sources */,

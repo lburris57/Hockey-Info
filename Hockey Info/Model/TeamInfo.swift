@@ -1,5 +1,5 @@
 //
-//  Team.swift
+//  TeamInfo.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 11/18/18.
@@ -7,10 +7,10 @@
 //
 import Foundation
 
-struct Team
+struct TeamInfo
 {
-    var ID: UInt? = nil
-    var city: String? = nil
-    var name: String? = nil
-    var abbreviation: String? = nil
+    var ID: UInt = 0
+    var city: String = ""
+    var name: String = ""
+    var abbreviation: String = ""
 }

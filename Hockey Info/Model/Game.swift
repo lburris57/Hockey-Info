@@ -10,11 +10,11 @@ import Foundation
 
 struct Game
 {
-    var ID: UInt? = nil
-    var date: String? = nil
-    var time: String? = nil
-    var location: String? = nil
-    var homeTeam: Team? = nil
-    var awayTeam: Team? = nil
-    var gameScore: GameScore? = nil
+    var ID: UInt = 0
+    var date: String = ""
+    var time: String = ""
+    var location: String = ""
+    var homeTeam: TeamInfo?
+    var awayTeam: TeamInfo?
+    var gameScore: GameScore?
 }

@@ -7,15 +7,39 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        autoreleasepool
+        {
+            let realm = try! Realm()
+            
+            print(Realm.Configuration.defaultConfiguration.fileURL!)
+        }
+        
+        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
+        let realmURLs = [realmURL, realmURL.appendingPathExtension("lock"), realmURL.appendingPathExtension("note"), realmURL.appendingPathExtension("management")]
+        
+        //print("Deleting Realm database from URL: \(realmURL)")
+        
+        /*for URL in realmURLs
+        {
+            do
+            {
+                try FileManager.default.removeItem(at: URL)
+            }
+            catch
+            {
+                print("Error deleting Realm database")
+            }
+        }*/
+        
         return true
     }
 

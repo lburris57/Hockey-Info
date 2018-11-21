@@ -9,9 +9,9 @@ import Foundation
 
 struct Period
 {
-    var periodNumber: UInt? = nil
-    var awayScore: UInt? = nil
-    var awayShots: UInt? = nil
-    var homeScore: UInt? = nil
-    var homeShots: UInt? = nil
+    var periodNumber: UInt = 0
+    var awayScore: UInt = 0
+    var awayShots: UInt = 0
+    var homeScore: UInt = 0
+    var homeShots: UInt = 0
 }

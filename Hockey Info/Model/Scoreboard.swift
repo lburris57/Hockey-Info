@@ -9,6 +9,6 @@ import Foundation
 
 struct Scoreboard
 {
-    var lastUpdatedOn: String? = nil
-    var gameList: [Game]? = nil
+    var lastUpdatedOn: String = ""
+    var gameList: [Game]?
 }
