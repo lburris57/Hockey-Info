@@ -47,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let nib = UINib(nibName: "ScoreCell", bundle: nil)
         scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
         
-        games = networkManager.retrieveScores(scoreView) ?? [Game]()
+        games = networkManager.retrieveScores(view) ?? [Game]()
         
         print("Leaving viewDidLoad method...")
     }
@@ -91,7 +91,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         print("In numberOfRowsInSection method...")
         
-        return games.count
+        //return games.count
+        
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell

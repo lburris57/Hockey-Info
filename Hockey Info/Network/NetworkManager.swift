@@ -40,7 +40,7 @@ class NetworkManager
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores(_ scoreView: UITableView) -> [Game]?
+    func retrieveScores(_ scoreView: UIView) -> [Game]?
     {
         var games = [Game]()
         
@@ -54,7 +54,6 @@ class NetworkManager
         SVProgressHUD.show()
         
         Alamofire.request(
-            
             "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181119/games.json",
             headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!])
             .responseJSON
@@ -114,16 +113,21 @@ class NetworkManager
                     
                     games.append(self.game)
                     
+                    print("Leaving retrieveScores method...")
+                    print("Number of games is: \(games.count)")
+                    
+                    SVProgressHUD.dismiss()
+                    
+                    print("Setting setNeedsDisplay method...")
+                    scoreView.setNeedsDisplay()
+                    
                 case .failure(let error):
                     
                     print(error)
                 }
             }
         
-        print("Leaving retrieveScores method...")
-        print("Number of games is: \(games.count)")
-        
-        SVProgressHUD.dismiss()
+        print("Returning games...")
         
         return games
         
