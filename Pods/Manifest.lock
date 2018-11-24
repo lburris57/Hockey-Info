@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - JTAppleCalendar (7.1.6)
   - Kingfisher (4.10.1)
   - Realm (3.11.2):
     - Realm/Headers (= 3.11.2)
@@ -28,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - JTAppleCalendar (~> 7.0)
   - Kingfisher (~> 4.0)
   - RealmSwift
   - SVProgressHUD
@@ -37,6 +39,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - JTAppleCalendar
     - Kingfisher
     - Realm
     - RealmSwift
@@ -46,6 +49,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
   RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
@@ -53,6 +57,6 @@ SPEC CHECKSUMS:
   SwifterSwift: 812ffec6f301922f5430e75be3f2939ea3a80024
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 53882be337b65aa2fb58b303e9130d34294c3cec
+PODFILE CHECKSUM: 10d32772f7a63161f458559cbac823566df30b34
 
 COCOAPODS: 1.5.3

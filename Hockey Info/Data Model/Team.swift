@@ -13,6 +13,7 @@ class Team : Object
     @objc dynamic var id : String = ""
     @objc dynamic var abbreviation : String = ""
     @objc dynamic var cityName : String = ""
+    @objc dynamic var dateCreated: Date?
     
     let players = List<Player>()
 }

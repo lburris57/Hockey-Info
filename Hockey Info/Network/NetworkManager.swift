@@ -15,12 +15,16 @@ import SVProgressHUD
 
 class NetworkManager
 {
+    let realm = try! Realm()
+    
     let today = Date()
     
     let shortDateFormatter = DateFormatter()
     let fullDateFormatter = DateFormatter()
     let timeFormatter = DateFormatter()
     let dateStringFormatter = DateFormatter()
+    
+    var games = [Game]()
     
     //fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
     //timeFormatter.dateFormat = "hh:mm a"
@@ -40,10 +44,8 @@ class NetworkManager
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores(_ scoreView: UIView) -> [Game]?
+    func retrieveScores()
     {
-        var games = [Game]()
-        
         shortDateFormatter.dateFormat = "yyyyMMdd"
         
         print("In retrieveScores method...")
@@ -54,7 +56,7 @@ class NetworkManager
         SVProgressHUD.show()
         
         Alamofire.request(
-            "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181119/games.json",
+            "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json",
             headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!])
             .responseJSON
             { (response) in
@@ -65,7 +67,7 @@ class NetworkManager
                     //  Create the JSON object and populate it
                     let json = JSON(response.result.value!)
                     
-                    print("Original JSON is:\n \(json)")
+                    print("Original JSON in retrieveScores method is:\n \(json)")
                     
                     //  Get the last updated on value
                     let lastUpdatedOn = json["lastUpdatedOn"].stringValue
@@ -86,6 +88,10 @@ class NetworkManager
                     var currentPeriod = json["games"][0]["score"]["currentPeriod"].stringValue
                     let homeScoreTotal = json["games"][0]["score"]["homeScoreTotal"].stringValue
                     let awayScoreTotal = json["games"][0]["score"]["awayScoreTotal"].stringValue
+                    
+                    let numberOfPeriods = json["games"][0]["score"]["periods"].arrayValue.count
+                    
+                    print("Number of periods is \(numberOfPeriods)")
                     
                     if(currentPeriod == "")
                     {
@@ -111,31 +117,114 @@ class NetworkManager
                     
                     print("Current period value is: " + self.gameScore.currentPeriod)
                     
-                    games.append(self.game)
+                    self.games.append(self.game)
                     
                     print("Leaving retrieveScores method...")
-                    print("Number of games is: \(games.count)")
+                    print("Number of games is: \(self.games.count)")
                     
                     SVProgressHUD.dismiss()
-                    
-                    print("Setting setNeedsDisplay method...")
-                    scoreView.setNeedsDisplay()
                     
                 case .failure(let error):
                     
                     print(error)
                 }
             }
-        
-        print("Returning games...")
-        
-        return games
-        
         }
     
-    //  Create the retrieveTeamRoster method
+     //  Create the retrievePlayerInfo method
     
-    //  Create the retrievePlayerInfo method
+    //  Create the retrieveTeamRoster method
+    func retrieveTeamRoster()
+    {
+//        let playerResults = realm.objects(Player.self)
+//
+//        do
+//        {
+//            try self.realm.write
+//            {
+//                self.realm.delete(playerResults)
+//
+//                print("Players have been deleted from the database!!")
+//            }
+//        }
+//        catch
+//        {
+//            print("Error deleting players from the database: \(error)")
+//        }
+        
+        let playerList = List<Player>()
+        
+        let teamResult = realm.objects(Team.self).filter("id == '5'").first
+        
+        let team = Team()
+        
+        team.dateCreated = teamResult?.dateCreated
+        team.abbreviation = (teamResult?.abbreviation)!
+        team.cityName = (teamResult?.cityName)!
+        team.id = (teamResult?.id)!
+        
+        Alamofire.request(
+            "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?team=5&rosterstatus=assigned-to-roster",
+            headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!])
+            .responseJSON
+            { (response) in
+                switch response.result
+                {
+                    case .success:
+                    
+                    //  Create the JSON object and populate it
+                    let json = JSON(response.result.value!)
+                    
+                     let numberOfPlayers = json["players"].arrayValue.count
+                    
+                    print("Original JSON in retrieveTeamRoster method is:\n \(json)")
+                    
+                    for i in numberOfPlayers
+                    {
+                        let player = Player()
+                        
+                        player.id = json["players"][i]["player"]["id"].stringValue
+                        player.firstName = json["players"][i]["player"]["firstName"].stringValue
+                        player.lastName = json["players"][i]["player"]["lastName"].stringValue
+                        player.position = json["players"][i]["player"]["primaryPosition"].stringValue
+                        player.jerseyNumber = json["players"][i]["player"]["jerseyNumber"].stringValue
+                        player.height = json["players"][i]["player"]["height"].stringValue
+                        player.weight = json["players"][i]["player"]["weight"].stringValue
+                        player.birthDate = json["players"][i]["player"]["birthDate"].stringValue
+                        player.age = json["players"][i]["player"]["age"].stringValue
+                        player.birthCity = json["players"][i]["player"]["birthCity"].stringValue
+                        player.birthCountry = json["players"][i]["player"]["birthCountry"].stringValue
+                        player.imageURL = json["players"][i]["player"]["officialImageSrc"].stringValue
+                        player.shoots = json["players"][i]["player"]["handedness"]["shoots"].stringValue
+                        player.dateCreated = Date()
+                        
+                        team.players.append(player)
+                        
+                        playerList.append(player)
+                    }
+                    
+                    do
+                    {
+                        try self.realm.write
+                        {
+                            self.realm.add(playerList)
+        
+                            print("Players have been added to the database!!")
+                        }
+                    }
+                    catch
+                    {
+                        print("Error saving players to the database: \(error)")
+                    }
+                    
+                    SVProgressHUD.dismiss()
+                    
+                    case .failure(let error):
+                    
+                    print(error)
+                }
+        }
+    }
     
     //  Create the displaySchedule method
 }
@@ -160,5 +249,13 @@ extension String
         }
         
         return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+    }
+}
+
+extension Int: Sequence
+{
+    public func makeIterator() -> CountableRange<Int>.Iterator
+    {
+        return (0..<self).makeIterator()
     }
 }

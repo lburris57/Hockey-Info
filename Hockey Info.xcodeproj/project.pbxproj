@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7600572121A8F23500D293EE /* URLListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600572021A8F23500D293EE /* URLListing.swift */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hockey_Info.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7600572021A8F23500D293EE /* URLListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLListing.swift; sourceTree = "<group>"; };
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76D60B56219D060F0058EEB0 /* Hockey Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hockey Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				76F118C521A4D537009E5F67 /* NetworkManager.swift */,
+				7600572021A8F23500D293EE /* URLListing.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -264,6 +268,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -313,6 +318,7 @@
 				76F118C321A4C719009E5F67 /* Player.swift in Sources */,
 				76F0AD0F21A2309F00249F28 /* PeriodSummary.swift in Sources */,
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
+				7600572121A8F23500D293EE /* URLListing.swift in Sources */,
 				76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */,
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,

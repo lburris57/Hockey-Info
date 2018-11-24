@@ -47,7 +47,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let nib = UINib(nibName: "ScoreCell", bundle: nil)
         scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
         
-        games = networkManager.retrieveScores(view) ?? [Game]()
+        networkManager.retrieveScores()
+        
+        //networkManager.retrieveTeamRoster()
+        
+        self.scoreView.reloadData()
         
         print("Leaving viewDidLoad method...")
     }

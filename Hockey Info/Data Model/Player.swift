@@ -23,6 +23,7 @@ class Player : Object
     @objc dynamic var birthCountry : String = ""
     @objc dynamic var imageURL : String = ""
     @objc dynamic var shoots : String = ""
+    @objc dynamic var dateCreated: Date?
     
     var parentTeam = LinkingObjects(fromType: Team.self, property: "players")
 }

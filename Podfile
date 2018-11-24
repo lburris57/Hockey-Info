@@ -11,5 +11,6 @@ pod 'SVProgressHUD'
 pod 'SwifterSwift'
 pod 'RealmSwift'
 pod 'Kingfisher', '~> 4.0'
+pod 'JTAppleCalendar', '~> 7.0'
 
 end
