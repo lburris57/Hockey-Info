@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7600572121A8F23500D293EE /* URLListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600572021A8F23500D293EE /* URLListing.swift */; };
+		7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
 		76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* ViewController.swift */; };
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
-		76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */; };
 		76F0AD0921A22E2A00249F28 /* GameScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD0821A22E2A00249F28 /* GameScore.swift */; };
 		76F0AD0B21A2300F00249F28 /* Scoreboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD0A21A2300F00249F28 /* Scoreboard.swift */; };
@@ -236,8 +236,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */,
-				76D60B61219D06110058EEB0 /* Assets.xcassets in Resources */,
 				769F46E8219E543000E89895 /* ScoreCell.xib in Resources */,
+				7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */,
 				76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
