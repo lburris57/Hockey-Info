@@ -78,10 +78,6 @@ class NetworkManager
                     
                     print("Value of trimmed string is: " + trimmedString!)
                     
-                    let convertedDate = trimmedString!.date
-                    
-                    print("Value of convertedDate is: \(convertedDate!)")
-                    
                     let homeTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue)
                     let awayTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue)
                     let playedStatus = json["games"][0]["schedule"]["playedStatus"].stringValue
