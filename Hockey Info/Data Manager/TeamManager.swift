@@ -39,4 +39,11 @@ class TeamManager
         
         return teamIds[teamId]!
     }
+    
+    static func getVenueByTeam(_ name: String) -> String
+    {
+        let teamVenues = ["ANA":"Honda Center", "ARI":"Gila River Arena", "BOS":"TD Garden", "BUF":"KeyBank Center", "CAL":"Scotiabank Saddledome", "CAR":"PNC Arena", "CHI":"United Center", "COL":"Pepsi Center", "CBJ":"Nationwide Arena", "DAL":"American Airlines Center", "DET":"Little Caesars Arena", "EDM":"Rogers Place", "FLO":"BB&T Center", "LAK":"Staples Center", "MIN":"Xcel Energy Center", "MON":"Bell Centre", "NSH":"Bridgestone Arena", "NJD":"Prudential Center", "NYI":"Nassau Veterans Memorial Coliseum", "NYR":"Madison Square Garden", "OTT":"Canadian Tire Centre", "PHI":"Wells Fargo Center", "PIT":"PPG Paints Arena", "SJS":"SAP Center at San Jose", "STL":"Enterprise Center", "TBL":"Amalie Arena", "TOR":"Scotiabank Arena", "VAN":"Rogers Arena", "VGK":"T-Mobile Arena", "WSH":"Capital One Arena", "WPJ":"Bell MTS Place"]
+        
+        return teamVenues[name]!
+    }
 }

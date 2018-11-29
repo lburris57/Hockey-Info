@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SwifterSwift
+import SwiftDate
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
@@ -34,6 +35,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad()
     {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let date = formatter.date(from: "2019-03-17T21:00:00.000Z")
+        
+        
+        print("Date is: \(date!.toFormat("EEEE, MMM dd, yyyy"))")
+        print("Time is: \(date!.toFormat("hh:mm a"))")
+        
         print("In viewDidLoad method...")
         
         super.viewDidLoad()
@@ -54,6 +65,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.scoreView.reloadData()
         
         print("Leaving viewDidLoad method...")
+        
+        print("Value of period converter final is: \(PeriodEnum.final.rawValue)")
     }
     
     override var prefersStatusBarHidden: Bool
