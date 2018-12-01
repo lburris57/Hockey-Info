@@ -32,7 +32,6 @@ class TeamManager
         return teamNames[name]!
     }
     
-    
     static func getTeamByID(_ teamId: Int) -> String
     {
         let teamIds = [29:"ANA", 30:"ARI", 11:"BOS", 15:"BUF", 23:"CAL", 3:"CAR", 20:"CHI", 22:"COL", 19:"CBJ", 27:"DAL", 16:"DET", 24:"EDM", 4:"FLO", 28:"LAK", 25:"MIN", 14:"MON", 18:"NSH", 7:"NJD", 8:"NYI", 9:"NYR", 13:"OTT", 6:"PHI", 10:"PIT", 26:"SJS", 17:"STL", 1:"TBL", 12:"TOR", 21:"VAN", 142:"VGK", 5:"WSH", 2:"WPJ"]

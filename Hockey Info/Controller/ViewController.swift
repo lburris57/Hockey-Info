@@ -36,14 +36,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad()
     {
         let formatter = DateFormatter()
+        
+        var date = Date()
+        
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        let date = formatter.date(from: "2019-03-17T21:00:00.000Z")
+        if TimeZone.current.isDaylightSavingTime()
+        {
+            date = (formatter.date(from: "2018-11-29T02:30:00.000Z")?.addingTimeInterval(-(10*60*60)))!
+        }
+        else
+        {
+            date = (formatter.date(from: "2018-11-29T02:30:00.000Z")?.addingTimeInterval(-(9*60*60)))!
+        }
         
-        
-        print("Date is: \(date!.toFormat("EEEE, MMM dd, yyyy"))")
-        print("Time is: \(date!.toFormat("hh:mm a"))")
+        print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
+        print("Time is: \(date.toFormat("hh:mm a"))")
         
         print("In viewDidLoad method...")
         

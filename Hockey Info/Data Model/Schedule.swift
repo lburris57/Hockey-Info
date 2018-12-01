@@ -1,0 +1,29 @@
+//
+//  Schedule.swift
+//  Hockey Info
+//
+//  Created by Larry Burris on 11/29/18.
+//  Copyright © 2018 Larry Burris. All rights reserved.
+//
+import Foundation
+import RealmSwift
+
+class Schedule: Object
+{
+    @objc dynamic var id : String = ""
+    @objc dynamic var date : String = ""
+    @objc dynamic var time : String = ""
+    @objc dynamic var homeTeam : String = ""
+    @objc dynamic var awayTeam : String = ""
+    @objc dynamic var playedStatus : String = ""
+    @objc dynamic var homeScoreTotal : Int = 0
+    @objc dynamic var awayScoreTotal : Int = 0
+    @objc dynamic var numberOfPeriods : Int = 0
+    @objc dynamic var currentPeriod : String = ""
+    @objc dynamic var currentPeriodSecondsRemaining : Int = 0
+    @objc dynamic var homeShotsTotal : Int = 0
+    @objc dynamic var awayShotsTotal : Int = 0
+    @objc dynamic var venueAllegiance : String = ""
+    @objc dynamic var scheduleStatus : String = ""
+    @objc dynamic var dateCreated: Date?
+}
