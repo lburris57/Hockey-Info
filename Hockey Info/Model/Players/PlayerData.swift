@@ -23,7 +23,6 @@ struct PlayerData: Decodable
     var birthCountry: String
     var rookie: Bool = false
     var officialImageSource: String?
-    
     var currentInjuryInfo: [CurrentInjuryData]?
     var handednessInfo: [HandednessData]?
     
@@ -43,7 +42,6 @@ struct PlayerData: Decodable
         case birthCountry = "birthCountry"
         case rookie = "rookie"
         case officialImageSource = "officialImageSource"
-        
         case currentInjuryInfo = "currentInjury"
         case handednessInfo = "handedness"
     }

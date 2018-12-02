@@ -15,7 +15,6 @@ struct ScoreInfo: Decodable
     var awayShotsTotal: Int = 0
     var homeScoreTotal: Int = 0
     var homeShotsTotal: Int = 0
-    
     var periodList: [PeriodInfo]?
     
     private enum CodingKeys : String, CodingKey
@@ -26,7 +25,6 @@ struct ScoreInfo: Decodable
         case awayShotsTotal = "awayShotsTotal"
         case homeScoreTotal = "homeScoreTotal"
         case homeShotsTotal = "homeShotsTotal"
-        
         case periodList = "periods"
     }
 }

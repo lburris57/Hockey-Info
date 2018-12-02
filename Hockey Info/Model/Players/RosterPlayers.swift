@@ -10,13 +10,11 @@ import Foundation
 struct RosterPlayers: Decodable
 {
     var lastUpdatedOn: Date
-    
     var playerInfoList: [PlayerInfo]?
     
     private enum CodingKeys : String, CodingKey
     {
         case lastUpdatedOn = "lastUpdatedOn"
-        
         case playerInfoList = "players"
     }
 }

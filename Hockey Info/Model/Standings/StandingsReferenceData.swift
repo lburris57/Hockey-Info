@@ -1,5 +1,5 @@
 //
-//  SeasonSchedule.swift
+//  StandingsReferenceData.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,14 +7,12 @@
 //
 import Foundation
 
-struct SeasonSchedule: Decodable
+struct StandingsReferenceData: Decodable
 {
-    var lastUpdatedOn: Date
-    var gameList: [ScheduledGame]?
+    var standingsCategories: [StandingsCategory]?
     
     private enum CodingKeys : String, CodingKey
     {
-        case lastUpdatedOn = "lastUpdatedOn"
-        case gameList = "games"
+        case standingsCategories = "teamStatReferences"
     }
 }

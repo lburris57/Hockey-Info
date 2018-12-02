@@ -1,5 +1,5 @@
 //
-//  SeasonSchedule.swift
+//  OverallRankData.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,14 +7,14 @@
 //
 import Foundation
 
-struct SeasonSchedule: Decodable
+struct OverallRankData: Decodable
 {
-    var lastUpdatedOn: Date
-    var gameList: [ScheduledGame]?
+    var rank: Int = 0
+    var gamesBack: Double = 0.0
     
     private enum CodingKeys : String, CodingKey
     {
-        case lastUpdatedOn = "lastUpdatedOn"
-        case gameList = "games"
+        case rank = "rank"
+        case gamesBack = "gamesBack"
     }
 }

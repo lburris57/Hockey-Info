@@ -14,7 +14,6 @@ struct ScheduleInfo: Decodable
     var venueAllegiance: String
     var scheduleStatus: String
     var playedStatus: String
-    
     var awayTeamInfo: [TeamData]?
     var homeTeamInfo: [TeamData]?
     var venueInfo: [VenueData]?
@@ -26,7 +25,6 @@ struct ScheduleInfo: Decodable
         case venueAllegiance = "venueAllegiance"
         case scheduleStatus = "scheduleStatus"
         case playedStatus = "playedStatus"
-        
         case awayTeamInfo = "awayTeam"
         case homeTeamInfo = "homeTeam"
         case venueInfo = "venue"
