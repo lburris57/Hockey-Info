@@ -10,6 +10,6 @@ import Foundation
 enum PlayedStatusEnum: String
 {
     case unplayed = "UNPLAYED"
-    case inProgress = "IN_PROGRESS"
+    case inProgress = "LIVE"
     case completed = "COMPLETED"
 }

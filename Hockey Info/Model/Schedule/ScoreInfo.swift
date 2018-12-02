@@ -16,7 +16,7 @@ struct ScoreInfo: Decodable
     var homeScoreTotal: Int = 0
     var homeShotsTotal: Int = 0
     
-    var periodList: [PeriodInfo]
+    var periodList: [PeriodInfo]?
     
     private enum CodingKeys : String, CodingKey
     {

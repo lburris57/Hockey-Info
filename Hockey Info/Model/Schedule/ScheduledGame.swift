@@ -9,8 +9,8 @@ import Foundation
 
 struct ScheduledGame: Decodable
 {
-    var scheduleInfoList: [ScheduleInfo]
-    var scoreInfoList: [ScoreInfo]
+    var scheduleInfoList: [ScheduleInfo]?
+    var scoreInfoList: [ScoreInfo]?
     
     private enum CodingKeys : String, CodingKey
     {

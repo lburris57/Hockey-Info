@@ -15,9 +15,9 @@ struct ScheduleInfo: Decodable
     var scheduleStatus: String
     var playedStatus: String
     
-    var awayTeamInfo: [TeamData]
-    var homeTeamInfo: [TeamData]
-    var venueInfo: [VenueData]
+    var awayTeamInfo: [TeamData]?
+    var homeTeamInfo: [TeamData]?
+    var venueInfo: [VenueData]?
     
     private enum CodingKeys : String, CodingKey
     {

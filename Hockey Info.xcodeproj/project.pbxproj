@@ -17,6 +17,12 @@
 		76045B5021B333F300980C63 /* ScheduleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4F21B333F300980C63 /* ScheduleInfo.swift */; };
 		76045B5221B3362F00980C63 /* TeamData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5121B3362F00980C63 /* TeamData.swift */; };
 		76045B5421B3369100980C63 /* VenueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5321B3369100980C63 /* VenueData.swift */; };
+		76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5621B343EB00980C63 /* RosterPlayers.swift */; };
+		76045B5921B3448100980C63 /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5821B3448100980C63 /* PlayerInfo.swift */; };
+		76045B5B21B3461800980C63 /* CurrentTeamData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5A21B3461800980C63 /* CurrentTeamData.swift */; };
+		76045B5D21B347A200980C63 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5C21B347A200980C63 /* PlayerData.swift */; };
+		76045B5F21B34C6900980C63 /* CurrentInjuryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B5E21B34C6900980C63 /* CurrentInjuryData.swift */; };
+		76045B6121B34C9C00980C63 /* HandednessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B6021B34C9C00980C63 /* HandednessData.swift */; };
 		7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
@@ -50,6 +56,12 @@
 		76045B4F21B333F300980C63 /* ScheduleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInfo.swift; sourceTree = "<group>"; };
 		76045B5121B3362F00980C63 /* TeamData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamData.swift; sourceTree = "<group>"; };
 		76045B5321B3369100980C63 /* VenueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueData.swift; sourceTree = "<group>"; };
+		76045B5621B343EB00980C63 /* RosterPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterPlayers.swift; sourceTree = "<group>"; };
+		76045B5821B3448100980C63 /* PlayerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
+		76045B5A21B3461800980C63 /* CurrentTeamData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTeamData.swift; sourceTree = "<group>"; };
+		76045B5C21B347A200980C63 /* PlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
+		76045B5E21B34C6900980C63 /* CurrentInjuryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentInjuryData.swift; sourceTree = "<group>"; };
+		76045B6021B34C9C00980C63 /* HandednessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandednessData.swift; sourceTree = "<group>"; };
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76B478B921AF693F00337D98 /* PeriodEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEnum.swift; sourceTree = "<group>"; };
@@ -98,6 +110,19 @@
 				76045B5321B3369100980C63 /* VenueData.swift */,
 			);
 			path = Schedule;
+			sourceTree = "<group>";
+		};
+		76045B5521B3438400980C63 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				76045B5621B343EB00980C63 /* RosterPlayers.swift */,
+				76045B5821B3448100980C63 /* PlayerInfo.swift */,
+				76045B5A21B3461800980C63 /* CurrentTeamData.swift */,
+				76045B5C21B347A200980C63 /* PlayerData.swift */,
+				76045B5E21B34C6900980C63 /* CurrentInjuryData.swift */,
+				76045B6021B34C9C00980C63 /* HandednessData.swift */,
+			);
+			path = Players;
 			sourceTree = "<group>";
 		};
 		76D60B4D219D060F0058EEB0 = {
@@ -155,6 +180,7 @@
 		76F0AD07219FCD0000249F28 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				76045B5521B3438400980C63 /* Players */,
 				76045B4621B324D400980C63 /* Schedule */,
 				769F46E5219E543000E89895 /* ScoreCell.swift */,
 				76F0AD0821A22E2A00249F28 /* GameScore.swift */,
@@ -353,6 +379,7 @@
 				76F118C121A4C4C1009E5F67 /* Team.swift in Sources */,
 				76F0AD1321A2311D00249F28 /* TeamInfo.swift in Sources */,
 				76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */,
+				76045B5B21B3461800980C63 /* CurrentTeamData.swift in Sources */,
 				76F0AD0D21A2305800249F28 /* Game.swift in Sources */,
 				76F0AD1121A230C900249F28 /* Period.swift in Sources */,
 				76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */,
@@ -367,10 +394,15 @@
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
 				76045B5021B333F300980C63 /* ScheduleInfo.swift in Sources */,
 				7600572121A8F23500D293EE /* URLListing.swift in Sources */,
+				76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */,
 				76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */,
+				76045B6121B34C9C00980C63 /* HandednessData.swift in Sources */,
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
+				76045B5D21B347A200980C63 /* PlayerData.swift in Sources */,
 				76045B4A21B3297200980C63 /* ScheduledGame.swift in Sources */,
+				76045B5921B3448100980C63 /* PlayerInfo.swift in Sources */,
+				76045B5F21B34C6900980C63 /* CurrentInjuryData.swift in Sources */,
 				76F0AD0B21A2300F00249F28 /* Scoreboard.swift in Sources */,
 				76045B5221B3362F00980C63 /* TeamData.swift in Sources */,
 				76F0AD0921A22E2A00249F28 /* GameScore.swift in Sources */,

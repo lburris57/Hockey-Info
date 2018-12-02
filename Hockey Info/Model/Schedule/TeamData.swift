@@ -11,4 +11,10 @@ struct TeamData: Decodable
 {
     var id: Int = 0
     var abbreviation  : String
+    
+    private enum CodingKeys : String, CodingKey
+    {
+        case id = "id"
+        case abbreviation = "abbreviation"
+    }
 }

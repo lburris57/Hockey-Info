@@ -67,7 +67,7 @@ class NetworkManager
                     //  Create the JSON object and populate it
                     let json = JSON(response.result.value!)
                     
-                    print("Original JSON in retrieveScores method is:\n \(json)")
+                    //print("Original JSON in retrieveScores method is:\n \(json)")
                     
                     //  Get the last updated on value
                     let lastUpdatedOn = json["lastUpdatedOn"].stringValue

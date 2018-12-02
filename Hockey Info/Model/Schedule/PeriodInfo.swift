@@ -14,4 +14,13 @@ struct PeriodInfo: Decodable
     var awayShots: Int = 0
     var homeScore: Int = 0
     var homeShots: Int = 0
+    
+    private enum CodingKeys : String, CodingKey
+    {
+        case periodNumber = "periodNumber"
+        case awayScore = "awayScore"
+        case awayShots = "awayShots"
+        case homeScore = "homeScore"
+        case homeShots = "homeShots"
+    }
 }

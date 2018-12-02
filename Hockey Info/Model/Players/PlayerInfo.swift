@@ -1,5 +1,5 @@
 //
-//  VenueData.swift
+//  PlayerInfo.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,14 +7,14 @@
 //
 import Foundation
 
-struct VenueData: Decodable
+struct PlayerInfo: Decodable
 {
-    var id: Int = 0
-    var name: String
+    var playerList: [PlayerData]?
+    var currentTeamInfo: [CurrentTeamData]?
     
     private enum CodingKeys : String, CodingKey
     {
-        case id = "id"
-        case name = "name"
+        case playerList = "player"
+        case currentTeamInfo = "teamAsOfDate"
     }
 }

@@ -1,5 +1,5 @@
 //
-//  VenueData.swift
+//  HandednessData.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,14 +7,12 @@
 //
 import Foundation
 
-struct VenueData: Decodable
+struct HandednessData: Decodable
 {
-    var id: Int = 0
-    var name: String
+    var shoots: String
     
     private enum CodingKeys : String, CodingKey
     {
-        case id = "id"
-        case name = "name"
+        case shoots = "shoots"
     }
 }

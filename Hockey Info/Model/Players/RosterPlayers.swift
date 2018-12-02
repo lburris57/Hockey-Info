@@ -1,5 +1,5 @@
 //
-//  SeasonSchedule.swift
+//  RosterPlayers.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,16 +7,16 @@
 //
 import Foundation
 
-struct SeasonSchedule: Decodable
+struct RosterPlayers: Decodable
 {
     var lastUpdatedOn: Date
     
-    var gameList: [ScheduledGame]?
+    var playerInfoList: [PlayerInfo]?
     
     private enum CodingKeys : String, CodingKey
     {
         case lastUpdatedOn = "lastUpdatedOn"
         
-        case gameList = "games"
+        case playerInfoList = "players"
     }
 }
