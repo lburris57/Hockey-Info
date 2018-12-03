@@ -65,7 +65,7 @@ class NetworkManager
                 {
                     case .success:
                     
-                        self.games.removeAll()
+                    self.games.removeAll()
                         
                     //  Create the JSON object and populate it
                     let json = JSON(response.result.value!)
@@ -81,44 +81,51 @@ class NetworkManager
                     
                     //print("Value of trimmed string is: " + trimmedString!)
                     
-                    let homeTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue)
-                    let awayTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue)
-                    //let playedStatus = json["games"][0]["schedule"]["playedStatus"].stringValue
-                    var currentPeriod = json["games"][0]["score"]["currentPeriod"].stringValue
-                    let homeScoreTotal = json["games"][0]["score"]["homeScoreTotal"].stringValue
-                    let awayScoreTotal = json["games"][0]["score"]["awayScoreTotal"].stringValue
+                    let numberOfGames = json["games"].arrayValue.count
                     
-                    //let numberOfPeriods = json["games"][0]["score"]["periods"].arrayValue.count
+                    print("Number of games in retrieveScores method in network manager is \(numberOfGames)")
                     
-                    //print("Number of periods is \(numberOfPeriods)")
-                    
-                    if(currentPeriod == "")
+                    for i in numberOfGames
                     {
-                        currentPeriod = "F"
+                        let homeTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["homeTeam"]["abbreviation"].stringValue)
+                        let awayTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["awayTeam"]["abbreviation"].stringValue)
+                        //let playedStatus = json["games"][i]["schedule"]["playedStatus"].stringValue
+                        var currentPeriod = json["games"][i]["score"]["currentPeriod"].stringValue
+                        let homeScoreTotal = json["games"][i]["score"]["homeScoreTotal"].stringValue
+                        let awayScoreTotal = json["games"][i]["score"]["awayScoreTotal"].stringValue
+                        
+                        //let numberOfPeriods = json["games"][i]["score"]["periods"].arrayValue.count
+                        
+                        //print("Number of periods is \(numberOfPeriods)")
+                        
+                        if(currentPeriod == "")
+                        {
+                            currentPeriod = "F"
+                        }
+                        
+                        /*print("Home team value is: " + homeTeamString)
+                        print("Away team value is: " + awayTeamString)
+                        print("Played status value is: " + playedStatus)
+                        print("Current period value is: " + currentPeriod)
+                        print("homeScoreTotal value is: " + homeScoreTotal)
+                        print("awayScoreTotal value is: " + awayScoreTotal)*/
+                        
+                        self.gameScore.currentPeriod = currentPeriod
+                        self.gameScore.homeScore = UInt(homeScoreTotal) ?? 0
+                        self.gameScore.awayScore = UInt(awayScoreTotal) ?? 0
+                        self.homeTeam.abbreviation = json["games"][i]["schedule"]["homeTeam"]["abbreviation"].stringValue
+                        self.awayTeam.abbreviation = json["games"][i]["schedule"]["awayTeam"]["abbreviation"].stringValue
+                        self.homeTeam.name = homeTeamString
+                        self.awayTeam.name = awayTeamString
+                        self.game.gameScore = self.gameScore
+                        self.game.homeTeam = self.homeTeam
+                        self.game.awayTeam = self.awayTeam
+                        self.game.date = trimmedString!
+                        
+                        self.games.append(self.game)
                     }
                     
-                    /*print("Home team value is: " + homeTeamString)
-                    print("Away team value is: " + awayTeamString)
-                    print("Played status value is: " + playedStatus)
-                    print("Current period value is: " + currentPeriod)
-                    print("homeScoreTotal value is: " + homeScoreTotal)
-                    print("awayScoreTotal value is: " + awayScoreTotal)*/
-                    
-                    self.gameScore.currentPeriod = currentPeriod
-                    self.gameScore.homeScore = UInt(homeScoreTotal) ?? 0
-                    self.gameScore.awayScore = UInt(awayScoreTotal) ?? 0
-                    self.homeTeam.abbreviation = json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue
-                    self.awayTeam.abbreviation = json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue
-                    self.homeTeam.name = homeTeamString
-                    self.awayTeam.name = awayTeamString
-                    self.game.gameScore = self.gameScore
-                    self.game.homeTeam = self.homeTeam
-                    self.game.awayTeam = self.awayTeam
-                    self.game.date = trimmedString!
-                    
-                    self.games.append(self.game)
-                    
-                    print("Number of games in retrieveScores method in network manager is: \(self.games.count)")
+                    //print("Number of games in retrieveScores method in network manager is: \(self.games.count)")
                     
                     DispatchQueue.main.async
                     {

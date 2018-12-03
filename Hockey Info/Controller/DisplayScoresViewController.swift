@@ -122,13 +122,13 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
             }
             else
             {
-                cell.timeRemaining.text = timesRemaining[indexPath.row] + " remaining"
+                cell.timeRemaining.text = timesRemaining[0] + " remaining"
             }
             
             cell.visitingTeamName.text = visitingTeamName
-            cell.visitingTeamRecord.text = visitingTeamRecords[indexPath.row]
+            cell.visitingTeamRecord.text = visitingTeamRecords[0]
             cell.homeTeamName.text = homeTeamName
-            cell.homeTeamRecord.text = homeTeamRecords[indexPath.row]
+            cell.homeTeamRecord.text = homeTeamRecords[0]
             cell.visitingTeamScore.text = "\(games[indexPath.row].gameScore?.awayScore ?? 0)"
             cell.homeTeamScore.text = "\(games[indexPath.row].gameScore?.homeScore ?? 0)"
             cell.period.text = games[indexPath.row].gameScore?.currentPeriod
