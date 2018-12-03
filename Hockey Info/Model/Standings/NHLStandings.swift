@@ -1,5 +1,5 @@
 //
-//  Standings.swift
+//  NHLStandings.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/1/18.
@@ -7,7 +7,7 @@
 //
 import Foundation
 
-struct Standings: Decodable
+struct NHLStandings: Decodable
 {
     var lastUpdatedOn: Date
     var referenceList: [StandingsReferenceData]?

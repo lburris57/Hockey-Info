@@ -1,5 +1,5 @@
 //
-//  Player.swift
+//  NHLPlayer.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 11/20/18.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Player : Object
+class NHLPlayer : Object
 {
     @objc dynamic var id : String = ""
     @objc dynamic var firstName : String = ""
@@ -25,5 +25,5 @@ class Player : Object
     @objc dynamic var shoots : String = ""
     @objc dynamic var dateCreated: Date?
     
-    var parentTeam = LinkingObjects(fromType: Team.self, property: "players")
+    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "players")
 }

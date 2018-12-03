@@ -37,7 +37,7 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad()
     {
-        let formatter = DateFormatter()
+        /*let formatter = DateFormatter()
         
         var date = Date()
         
@@ -53,7 +53,7 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
         }
         
         print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
-        print("Time is: \(date.toFormat("hh:mm a"))")
+        print("Time is: \(date.toFormat("hh:mm a"))")*/
         
         super.viewDidLoad()
         
@@ -116,13 +116,19 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
         
         if(games.count > 0)
         {
-            if games[indexPath.row].gameScore?.currentPeriod == "F"
+            if games[indexPath.row].gameScore?.currentPeriod == "F" || games[indexPath.row].gameScore?.currentPeriodSecondsRemaining == 0
             {
                 cell.timeRemaining.text = ""
+                
+                if games[indexPath.row].gameScore?.currentPeriod != "F"
+                {
+                    cell.period.text = games[indexPath.row].time
+                }
             }
             else
             {
                 cell.timeRemaining.text = timesRemaining[0] + " remaining"
+                cell.period.text = games[indexPath.row].gameScore?.currentPeriod
             }
             
             cell.visitingTeamName.text = visitingTeamName
@@ -131,7 +137,6 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
             cell.homeTeamRecord.text = homeTeamRecords[0]
             cell.visitingTeamScore.text = "\(games[indexPath.row].gameScore?.awayScore ?? 0)"
             cell.homeTeamScore.text = "\(games[indexPath.row].gameScore?.homeScore ?? 0)"
-            cell.period.text = games[indexPath.row].gameScore?.currentPeriod
             cell.homeTeamLogo.image = UIImage(named: games[indexPath.row].homeTeam?.abbreviation ?? "")
             cell.visitingTeamLogo.image = UIImage(named: games[indexPath.row].awayTeam?.abbreviation ?? "")
         }

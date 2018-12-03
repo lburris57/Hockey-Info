@@ -1,5 +1,5 @@
 //
-//  Schedule.swift
+//  NHLSchedule.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 11/29/18.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Schedule: Object
+class NHLSchedule: Object
 {
     @objc dynamic var id : String = ""
     @objc dynamic var date : String = ""

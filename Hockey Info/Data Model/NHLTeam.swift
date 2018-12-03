@@ -1,5 +1,5 @@
 //
-//  Team.swift
+//  NHLTeam.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 11/20/18.
@@ -8,12 +8,12 @@
 import Foundation
 import RealmSwift
 
-class Team : Object
+class NHLTeam : Object
 {
     @objc dynamic var id : String = ""
     @objc dynamic var abbreviation : String = ""
     @objc dynamic var cityName : String = ""
     @objc dynamic var dateCreated: Date?
     
-    let players = List<Player>()
+    let players = List<NHLPlayer>()
 }

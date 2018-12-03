@@ -89,7 +89,7 @@ class NetworkManager
                     {
                         let homeTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["homeTeam"]["abbreviation"].stringValue)
                         let awayTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["awayTeam"]["abbreviation"].stringValue)
-                        //let playedStatus = json["games"][i]["schedule"]["playedStatus"].stringValue
+                        let playedStatus = json["games"][i]["schedule"]["playedStatus"].stringValue
                         var currentPeriod = json["games"][i]["score"]["currentPeriod"].stringValue
                         let homeScoreTotal = json["games"][i]["score"]["homeScoreTotal"].stringValue
                         let awayScoreTotal = json["games"][i]["score"]["awayScoreTotal"].stringValue
@@ -98,17 +98,27 @@ class NetworkManager
                         
                         //print("Number of periods is \(numberOfPeriods)")
                         
-                        if(currentPeriod == "")
+                        print("Played status value is: " + playedStatus)
+                        
+                        if(currentPeriod == "" && playedStatus != PlayedStatusEnum.unplayed.rawValue)
                         {
                             currentPeriod = "F"
                         }
                         
-                        /*print("Home team value is: " + homeTeamString)
-                        print("Away team value is: " + awayTeamString)
-                        print("Played status value is: " + playedStatus)
-                        print("Current period value is: " + currentPeriod)
-                        print("homeScoreTotal value is: " + homeScoreTotal)
-                        print("awayScoreTotal value is: " + awayScoreTotal)*/
+                        let startTme = json["games"][i]["schedule"]["startTime"].stringValue
+                        
+                        print("Start time value is: " + startTme)
+                        
+                        let dateString = self.getDateAndTime(startTme)
+                        
+                        print("Date string value is + \(dateString)")
+                        
+                        var timeString = dateString.1
+                            
+                        if timeString.hasPrefix("0")
+                        {
+                            timeString = timeString.slicing(from: 1, length: timeString.count - 1) ?? ""
+                        }
                         
                         self.gameScore.currentPeriod = currentPeriod
                         self.gameScore.homeScore = UInt(homeScoreTotal) ?? 0
@@ -120,7 +130,9 @@ class NetworkManager
                         self.game.gameScore = self.gameScore
                         self.game.homeTeam = self.homeTeam
                         self.game.awayTeam = self.awayTeam
+                        self.gameScore.currentPeriodSecondsRemaining = 0
                         self.game.date = trimmedString!
+                        self.game.time = timeString
                         
                         self.games.append(self.game)
                     }
@@ -162,11 +174,11 @@ class NetworkManager
 //            print("Error deleting players from the database: \(error)")
 //        }
         
-        let playerList = List<Player>()
+        let playerList = List<NHLPlayer>()
         
-        let teamResult = realm.objects(Team.self).filter("id == '5'").first
+        let teamResult = realm.objects(NHLTeam.self).filter("id == '5'").first
         
-        let team = Team()
+        let team = NHLTeam()
         
         team.dateCreated = teamResult?.dateCreated
         team.abbreviation = (teamResult?.abbreviation)!
@@ -191,7 +203,7 @@ class NetworkManager
                     
                     for i in numberOfPlayers
                     {
-                        let player = Player()
+                        let player = NHLPlayer()
                         
                         player.id = json["players"][i]["player"]["id"].stringValue
                         player.firstName = json["players"][i]["player"]["firstName"].stringValue
@@ -237,6 +249,31 @@ class NetworkManager
     }
     
     //  Create the displaySchedule method
+    
+    
+    
+    func getDateAndTime(_ timestamp: String) -> (String, String)
+    {
+        let formatter = DateFormatter()
+        
+        var date = Date()
+        
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        if TimeZone.current.isDaylightSavingTime()
+        {
+        date = (formatter.date(from: timestamp)?.addingTimeInterval(-(9*60*60)))!
+        }
+        else
+        {
+        date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
+        }
+        
+        print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
+        print("Time is: \(date.toFormat("hh:mm a"))")
+        
+        return (date.toFormat("EEEE, MMM dd, yyyy"), date.toFormat("hh:mm a"))
+    }
 }
 
 extension String
