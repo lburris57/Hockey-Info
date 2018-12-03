@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DisplayScoresViewController.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 11/14/18.
@@ -11,9 +11,11 @@ import SwiftyJSON
 import SwifterSwift
 import SwiftDate
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet var scoreView: UITableView!
+    
+    var categoryValue: String = ""
     
     let networkManager = NetworkManager()
     
@@ -35,6 +37,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad()
     {
+        print("Value of categoryValue is \(categoryValue)")
+        
         let formatter = DateFormatter()
         
         var date = Date()

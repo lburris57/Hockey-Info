@@ -53,7 +53,7 @@ class NetworkManager
         //print("https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json")
         print("lburris57:'MYSPORTSFEEDS'".toBase64()!)
         
-        SVProgressHUD.show()
+        //SVProgressHUD.show()
         
         Alamofire.request(
             "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json",
@@ -118,7 +118,7 @@ class NetworkManager
                     print("Leaving retrieveScores method...")
                     print("Number of games is: \(self.games.count)")
                     
-                    SVProgressHUD.dismiss()
+                    //SVProgressHUD.dismiss()
                     
                 case .failure(let error):
                     

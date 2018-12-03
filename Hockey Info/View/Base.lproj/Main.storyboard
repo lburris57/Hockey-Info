@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KPQ-Ng-JxM">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,23 +10,77 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Hockey Info-->
+        <scene sceneID="hb1-m6-Lti">
+            <objects>
+                <viewController id="Axr-Jd-jjE" customClass="MainTableViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fDb-q7-nYg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IlS-bd-SFy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Axr-Jd-jjE" id="Je0-dQ-Ceo"/>
+                                    <outlet property="delegate" destination="Axr-Jd-jjE" id="jKK-H8-RaX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IlS-bd-SFy" firstAttribute="leading" secondItem="fDb-q7-nYg" secondAttribute="leading" id="51I-uD-hOI"/>
+                            <constraint firstItem="IlS-bd-SFy" firstAttribute="bottom" secondItem="096-Mo-ql0" secondAttribute="bottom" id="6Z7-4h-ls4"/>
+                            <constraint firstAttribute="trailing" secondItem="IlS-bd-SFy" secondAttribute="trailing" id="WEW-Ny-qR2"/>
+                            <constraint firstItem="IlS-bd-SFy" firstAttribute="top" secondItem="fDb-q7-nYg" secondAttribute="top" id="hNs-Fd-xFb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="096-Mo-ql0"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Hockey Info" id="UjG-ye-jPl"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showScores" id="N1Q-9E-0QD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ma-lr-Rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4032" y="32"/>
+        </scene>
+        <!--Display Scores View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DisplayScoresViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1P0-6q-eei">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="45a-kB-kXw"/>
                     </tableView>
+                    <navigationItem key="navigationItem" id="ql3-Ba-Vze"/>
                     <connections>
                         <outlet property="scoreView" destination="1P0-6q-eei" id="N5r-bF-sB3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="34.782608695652179" y="23.64130434782609"/>
+            <point key="canvasLocation" x="4852.1739130434789" y="31.793478260869566"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pif-IE-RUi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KPQ-Ng-JxM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9tr-L6-m96">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Axr-Jd-jjE" kind="relationship" relationship="rootViewController" id="rWe-7e-qoH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5FV-BN-Vui" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3169.5652173913045" y="31.793478260869566"/>
         </scene>
     </scenes>
 </document>

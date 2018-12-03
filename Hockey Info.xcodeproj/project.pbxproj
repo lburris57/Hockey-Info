@@ -37,12 +37,13 @@
 		76045B7A21B36FF200980C63 /* FaceoffData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7921B36FF200980C63 /* FaceoffData.swift */; };
 		76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7B21B3701800980C63 /* PowerplayData.swift */; };
 		76045B7E21B3704A00980C63 /* MiscellaneousData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7D21B3704A00980C63 /* MiscellaneousData.swift */; };
+		76045B8021B4A23700980C63 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7F21B4A23700980C63 /* MainTableViewController.swift */; };
 		7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B478B921AF693F00337D98 /* PeriodEnum.swift */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
-		76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* ViewController.swift */; };
+		76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */; };
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
 		76D60B64219D06110058EEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B62219D06110058EEB0 /* LaunchScreen.storyboard */; };
 		76F0AD0921A22E2A00249F28 /* GameScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0AD0821A22E2A00249F28 /* GameScore.swift */; };
@@ -90,12 +91,13 @@
 		76045B7921B36FF200980C63 /* FaceoffData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceoffData.swift; sourceTree = "<group>"; };
 		76045B7B21B3701800980C63 /* PowerplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerplayData.swift; sourceTree = "<group>"; };
 		76045B7D21B3704A00980C63 /* MiscellaneousData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousData.swift; sourceTree = "<group>"; };
+		76045B7F21B4A23700980C63 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76B478B921AF693F00337D98 /* PeriodEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEnum.swift; sourceTree = "<group>"; };
 		76D60B56219D060F0058EEB0 /* Hockey Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hockey Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D60B59219D060F0058EEB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		76D60B5B219D060F0058EEB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoresViewController.swift; sourceTree = "<group>"; };
 		76D60B5E219D060F0058EEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76D60B60219D06110058EEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D60B63219D06110058EEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -221,7 +223,8 @@
 		76F0AD06219FCCBB00249F28 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				76D60B5B219D060F0058EEB0 /* ViewController.swift */,
+				76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */,
+				76045B7F21B4A23700980C63 /* MainTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -429,7 +432,7 @@
 				76045B6E21B36B1E00980C63 /* TeamStats.swift in Sources */,
 				76F118C121A4C4C1009E5F67 /* Team.swift in Sources */,
 				76F0AD1321A2311D00249F28 /* TeamInfo.swift in Sources */,
-				76D60B5C219D060F0058EEB0 /* ViewController.swift in Sources */,
+				76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */,
 				76045B5B21B3461800980C63 /* CurrentTeamData.swift in Sources */,
 				76F0AD0D21A2305800249F28 /* Game.swift in Sources */,
 				76F0AD1121A230C900249F28 /* Period.swift in Sources */,
@@ -439,6 +442,7 @@
 				76045B5421B3369100980C63 /* VenueData.swift in Sources */,
 				76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */,
 				76F118C321A4C719009E5F67 /* Player.swift in Sources */,
+				76045B8021B4A23700980C63 /* MainTableViewController.swift in Sources */,
 				76045B6621B3626600980C63 /* StandingsReferenceData.swift in Sources */,
 				76045B4E21B3331400980C63 /* PeriodInfo.swift in Sources */,
 				76045B7621B36BE100980C63 /* PlayoffRankData.swift in Sources */,
