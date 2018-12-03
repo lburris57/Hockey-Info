@@ -13,6 +13,10 @@ class ScoreCell: UITableViewCell
     
     @IBOutlet weak var timeRemaining: UITextField!
     
+    @IBOutlet weak var visitingTeamLogo: UIImageView!
+    
+    @IBOutlet weak var homeTeamLogo: UIImageView!
+    
     @IBOutlet weak var visitingTeamName: UITextField!
    
     @IBOutlet weak var visitingTeamRecord: UITextField!

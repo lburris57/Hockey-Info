@@ -37,8 +37,6 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad()
     {
-        print("Value of categoryValue is \(categoryValue)")
-        
         let formatter = DateFormatter()
         
         var date = Date()
@@ -57,8 +55,6 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
         print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
         print("Time is: \(date.toFormat("hh:mm a"))")
         
-        print("In viewDidLoad method...")
-        
         super.viewDidLoad()
         
         fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
@@ -70,15 +66,7 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
         let nib = UINib(nibName: "ScoreCell", bundle: nil)
         scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
         
-        networkManager.retrieveScores()
-        
-        //networkManager.retrieveTeamRoster()
-        
         self.scoreView.reloadData()
-        
-        print("Leaving viewDidLoad method...")
-        
-        print("Value of period converter final is: \(PeriodEnum.final.rawValue)")
     }
     
     override var prefersStatusBarHidden: Bool
@@ -96,56 +84,57 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     /// - Returns: String representation of the section header text
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        print("In titleForHeaderInSection method...")
-        
         return "Scores for " + fullDateFormatter.string(from: today) + " at " + timeFormatter.string(from: today)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        print("In willDisplayHeaderView method...")
-        
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.white
         header.textLabel?.adjustsFontSizeToFitWidth = true
         
         view.tintColor = UIColor.black
-        
-        print("Leaving willDisplayHeaderView method...")
     }
 
     // MARK: - Scores Table Cell Code
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        print("In numberOfRowsInSection method...")
+        print("Size of games array in numberOfRowsInSection is \(games.count)")
         
-        //return games.count
-        
-        return 1
+        return games.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        print("In cellForRowAt method...")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell") as! ScoreCell
         
         scoreView.rowHeight = CGFloat(130.0)
         
+        let visitingTeamName = games[indexPath.row].awayTeam?.name
+        let homeTeamName = games[indexPath.row].homeTeam?.name
+        
         if(games.count > 0)
         {
-            cell.timeRemaining.text = timesRemaining[indexPath.row] + " remaining"
-            cell.visitingTeamName.text = games[indexPath.row].awayTeam?.name
+            if games[indexPath.row].gameScore?.currentPeriod == "F"
+            {
+                cell.timeRemaining.text = ""
+            }
+            else
+            {
+                cell.timeRemaining.text = timesRemaining[indexPath.row] + " remaining"
+            }
+            
+            cell.visitingTeamName.text = visitingTeamName
             cell.visitingTeamRecord.text = visitingTeamRecords[indexPath.row]
-            cell.homeTeamName.text = games[indexPath.row].homeTeam?.name
+            cell.homeTeamName.text = homeTeamName
             cell.homeTeamRecord.text = homeTeamRecords[indexPath.row]
             cell.visitingTeamScore.text = "\(games[indexPath.row].gameScore?.awayScore ?? 0)"
             cell.homeTeamScore.text = "\(games[indexPath.row].gameScore?.homeScore ?? 0)"
             cell.period.text = games[indexPath.row].gameScore?.currentPeriod
+            cell.homeTeamLogo.image = UIImage(named: games[indexPath.row].homeTeam?.abbreviation ?? "")
+            cell.visitingTeamLogo.image = UIImage(named: games[indexPath.row].awayTeam?.abbreviation ?? "")
         }
-        
-        print("Leaving cellForRowAt method...")
         
         return cell
     }

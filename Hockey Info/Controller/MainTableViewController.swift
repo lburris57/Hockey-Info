@@ -15,7 +15,10 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
 {
     let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats",  "Player Stats"]
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    let networkManager = NetworkManager()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return categories.count
     }
     
@@ -25,7 +28,7 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
         
         if cell == nil
         {
-                cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         }
         
         cell?.textLabel?.text = categories[indexPath.row]
@@ -43,14 +46,14 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
         
         if(category == "Scores")
         {
-            performSegue(withIdentifier: "showScores", sender: category)
+            networkManager.retrieveScores(self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let displayScoresViewController = segue.destination as! DisplayScoresViewController
-            
-        displayScoresViewController.categoryValue = sender as! String
+        
+        displayScoresViewController.games = sender as! [Game]
     }
 }

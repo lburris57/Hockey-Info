@@ -44,16 +44,17 @@ class NetworkManager
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores()
+    func retrieveScores(_ viewController: MainTableViewController)
     {
         shortDateFormatter.dateFormat = "yyyyMMdd"
         
-        print("In retrieveScores method...")
+        //print("In retrieveScores method...")
         
         //print("https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json")
-        print("lburris57:'MYSPORTSFEEDS'".toBase64()!)
+        //https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181008/games.json
+        //print("lburris57:'MYSPORTSFEEDS'".toBase64()!)
         
-        //SVProgressHUD.show()
+        SVProgressHUD.show()
         
         Alamofire.request(
             "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json",
@@ -62,8 +63,10 @@ class NetworkManager
             { (response) in
                 switch response.result
                 {
-                case .success:
+                    case .success:
                     
+                        self.games.removeAll()
+                        
                     //  Create the JSON object and populate it
                     let json = JSON(response.result.value!)
                     
@@ -72,38 +75,40 @@ class NetworkManager
                     //  Get the last updated on value
                     let lastUpdatedOn = json["lastUpdatedOn"].stringValue
                     
-                    print("Value of lastUpdatedOn is: \(lastUpdatedOn)")
+                    //print("Value of lastUpdatedOn is: \(lastUpdatedOn)")
                     
                     let trimmedString = lastUpdatedOn.slicing(from: 0, length: 10)
                     
-                    print("Value of trimmed string is: " + trimmedString!)
+                    //print("Value of trimmed string is: " + trimmedString!)
                     
                     let homeTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue)
                     let awayTeamString = TeamManager.getTeamName(json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue)
-                    let playedStatus = json["games"][0]["schedule"]["playedStatus"].stringValue
+                    //let playedStatus = json["games"][0]["schedule"]["playedStatus"].stringValue
                     var currentPeriod = json["games"][0]["score"]["currentPeriod"].stringValue
                     let homeScoreTotal = json["games"][0]["score"]["homeScoreTotal"].stringValue
                     let awayScoreTotal = json["games"][0]["score"]["awayScoreTotal"].stringValue
                     
-                    let numberOfPeriods = json["games"][0]["score"]["periods"].arrayValue.count
+                    //let numberOfPeriods = json["games"][0]["score"]["periods"].arrayValue.count
                     
-                    print("Number of periods is \(numberOfPeriods)")
+                    //print("Number of periods is \(numberOfPeriods)")
                     
                     if(currentPeriod == "")
                     {
                         currentPeriod = "F"
                     }
                     
-                    print("Home team value is: " + homeTeamString)
+                    /*print("Home team value is: " + homeTeamString)
                     print("Away team value is: " + awayTeamString)
                     print("Played status value is: " + playedStatus)
                     print("Current period value is: " + currentPeriod)
                     print("homeScoreTotal value is: " + homeScoreTotal)
-                    print("awayScoreTotal value is: " + awayScoreTotal)
+                    print("awayScoreTotal value is: " + awayScoreTotal)*/
                     
                     self.gameScore.currentPeriod = currentPeriod
                     self.gameScore.homeScore = UInt(homeScoreTotal) ?? 0
                     self.gameScore.awayScore = UInt(awayScoreTotal) ?? 0
+                    self.homeTeam.abbreviation = json["games"][0]["schedule"]["homeTeam"]["abbreviation"].stringValue
+                    self.awayTeam.abbreviation = json["games"][0]["schedule"]["awayTeam"]["abbreviation"].stringValue
                     self.homeTeam.name = homeTeamString
                     self.awayTeam.name = awayTeamString
                     self.game.gameScore = self.gameScore
@@ -111,16 +116,18 @@ class NetworkManager
                     self.game.awayTeam = self.awayTeam
                     self.game.date = trimmedString!
                     
-                    print("Current period value is: " + self.gameScore.currentPeriod)
-                    
                     self.games.append(self.game)
                     
-                    print("Leaving retrieveScores method...")
-                    print("Number of games is: \(self.games.count)")
+                    print("Number of games in retrieveScores method in network manager is: \(self.games.count)")
                     
-                    //SVProgressHUD.dismiss()
+                    DispatchQueue.main.async
+                    {
+                        viewController.performSegue(withIdentifier: "showScores", sender: self.games)
+                    }
                     
-                case .failure(let error):
+                    SVProgressHUD.dismiss()
+                    
+                    case .failure(let error):
                     
                     print(error)
                 }
