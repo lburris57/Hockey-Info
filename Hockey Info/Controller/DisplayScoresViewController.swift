@@ -118,6 +118,8 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
         {
             if games[indexPath.row].gameScore?.currentPeriod == "F" || games[indexPath.row].gameScore?.currentPeriodSecondsRemaining == 0
             {
+                print("Value of currentPeriodSecondsRemaining in controller is \(games[indexPath.row].gameScore?.currentPeriodSecondsRemaining ?? 9999999)")
+                
                 cell.timeRemaining.text = ""
                 
                 if games[indexPath.row].gameScore?.currentPeriod != "F"
@@ -127,7 +129,9 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
             }
             else
             {
-                cell.timeRemaining.text = timesRemaining[0] + " remaining"
+                print("Value of currentPeriodSecondsRemainingString in controller is \(games[indexPath.row].gameScore?.currentPeriodSecondsRemainingString ?? "WTF")")
+                
+                cell.timeRemaining.text = games[indexPath.row].gameScore?.currentPeriodSecondsRemainingString
                 cell.period.text = games[indexPath.row].gameScore?.currentPeriod
             }
             

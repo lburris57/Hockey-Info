@@ -19,11 +19,12 @@ struct GameScore
     var homeShots: UInt = 0
     var currentPeriod: String = ""
     var currentPeriodSecondsRemaining = 0
+    var currentPeriodSecondsRemainingString: String = ""
 }
 
 extension GameScore
 {
-    func currentTimeRemainingString(_ currentPeriodSecondsRemaining: Int) -> String
+    static func retrieveCurrentTimeRemainingString(_ currentPeriodSecondsRemaining: Int) -> String
     {
         var currentTimeRemainingString = ""
         
@@ -37,16 +38,37 @@ extension GameScore
                 
                 if(mins < 10)
                 {
-                    currentTimeRemainingString = "0\(mins):\(secs) Remaining"
+                    if(secs < 10)
+                    {
+                        currentTimeRemainingString = "0\(mins):0\(secs) Remaining"
+                    }
+                    else
+                    {
+                        currentTimeRemainingString = "0\(mins):\(secs) Remaining"
+                    }
                 }
                 else
                 {
-                    currentTimeRemainingString = "\(mins):\(secs) Remaining"
+                    if(secs < 10)
+                    {
+                        currentTimeRemainingString = "\(mins):0\(secs) Remaining"
+                    }
+                    else
+                    {
+                        currentTimeRemainingString = "\(mins):\(secs) Remaining"
+                    }
                 }
             }
             else
             {
-                currentTimeRemainingString = "00:\(currentPeriodSecondsRemaining) Remaining"
+                if(currentPeriodSecondsRemaining < 10)
+                {
+                    currentTimeRemainingString = "00:0\(currentPeriodSecondsRemaining) Remaining"
+                }
+                else
+                {
+                    currentTimeRemainingString = "00:\(currentPeriodSecondsRemaining) Remaining"
+                }
             }
         }
         else

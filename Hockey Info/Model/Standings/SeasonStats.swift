@@ -17,13 +17,143 @@
 //       ...
 //     }
 //   }
-
 import Foundation
+import RealmSwift
+import SwifterSwift
 import Alamofire
+import Kingfisher
+import SVProgressHUD
+
+class SeasonStats
+{
+    let today = Date()
+    
+    let shortDateFormatter = DateFormatter()
+    
+    func getStats()
+    {
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        //  Get the JSON data with closure
+        session.dataTask(with: request)
+        {
+            (data, response, err) in
+            
+            if err == nil
+            {
+                do
+                {
+                    //let jsonString = String(data: Data(data!), encoding: .utf8)
+                    
+                    //print("JSON string is: \(jsonString ?? "")")
+                    
+                    //print(response)
+                    
+                    let seasonTeamStats = try JSONDecoder().decode(SeasonTeamStats.self, from: data!)
+                        
+                    //print("Value of seasonTeamStats is \(seasonTeamStats)")
+                    
+                    for teamStatReference in seasonTeamStats.references.teamStatReferences
+                    {
+                        print("-----------------------------------------")
+                        print("Category is \(teamStatReference.category)")
+                        print("Type is \(teamStatReference.type)")
+                        print("Description is \(teamStatReference.description)")
+                        print("Abbreviation is \(teamStatReference.abbreviation)")
+                        print("Full Name is \(teamStatReference.fullName)")
+                    }
+                }
+                catch
+                {
+                    print("Error retrieving data...\(err.debugDescription)")
+                }
+            }
+        }.resume()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    func retrieveSeasonStats(_ viewController: MainTableViewController)
+    {
+        print("In retrieveSeasonStats method...")
+        
+        shortDateFormatter.dateFormat = "yyyyMMdd"
+        /*
+        //  Set the URL string
+        var myUrl = "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json"
+        
+        myUrl = myUrl.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        
+        let url = URL(string: myUrl)
+        
+        //  Get the JSON data with closure
+        URLSession.shared.dataTask(with: url!)
+        {
+            (data, response, err) in
+            
+            //  Perform decoding if no errors
+            if err == nil
+            {
+                do
+                {
+                    //  Decode the JSON file into a PlayerInfo object
+                    let seasonTeamStats = try JSONDecoder().decode(SeasonTeamStats.self, from: data!)
+                    
+                    let lastUpdatedOn = seasonTeamStats.lastUpdatedOn
+                    
+                    print("Value of lastUpdatedOn in SeasonStats.retrieveScores is \(lastUpdatedOn)")
+                }
+                catch
+                {
+                    print("Error decoding JSON")
+                }
+            }*/
+        
+        Alamofire.request("https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json",
+                          headers: ["Authorization" : "Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!]).responseJSON{ response in
+
+            if let jsonData = response.data
+            {
+                //print("JSON data is: \(jsonData)")
+                
+                //let jsonString = String(data: Data(jsonData), encoding: .utf8)
+                
+                //print("JSON string is: \(jsonString ?? "")")
+                
+                let nhlStandings = try? newJSONDecoder().decode(NHLStandings.self, from: jsonData)
+                
+                print(nhlStandings ?? "Something fucked up here.....")
+
+                let lastUpdatedOn = nhlStandings?.lastUpdatedOn
+
+                print("Value of lastUpdatedOn in SeasonStats.retrieveScores is \(lastUpdatedOn ?? "WTF is going on here??")")
+        
+            }
+            else
+            {
+                print("Error is \(response.error.debugDescription)")
+            }
+        }
+        
+            print("Leaving retrieveSeasonStats method...")
+            
+    }//.resume()
+    
+}
 
 struct SeasonTeamStats: Codable {
     let lastUpdatedOn: String
-    let teamStatsTotals: [TeamStatsTotal]
+    //let teamStatsTotals: [TeamStatsTotal]
     let references: References
 }
 
@@ -390,3 +520,4 @@ extension DataRequest {
         return responseDecodable(queue: queue, completionHandler: completionHandler)
     }
 }
+

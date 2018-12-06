@@ -9,14 +9,14 @@ import Foundation
 
 struct NHLStandings: Decodable
 {
-    var lastUpdatedOn: Date
-    var referenceList: [StandingsReferenceData]?
-    var teamList: [TeamStandingsData]?
+    var lastUpdatedOn: String
+    //var referenceList: [StandingsReferenceData]?
+    //var teamList: [TeamStandingsData]?
     
     private enum CodingKeys : String, CodingKey
     {
         case lastUpdatedOn = "lastUpdatedOn"
-        case referenceList = "references"
-        case teamList = "teams"
+        //case referenceList = "references"
+        //case teamList = "teams"
     }
 }

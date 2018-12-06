@@ -52,7 +52,7 @@ class NetworkManager
         
         //print("https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/" + shortDateFormatter.string(from: today) + "/games.json")
         //https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/20181008/games.json
-        //print("lburris57:'MYSPORTSFEEDS'".toBase64()!)
+        print("lburris57:'MYSPORTSFEEDS'".toBase64()!)
         
         SVProgressHUD.show()
         
@@ -87,23 +87,40 @@ class NetworkManager
                     
                     for i in numberOfGames
                     {
+                        print("Performing loop \(i)...")
+                        
                         let homeTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["homeTeam"]["abbreviation"].stringValue)
                         let awayTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["awayTeam"]["abbreviation"].stringValue)
                         let playedStatus = json["games"][i]["schedule"]["playedStatus"].stringValue
                         var currentPeriod = json["games"][i]["score"]["currentPeriod"].stringValue
                         let homeScoreTotal = json["games"][i]["score"]["homeScoreTotal"].stringValue
                         let awayScoreTotal = json["games"][i]["score"]["awayScoreTotal"].stringValue
+                        //let timeRemaining = json["games"][i]["score"]["currentPeriodSecondsRemaining"]
                         
-                        //let numberOfPeriods = json["games"][i]["score"]["periods"].arrayValue.count
+                        let timeRemaining = 847
                         
-                        //print("Number of periods is \(numberOfPeriods)")
+                        let currentTimeRemainingString = GameScore.retrieveCurrentTimeRemainingString(timeRemaining)
+                        
+                        let numberOfPeriods = json["games"][i]["score"]["periods"].arrayValue.count
+                        
+                        print("Value of currentPeriod is \(currentPeriod)")
+                        
+                        print("Value of currentTimeRemaining is \(currentTimeRemainingString)")
+                        
+                        print("Number of periods is \(numberOfPeriods)")
                         
                         print("Played status value is: " + playedStatus)
                         
+                        print("Value of currentPeriod1 is \(currentPeriod)")
+                        
+                        print("Value of played status enum is \(PlayedStatusEnum.unplayed.rawValue)")
+                        
                         if(currentPeriod == "" && playedStatus != PlayedStatusEnum.unplayed.rawValue)
                         {
-                            currentPeriod = "F"
+                            //currentPeriod = "F"
                         }
+                        
+                        print("Value of currentPeriod2 is \(currentPeriod)")
                         
                         let startTme = json["games"][i]["schedule"]["startTime"].stringValue
                         
@@ -120,6 +137,8 @@ class NetworkManager
                             timeString = timeString.slicing(from: 1, length: timeString.count - 1) ?? ""
                         }
                         
+                        print("Value of timeRemaining in NetworkManager is \(timeRemaining)")
+                        
                         self.gameScore.currentPeriod = currentPeriod
                         self.gameScore.homeScore = UInt(homeScoreTotal) ?? 0
                         self.gameScore.awayScore = UInt(awayScoreTotal) ?? 0
@@ -130,7 +149,8 @@ class NetworkManager
                         self.game.gameScore = self.gameScore
                         self.game.homeTeam = self.homeTeam
                         self.game.awayTeam = self.awayTeam
-                        self.gameScore.currentPeriodSecondsRemaining = 0
+                        self.gameScore.currentPeriodSecondsRemainingString = currentTimeRemainingString
+                        self.gameScore.currentPeriodSecondsRemaining = timeRemaining
                         self.game.date = trimmedString!
                         self.game.time = timeString
                         

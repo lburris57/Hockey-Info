@@ -17,6 +17,14 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     let networkManager = NetworkManager()
     
+    let seasonStats = SeasonStats()
+    
+    override func viewDidLoad()
+    {
+        //seasonStats.retrieveSeasonStats(self)
+        seasonStats.getStats()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return categories.count
