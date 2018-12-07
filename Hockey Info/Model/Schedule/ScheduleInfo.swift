@@ -10,13 +10,13 @@ import Foundation
 struct ScheduleInfo: Decodable
 {
     var id: Int = 0
-    var startTime: Date
+    var startTime: String
     var venueAllegiance: String
     var scheduleStatus: String
     var playedStatus: String
-    var awayTeamInfo: [TeamData]?
-    var homeTeamInfo: [TeamData]?
-    var venueInfo: [VenueData]?
+    var awayTeamInfo: TeamData
+    var homeTeamInfo: TeamData
+    var venueInfo: VenueData
     
     private enum CodingKeys : String, CodingKey
     {

@@ -81,6 +81,47 @@ class NetworkManager
             }.resume()
     }
     
+    //  Create the retrieveSchedule method
+    func retrieveSchedule(_ mainTableViewController: MainTableViewController)
+    {
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        //  Get the JSON data with closure
+        session.dataTask(with: request)
+        {
+            (data, response, err) in
+            
+            if err == nil
+            {
+                do
+                {
+                    let seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
+                    
+                    print("Value of lastUpdatedOn is \(seasonSchedule.lastUpdatedOn)")
+                    
+                    //                    for playerInfo in rosterPlayers.playerInfoList
+                    //                    {
+                    //                        print("-----------------------------------------")
+                    //                        print("Category is \(playerInfo.)")
+                    //                        print("Type is \(standingsCategory.type)")
+                    //                        print("Description is \(standingsCategory.description)")
+                    //                        print("Abbreviation is \(standingsCategory.abbreviation)")
+                    //                        print("Full Name is \(standingsCategory.fullName)")
+                    //                    }
+                }
+                catch
+                {
+                    print("Error retrieving data...\(err.debugDescription)")
+                }
+            }
+            }.resume()
+    }
+    
     //  Create the retrieveStandings method
     func retrieveStats(_ mainTableViewController: MainTableViewController)
     {

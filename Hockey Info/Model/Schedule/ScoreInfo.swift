@@ -9,12 +9,12 @@ import Foundation
 
 struct ScoreInfo: Decodable
 {
-    var currentPeriod : Int = 0
-    var currentPeriodSecondsRemaining: Int = 0
-    var awayScoreTotal: Int = 0
-    var awayShotsTotal: Int = 0
-    var homeScoreTotal: Int = 0
-    var homeShotsTotal: Int = 0
+    var currentPeriod : Int?
+    var currentPeriodSecondsRemaining: Int?
+    var awayScoreTotal: Int?
+    var awayShotsTotal: Int?
+    var homeScoreTotal: Int?
+    var homeShotsTotal: Int?
     var periodList: [PeriodInfo]?
     
     private enum CodingKeys : String, CodingKey

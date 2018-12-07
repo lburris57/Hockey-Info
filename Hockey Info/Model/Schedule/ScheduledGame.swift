@@ -9,12 +9,12 @@ import Foundation
 
 struct ScheduledGame: Decodable
 {
-    var scheduleInfoList: [ScheduleInfo]?
-    var scoreInfoList: [ScoreInfo]?
+    var scheduleInfo: ScheduleInfo
+    var scoreInfo: ScoreInfo
     
     private enum CodingKeys : String, CodingKey
     {
-        case scheduleInfoList = "schedule"
-        case scoreInfoList = "score"
+        case scheduleInfo = "schedule"
+        case scoreInfo = "score"
     }
 }

@@ -22,7 +22,8 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad()
     {
         //networkManager.retrieveStats(self)
-        networkManager.retrievePlayers(self)
+        //networkManager.retrievePlayers(self)
+        networkManager.retrieveSchedule(self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
