@@ -12,26 +12,26 @@ struct PlayerData: Decodable
     var id: Int = 0
     var firstName: String
     var lastName: String
-    var position: String
-    var jerseyNumber: Int = 0
-    var currentRosterStatus: String
-    var height: String
-    var weight: Int = 0
-    var birthDate: String
-    var age: Int
-    var birthCity: String
-    var birthCountry: String
-    var rookie: Bool = false
+    var position: String?
+    var jerseyNumber: Int?
+    var currentRosterStatus: String?
+    var height: String?
+    var weight: Int?
+    var birthDate: String?
+    var age: Int?
+    var birthCity: String?
+    var birthCountry: String?
+    var rookie: Bool?
     var officialImageSource: String?
-    var currentInjuryInfo: [CurrentInjuryData]?
-    var handednessInfo: [HandednessData]?
+    var currentInjuryInfo: CurrentInjuryData?
+    var handednessInfo: HandednessData?
     
     private enum CodingKeys : String, CodingKey
     {
         case id = "id"
         case firstName = "firstName"
         case lastName = "lastName"
-        case position = "position"
+        case position = "primaryPosition"
         case jerseyNumber = "jerseyNumber"
         case currentRosterStatus = "currentRosterStatus"
         case height = "height"

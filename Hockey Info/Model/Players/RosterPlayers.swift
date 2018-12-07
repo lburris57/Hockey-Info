@@ -9,8 +9,8 @@ import Foundation
 
 struct RosterPlayers: Decodable
 {
-    var lastUpdatedOn: Date
-    var playerInfoList: [PlayerInfo]?
+    var lastUpdatedOn: String
+    var playerInfoList: [PlayerInfo]
     
     private enum CodingKeys : String, CodingKey
     {

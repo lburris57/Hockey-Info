@@ -21,8 +21,8 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad()
     {
-        //seasonStats.retrieveSeasonStats(self)
-        seasonStats.getStats()
+        //networkManager.retrieveStats(self)
+        networkManager.retrievePlayers(self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

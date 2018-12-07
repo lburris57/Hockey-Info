@@ -9,16 +9,16 @@ import Foundation
 
 struct TeamStandingsData: Decodable
 {
-    var teamInformationList: [TeamInformation]?
-    var teamStats: [TeamStats]?
-    var overallRankInfo: [OverallRankData]?
-    var conferenceRankInfo: [ConferenceRankData]?
-    var divisionRankInfo: [DivisionRankData]?
-    var playoffRankInfo: [PlayoffRankData]?
+    var teamInformation: TeamInformation
+    var teamStats: TeamStats
+    var overallRankInfo: OverallRankData
+    var conferenceRankInfo: ConferenceRankData
+    var divisionRankInfo: DivisionRankData
+    var playoffRankInfo: PlayoffRankData
     
     private enum CodingKeys : String, CodingKey
     {
-        case teamInformationList = "team"
+        case teamInformation = "team"
         case teamStats = "stats"
         case overallRankInfo = "overallRank"
         case conferenceRankInfo = "conferenceRank"

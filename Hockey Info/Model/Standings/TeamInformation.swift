@@ -13,7 +13,7 @@ struct TeamInformation: Decodable
     var city: String
     var name: String
     var abbreviation: String
-    var venueInfo: [VenueData]?
+    var venueInfo: VenueData
     
     private enum CodingKeys : String, CodingKey
     {
@@ -21,6 +21,6 @@ struct TeamInformation: Decodable
         case city = "city"
         case name = "name"
         case abbreviation = "abbreviation"
-        case venueInfo = "venueInfo"
+        case venueInfo = "homeVenue"
     }
 }

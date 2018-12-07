@@ -10,10 +10,10 @@ import Foundation
 struct TeamStats: Decodable
 {
     var gamesPlayed: Int
-    var standingsInfo: [StandingsData]?
-    var faceoffInfo: [FaceoffData]?
-    var powerplayInfo: [PowerplayData]?
-    var miscellaneousInfo: [MiscellaneousData]?
+    var standingsInfo: StandingsData
+    var faceoffInfo: FaceoffData
+    var powerplayInfo: PowerplayData
+    var miscellaneousInfo: MiscellaneousData
     
     private enum CodingKeys : String, CodingKey
     {

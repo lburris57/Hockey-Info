@@ -40,7 +40,88 @@ class NetworkManager
     
     //  Create the saveSchedule method
     
+    //  Create the retrievePlayers method
+    func retrievePlayers(_ mainTableViewController: MainTableViewController)
+    {
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?rosterstatus=assigned-to-roster")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        //  Get the JSON data with closure
+        session.dataTask(with: request)
+        {
+            (data, response, err) in
+            
+            if err == nil
+            {
+                do
+                {
+                    let rosterPlayers = try JSONDecoder().decode(RosterPlayers.self, from: data!)
+                    
+                    print("Value of lastUpdatedOn is \(rosterPlayers.lastUpdatedOn)")
+                    
+//                    for playerInfo in rosterPlayers.playerInfoList
+//                    {
+//                        print("-----------------------------------------")
+//                        print("Category is \(playerInfo.)")
+//                        print("Type is \(standingsCategory.type)")
+//                        print("Description is \(standingsCategory.description)")
+//                        print("Abbreviation is \(standingsCategory.abbreviation)")
+//                        print("Full Name is \(standingsCategory.fullName)")
+//                    }
+                }
+                catch
+                {
+                    print("Error retrieving data...\(err.debugDescription)")
+                }
+            }
+            }.resume()
+    }
+    
     //  Create the retrieveStandings method
+    func retrieveStats(_ mainTableViewController: MainTableViewController)
+    {
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        //  Get the JSON data with closure
+        session.dataTask(with: request)
+        {
+            (data, response, err) in
+            
+            if err == nil
+            {
+                do
+                {
+                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                    
+                    print("Value of lastUpdatedOn is \(nhlStandings.lastUpdatedOn)")
+                    
+                    //for teamStatReference in seasonTeamStats.references.teamStatReferences
+                    for standingsCategory in nhlStandings.references.standingsCategories
+                    {
+                        print("-----------------------------------------")
+                        print("Category is \(standingsCategory.category)")
+                        print("Type is \(standingsCategory.type)")
+                        print("Description is \(standingsCategory.description)")
+                        print("Abbreviation is \(standingsCategory.abbreviation)")
+                        print("Full Name is \(standingsCategory.fullName)")
+                    }
+                }
+                catch
+                {
+                    print("Error retrieving data...\(err.debugDescription)")
+                }
+            }
+            }.resume()
+    }
     
     //  Create the retrieveScores method
     // MARK: - Network code

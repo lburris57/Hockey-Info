@@ -10,7 +10,7 @@ import Foundation
 struct PlayoffRankData: Decodable
 {
     var conferenceName: String
-    var divisionName: String
+    var divisionName: String?
     var appliesTo: String
     var rank: Int = 0
     

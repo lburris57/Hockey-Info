@@ -9,7 +9,7 @@ import Foundation
 
 struct StandingsReferenceData: Decodable
 {
-    var standingsCategories: [StandingsCategory]?
+    var standingsCategories: [StandingsCategory]
     
     private enum CodingKeys : String, CodingKey
     {

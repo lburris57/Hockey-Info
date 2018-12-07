@@ -9,12 +9,12 @@ import Foundation
 
 struct PlayerInfo: Decodable
 {
-    var playerList: [PlayerData]?
-    var currentTeamInfo: [CurrentTeamData]?
+    var player: PlayerData
+    var currentTeamInfo: CurrentTeamData?
     
     private enum CodingKeys : String, CodingKey
     {
-        case playerList = "player"
+        case player = "player"
         case currentTeamInfo = "teamAsOfDate"
     }
 }

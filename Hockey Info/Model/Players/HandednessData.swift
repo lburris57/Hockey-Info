@@ -9,7 +9,7 @@ import Foundation
 
 struct HandednessData: Decodable
 {
-    var shoots: String
+    var shoots: String?
     
     private enum CodingKeys : String, CodingKey
     {
