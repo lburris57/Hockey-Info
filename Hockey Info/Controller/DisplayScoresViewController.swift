@@ -37,24 +37,6 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad()
     {
-        /*let formatter = DateFormatter()
-        
-        var date = Date()
-        
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        
-        if TimeZone.current.isDaylightSavingTime()
-        {
-            date = (formatter.date(from: "2018-12-01T15:11:37.377Z")?.addingTimeInterval(-(9*60*60)))!
-        }
-        else
-        {
-            date = (formatter.date(from: "2018-12-02T00:00:00.000Z")?.addingTimeInterval(-(10*60*60)))!
-        }
-        
-        print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
-        print("Time is: \(date.toFormat("hh:mm a"))")*/
-        
         super.viewDidLoad()
         
         fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"

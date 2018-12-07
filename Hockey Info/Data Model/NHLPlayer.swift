@@ -11,6 +11,8 @@ import RealmSwift
 class NHLPlayer : Object
 {
     @objc dynamic var id : String = ""
+    @objc dynamic var teamId : String = ""
+    @objc dynamic var teamAbbreviation : String = ""
     @objc dynamic var firstName : String = ""
     @objc dynamic var lastName : String = ""
     @objc dynamic var position : String = ""

@@ -15,8 +15,6 @@ import SVProgressHUD
 
 class NetworkManager
 {
-    let realm = try! Realm()
-    
     let today = Date()
     
     let shortDateFormatter = DateFormatter()
@@ -26,22 +24,16 @@ class NetworkManager
     
     var games = [Game]()
     
-    //fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
-    //timeFormatter.dateFormat = "hh:mm a"
-    
     var game = Game()
     var homeTeam = TeamInfo()
     var awayTeam = TeamInfo()
     var gameScore = GameScore()
     
     //  Create a new Realm database
+    let realm = try! Realm()
     
     //  Create the saveRosters method
-    
-    //  Create the saveSchedule method
-    
-    //  Create the retrievePlayers method
-    func retrievePlayers(_ mainTableViewController: MainTableViewController)
+    func saveRosters()
     {
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?rosterstatus=assigned-to-roster")
@@ -49,6 +41,8 @@ class NetworkManager
         var request = URLRequest(url: url!)
         
         request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        SVProgressHUD.show()
         
         //  Get the JSON data with closure
         session.dataTask(with: request)
@@ -65,25 +59,28 @@ class NetworkManager
                     
 //                    for playerInfo in rosterPlayers.playerInfoList
 //                    {
-//                        print("-----------------------------------------")
-//                        print("Category is \(playerInfo.)")
-//                        print("Type is \(standingsCategory.type)")
-//                        print("Description is \(standingsCategory.description)")
-//                        print("Abbreviation is \(standingsCategory.abbreviation)")
-//                        print("Full Name is \(standingsCategory.fullName)")
+//
 //                    }
                 }
                 catch
                 {
-                    print("Error retrieving data...\(err.debugDescription)")
+                    print("Error decoding JSON in saveRosters method...")
                 }
             }
-            }.resume()
+            else
+            {
+                print("Error retrieving data in saveRosters method...\(err.debugDescription)")
+            }
+        }.resume()
+        
+        SVProgressHUD.dismiss()
     }
     
-    //  Create the retrieveSchedule method
-    func retrieveSchedule(_ mainTableViewController: MainTableViewController)
+    //  Create the saveSchedule method
+    func saveSchedule()
     {
+        let scheduledGames = List<NHLSchedule>()
+        
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json")
         let session = URLSession.shared
@@ -91,39 +88,161 @@ class NetworkManager
         
         request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
         
-        //  Get the JSON data with closure
-        session.dataTask(with: request)
+        autoreleasepool
         {
-            (data, response, err) in
-            
-            if err == nil
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
             {
-                do
+                (data, response, err) in
+                
+                if err == nil
                 {
-                    let seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
-                    
-                    print("Value of lastUpdatedOn is \(seasonSchedule.lastUpdatedOn)")
-                    
-                    //                    for playerInfo in rosterPlayers.playerInfoList
-                    //                    {
-                    //                        print("-----------------------------------------")
-                    //                        print("Category is \(playerInfo.)")
-                    //                        print("Type is \(standingsCategory.type)")
-                    //                        print("Description is \(standingsCategory.description)")
-                    //                        print("Abbreviation is \(standingsCategory.abbreviation)")
-                    //                        print("Full Name is \(standingsCategory.fullName)")
-                    //                    }
+                    do
+                    {
+                        let seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
+                        
+                        let lastUpdatedOn = seasonSchedule.lastUpdatedOn
+                        
+                        print("Value of lastUpdatedOn is \(seasonSchedule.lastUpdatedOn)")
+                        
+                        print("Size of game list is \(seasonSchedule.gameList.count)")
+                        
+                        DispatchQueue.main.async
+                        {
+                            print("Populating game data...")
+                            
+                            for scheduledGame in seasonSchedule.gameList
+                            {
+                                let nhlSchedule = NHLSchedule()
+        
+                                let startTime = scheduledGame.scheduleInfo.startTime
+        
+                                nhlSchedule.id = String(scheduledGame.scheduleInfo.id)
+                                nhlSchedule.dateCreated = self.today
+                                nhlSchedule.lastUpdatedOn = "\(TimeAndDateUtils.getDate(lastUpdatedOn)) at \(TimeAndDateUtils.getTime(lastUpdatedOn))"
+                                nhlSchedule.date = TimeAndDateUtils.getDate(startTime)
+                                nhlSchedule.time = TimeAndDateUtils.getTime(startTime)
+                                nhlSchedule.homeTeam = scheduledGame.scheduleInfo.homeTeamInfo.abbreviation
+                                nhlSchedule.awayTeam = scheduledGame.scheduleInfo.awayTeamInfo.abbreviation
+                                nhlSchedule.homeScoreTotal = scheduledGame.scoreInfo.homeScoreTotal ?? 0
+                                nhlSchedule.awayScoreTotal = scheduledGame.scoreInfo.awayScoreTotal ?? 0
+                                nhlSchedule.homeShotsTotal = scheduledGame.scoreInfo.homeShotsTotal ?? 0
+                                nhlSchedule.awayShotsTotal = scheduledGame.scoreInfo.awayShotsTotal ?? 0
+                                nhlSchedule.playedStatus = scheduledGame.scheduleInfo.playedStatus
+                                nhlSchedule.scheduleStatus = scheduledGame.scheduleInfo.scheduleStatus
+                                nhlSchedule.numberOfPeriods = scheduledGame.scoreInfo.periodList?.count ?? 0
+        
+                                scheduledGames.append(nhlSchedule)
+                            }
+                        
+                            do
+                            {
+                                print("Saving game data...")
+                                
+                                try self.realm.write
+                                {
+                                    self.realm.add(scheduledGames)
+
+                                    print("Scheduled games have successfully been added to the database!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving teams to the database: \(error)")
+                            }
+
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON data in saveSchedule method...")
+                    }
                 }
-                catch
+                else
                 {
-                    print("Error retrieving data...\(err.debugDescription)")
+                    print("Error retrieving data in saveSchedule method...\(err.debugDescription)")
                 }
-            }
             }.resume()
+        }
     }
     
-    //  Create the retrieveStandings method
-    func retrieveStats(_ mainTableViewController: MainTableViewController)
+    //  Create the saveStandings method
+    func saveStandings()
+    {
+        let teamStandingsList = List<TeamStandings>()
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                            let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                            
+                            print("Value of lastUpdatedOn is \(nhlStandings.lastUpdatedOn)")
+                            
+                            DispatchQueue.main.async
+                            {
+                                //for teamStatReference in seasonTeamStats.references.teamStatReferences
+                                for teamStandingsData in nhlStandings.teamList
+                                {
+                                    let teamStandings = TeamStandings()
+                                    
+                                    teamStandings.id = String(teamStandingsData.teamInformation.id)
+                                    teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                    teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                    teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                    teamStandings.overtimeWins = teamStandingsData.teamStats.standingsInfo.overtimeWins
+                                    teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                    teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
+                                    teamStandings.dateCreated = self.today
+                                    
+                                    teamStandingsList.append(teamStandings)
+                                }
+                                
+                                do
+                                {
+                                    print("Saving team standings data...")
+                                    
+                                    try self.realm.write
+                                    {
+                                        self.realm.add(teamStandingsList)
+                                        
+                                        print("Team standings have successfully been added to the database!!")
+                                    }
+                                }
+                                catch
+                                {
+                                    print("Error saving team standings to the database: \(error)")
+                                }
+                                
+                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error retrieving data...\(err.debugDescription)")
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    //  Create the saveStats method
+    func saveStats()
     {
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
@@ -131,6 +250,8 @@ class NetworkManager
         var request = URLRequest(url: url!)
         
         request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        SVProgressHUD.show()
         
         //  Get the JSON data with closure
         session.dataTask(with: request)
@@ -161,12 +282,14 @@ class NetworkManager
                     print("Error retrieving data...\(err.debugDescription)")
                 }
             }
-            }.resume()
+        }.resume()
+        
+        SVProgressHUD.dismiss()
     }
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores(_ viewController: MainTableViewController)
+    func retrieveScores(_ viewController: MainTableViewController, _ date: String)
     {
         shortDateFormatter.dateFormat = "yyyyMMdd"
         
@@ -214,7 +337,7 @@ class NetworkManager
                         let homeTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["homeTeam"]["abbreviation"].stringValue)
                         let awayTeamString = TeamManager.getTeamName(json["games"][i]["schedule"]["awayTeam"]["abbreviation"].stringValue)
                         let playedStatus = json["games"][i]["schedule"]["playedStatus"].stringValue
-                        var currentPeriod = json["games"][i]["score"]["currentPeriod"].stringValue
+                        let currentPeriod = json["games"][i]["score"]["currentPeriod"].stringValue
                         let homeScoreTotal = json["games"][i]["score"]["homeScoreTotal"].stringValue
                         let awayScoreTotal = json["games"][i]["score"]["awayScoreTotal"].stringValue
                         //let timeRemaining = json["games"][i]["score"]["currentPeriodSecondsRemaining"]
@@ -248,7 +371,7 @@ class NetworkManager
                         
                         print("Start time value is: " + startTme)
                         
-                        let dateString = self.getDateAndTime(startTme)
+                        let dateString = TimeAndDateUtils.getDateAndTime(startTme)
                         
                         print("Date string value is + \(dateString)")
                         
@@ -295,10 +418,10 @@ class NetworkManager
             }
         }
     
-     //  Create the retrievePlayerInfo method
+     
     
     //  Create the retrieveTeamRoster method
-    func retrieveTeamRoster()
+    func retrieveTeamRoster(_ id: String)
     {
 //        let playerResults = realm.objects(Player.self)
 //
@@ -390,61 +513,8 @@ class NetworkManager
         }
     }
     
-    //  Create the displaySchedule method
     
     
-    
-    func getDateAndTime(_ timestamp: String) -> (String, String)
-    {
-        let formatter = DateFormatter()
-        
-        var date = Date()
-        
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        
-        if TimeZone.current.isDaylightSavingTime()
-        {
-        date = (formatter.date(from: timestamp)?.addingTimeInterval(-(9*60*60)))!
-        }
-        else
-        {
-        date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
-        }
-        
-        print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
-        print("Time is: \(date.toFormat("hh:mm a"))")
-        
-        return (date.toFormat("EEEE, MMM dd, yyyy"), date.toFormat("hh:mm a"))
-    }
 }
 
-extension String
-{
-    func fromBase64() -> String?
-    {
-        guard let data = Data(base64Encoded: self, options: Data.Base64DecodingOptions(rawValue: 0)) else
-        {
-            return nil
-        }
-        
-        return String(data: data as Data, encoding: String.Encoding.utf8)
-    }
-    
-    func toBase64() -> String?
-    {
-        guard let data = self.data(using: String.Encoding.utf8) else
-        {
-            return nil
-        }
-        
-        return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-    }
-}
 
-extension Int: Sequence
-{
-    public func makeIterator() -> CountableRange<Int>.Iterator
-    {
-        return (0..<self).makeIterator()
-    }
-}

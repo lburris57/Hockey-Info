@@ -7,23 +7,47 @@
 //
 import UIKit
 import Alamofire
+import RealmSwift
 import SwiftyJSON
 import SwifterSwift
 import SwiftDate
 
 class MainTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats",  "Player Stats"]
+    let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats"]
     
     let networkManager = NetworkManager()
     
     let seasonStats = SeasonStats()
     
+    //  Create a new Realm database
+    let realm = try! Realm()
+    
     override func viewDidLoad()
     {
         //networkManager.retrieveStats(self)
         //networkManager.retrievePlayers(self)
-        networkManager.retrieveSchedule(self)
+        //networkManager.retrieveSchedule(self)
+        networkManager.saveStandings()
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(NHLSchedule.self).count == 0
+                {
+                    networkManager.saveSchedule()
+                }
+                else
+                {
+                    print("Value of scheduledGamesCount is greater than zero!!")
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving schedule count!")
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -55,7 +79,7 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
         
         if(category == "Scores")
         {
-            networkManager.retrieveScores(self)
+            //networkManager.retrieveScores(self)
         }
     }
     
