@@ -21,7 +21,6 @@ class NHLSchedule: Object
     @objc dynamic var numberOfPeriods : Int = 0
     @objc dynamic var homeShotsTotal : Int = 0
     @objc dynamic var awayShotsTotal : Int = 0
-    @objc dynamic var venueAllegiance : String = ""
     @objc dynamic var scheduleStatus : String = ""
     @objc dynamic var lastUpdatedOn: String = ""
     @objc dynamic var dateCreated: Date?

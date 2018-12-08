@@ -18,35 +18,23 @@ class MainTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     let networkManager = NetworkManager()
     
-    let seasonStats = SeasonStats()
-    
-    //  Create a new Realm database
-    let realm = try! Realm()
+    let databaseManager = DatabaseManager()
     
     override func viewDidLoad()
     {
-        //networkManager.retrieveStats(self)
-        //networkManager.retrievePlayers(self)
-        //networkManager.retrieveSchedule(self)
-        networkManager.saveStandings()
-        
-        do
+        if(databaseManager.teamStandingsRequiresSaving())
         {
-            try realm.write
-            {
-                if realm.objects(NHLSchedule.self).count == 0
-                {
-                    networkManager.saveSchedule()
-                }
-                else
-                {
-                    print("Value of scheduledGamesCount is greater than zero!!")
-                }
-            }
+            networkManager.saveStandings()
         }
-        catch
+        
+        if(databaseManager.teamRosterRequiresSaving())
         {
-            print("Error retrieving schedule count!")
+            networkManager.saveRosters()
+        }
+        
+        if(databaseManager.scheduleRequiresSaving())
+        {
+            networkManager.saveSchedule()
         }
     }
     

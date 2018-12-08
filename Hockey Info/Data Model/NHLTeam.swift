@@ -12,7 +12,8 @@ class NHLTeam : Object
 {
     @objc dynamic var id : String = ""
     @objc dynamic var abbreviation : String = ""
-    @objc dynamic var cityName : String = ""
+    @objc dynamic var city : String = ""
+    @objc dynamic var name : String = ""
     @objc dynamic var dateCreated: Date?
     
     let players = List<NHLPlayer>()

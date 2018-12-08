@@ -14,14 +14,16 @@ class DatabaseManager
     let realm = try! Realm()
     
     //  Create the displayPlayerInfo method
-    func displayPlayerInfo(_ viewController: MainTableViewController, _ id: String)
+    func displayPlayerInfo(_ viewController: MainTableViewController, _ id: String) -> NHLPlayer?
     {
-        let playerResult = realm.objects(NHLPlayer.self).filter("id ==\(id)").first
+        let playerResult = realm.objects(NHLPlayer.self).filter("id =='4264'").first
         
-        DispatchQueue.main.async
-            {
-                viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
-        }
+        return playerResult
+        
+//        DispatchQueue.main.async
+//        {
+//            viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
+//        }
     }
     
     //  Create the displaySchedule method
@@ -42,7 +44,84 @@ class DatabaseManager
         
         DispatchQueue.main.async
         {
-            viewController.performSegue(withIdentifier: "displaySchedule", sender: teamResult)
+            viewController.performSegue(withIdentifier: "displayTeams", sender: teamResult)
         }
+    }
+    
+    //  Create the displayRoster method
+    func displayTeams(_ viewController: MainTableViewController, _ teamId: String)
+    {
+        let teamResult = realm.objects(NHLPlayer.self)
+        
+        DispatchQueue.main.async
+            {
+                viewController.performSegue(withIdentifier: "displayRoster", sender: teamResult)
+        }
+    }
+    
+    func scheduleRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(NHLSchedule.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving schedule count!")
+        }
+        
+        return result
+    }
+    
+    func teamStandingsRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(TeamStandings.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving team standings count!")
+        }
+        
+        return result
+    }
+    
+    func teamRosterRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(NHLPlayer.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving players count!")
+        }
+        
+        return result
     }
 }

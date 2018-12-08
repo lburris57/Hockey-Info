@@ -35,6 +35,8 @@ class NetworkManager
     //  Create the saveRosters method
     func saveRosters()
     {
+        let playerList = List<NHLPlayer>()
+        
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?rosterstatus=assigned-to-roster")
         let session = URLSession.shared
@@ -42,38 +44,79 @@ class NetworkManager
         
         request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
         
-        SVProgressHUD.show()
-        
-        //  Get the JSON data with closure
-        session.dataTask(with: request)
+        autoreleasepool
         {
-            (data, response, err) in
-            
-            if err == nil
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
             {
-                do
+                (data, response, err) in
+                
+                if err == nil
                 {
-                    let rosterPlayers = try JSONDecoder().decode(RosterPlayers.self, from: data!)
-                    
-                    print("Value of lastUpdatedOn is \(rosterPlayers.lastUpdatedOn)")
-                    
-//                    for playerInfo in rosterPlayers.playerInfoList
-//                    {
-//
-//                    }
+                    do
+                    {
+                        let rosterPlayers = try JSONDecoder().decode(RosterPlayers.self, from: data!)
+                        
+                        DispatchQueue.main.async
+                        {
+                           print("Populating team roster data...")
+                            
+                            print("Value of official image source is \(rosterPlayers.playerInfoList[0].player.officialImageSource?.absoluteString ?? "WTF???")")
+                            
+                            for playerInfo in rosterPlayers.playerInfoList
+                            {
+                                let nhlPlayer = NHLPlayer()
+                                
+                                nhlPlayer.dateCreated = self.today
+                                nhlPlayer.id = String(playerInfo.player.id)
+                                nhlPlayer.firstName = playerInfo.player.firstName
+                                nhlPlayer.lastName = playerInfo.player.lastName
+                                nhlPlayer.age = String(playerInfo.player.age ?? 0)
+                                nhlPlayer.birthDate = playerInfo.player.birthDate ?? ""
+                                nhlPlayer.birthCity = playerInfo.player.birthCity ?? ""
+                                nhlPlayer.birthCountry = playerInfo.player.birthCountry ?? ""
+                                nhlPlayer.height = playerInfo.player.height ?? ""
+                                nhlPlayer.weight = String(playerInfo.player.weight ?? 0)
+                                nhlPlayer.jerseyNumber = String(playerInfo.player.jerseyNumber ?? 0)
+                                nhlPlayer.imageURL = playerInfo.player.officialImageSource?.absoluteString ?? ""
+                                nhlPlayer.position = playerInfo.player.position ?? ""
+                                nhlPlayer.shoots = playerInfo.player.handednessInfo?.shoots ?? ""
+                                nhlPlayer.teamId = String(playerInfo.currentTeamInfo?.id ?? 0)
+                                nhlPlayer.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
+                                
+                                playerList.append(nhlPlayer)
+                            }
+                            
+                            do
+                            {
+                                print("Saving roster data...")
+                                
+                                try self.realm.write
+                                {
+                                    self.realm.add(playerList)
+                                    
+                                    print("Roster players have successfully been added to the database!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving roster players to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON in saveRosters method...")
+                    }
                 }
-                catch
+                else
                 {
-                    print("Error decoding JSON in saveRosters method...")
+                    print("Error retrieving data in saveRosters method...\(err.debugDescription)")
                 }
-            }
-            else
-            {
-                print("Error retrieving data in saveRosters method...\(err.debugDescription)")
-            }
-        }.resume()
-        
-        SVProgressHUD.dismiss()
+            }.resume()
+        }
     }
     
     //  Create the saveSchedule method
@@ -171,6 +214,7 @@ class NetworkManager
     func saveStandings()
     {
         let teamStandingsList = List<TeamStandings>()
+        let teamList = List<NHLTeam>()
         
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
@@ -196,21 +240,43 @@ class NetworkManager
                             
                             DispatchQueue.main.async
                             {
-                                //for teamStatReference in seasonTeamStats.references.teamStatReferences
                                 for teamStandingsData in nhlStandings.teamList
                                 {
                                     let teamStandings = TeamStandings()
+                                    let nhlTeam = NHLTeam()
                                     
                                     teamStandings.id = String(teamStandingsData.teamInformation.id)
                                     teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
                                     teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                    teamStandings.overtimeWins = teamStandingsData.teamStats.standingsInfo.overtimeWins
                                     teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
                                     teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
                                     teamStandings.dateCreated = self.today
                                     
+                                    nhlTeam.dateCreated = self.today
+                                    nhlTeam.id = String(teamStandingsData.teamInformation.id)
+                                    nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                    nhlTeam.city = teamStandingsData.teamInformation.city
+                                    nhlTeam.name = teamStandingsData.teamInformation.name
+                                    
                                     teamStandingsList.append(teamStandings)
+                                    teamList.append(nhlTeam)
+                                }
+                                
+                                do
+                                {
+                                    print("Saving team data...")
+                                    
+                                    try self.realm.write
+                                    {
+                                        self.realm.add(teamList)
+                                        
+                                        print("Teams have successfully been added to the database!!")
+                                    }
+                                }
+                                catch
+                                {
+                                    print("Error saving teams to the database: \(error)")
                                 }
                                 
                                 do
@@ -251,8 +317,6 @@ class NetworkManager
         
         request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
         
-        SVProgressHUD.show()
-        
         //  Get the JSON data with closure
         session.dataTask(with: request)
         {
@@ -283,8 +347,6 @@ class NetworkManager
                 }
             }
         }.resume()
-        
-        SVProgressHUD.dismiss()
     }
     
     //  Create the retrieveScores method
@@ -447,7 +509,7 @@ class NetworkManager
         
         team.dateCreated = teamResult?.dateCreated
         team.abbreviation = (teamResult?.abbreviation)!
-        team.cityName = (teamResult?.cityName)!
+        team.city = (teamResult?.city)!
         team.id = (teamResult?.id)!
         
         Alamofire.request(
