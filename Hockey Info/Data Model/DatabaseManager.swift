@@ -14,7 +14,7 @@ class DatabaseManager
     let realm = try! Realm()
     
     //  Create the displayPlayerInfo method
-    func displayPlayerInfo(_ viewController: MainTableViewController, _ id: String) -> NHLPlayer?
+    func displayPlayerInfo(_ viewController: MainViewController, _ id: String) -> NHLPlayer?
     {
         let playerResult = realm.objects(NHLPlayer.self).filter("id =='4264'").first
         
@@ -27,7 +27,7 @@ class DatabaseManager
     }
     
     //  Create the displaySchedule method
-    func displaySchedule(_ viewController: MainTableViewController)
+    func displaySchedule(_ viewController: MainViewController)
     {
         let scheduleResult = realm.objects(NHLSchedule.self)
         
@@ -38,7 +38,7 @@ class DatabaseManager
     }
     
     //  Create the displayTeams method
-    func displayTeams(_ viewController: MainTableViewController)
+    func displayTeams(_ viewController: MainViewController)
     {
         let teamResult = realm.objects(NHLTeam.self)
         
@@ -49,7 +49,7 @@ class DatabaseManager
     }
     
     //  Create the displayRoster method
-    func displayTeams(_ viewController: MainTableViewController, _ teamId: String)
+    func displayTeams(_ viewController: MainViewController, _ teamId: String)
     {
         let teamResult = realm.objects(NHLPlayer.self)
         

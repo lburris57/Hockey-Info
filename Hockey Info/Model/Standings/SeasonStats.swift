@@ -30,7 +30,7 @@ class SeasonStats
     
     let shortDateFormatter = DateFormatter()
     
-    func getStats(_ mainTableViewController: MainTableViewController)
+    func getStats(_ mainTableViewController: MainViewController)
     {
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")

@@ -351,7 +351,7 @@ class NetworkManager
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores(_ viewController: MainTableViewController, _ date: String)
+    func retrieveScores(_ viewController: MainViewController, _ date: String)
     {
         shortDateFormatter.dateFormat = "yyyyMMdd"
         
