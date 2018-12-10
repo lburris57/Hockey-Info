@@ -6,6 +6,7 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import JTAppleCalendar
+import RealmSwift
 
 class DisplayCalendarViewController: UIViewController
 {
@@ -15,6 +16,9 @@ class DisplayCalendarViewController: UIViewController
     @IBOutlet weak var showTodayButton: UIBarButtonItem!
     
     @IBOutlet weak var separatorViewTopConstraint: NSLayoutConstraint!
+    
+    
+    var scheduledGames: Results<NHLSchedule>? = nil
     
     // MARK: DataSource
     var scheduleGroup : [String: [Schedule]]?
@@ -141,6 +145,8 @@ extension DisplayCalendarViewController
 {
     func select(onVisibleDates visibleDates: DateSegmentInfo)
     {
+        print("Getting here.....")
+        
         guard let firstDateInMonth = visibleDates.monthDates.first?.date else
         { return }
         
@@ -198,23 +204,49 @@ extension DisplayCalendarViewController
 {
     func getSchedule()
     {
-        if let startDate = calendarView.visibleDates().monthDates.first?.date
+        print("Creating schedule with no arguments...")
+        
+        print("Size of scheduledGames is \(scheduledGames?.count ?? 0)")
+        
+        var schedules: [Schedule] = []
+        
+        for scheduledGame in scheduledGames!
         {
-            let endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)
-            getSchedule(fromDate: startDate, toDate: endDate!)
+            let awayTeam = TeamManager.getFullTeamName(scheduledGame.awayTeam)
+            let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
+            let venue = TeamManager.getVenueByTeam(scheduledGame.awayTeam)
+            let startTime = scheduledGame.time
+            
+            let schedule = Schedule(title: "\(awayTeam) at \(homeTeam)",
+                note: "\(venue)",
+                startTime: "\(startTime)",
+                endTime: "",
+                categoryColor: .black)
+            
+            schedules.append(schedule)
         }
+        
+        scheduleGroup = schedules.group{$0.startTime}
+        
+//        if let startDate = calendarView.visibleDates().monthDates.first?.date
+//        {
+//            let endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)
+//            getSchedule(fromDate: startDate, toDate: endDate!)
+//        }
     }
     
     func getSchedule(fromDate: Date, toDate: Date)
     {
-        var schedules: [Schedule] = []
+        print("Creating schedule from \(fromDate) to \(toDate)")
+        
+        //var schedules: [Schedule] = []
         
         for _ in 1...numOfRandomEvent
         {
-            schedules.append(Schedule(fromStartDate: fromDate))
+            //schedules.append(Schedule(fromStartDate: fromDate))
         }
         
-        scheduleGroup = schedules.group{self.formatter.string(from: $0.startTime)}
+        //scheduleGroup = schedules.group{startTime}
     }
 }
 
@@ -349,6 +381,8 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
+        print("Date \(date) was selected.....")
+        
         configureCell(view: cell, cellState: cellState)
         tableView.reloadData()
         tableView.contentOffset = CGPoint()

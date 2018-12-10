@@ -10,6 +10,10 @@ import RealmSwift
 
 class DatabaseManager
 {
+    let fullDateFormatter = DateFormatter()
+    
+    let today = Date()
+    
     //  Create a new Realm database
     let realm = try! Realm()
     
@@ -33,7 +37,7 @@ class DatabaseManager
         
         DispatchQueue.main.async
         {
-            viewController.performSegue(withIdentifier: "displaySchedule", sender: scheduleResult)
+            //viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
         }
     }
     
@@ -54,8 +58,8 @@ class DatabaseManager
         let teamResult = realm.objects(NHLPlayer.self)
         
         DispatchQueue.main.async
-            {
-                viewController.performSegue(withIdentifier: "displayRoster", sender: teamResult)
+        {
+            viewController.performSegue(withIdentifier: "displayRoster", sender: teamResult)
         }
     }
     
@@ -123,5 +127,32 @@ class DatabaseManager
         }
         
         return result
+    }
+    
+    func retrieveTodaysGames(_ mainViewController: MainViewController)
+    {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        print("Value of dateString is \(dateString)")
+        
+        do
+        {
+            try realm.write
+            {
+                let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
+                
+                print("Value of homeTeam in first scheduled game is \(scheduledGames[0].homeTeam)")
+                
+                print("Number of scheduled games is \(scheduledGames.count)")
+                
+                mainViewController.performSegue(withIdentifier: "displayCalendar", sender: scheduledGames)
+            }
+        }
+        catch
+        {
+            print("Error retrieving today's games!")
+        }
     }
 }

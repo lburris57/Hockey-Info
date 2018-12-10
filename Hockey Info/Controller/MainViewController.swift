@@ -22,7 +22,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         super.viewDidLoad()
         
-        print("In viewDidLoad method in MainTableViewController...")
+        //print("In viewDidLoad method in MainTableViewController...")
         
         if(databaseManager.teamStandingsRequiresSaving())
         {
@@ -39,26 +39,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             networkManager.saveSchedule()
         }
         
-        print("Leaving viewDidLoad method in MainTableViewController...")
+        //print("Leaving viewDidLoad method in MainTableViewController...")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        print("In numberOfSections method in MainTableViewController...")
+        //print("In numberOfSections method in MainTableViewController...")
         
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        print("In numberOfRowsInSection method in MainTableViewController...")
+        //print("In numberOfRowsInSection method in MainTableViewController...")
         
         return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        print("In cellForRowAt method in MainTableViewController...")
+        //print("In cellForRowAt method in MainTableViewController...")
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         
@@ -76,7 +76,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        print("In didSelectRowAt method in MainTableViewController...")
+        //print("In didSelectRowAt method in MainTableViewController...")
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -88,7 +88,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         else if(category == "Schedule")
         {
-            performSegue(withIdentifier: "displayCalendar", sender: self)
+            //performSegue(withIdentifier: "displayCalendar", sender: self)
+            databaseManager.retrieveTodaysGames(self)
         }
     }
     
@@ -98,10 +99,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //displayScoresViewController.games = sender as! [Game]
         
-         print("In prepare method in MainTableViewController...")
+         //print("In prepare method in MainTableViewController...")
         
         let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
 
-        displayCalendarViewController.message = "I got here!!!!"
+        displayCalendarViewController.scheduledGames = sender as! Results<NHLSchedule>
     }
 }
