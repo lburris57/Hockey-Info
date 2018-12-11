@@ -17,36 +17,50 @@ class DisplayCalendarViewController: UIViewController
     
     @IBOutlet weak var separatorViewTopConstraint: NSLayoutConstraint!
     
+    let databaseManager = DatabaseManager()
     
     var scheduledGames: Results<NHLSchedule>? = nil
+    
+    var schedules: [Schedule] = []
+    {
+        didSet
+        {
+            //calendarView.reloadData()
+            //tableView.reloadData()
+        }
+    }
     
     // MARK: DataSource
     var scheduleGroup : [String: [Schedule]]?
     {
         didSet
         {
-            calendarView.reloadData()
-            tableView.reloadData()
+            //calendarView.reloadData()
+            //tableView.reloadData()
         }
     }
     
-    var schedules: [Schedule]
-    {
-        get
-        {
-            guard let selectedDate = calendarView.selectedDates.first else
-            {
-                return []
-            }
-            
-            guard let data = scheduleGroup?[self.formatter.string(from: selectedDate)] else
-            {
-                return []
-            }
-            
-            return data.sorted()
-        }
-    }
+//    var schedules: [Schedule]
+//    {
+//        get
+//        {
+//            guard let selectedDate = calendarView.selectedDates.first else
+//            {
+//                print("Returning because guard get statement fails...")
+//
+//                return []
+//            }
+//
+//            guard let data = scheduleGroup?[self.formatter.string(from: selectedDate)] else
+//            {
+//                print("Returning because guard let statement fails...")
+//
+//                return []
+//            }
+//
+//            return data.sorted()
+//        }
+//    }
     
     var message: String = ""
     {
@@ -145,7 +159,7 @@ extension DisplayCalendarViewController
 {
     func select(onVisibleDates visibleDates: DateSegmentInfo)
     {
-        print("Getting here.....")
+        print("In DisplayCalendarViewController:select method.....")
         
         guard let firstDateInMonth = visibleDates.monthDates.first?.date else
         { return }
@@ -199,54 +213,36 @@ extension DisplayCalendarViewController
     }
 }
 
-// MARK: Prepere dataSource
+// MARK: Prepare dataSource
 extension DisplayCalendarViewController
 {
     func getSchedule()
     {
-        print("Creating schedule with no arguments...")
-        
-        print("Size of scheduledGames is \(scheduledGames?.count ?? 0)")
-        
-        var schedules: [Schedule] = []
-        
-        for scheduledGame in scheduledGames!
-        {
-            let awayTeam = TeamManager.getFullTeamName(scheduledGame.awayTeam)
-            let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
-            let venue = TeamManager.getVenueByTeam(scheduledGame.awayTeam)
-            let startTime = scheduledGame.time
-            
-            let schedule = Schedule(title: "\(awayTeam) at \(homeTeam)",
-                note: "\(venue)",
-                startTime: "\(startTime)",
-                endTime: "",
-                categoryColor: .black)
-            
-            schedules.append(schedule)
-        }
-        
-        scheduleGroup = schedules.group{$0.startTime}
-        
-//        if let startDate = calendarView.visibleDates().monthDates.first?.date
+//        print("Creating schedule with no arguments...")
+//
+//        print("Size of scheduledGames is \(scheduledGames?.count ?? 0)")
+//
+//        schedules.removeAll()
+//
+//        for scheduledGame in scheduledGames!
 //        {
-//            let endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)
-//            getSchedule(fromDate: startDate, toDate: endDate!)
+//            let awayTeam = TeamManager.getFullTeamName(scheduledGame.awayTeam)
+//            let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
+//            let venue = TeamManager.getVenueByTeam(scheduledGame.homeTeam)
+//            let startTime = scheduledGame.time
+//
+//            print("Scheduled start time is \(startTime)")
+//
+//            let schedule = Schedule(title: "\(awayTeam) @ \(homeTeam)",
+//                note: "\(venue)",
+//                startTime: "\(startTime)",
+//                endTime: "\(startTime)",
+//                categoryColor: .black)
+//
+//            schedules.append(schedule)
 //        }
-    }
-    
-    func getSchedule(fromDate: Date, toDate: Date)
-    {
-        print("Creating schedule from \(fromDate) to \(toDate)")
-        
-        //var schedules: [Schedule] = []
-        
-        for _ in 1...numOfRandomEvent
-        {
-            //schedules.append(Schedule(fromStartDate: fromDate))
-        }
-        
-        //scheduleGroup = schedules.group{startTime}
+//
+//        tableView.reloadData()
     }
 }
 
@@ -366,7 +362,7 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
         
         iii = visibleDates.monthDates.first?.date
         
-        getSchedule()
+        //getSchedule()
         select(onVisibleDates: visibleDates)
         
         view.layoutIfNeeded()
@@ -381,7 +377,11 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
-        print("Date \(date) was selected.....")
+        //print("Date \(date) was selected.....")
+        
+        schedules.removeAll()
+        
+        schedules = databaseManager.retrieveGames(date)
         
         configureCell(view: cell, cellState: cellState)
         tableView.reloadData()
@@ -399,6 +399,8 @@ extension DisplayCalendarViewController : UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        //print("In DisplayCalendarViewController:cellForRowAt method...")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellIdentifier, for: indexPath) as! ScheduleTableViewCell
         cell.selectionStyle = .none
         cell.schedule = schedules[indexPath.row]

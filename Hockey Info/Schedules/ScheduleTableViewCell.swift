@@ -22,12 +22,13 @@ class ScheduleTableViewCell: UITableViewCell
         {
             titleLabel.text = schedule.title
             noteLabel.text = schedule.note
+            endTimeLabel.text = schedule.startTime
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             
-            startTimeLabel.text = ""
-            endTimeLabel.text = "7:00 PM"
+            //startTimeLabel.text = ""
+            //endTimeLabel.text = "7:00 PM"
 //            startTimeLabel.text = dateFormatter.string(from: schedule.startTime)
 //            endTimeLabel.text = dateFormatter.string(from: schedule.endTime)
             categoryLine.backgroundColor = schedule.categoryColor

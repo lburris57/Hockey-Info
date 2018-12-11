@@ -103,6 +103,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
 
-        displayCalendarViewController.scheduledGames = sender as! Results<NHLSchedule>
+        displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
     }
 }

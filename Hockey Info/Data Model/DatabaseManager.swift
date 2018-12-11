@@ -155,4 +155,51 @@ class DatabaseManager
             print("Error retrieving today's games!")
         }
     }
+    
+    func retrieveGames(_ date: Date) -> [Schedule]
+    {
+        var schedules = [Schedule]()
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        
+        print("Value of dateString is \(dateString)")
+        
+        do
+        {
+            try realm.write
+            {
+                let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
+                
+                print("Value of homeTeam in first scheduled game is \(scheduledGames[0].homeTeam)")
+                
+                print("Number of scheduled games is \(scheduledGames.count)")
+                
+                for scheduledGame in scheduledGames
+                {
+                    let awayTeam = TeamManager.getFullTeamName(scheduledGame.awayTeam)
+                    let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
+                    let venue = TeamManager.getVenueByTeam(scheduledGame.homeTeam)
+                    let startTime = scheduledGame.time
+                    
+                    print("Scheduled start time is \(startTime)")
+                    
+                    let schedule = Schedule(title: "\(awayTeam) @ \(homeTeam)",
+                        note: "\(venue)",
+                        startTime: "\(startTime)",
+                        endTime: "\(startTime)",
+                        categoryColor: .black)
+                    
+                    schedules.append(schedule)
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving today's games!")
+        }
+        
+        return schedules
+    }
 }

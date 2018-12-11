@@ -187,7 +187,7 @@
                                 <rect key="frame" x="0.0" y="416" width="414" height="276"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detail" rowHeight="50" id="pMQ-le-wt8" customClass="ScheduleTableViewCell" customModule="WLAppleCalendar" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detail" rowHeight="50" id="pMQ-le-wt8" customClass="ScheduleTableViewCell" customModule="Hockey_Info">
                                         <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pMQ-le-wt8" id="8Ef-Ks-825">
