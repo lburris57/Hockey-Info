@@ -159,7 +159,7 @@ extension DisplayCalendarViewController
 {
     func select(onVisibleDates visibleDates: DateSegmentInfo)
     {
-        print("In DisplayCalendarViewController:select method.....")
+        //print("In DisplayCalendarViewController:select method.....")
         
         guard let firstDateInMonth = visibleDates.monthDates.first?.date else
         { return }

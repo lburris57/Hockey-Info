@@ -13,7 +13,7 @@
         <!--Hockey Info-->
         <scene sceneID="hb1-m6-Lti">
             <objects>
-                <viewController id="Axr-Jd-jjE" customClass="MainViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Axr-Jd-jjE" customClass="MainMenuViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fDb-q7-nYg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

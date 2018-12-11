@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  MainMenuViewController.swift
 //  Hockey Info
 //
 //  Created by Larry Burris on 12/2/18.
@@ -7,12 +7,12 @@
 //
 import UIKit
 import RealmSwift
-import SwifterSwift
-import SwiftDate
+//import SwifterSwift
+//import SwiftDate
 
-class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class MainMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats"]
+    var categories = [MenuCategory]()
     
     let networkManager = NetworkManager()
     
@@ -22,7 +22,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         super.viewDidLoad()
         
-        //print("In viewDidLoad method in MainTableViewController...")
+        print("In viewDidLoad method in MainTableViewController...")
+        
+        if(databaseManager.mainMenuCategoriesRequiresSaving())
+        {
+            databaseManager.saveMainMenuCategories()
+        }
         
         if(databaseManager.teamStandingsRequiresSaving())
         {
@@ -39,27 +44,23 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             networkManager.saveSchedule()
         }
         
-        //print("Leaving viewDidLoad method in MainTableViewController...")
+        categories.removeAll()
+        
+        categories = databaseManager.retrieveMainMenuCategories()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        //print("In numberOfSections method in MainTableViewController...")
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        //print("In numberOfRowsInSection method in MainTableViewController...")
-        
         return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        //print("In cellForRowAt method in MainTableViewController...")
-        
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         
         if cell == nil
@@ -67,7 +68,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         }
         
-        cell?.textLabel?.text = categories[indexPath.row]
+        cell?.textLabel?.text = categories[indexPath.row].category
         
         cell?.accessoryType = .disclosureIndicator
         
@@ -76,11 +77,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        //print("In didSelectRowAt method in MainTableViewController...")
-        
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let category = categories[indexPath.row]
+        let category = categories[indexPath.row].category
         
         if(category == "Scores")
         {
@@ -88,19 +87,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         else if(category == "Schedule")
         {
-            //performSegue(withIdentifier: "displayCalendar", sender: self)
             databaseManager.retrieveTodaysGames(self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        //let displayScoresViewController = segue.destination as! DisplayScoresViewController
-        
-        //displayScoresViewController.games = sender as! [Game]
-        
-         //print("In prepare method in MainTableViewController...")
-        
         let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
 
         displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>

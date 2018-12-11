@@ -18,7 +18,7 @@ class DatabaseManager
     let realm = try! Realm()
     
     //  Create the displayPlayerInfo method
-    func displayPlayerInfo(_ viewController: MainViewController, _ id: String) -> NHLPlayer?
+    func displayPlayerInfo(_ viewController: MainMenuViewController, _ id: String) -> NHLPlayer?
     {
         let playerResult = realm.objects(NHLPlayer.self).filter("id =='4264'").first
         
@@ -31,7 +31,7 @@ class DatabaseManager
     }
     
     //  Create the displaySchedule method
-    func displaySchedule(_ viewController: MainViewController)
+    func displaySchedule(_ viewController: MainMenuViewController)
     {
         let scheduleResult = realm.objects(NHLSchedule.self)
         
@@ -42,7 +42,7 @@ class DatabaseManager
     }
     
     //  Create the displayTeams method
-    func displayTeams(_ viewController: MainViewController)
+    func displayTeams(_ viewController: MainMenuViewController)
     {
         let teamResult = realm.objects(NHLTeam.self)
         
@@ -53,7 +53,7 @@ class DatabaseManager
     }
     
     //  Create the displayRoster method
-    func displayTeams(_ viewController: MainViewController, _ teamId: String)
+    func displayTeams(_ viewController: MainMenuViewController, _ teamId: String)
     {
         let teamResult = realm.objects(NHLPlayer.self)
         
@@ -61,6 +61,28 @@ class DatabaseManager
         {
             viewController.performSegue(withIdentifier: "displayRoster", sender: teamResult)
         }
+    }
+    
+    func mainMenuCategoriesRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(MainMenuCategory.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving category count!")
+        }
+        
+        return result
     }
     
     func scheduleRequiresSaving() -> Bool
@@ -129,7 +151,7 @@ class DatabaseManager
         return result
     }
     
-    func retrieveTodaysGames(_ mainViewController: MainViewController)
+    func retrieveTodaysGames(_ mainViewController: MainMenuViewController)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
         
@@ -187,5 +209,73 @@ class DatabaseManager
         }
         
         return schedules
+    }
+    
+    func saveMainMenuCategories()
+    {
+        let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats"]
+        
+        let categoryList = List<MainMenuCategory>()
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        var id = 0
+        
+        for category in categories
+        {
+            let mainMenuCategory = MainMenuCategory()
+            
+            mainMenuCategory.id = String(id)
+            mainMenuCategory.category = category
+            mainMenuCategory.dateCreated = dateString
+            
+            id = id + 1
+            
+            categoryList.append(mainMenuCategory)
+        }
+        
+        do
+        {
+            print("Saving main menu category data...")
+            
+            try self.realm.write
+            {
+                self.realm.add(categoryList)
+                
+                print("Main menu categories have successfully been added to the database!!")
+            }
+        }
+        catch
+        {
+            print("Error saving main menu categories to the database: \(error)")
+        }
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+    }
+    
+    func retrieveMainMenuCategories() -> [MenuCategory]
+    {
+        var categories = [MenuCategory]()
+        
+        do
+        {
+            try realm.write
+            {
+                let menuCategories = realm.objects(MainMenuCategory.self)
+                
+                for menuCategory in menuCategories
+                {
+                    categories.append(MenuCategory(id: menuCategory.id, category: menuCategory.category, dateCreated: menuCategory.dateCreated))
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving main menu categories!")
+        }
+        
+        return categories
     }
 }

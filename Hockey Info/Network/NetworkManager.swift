@@ -35,6 +35,9 @@ class NetworkManager
     //  Create the saveRosters method
     func saveRosters()
     {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
         let playerList = List<NHLPlayer>()
         
         //  Set the URL
@@ -67,7 +70,7 @@ class NetworkManager
                             {
                                 let nhlPlayer = NHLPlayer()
                                 
-                                nhlPlayer.dateCreated = self.today
+                                nhlPlayer.dateCreated = dateString
                                 nhlPlayer.id = String(playerInfo.player.id)
                                 nhlPlayer.firstName = playerInfo.player.firstName
                                 nhlPlayer.lastName = playerInfo.player.lastName
@@ -122,6 +125,10 @@ class NetworkManager
     //  Create the saveSchedule method
     func saveSchedule()
     {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
         let scheduledGames = List<NHLSchedule>()
         
         //  Set the URL
@@ -161,7 +168,7 @@ class NetworkManager
                                 let startTime = scheduledGame.scheduleInfo.startTime
         
                                 nhlSchedule.id = String(scheduledGame.scheduleInfo.id)
-                                nhlSchedule.dateCreated = self.today
+                                nhlSchedule.dateCreated = dateString
                                 nhlSchedule.lastUpdatedOn = "\(TimeAndDateUtils.getDate(lastUpdatedOn)) at \(TimeAndDateUtils.getTime(lastUpdatedOn))"
                                 nhlSchedule.date = TimeAndDateUtils.getDate(startTime)
                                 nhlSchedule.time = TimeAndDateUtils.getTime(startTime)
@@ -213,6 +220,10 @@ class NetworkManager
     //  Create the saveStandings method
     func saveStandings()
     {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
         let teamStandingsList = List<TeamStandings>()
         let teamList = List<NHLTeam>()
         
@@ -247,13 +258,18 @@ class NetworkManager
                                     
                                     teamStandings.id = String(teamStandingsData.teamInformation.id)
                                     teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                    teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
+                                    teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
+                                    teamStandings.conference = teamStandingsData.conferenceRankInfo.conferenceName
+                                    teamStandings.conferenceRank = teamStandingsData.conferenceRankInfo.rank
+                                    teamStandings.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
                                     teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
                                     teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
                                     teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
                                     teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
-                                    teamStandings.dateCreated = self.today
+                                    teamStandings.dateCreated = dateString
                                     
-                                    nhlTeam.dateCreated = self.today
+                                    nhlTeam.dateCreated = dateString
                                     nhlTeam.id = String(teamStandingsData.teamInformation.id)
                                     nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     nhlTeam.city = teamStandingsData.teamInformation.city
@@ -351,7 +367,7 @@ class NetworkManager
     
     //  Create the retrieveScores method
     // MARK: - Network code
-    func retrieveScores(_ viewController: MainViewController, _ date: String)
+    func retrieveScores(_ viewController: MainMenuViewController, _ date: String)
     {
         shortDateFormatter.dateFormat = "yyyyMMdd"
         
@@ -507,7 +523,7 @@ class NetworkManager
         
         let team = NHLTeam()
         
-        team.dateCreated = teamResult?.dateCreated
+        team.dateCreated = (teamResult?.dateCreated)!
         team.abbreviation = (teamResult?.abbreviation)!
         team.city = (teamResult?.city)!
         team.id = (teamResult?.id)!
@@ -545,7 +561,7 @@ class NetworkManager
                         player.birthCountry = json["players"][i]["player"]["birthCountry"].stringValue
                         player.imageURL = json["players"][i]["player"]["officialImageSrc"].stringValue
                         player.shoots = json["players"][i]["player"]["handedness"]["shoots"].stringValue
-                        player.dateCreated = Date()
+                        //player.dateCreated = Date()
                         
                         team.players.append(player)
                         

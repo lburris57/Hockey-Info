@@ -12,9 +12,14 @@ class TeamStandings: Object
 {
     @objc dynamic var id : String = ""
     @objc dynamic var abbreviation : String = ""
+    @objc dynamic var conference : String = ""
+    @objc dynamic var conferenceRank : Int = 0
+    @objc dynamic var division : String = ""
+    @objc dynamic var divisionRank : Int = 0
+    @objc dynamic var gamesPlayed : Int = 0
     @objc dynamic var wins : Int = 0
     @objc dynamic var losses : Int = 0
     @objc dynamic var overtimeLosses : Int = 0
     @objc dynamic var points : Int = 0
-    @objc dynamic var dateCreated: Date?
+    @objc dynamic var dateCreated: String = ""
 }

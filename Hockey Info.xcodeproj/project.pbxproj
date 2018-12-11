@@ -37,7 +37,7 @@
 		76045B7A21B36FF200980C63 /* FaceoffData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7921B36FF200980C63 /* FaceoffData.swift */; };
 		76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7B21B3701800980C63 /* PowerplayData.swift */; };
 		76045B7E21B3704A00980C63 /* MiscellaneousData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7D21B3704A00980C63 /* MiscellaneousData.swift */; };
-		76045B8021B4A23700980C63 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7F21B4A23700980C63 /* MainViewController.swift */; };
+		76045B8021B4A23700980C63 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7F21B4A23700980C63 /* MainMenuViewController.swift */; };
 		76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD321BAFE7B0080E0CD /* TeamStandings.swift */; };
 		76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */; };
 		76590DDC21BB04AE0080E0CD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DDB21BB04AE0080E0CD /* Extensions.swift */; };
@@ -48,6 +48,8 @@
 		76590DE921BDC09B0080E0CD /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DE621BDC09B0080E0CD /* Schedule.swift */; };
 		76590DEA21BDC09B0080E0CD /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DE721BDC09B0080E0CD /* ScheduleTableViewCell.swift */; };
 		76590DEC21BDCAA70080E0CD /* DisplayCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DEB21BDCAA70080E0CD /* DisplayCalendarViewController.swift */; };
+		76590DEE21C050EB0080E0CD /* MainMenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DED21C050EA0080E0CD /* MainMenuCategory.swift */; };
+		76590DF121C0540D0080E0CD /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DF021C0540D0080E0CD /* MenuCategory.swift */; };
 		7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B60219D06110058EEB0 /* Assets.xcassets */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
@@ -101,7 +103,7 @@
 		76045B7921B36FF200980C63 /* FaceoffData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceoffData.swift; sourceTree = "<group>"; };
 		76045B7B21B3701800980C63 /* PowerplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerplayData.swift; sourceTree = "<group>"; };
 		76045B7D21B3704A00980C63 /* MiscellaneousData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousData.swift; sourceTree = "<group>"; };
-		76045B7F21B4A23700980C63 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		76045B7F21B4A23700980C63 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		76590DD321BAFE7B0080E0CD /* TeamStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandings.swift; sourceTree = "<group>"; };
 		76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDateUtils.swift; sourceTree = "<group>"; };
 		76590DDB21BB04AE0080E0CD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -112,6 +114,8 @@
 		76590DE621BDC09B0080E0CD /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		76590DE721BDC09B0080E0CD /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		76590DEB21BDCAA70080E0CD /* DisplayCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayCalendarViewController.swift; sourceTree = "<group>"; };
+		76590DED21C050EA0080E0CD /* MainMenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCategory.swift; sourceTree = "<group>"; };
+		76590DF021C0540D0080E0CD /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76B478B921AF693F00337D98 /* PeriodEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEnum.swift; sourceTree = "<group>"; };
@@ -231,6 +235,14 @@
 			path = Schedules;
 			sourceTree = "<group>";
 		};
+		76590DEF21C053AE0080E0CD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				76590DF021C0540D0080E0CD /* MenuCategory.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		76D60B4D219D060F0058EEB0 = {
 			isa = PBXGroup;
 			children = (
@@ -284,7 +296,7 @@
 			children = (
 				76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */,
 				76590DEB21BDCAA70080E0CD /* DisplayCalendarViewController.swift */,
-				76045B7F21B4A23700980C63 /* MainViewController.swift */,
+				76045B7F21B4A23700980C63 /* MainMenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -292,6 +304,7 @@
 		76F0AD07219FCD0000249F28 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				76590DEF21C053AE0080E0CD /* Categories */,
 				76045B6421B360F400980C63 /* Standings */,
 				76045B5521B3438400980C63 /* Players */,
 				76045B4621B324D400980C63 /* Schedule */,
@@ -316,6 +329,7 @@
 				76045B4221B0AFDE00980C63 /* NHLSchedule.swift */,
 				76590DD321BAFE7B0080E0CD /* TeamStandings.swift */,
 				76590DDD21BB0DDC0080E0CD /* DatabaseManager.swift */,
+				76590DED21C050EA0080E0CD /* MainMenuCategory.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -507,11 +521,12 @@
 				76045B5421B3369100980C63 /* VenueData.swift in Sources */,
 				76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */,
 				76F118C321A4C719009E5F67 /* NHLPlayer.swift in Sources */,
-				76045B8021B4A23700980C63 /* MainViewController.swift in Sources */,
+				76045B8021B4A23700980C63 /* MainMenuViewController.swift in Sources */,
 				76045B6621B3626600980C63 /* StandingsReferenceData.swift in Sources */,
 				76045B4E21B3331400980C63 /* PeriodInfo.swift in Sources */,
 				76045B7621B36BE100980C63 /* PlayoffRankData.swift in Sources */,
 				76045B7421B36BB900980C63 /* DivisionRankData.swift in Sources */,
+				76590DF121C0540D0080E0CD /* MenuCategory.swift in Sources */,
 				76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */,
 				76045B6321B3609100980C63 /* NHLStandings.swift in Sources */,
 				76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */,
@@ -524,6 +539,7 @@
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
 				76045B5021B333F300980C63 /* ScheduleInfo.swift in Sources */,
 				76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */,
+				76590DEE21C050EB0080E0CD /* MainMenuCategory.swift in Sources */,
 				7600572121A8F23500D293EE /* URLListing.swift in Sources */,
 				76590DDE21BB0DDC0080E0CD /* DatabaseManager.swift in Sources */,
 				76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */,

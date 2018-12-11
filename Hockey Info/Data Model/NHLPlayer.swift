@@ -25,7 +25,7 @@ class NHLPlayer : Object
     @objc dynamic var birthCountry : String = ""
     @objc dynamic var imageURL : String = ""
     @objc dynamic var shoots : String = ""
-    @objc dynamic var dateCreated: Date?
+    @objc dynamic var dateCreated: String = ""
     
     var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "players")
 }

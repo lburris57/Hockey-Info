@@ -23,5 +23,5 @@ class NHLSchedule: Object
     @objc dynamic var awayShotsTotal : Int = 0
     @objc dynamic var scheduleStatus : String = ""
     @objc dynamic var lastUpdatedOn: String = ""
-    @objc dynamic var dateCreated: Date?
+    @objc dynamic var dateCreated: String = ""
 }
