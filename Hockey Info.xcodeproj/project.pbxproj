@@ -38,7 +38,6 @@
 		76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7B21B3701800980C63 /* PowerplayData.swift */; };
 		76045B7E21B3704A00980C63 /* MiscellaneousData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7D21B3704A00980C63 /* MiscellaneousData.swift */; };
 		76045B8021B4A23700980C63 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7F21B4A23700980C63 /* MainViewController.swift */; };
-		76590DD221B5DF1D0080E0CD /* SeasonStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD121B5DF1D0080E0CD /* SeasonStats.swift */; };
 		76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD321BAFE7B0080E0CD /* TeamStandings.swift */; };
 		76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */; };
 		76590DDC21BB04AE0080E0CD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DDB21BB04AE0080E0CD /* Extensions.swift */; };
@@ -103,7 +102,6 @@
 		76045B7B21B3701800980C63 /* PowerplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerplayData.swift; sourceTree = "<group>"; };
 		76045B7D21B3704A00980C63 /* MiscellaneousData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousData.swift; sourceTree = "<group>"; };
 		76045B7F21B4A23700980C63 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		76590DD121B5DF1D0080E0CD /* SeasonStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonStats.swift; sourceTree = "<group>"; };
 		76590DD321BAFE7B0080E0CD /* TeamStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandings.swift; sourceTree = "<group>"; };
 		76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDateUtils.swift; sourceTree = "<group>"; };
 		76590DDB21BB04AE0080E0CD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				76045B7921B36FF200980C63 /* FaceoffData.swift */,
 				76045B7B21B3701800980C63 /* PowerplayData.swift */,
 				76045B7D21B3704A00980C63 /* MiscellaneousData.swift */,
-				76590DD121B5DF1D0080E0CD /* SeasonStats.swift */,
 			);
 			path = Standings;
 			sourceTree = "<group>";
@@ -527,7 +524,6 @@
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
 				76045B5021B333F300980C63 /* ScheduleInfo.swift in Sources */,
 				76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */,
-				76590DD221B5DF1D0080E0CD /* SeasonStats.swift in Sources */,
 				7600572121A8F23500D293EE /* URLListing.swift in Sources */,
 				76590DDE21BB0DDC0080E0CD /* DatabaseManager.swift in Sources */,
 				76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */,

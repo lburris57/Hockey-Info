@@ -26,8 +26,6 @@ class TimeAndDateUtils
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
         
-        //print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
-        
         return (date.toFormat("EEEE, MMM dd, yyyy"))
     }
     
@@ -48,8 +46,6 @@ class TimeAndDateUtils
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
         
-        //print("Time is: \(date.toFormat("hh:mm a"))")
-        
         return date.toFormat("hh:mm a")
     }
     
@@ -69,9 +65,6 @@ class TimeAndDateUtils
         {
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
-        
-        //print("Date is: \(date.toFormat("EEEE, MMM dd, yyyy"))")
-        //print("Time is: \(date.toFormat("hh:mm a"))")
         
         return (date.toFormat("EEEE, MMM dd, yyyy"), date.toFormat("hh:mm a"))
     }

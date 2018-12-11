@@ -16,24 +16,6 @@ struct Schedule
     var categoryColor: UIColor
 }
 
-extension Schedule
-{
-//    init(fromStartDate: Date)
-//    {
-//        title = "Capitals at Blue Jackets"
-//        note = "Nationwide Arena"
-//        categoryColor = .black
-//
-//        let day = [Int](0...27).randomValue()
-//        let hour = [Int](0...23).randomValue()
-//        let startDate = Calendar.current.date(byAdding: .day, value: day, to: fromStartDate)!
-//
-//
-//        startTime = Calendar.current.date(byAdding: .hour, value: hour, to: startDate)!
-//        endTime = Calendar.current.date(byAdding: .hour, value: 1, to: startTime)!
-//    }
-}
-
 extension Schedule : Equatable
 {
     static func ==(lhs: Schedule, rhs: Schedule) -> Bool

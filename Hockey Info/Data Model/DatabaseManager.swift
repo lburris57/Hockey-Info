@@ -37,7 +37,7 @@ class DatabaseManager
         
         DispatchQueue.main.async
         {
-            //viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
+            viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
         }
     }
     
@@ -135,17 +135,11 @@ class DatabaseManager
         
         let dateString = fullDateFormatter.string(from: today)
         
-        print("Value of dateString is \(dateString)")
-        
         do
         {
             try realm.write
             {
                 let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
-                
-                print("Value of homeTeam in first scheduled game is \(scheduledGames[0].homeTeam)")
-                
-                print("Number of scheduled games is \(scheduledGames.count)")
                 
                 mainViewController.performSegue(withIdentifier: "displayCalendar", sender: scheduledGames)
             }
@@ -164,17 +158,11 @@ class DatabaseManager
         
         let dateString = fullDateFormatter.string(from: date)
         
-        print("Value of dateString is \(dateString)")
-        
         do
         {
             try realm.write
             {
                 let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
-                
-                print("Value of homeTeam in first scheduled game is \(scheduledGames[0].homeTeam)")
-                
-                print("Number of scheduled games is \(scheduledGames.count)")
                 
                 for scheduledGame in scheduledGames
                 {
@@ -182,8 +170,6 @@ class DatabaseManager
                     let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
                     let venue = TeamManager.getVenueByTeam(scheduledGame.homeTeam)
                     let startTime = scheduledGame.time
-                    
-                    print("Scheduled start time is \(startTime)")
                     
                     let schedule = Schedule(title: "\(awayTeam) @ \(homeTeam)",
                         note: "\(venue)",
