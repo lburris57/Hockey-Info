@@ -20,47 +20,83 @@ class DatabaseManager
     //  Create the displayPlayerInfo method
     func displayPlayerInfo(_ viewController: MainMenuViewController, _ id: String) -> NHLPlayer?
     {
-        let playerResult = realm.objects(NHLPlayer.self).filter("id =='4264'").first
+        var playerResult: NHLPlayer?
+        
+        do
+        {
+            try realm.write
+            {
+                playerResult = realm.objects(NHLPlayer.self).filter("id =='\(id)'").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving player!")
+        }
         
         return playerResult
-        
-//        DispatchQueue.main.async
-//        {
-//            viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
-//        }
+
     }
     
     //  Create the displaySchedule method
     func displaySchedule(_ viewController: MainMenuViewController)
     {
-        let scheduleResult = realm.objects(NHLSchedule.self)
+        var scheduleResult: Results<NHLSchedule>?
         
-        DispatchQueue.main.async
+        do
         {
-            viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
+            try realm.write
+            {
+                scheduleResult = realm.objects(NHLSchedule.self)
+            }
         }
+        catch
+        {
+            print("Error retrieving schedule!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
+
     }
     
     //  Create the displayTeams method
     func displayTeams(_ viewController: MainMenuViewController)
     {
-        let teamResult = realm.objects(NHLTeam.self)
+        var teamResult: Results<NHLTeam>?
         
-        DispatchQueue.main.async
+        do
         {
-            viewController.performSegue(withIdentifier: "displayTeams", sender: teamResult)
+            try realm.write
+            {
+                teamResult = realm.objects(NHLTeam.self)
+            }
         }
+        catch
+        {
+            print("Error retrieving teams!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayTeams", sender: teamResult)
     }
     
     //  Create the displayRoster method
-    func displayTeams(_ viewController: MainMenuViewController, _ teamId: String)
+    func displayRoster(_ viewController: MainMenuViewController, _ teamId: String)
     {
-        let teamResult = realm.objects(NHLPlayer.self)
+        var rosterResult: Results<NHLPlayer>?
         
-        DispatchQueue.main.async
+        do
         {
-            viewController.performSegue(withIdentifier: "displayRoster", sender: teamResult)
+            try realm.write
+            {
+                rosterResult = realm.objects(NHLPlayer.self)
+            }
         }
+        catch
+        {
+            print("Error retrieving roster!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayRoster", sender: rosterResult)
     }
     
     func mainMenuCategoriesRequiresSaving() -> Bool
@@ -205,7 +241,7 @@ class DatabaseManager
         }
         catch
         {
-            print("Error retrieving today's games!")
+            print("Error retrieving scheduled games for \(dateString)!")
         }
         
         return schedules
@@ -277,5 +313,30 @@ class DatabaseManager
         }
         
         return categories
+    }
+    
+    func loadTeamRecords() -> [String:String]
+    {
+        var records = [String:String]()
+        
+        do
+        {
+            try realm.write
+            {
+                let teamStandings = realm.objects(TeamStandings.self)
+                
+                for teamStanding in teamStandings
+                {
+                    let record = String(teamStanding.wins) + "-" + String(teamStanding.losses) + "-" + String(teamStanding.overtimeLosses)
+                    records[teamStanding.abbreviation] = record
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving main menu categories!")
+        }
+        
+        return records
     }
 }

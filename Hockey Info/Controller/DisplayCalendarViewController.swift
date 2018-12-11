@@ -31,34 +31,12 @@ class DisplayCalendarViewController: UIViewController
     }
     
     // MARK: DataSource
-    var scheduleGroup : [String: [Schedule]]?
-    {
-        didSet
-        {
-            //calendarView.reloadData()
-            //tableView.reloadData()
-        }
-    }
-    
-//    var schedules: [Schedule]
+//    var scheduleGroup : [String: [Schedule]]?
 //    {
-//        get
+//        didSet
 //        {
-//            guard let selectedDate = calendarView.selectedDates.first else
-//            {
-//                print("Returning because guard get statement fails...")
-//
-//                return []
-//            }
-//
-//            guard let data = scheduleGroup?[self.formatter.string(from: selectedDate)] else
-//            {
-//                print("Returning because guard let statement fails...")
-//
-//                return []
-//            }
-//
-//            return data.sorted()
+//            //calendarView.reloadData()
+//            //tableView.reloadData()
 //        }
 //    }
     
@@ -248,7 +226,8 @@ extension DisplayCalendarViewController
 
 
 // MARK: CalendarCell's ui config
-extension DisplayCalendarViewController {
+extension DisplayCalendarViewController
+{
     func configureCell(view: JTAppleCell?, cellState: CellState)
     {
         guard let myCustomCell = view as? CellView else { return }
@@ -267,13 +246,15 @@ extension DisplayCalendarViewController {
         handleCellTextColor(view: myCustomCell, cellState: cellState)
         handleCellSelection(view: myCustomCell, cellState: cellState)
         
-        if scheduleGroup?[formatter.string(from: cellState.date)] != nil
+        myCustomCell.eventView.isHidden = true
+        
+        if(!schedules.isEmpty)
         {
-            myCustomCell.eventView.isHidden = false
+            //myCustomCell.eventView.isHidden = false
         }
         else
         {
-            myCustomCell.eventView.isHidden = true
+            //myCustomCell.eventView.isHidden = true
         }
     }
     
@@ -377,12 +358,9 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
-        //print("Date \(date) was selected.....")
-        
         schedules.removeAll()
         
         schedules = databaseManager.retrieveGames(date)
-        
         configureCell(view: cell, cellState: cellState)
         tableView.reloadData()
         tableView.contentOffset = CGPoint()
@@ -418,10 +396,10 @@ extension DisplayCalendarViewController : UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let schedule = schedules[indexPath.row]
-        
-        print(schedule)
-        print("schedule selected")
+//        let schedule = schedules[indexPath.row]
+//
+//        print(schedule)
+//        print("schedule selected")
     }
 }
 

@@ -18,6 +18,7 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     var categoryValue: String = ""
     
     let networkManager = NetworkManager()
+    let databaseManager = DatabaseManager()
     
     let today = Date()
     let fullDateFormatter = DateFormatter()
@@ -33,11 +34,15 @@ class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITa
     var homeTeamScores = ["5", "2"]
     var periods = ["3rd", "2nd"]
     
+    var teamRecords = [String:String]()
+    
     var games = [Game]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        teamRecords = databaseManager.loadTeamRecords()
         
         fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
         timeFormatter.dateFormat = "hh:mm a"

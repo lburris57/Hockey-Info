@@ -48,11 +48,37 @@
                     <navigationItem key="navigationItem" title="Hockey Info" id="UjG-ye-jPl"/>
                     <connections>
                         <segue destination="cEk-dL-YwM" kind="show" identifier="displayCalendar" id="Vxv-yC-pQV"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="displayScores" id="nHa-v1-4ub"/>
+                        <segue destination="4Ej-aU-ptl" kind="show" identifier="displayStandings" id="F9C-bT-ubu"/>
+                        <segue destination="SAB-Nv-iEw" kind="show" identifier="displayRoster" id="6pz-HF-jlB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ma-lr-Rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4032" y="32"/>
+        </scene>
+        <!--Display Team Rosters View Controller-->
+        <scene sceneID="wc5-yq-Xpa">
+            <objects>
+                <viewController id="SAB-Nv-iEw" customClass="DisplayTeamRostersViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OWi-f4-ZQt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSR-2N-gdi">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="kiu-4N-6qh"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pbs-KV-ebg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="byP-go-1Xu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4015.9420289855075" y="694.56521739130437"/>
         </scene>
         <!--Display Scores View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -71,7 +97,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5722" y="32"/>
+            <point key="canvasLocation" x="4890" y="413"/>
+        </scene>
+        <!--Conference-->
+        <scene sceneID="sQ7-L3-KWX">
+            <objects>
+                <viewController id="GKq-iW-Qup" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DJa-M5-MQg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kaW-R5-bnC"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Conference" id="rcz-EH-ps6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chU-Cu-2P3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6448" y="339"/>
+        </scene>
+        <!--League-->
+        <scene sceneID="63H-Tk-sje">
+            <objects>
+                <viewController id="P70-u4-pLn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JZw-wp-dLg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qQ9-S7-uKV"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="League" id="YeK-o8-lVu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TIV-aN-jro" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5897" y="1004"/>
+        </scene>
+        <!--Division-->
+        <scene sceneID="fVp-4H-wvj">
+            <objects>
+                <viewController id="h8m-I1-Kfd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k8J-Pc-2Ms">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="iEh-H9-Owi"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Division" id="7i6-As-76j"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ijo-Hj-cXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6448" y="-320"/>
+        </scene>
+        <!--Display Standings Tab View Controller-->
+        <scene sceneID="o3X-BQ-ck2">
+            <objects>
+                <tabBarController id="4Ej-aU-ptl" customClass="DisplayStandingsTabViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bZI-oW-Fm7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="h8m-I1-Kfd" kind="relationship" relationship="viewControllers" id="GvC-vS-sPw"/>
+                        <segue destination="GKq-iW-Qup" kind="relationship" relationship="viewControllers" id="JTM-5a-wVp"/>
+                        <segue destination="P70-u4-pLn" kind="relationship" relationship="viewControllers" id="lMf-zg-XHd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ea-bJ-b4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5530" y="9"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="7Xh-ZY-jik">
