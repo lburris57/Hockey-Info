@@ -7,8 +7,6 @@
 //
 import UIKit
 import RealmSwift
-//import SwifterSwift
-//import SwiftDate
 
 class MainMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
@@ -21,8 +19,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        print("In viewDidLoad method in MainTableViewController...")
         
         if(databaseManager.mainMenuCategoriesRequiresSaving())
         {
@@ -43,8 +39,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             networkManager.saveSchedule()
         }
-        
-        categories.removeAll()
         
         categories = databaseManager.retrieveMainMenuCategories()
     }
@@ -80,7 +74,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
         
         let category = categories[indexPath.row].category
-        
+
         if(category == "Scores")
         {
             //networkManager.retrieveScores(self)
@@ -89,12 +83,26 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.retrieveTodaysGames(self)
         }
+        else if(category == "Team Rosters")
+        {
+            databaseManager.displayTeams(self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
+        if(segue.identifier == "displaySchedule")
+        {
+            let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
 
-        displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
+            displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
+        }
+        else if(segue.identifier == "displayTeams")
+        {
+            let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
+            
+            displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
+        }
+        
     }
 }

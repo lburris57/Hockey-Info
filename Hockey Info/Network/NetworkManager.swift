@@ -342,12 +342,12 @@ class NetworkManager
             {
                 do
                 {
-                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+//                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
                     
-                    for standingsCategory in nhlStandings.references.standingsCategories
-                    {
-
-                    }
+//                    for standingsCategory in nhlStandings.references.standingsCategories
+//                    {
+//
+//                    }
                 }
                 catch
                 {

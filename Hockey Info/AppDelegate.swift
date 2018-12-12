@@ -5,72 +5,16 @@
 //  Created by Larry Burris on 11/14/18.
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
-
 import UIKit
 import RealmSwift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
-        autoreleasepool
-        {
-            //let teamNames = ["ANA":29, "ARI":30, "BOS":11, "BUF":15, "CGY":23, "CAR":3, "CHI":20, "COL":22, "CBJ":19, "DAL":27, "DET":16, "EDM":24, "FLO":4, "LAK":28, "MIN":25, "MTL":14, "NSH":18, "NJD":7, "NYI":8, "NYR":9, "OTT":13, "PHI":6, "PIT":10, "SJS":26, "STL":17, "TBL":1, "TOR":12, "VAN":21, "VGK":142, "WSH":5, "WPJ":2]
-            
-            //let realm = try! Realm()
-            
-//            let teams = List<Team>()
-//
-//            for(abbreviation, id) in teamNames
-//            {
-//                let team = Team()
-//
-//                team.id = String(id)
-//                team.abbreviation = abbreviation
-//                team.cityName = TeamManager.getFullTeamName(abbreviation)
-//                team.dateCreated = Date()
-//
-//                teams.append(team)
-//            }
-//
-//            do
-//            {
-//                try realm.write
-//                {
-//                    realm.add(teams)
-//
-//                    print("Teams have been added to the database!!")
-//                }
-//            }
-//            catch
-//            {
-//                print("Error saving teams to the database: \(error)")
-//            }
-            
-            //print(Realm.Configuration.defaultConfiguration.fileURL!)
-        }
-        
-        //let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
-        //let realmURLs = [realmURL, realmURL.appendingPathExtension("lock"), realmURL.appendingPathExtension("note"), realmURL.appendingPathExtension("management")]
-        
-        
-        //print("Deleting Realm database from URL: \(realmURL)")
-        
-        /*for URL in realmURLs
-        {
-            do
-            {
-                try FileManager.default.removeItem(at: URL)
-            }
-            catch
-            {
-                print("Error deleting Realm database")
-            }
-        }*/
-        
         return true
     }
 

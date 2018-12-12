@@ -62,13 +62,13 @@ class DatabaseManager
     //  Create the displayTeams method
     func displayTeams(_ viewController: MainMenuViewController)
     {
-        var teamResult: Results<NHLTeam>?
+        var teamResults: Results<NHLTeam>?
         
         do
         {
             try realm.write
             {
-                teamResult = realm.objects(NHLTeam.self)
+                teamResults = realm.objects(NHLTeam.self)
             }
         }
         catch
@@ -76,11 +76,11 @@ class DatabaseManager
             print("Error retrieving teams!")
         }
         
-        viewController.performSegue(withIdentifier: "displayTeams", sender: teamResult)
+        viewController.performSegue(withIdentifier: "displayTeams", sender: teamResults)
     }
     
     //  Create the displayRoster method
-    func displayRoster(_ viewController: MainMenuViewController, _ teamId: String)
+    func displayRoster(_ viewController: DisplayTeamsViewController, _ teamId: String)
     {
         var rosterResult: Results<NHLPlayer>?
         
