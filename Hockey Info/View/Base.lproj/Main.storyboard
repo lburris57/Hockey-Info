@@ -21,15 +21,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IlS-bd-SFy">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NYR-Vj-eDp">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="Axr-Jd-jjE" id="RgE-LI-HSk"/>
-                                        <outlet property="delegate" destination="Axr-Jd-jjE" id="5vO-cM-IHj"/>
-                                    </connections>
-                                </tableView>
                                 <connections>
                                     <outlet property="dataSource" destination="Axr-Jd-jjE" id="Je0-dQ-Ceo"/>
                                     <outlet property="delegate" destination="Axr-Jd-jjE" id="jKK-H8-RaX"/>
@@ -64,14 +55,6 @@
                     <view key="view" contentMode="scaleToFill" id="OWi-f4-ZQt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSR-2N-gdi">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <viewLayoutGuide key="safeArea" id="kiu-4N-6qh"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pbs-KV-ebg"/>
                     </view>
@@ -99,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="4890" y="413"/>
         </scene>
-        <!--Conference-->
+        <!--Conference Item-->
         <scene sceneID="sQ7-L3-KWX">
             <objects>
-                <viewController id="GKq-iW-Qup" sceneMemberID="viewController">
+                <viewController id="GKq-iW-Qup" userLabel="Conference Item" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DJa-M5-MQg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="6448" y="339"/>
         </scene>
-        <!--League-->
+        <!--League Item-->
         <scene sceneID="63H-Tk-sje">
             <objects>
-                <viewController id="P70-u4-pLn" sceneMemberID="viewController">
+                <viewController id="P70-u4-pLn" userLabel="League Item" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JZw-wp-dLg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
