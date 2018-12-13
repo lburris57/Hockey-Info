@@ -54,6 +54,7 @@
 		76590DF721C07F740080E0CD /* DisplayTeamStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DF621C07F740080E0CD /* DisplayTeamStatsViewController.swift */; };
 		766759D921C1C7FE00AFD881 /* DivisionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766759D821C1C7FE00AFD881 /* DivisionEnum.swift */; };
 		766759DB21C1ED7100AFD881 /* PositionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766759DA21C1ED7100AFD881 /* PositionEnum.swift */; };
+		766759DD21C1F9CA00AFD881 /* DisplayPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766759DC21C1F9CA00AFD881 /* DisplayPlayerViewController.swift */; };
 		7671F19221C0A44300A65E27 /* DisplayTeamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */; };
 		7671F19421C0C0BA00A65E27 /* ConversionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */; };
 		7671F19621C0C76000A65E27 /* DisplayRosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */; };
@@ -127,6 +128,7 @@
 		76590DF621C07F740080E0CD /* DisplayTeamStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamStatsViewController.swift; sourceTree = "<group>"; };
 		766759D821C1C7FE00AFD881 /* DivisionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionEnum.swift; sourceTree = "<group>"; };
 		766759DA21C1ED7100AFD881 /* PositionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionEnum.swift; sourceTree = "<group>"; };
+		766759DC21C1F9CA00AFD881 /* DisplayPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPlayerViewController.swift; sourceTree = "<group>"; };
 		7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamsViewController.swift; sourceTree = "<group>"; };
 		7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionUtils.swift; sourceTree = "<group>"; };
 		7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayRosterViewController.swift; sourceTree = "<group>"; };
@@ -219,8 +221,6 @@
 			children = (
 				76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */,
 				7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */,
-				766759D821C1C7FE00AFD881 /* DivisionEnum.swift */,
-				766759DA21C1ED7100AFD881 /* PositionEnum.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -260,6 +260,16 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		766759DE21C217C600AFD881 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				766759DA21C1ED7100AFD881 /* PositionEnum.swift */,
+				76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */,
+				766759D821C1C7FE00AFD881 /* DivisionEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		76D60B4D219D060F0058EEB0 = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +291,7 @@
 		76D60B58219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXGroup;
 			children = (
+				766759DE21C217C600AFD881 /* Enums */,
 				76590DE421BDC09B0080E0CD /* Schedules */,
 				76590DDF21BDBDCF0080E0CD /* DateCellCreatedWithXIB */,
 				76590DDA21BB04960080E0CD /* Extensions */,
@@ -318,6 +329,7 @@
 				76590DF621C07F740080E0CD /* DisplayTeamStatsViewController.swift */,
 				7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */,
 				7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */,
+				766759DC21C1F9CA00AFD881 /* DisplayPlayerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -337,7 +349,6 @@
 				76F0AD1021A230C900249F28 /* Period.swift */,
 				76F0AD1221A2311D00249F28 /* TeamInfo.swift */,
 				76B478B921AF693F00337D98 /* PeriodEnum.swift */,
-				76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -549,6 +560,7 @@
 				766759D921C1C7FE00AFD881 /* DivisionEnum.swift in Sources */,
 				76590DF721C07F740080E0CD /* DisplayTeamStatsViewController.swift in Sources */,
 				76045B7621B36BE100980C63 /* PlayoffRankData.swift in Sources */,
+				766759DD21C1F9CA00AFD881 /* DisplayPlayerViewController.swift in Sources */,
 				76045B7421B36BB900980C63 /* DivisionRankData.swift in Sources */,
 				76590DF121C0540D0080E0CD /* MenuCategory.swift in Sources */,
 				76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */,

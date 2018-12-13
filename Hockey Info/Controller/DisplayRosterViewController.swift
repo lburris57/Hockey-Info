@@ -117,9 +117,9 @@ class DisplayRosterViewController: UITableViewController
                 playerArray = goalieArray
         }
         
-        //let playerId = playerResults?[indexPath.row].id
+        let playerId = playerArray[indexPath.row].id
         
-        //databaseManager.displayRoster(self, teamId!)
+        databaseManager.displayPlayer(self, playerId)
     }
     
     // MARK: - Navigation
@@ -128,9 +128,9 @@ class DisplayRosterViewController: UITableViewController
     {
         if(segue.identifier == "displayPlayer")
         {
-            //let displayRosterViewController = segue.destination as! DisplayRosterViewController
+            let displayPlayerViewController = segue.destination as! DisplayPlayerViewController
             
-            //displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
+            displayPlayerViewController.playerResult = sender as? NHLPlayer
         }
     }
     

@@ -17,8 +17,8 @@ class DatabaseManager
     //  Create a new Realm database
     let realm = try! Realm()
     
-    //  Create the displayPlayerInfo method
-    func displayPlayerInfo(_ viewController: MainMenuViewController, _ id: String) -> NHLPlayer?
+    //  Create the displayPlayer method
+    func displayPlayer(_ viewController: DisplayRosterViewController, _ id: String)
     {
         var playerResult: NHLPlayer?
         
@@ -34,7 +34,7 @@ class DatabaseManager
             print("Error retrieving player!")
         }
         
-        return playerResult
+        viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
 
     }
     
@@ -89,8 +89,6 @@ class DatabaseManager
             try realm.write
             {
                 rosterResult = realm.objects(NHLPlayer.self).filter("teamId =='\(teamId)'")
-                
-                print("Size of rosterResult list is \(rosterResult?.count ?? 0)")
             }
         }
         catch
