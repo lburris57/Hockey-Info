@@ -82,11 +82,43 @@
                     </tableView>
                     <connections>
                         <outlet property="teamView" destination="nPH-Vy-j2N" id="ZgJ-mD-rqF"/>
+                        <segue destination="nGs-DU-Y0b" kind="show" identifier="displayRoster" id="wTj-u7-Miq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8YN-bE-FVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4026" y="811"/>
+        </scene>
+        <!--Players-->
+        <scene sceneID="vFd-SR-eG1">
+            <objects>
+                <tableViewController title="Players" id="nGs-DU-Y0b" customClass="DisplayRosterViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="l97-ra-spx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rosterCell" id="aml-5h-fzC">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aml-5h-fzC" id="xvG-kC-Ed5">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nGs-DU-Y0b" id="VGH-eM-kXO"/>
+                            <outlet property="delegate" destination="nGs-DU-Y0b" id="ZC8-xU-81j"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="rosterView" destination="l97-ra-spx" id="yLE-S4-LbQ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A9G-Ax-TZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4739" y="1185"/>
         </scene>
         <!--Scores-->
         <scene sceneID="tne-QT-ifu">

@@ -14,6 +14,8 @@ class NHLTeam : Object
     @objc dynamic var abbreviation : String = ""
     @objc dynamic var city : String = ""
     @objc dynamic var name : String = ""
+    @objc dynamic var division : String = ""
+    @objc dynamic var conference : String = ""
     @objc dynamic var dateCreated: String = ""
     
     let players = List<NHLPlayer>()

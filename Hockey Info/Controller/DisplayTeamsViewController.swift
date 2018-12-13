@@ -16,35 +16,72 @@ class DisplayTeamsViewController: UITableViewController
     
     let databaseManager = DatabaseManager()
     
+    var teamArray = [NHLTeam]()
+    
+    var viewTitle = "Players"
+    
+    let sections = ["Atlantic", "Metropolitan", "Central", "Pacific"]
+    
+    var atlanticTeamArray = [NHLTeam]()
+    var metropolitanTeamArray = [NHLTeam]()
+    var centralTeamArray = [NHLTeam]()
+    var pacificTeamArray = [NHLTeam]()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        loadTeamArrays()
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 1
+        return self.sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.purple
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return teamResults?.count ?? 0
+        switch (section)
+        {
+            case 0:
+                return atlanticTeamArray.count
+            case 1:
+                return metropolitanTeamArray.count
+            case 2:
+                return centralTeamArray.count
+            default:
+                return pacificTeamArray.count
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return self.sections[section]
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let teamName = TeamManager.getFullTeamName(teamResults?[indexPath.row].abbreviation ?? "")
+        switch(indexPath.section)
+        {
+            case 0:
+                teamArray = atlanticTeamArray
+            case 1:
+                teamArray = metropolitanTeamArray
+            case 2:
+                teamArray = centralTeamArray
+            default:
+                teamArray = pacificTeamArray
+        }
+        
+        let teamName = TeamManager.getFullTeamName(teamArray[indexPath.row].abbreviation)
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "teamCell")
         
@@ -53,7 +90,7 @@ class DisplayTeamsViewController: UITableViewController
             cell = UITableViewCell(style: .default, reuseIdentifier: "teamCell")
         }
         
-        cell?.imageView?.image = UIImage(named: teamResults?[indexPath.row].abbreviation ?? "")
+        cell?.imageView?.image = UIImage(named: teamArray[indexPath.row].abbreviation)
         cell?.textLabel?.text = teamName
         
         cell?.accessoryType = .disclosureIndicator
@@ -63,12 +100,30 @@ class DisplayTeamsViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        let index = indexPath[0]
+        
+        switch(index)
+        {
+            case 0:
+                teamArray = atlanticTeamArray
+            case 1:
+                teamArray = metropolitanTeamArray
+            case 2:
+                teamArray = centralTeamArray
+            default:
+                teamArray = pacificTeamArray
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let teamId = teamResults?[indexPath.row].id
+        let teamId = teamArray[indexPath.row].id
         
-        //databaseManager.displayRoster(self, teamId!)
+        viewTitle = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
+        
+        databaseManager.displayRoster(self, teamId)
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -76,7 +131,35 @@ class DisplayTeamsViewController: UITableViewController
         {
             let displayRosterViewController = segue.destination as! DisplayRosterViewController
             
-            //displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
+            displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
+
+            displayRosterViewController.title = viewTitle
+        }
+    }
+    
+    func loadTeamArrays()
+    {
+        if(teamResults != nil)
+        {
+            for team in teamResults!
+            {
+                if(team.division == DivisionEnum.Atlantic.rawValue)
+                {
+                    atlanticTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Metropolitan.rawValue)
+                {
+                    metropolitanTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Central.rawValue)
+                {
+                    centralTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Pacific.rawValue)
+                {
+                    pacificTeamArray.append(team)
+                }
+            }
         }
     }
 }

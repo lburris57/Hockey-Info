@@ -52,6 +52,8 @@
 		76590DF121C0540D0080E0CD /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DF021C0540D0080E0CD /* MenuCategory.swift */; };
 		76590DF321C07DF50080E0CD /* DisplayStandingsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DF221C07DF50080E0CD /* DisplayStandingsTabViewController.swift */; };
 		76590DF721C07F740080E0CD /* DisplayTeamStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DF621C07F740080E0CD /* DisplayTeamStatsViewController.swift */; };
+		766759D921C1C7FE00AFD881 /* DivisionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766759D821C1C7FE00AFD881 /* DivisionEnum.swift */; };
+		766759DB21C1ED7100AFD881 /* PositionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766759DA21C1ED7100AFD881 /* PositionEnum.swift */; };
 		7671F19221C0A44300A65E27 /* DisplayTeamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */; };
 		7671F19421C0C0BA00A65E27 /* ConversionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */; };
 		7671F19621C0C76000A65E27 /* DisplayRosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */; };
@@ -123,6 +125,8 @@
 		76590DF021C0540D0080E0CD /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		76590DF221C07DF50080E0CD /* DisplayStandingsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStandingsTabViewController.swift; sourceTree = "<group>"; };
 		76590DF621C07F740080E0CD /* DisplayTeamStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamStatsViewController.swift; sourceTree = "<group>"; };
+		766759D821C1C7FE00AFD881 /* DivisionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionEnum.swift; sourceTree = "<group>"; };
+		766759DA21C1ED7100AFD881 /* PositionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionEnum.swift; sourceTree = "<group>"; };
 		7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamsViewController.swift; sourceTree = "<group>"; };
 		7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionUtils.swift; sourceTree = "<group>"; };
 		7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayRosterViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 			children = (
 				76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */,
 				7671F19321C0C0BA00A65E27 /* ConversionUtils.swift */,
+				766759D821C1C7FE00AFD881 /* DivisionEnum.swift */,
+				766759DA21C1ED7100AFD881 /* PositionEnum.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -540,6 +546,7 @@
 				76045B6621B3626600980C63 /* StandingsReferenceData.swift in Sources */,
 				76045B4E21B3331400980C63 /* PeriodInfo.swift in Sources */,
 				76590DF321C07DF50080E0CD /* DisplayStandingsTabViewController.swift in Sources */,
+				766759D921C1C7FE00AFD881 /* DivisionEnum.swift in Sources */,
 				76590DF721C07F740080E0CD /* DisplayTeamStatsViewController.swift in Sources */,
 				76045B7621B36BE100980C63 /* PlayoffRankData.swift in Sources */,
 				76045B7421B36BB900980C63 /* DivisionRankData.swift in Sources */,
@@ -562,6 +569,7 @@
 				76590DDE21BB0DDC0080E0CD /* DatabaseManager.swift in Sources */,
 				76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */,
 				76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */,
+				766759DB21C1ED7100AFD881 /* PositionEnum.swift in Sources */,
 				76045B6121B34C9C00980C63 /* HandednessData.swift in Sources */,
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,

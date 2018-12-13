@@ -88,7 +88,9 @@ class DatabaseManager
         {
             try realm.write
             {
-                rosterResult = realm.objects(NHLPlayer.self)
+                rosterResult = realm.objects(NHLPlayer.self).filter("teamId =='\(teamId)'")
+                
+                print("Size of rosterResult list is \(rosterResult?.count ?? 0)")
             }
         }
         catch

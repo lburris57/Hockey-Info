@@ -274,6 +274,8 @@ class NetworkManager
                                     nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     nhlTeam.city = teamStandingsData.teamInformation.city
                                     nhlTeam.name = teamStandingsData.teamInformation.name
+                                    nhlTeam.division = teamStandingsData.divisionRankInfo.divisionName
+                                    nhlTeam.conference = teamStandingsData.conferenceRankInfo.conferenceName
                                     
                                     teamStandingsList.append(teamStandings)
                                     teamList.append(nhlTeam)
