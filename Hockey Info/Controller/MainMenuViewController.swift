@@ -87,6 +87,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.displayTeams(self)
         }
+        else if(category == "Standings")
+        {
+            databaseManager.displayStandings(self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -102,6 +106,12 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
+        }
+        else if(segue.identifier == "displayStandings")
+        {
+            let displayStandingsTabViewController = segue.destination as! DisplayStandingsTabViewController
+            
+            displayStandingsTabViewController.teamStandingsResults = sender as? Results<TeamStandings>
         }
         
     }

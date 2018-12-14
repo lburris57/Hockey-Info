@@ -6,13 +6,14 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class DisplayStandingsTabViewController: UITabBarController
 {
+    var teamStandingsResults: Results<TeamStandings>?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 }

@@ -310,50 +310,59 @@
         <!--Conference Item-->
         <scene sceneID="sQ7-L3-KWX">
             <objects>
-                <viewController id="GKq-iW-Qup" userLabel="Conference Item" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DJa-M5-MQg">
+                <viewController title="Conference Standings" id="GKq-iW-Qup" userLabel="Conference Item" customClass="ConferenceStandingsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DJa-M5-MQg" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="kaW-R5-bnC"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Conference" id="rcz-EH-ps6"/>
+                    <tabBarItem key="tabBarItem" title="Conference" image="text-align-center-7" id="rcz-EH-ps6"/>
+                    <connections>
+                        <outlet property="conferenceView" destination="DJa-M5-MQg" id="e6y-Cv-rUx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chU-Cu-2P3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6448" y="339"/>
+            <point key="canvasLocation" x="6447.826086956522" y="338.31521739130437"/>
         </scene>
         <!--League Item-->
         <scene sceneID="63H-Tk-sje">
             <objects>
-                <viewController id="P70-u4-pLn" userLabel="League Item" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JZw-wp-dLg">
+                <viewController title="League Standings" id="P70-u4-pLn" userLabel="League Item" customClass="LeagueStandingsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JZw-wp-dLg" userLabel="League View" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qQ9-S7-uKV"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="League" id="YeK-o8-lVu"/>
+                    <tabBarItem key="tabBarItem" title="League" image="text-align-left-7" id="YeK-o8-lVu"/>
+                    <connections>
+                        <outlet property="leagueView" destination="JZw-wp-dLg" id="iVy-8O-bj9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TIV-aN-jro" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5897" y="1004"/>
+            <point key="canvasLocation" x="5895.652173913044" y="1003.5326086956522"/>
         </scene>
-        <!--Division-->
+        <!--Division Standings-->
         <scene sceneID="fVp-4H-wvj">
             <objects>
-                <viewController id="h8m-I1-Kfd" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="k8J-Pc-2Ms">
+                <viewController title="Division Standings" id="h8m-I1-Kfd" customClass="DivisionStandingsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFit" id="k8J-Pc-2Ms" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="iEh-H9-Owi"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Division" id="7i6-As-76j"/>
+                    <tabBarItem key="tabBarItem" title="Division" image="text-align-right-7" id="7i6-As-76j"/>
+                    <connections>
+                        <outlet property="divisionView" destination="k8J-Pc-2Ms" id="BTd-Mm-UCg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ijo-Hj-cXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6448" y="-320"/>
+            <point key="canvasLocation" x="6447.826086956522" y="-320.38043478260875"/>
         </scene>
         <!--Display Standings Tab View Controller-->
         <scene sceneID="o3X-BQ-ck2">
@@ -570,5 +579,8 @@
     <resources>
         <image name="WSH" width="150" height="100"/>
         <image name="photo-not-available" width="100" height="100"/>
+        <image name="text-align-center-7" width="30" height="30"/>
+        <image name="text-align-left-7" width="30" height="30"/>
+        <image name="text-align-right-7" width="30" height="30"/>
     </resources>
 </document>

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7600572121A8F23500D293EE /* URLListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600572021A8F23500D293EE /* URLListing.swift */; };
 		76045B4321B0AFDE00980C63 /* NHLSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4221B0AFDE00980C63 /* NHLSchedule.swift */; };
 		76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */; };
 		76045B4821B3255300980C63 /* SeasonSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4721B3255300980C63 /* SeasonSchedule.swift */; };
@@ -38,6 +37,9 @@
 		76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7B21B3701800980C63 /* PowerplayData.swift */; };
 		76045B7E21B3704A00980C63 /* MiscellaneousData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7D21B3704A00980C63 /* MiscellaneousData.swift */; };
 		76045B8021B4A23700980C63 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B7F21B4A23700980C63 /* MainMenuViewController.swift */; };
+		7640585921C2F76A00695D68 /* DivisionStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */; };
+		7640585B21C2F8A300695D68 /* ConferenceStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */; };
+		7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */; };
 		76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD321BAFE7B0080E0CD /* TeamStandings.swift */; };
 		76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */; };
 		76590DDC21BB04AE0080E0CD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590DDB21BB04AE0080E0CD /* Extensions.swift */; };
@@ -81,7 +83,6 @@
 
 /* Begin PBXFileReference section */
 		38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hockey_Info.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7600572021A8F23500D293EE /* URLListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLListing.swift; sourceTree = "<group>"; };
 		76045B4221B0AFDE00980C63 /* NHLSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHLSchedule.swift; sourceTree = "<group>"; };
 		76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayedStatusEnum.swift; sourceTree = "<group>"; };
 		76045B4721B3255300980C63 /* SeasonSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSchedule.swift; sourceTree = "<group>"; };
@@ -112,6 +113,9 @@
 		76045B7B21B3701800980C63 /* PowerplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerplayData.swift; sourceTree = "<group>"; };
 		76045B7D21B3704A00980C63 /* MiscellaneousData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousData.swift; sourceTree = "<group>"; };
 		76045B7F21B4A23700980C63 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionStandingsViewController.swift; sourceTree = "<group>"; };
+		7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceStandingsViewController.swift; sourceTree = "<group>"; };
+		7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStandingsViewController.swift; sourceTree = "<group>"; };
 		76590DD321BAFE7B0080E0CD /* TeamStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandings.swift; sourceTree = "<group>"; };
 		76590DD621BB02870080E0CD /* TimeAndDateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDateUtils.swift; sourceTree = "<group>"; };
 		76590DDB21BB04AE0080E0CD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -296,8 +300,7 @@
 				76590DDF21BDBDCF0080E0CD /* DateCellCreatedWithXIB */,
 				76590DDA21BB04960080E0CD /* Extensions */,
 				76590DD521BB024F0080E0CD /* Utils */,
-				76F118C721A4DBFF009E5F67 /* Data Manager */,
-				76F118C421A4D4E3009E5F67 /* Network */,
+				76F118C721A4DBFF009E5F67 /* Managers */,
 				76F0AD1421A2336900249F28 /* Data Model */,
 				76D60B59219D060F0058EEB0 /* AppDelegate.swift */,
 				76F0AD07219FCD0000249F28 /* Model */,
@@ -330,6 +333,9 @@
 				7671F19121C0A44300A65E27 /* DisplayTeamsViewController.swift */,
 				7671F19521C0C76000A65E27 /* DisplayRosterViewController.swift */,
 				766759DC21C1F9CA00AFD881 /* DisplayPlayerViewController.swift */,
+				7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */,
+				7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */,
+				7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -360,27 +366,19 @@
 				76F118C221A4C719009E5F67 /* NHLPlayer.swift */,
 				76045B4221B0AFDE00980C63 /* NHLSchedule.swift */,
 				76590DD321BAFE7B0080E0CD /* TeamStandings.swift */,
-				76590DDD21BB0DDC0080E0CD /* DatabaseManager.swift */,
 				76590DED21C050EA0080E0CD /* MainMenuCategory.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
 		};
-		76F118C421A4D4E3009E5F67 /* Network */ = {
+		76F118C721A4DBFF009E5F67 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				76590DDD21BB0DDC0080E0CD /* DatabaseManager.swift */,
 				76F118C521A4D537009E5F67 /* NetworkManager.swift */,
-				7600572021A8F23500D293EE /* URLListing.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		76F118C721A4DBFF009E5F67 /* Data Manager */ = {
-			isa = PBXGroup;
-			children = (
 				76F0AD1521A249D200249F28 /* TeamManager.swift */,
 			);
-			path = "Data Manager";
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		94206E9051B91E02CF05169A /* Frameworks */ = {
@@ -550,6 +548,7 @@
 				76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */,
 				76045B4321B0AFDE00980C63 /* NHLSchedule.swift in Sources */,
 				76045B6A21B3673500980C63 /* TeamStandingsData.swift in Sources */,
+				7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */,
 				76045B5421B3369100980C63 /* VenueData.swift in Sources */,
 				76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */,
 				76F118C321A4C719009E5F67 /* NHLPlayer.swift in Sources */,
@@ -571,19 +570,20 @@
 				76045B4821B3255300980C63 /* SeasonSchedule.swift in Sources */,
 				76045B6C21B36AF300980C63 /* TeamInformation.swift in Sources */,
 				76045B4C21B3321B00980C63 /* ScoreInfo.swift in Sources */,
+				7640585B21C2F8A300695D68 /* ConferenceStandingsViewController.swift in Sources */,
 				76F0AD0F21A2309F00249F28 /* PeriodSummary.swift in Sources */,
 				769F46E7219E543000E89895 /* ScoreCell.swift in Sources */,
 				76045B5021B333F300980C63 /* ScheduleInfo.swift in Sources */,
 				76590DD421BAFE7B0080E0CD /* TeamStandings.swift in Sources */,
 				76590DEE21C050EB0080E0CD /* MainMenuCategory.swift in Sources */,
 				7671F19421C0C0BA00A65E27 /* ConversionUtils.swift in Sources */,
-				7600572121A8F23500D293EE /* URLListing.swift in Sources */,
 				76590DDE21BB0DDC0080E0CD /* DatabaseManager.swift in Sources */,
 				76045B5721B343EB00980C63 /* RosterPlayers.swift in Sources */,
 				76F0AD1621A249D200249F28 /* TeamManager.swift in Sources */,
 				766759DB21C1ED7100AFD881 /* PositionEnum.swift in Sources */,
 				76045B6121B34C9C00980C63 /* HandednessData.swift in Sources */,
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
+				7640585921C2F76A00695D68 /* DivisionStandingsViewController.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
 				76045B6821B3642E00980C63 /* StandingsCategory.swift in Sources */,
 				7671F19621C0C76000A65E27 /* DisplayRosterViewController.swift in Sources */,

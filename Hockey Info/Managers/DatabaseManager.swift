@@ -35,7 +35,26 @@ class DatabaseManager
         }
         
         viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
-
+    }
+    
+    //  Create the displayStandings method
+    func displayStandings(_ viewController: MainMenuViewController)
+    {
+        var standingsResult: Results<TeamStandings>?
+        
+        do
+        {
+            try realm.write
+            {
+                standingsResult = realm.objects(TeamStandings.self)
+            }
+        }
+        catch
+        {
+            print("Error retrieving team standings!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayStandings", sender: standingsResult)
     }
     
     //  Create the displaySchedule method
@@ -56,7 +75,6 @@ class DatabaseManager
         }
         
         viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
-
     }
     
     //  Create the displayTeams method
