@@ -6,94 +6,159 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class DivisionStandingsViewController: UITableViewController
 {
     @IBOutlet var divisionView: UITableView!
+    
+    var teamStandings: Results<TeamStandings>?
+    
+    let databaseManager = DatabaseManager()
+    
+    var teamArray = [TeamStandings]()
+    
+    var viewTitle = "Players"
+    
+    let sections = ["Atlantic", "Metro", "Central", "Pacific"]
+    
+    var atlanticTeamArray = [TeamStandings]()
+    var metropolitanTeamArray = [TeamStandings]()
+    var centralTeamArray = [TeamStandings]()
+    var pacificTeamArray = [TeamStandings]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
-        let teamStandingsResults = displayStandingsTabViewController.teamStandingsResults
+        teamStandings = displayStandingsTabViewController.teamStandingsResults
 
-        print("Size of teamStandingsResults in DivisionStandingsViewController is \(teamStandingsResults?.count ?? 9999)")
+        print("Size of teamStandingsResults in DivisionStandingsViewController is \(teamStandings?.count ?? 9999)")
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        loadTeamArrays()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.purple
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.white
+        let footer = view as! UITableViewHeaderFooterView
+        footer.textLabel?.textColor = UIColor.white
+        footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
+    {
+        return self.sections[section]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch (section)
+        {
+            case 0:
+                return atlanticTeamArray.count
+            case 1:
+                return metropolitanTeamArray.count
+            case 2:
+                return centralTeamArray.count
+            default:
+                return pacificTeamArray.count
+        }
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return self.sections[section] + "\t\tGP\t  W\t   L\t  OTL\t PTS"
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        switch(indexPath.section)
+        {
+            case 0:
+                teamArray = atlanticTeamArray
+            case 1:
+                teamArray = metropolitanTeamArray
+            case 2:
+                teamArray = centralTeamArray
+            default:
+                teamArray = pacificTeamArray
+        }
+        
+        let gamesPlayed = String(teamArray[indexPath.row].gamesPlayed)
+        let wins = String(teamArray[indexPath.row].wins)
+        var losses = String(teamArray[indexPath.row].losses)
+        let overtimeLosses = String(teamArray[indexPath.row].overtimeLosses)
+        let points = String(teamArray[indexPath.row].points)
+        
+        if(losses.count == 1)
+        {
+            losses = " " + losses
+        }
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "teamStandingCell")
+        
+        if cell == nil
+        {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "teamStandingCell")
+        }
+        
+        cell?.imageView?.image = UIImage(named: teamArray[indexPath.row].abbreviation)
+        cell?.textLabel?.text = gamesPlayed + "\t  " + wins + "\t   " + losses + "\t" + overtimeLosses + "\t " + points
+        
+        return cell!
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func loadTeamArrays()
+    {
+        if(teamStandings != nil)
+        {
+            for team in teamStandings!
+            {
+                if(team.division == DivisionEnum.Atlantic.rawValue)
+                {
+                    atlanticTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Metropolitan.rawValue)
+                {
+                    metropolitanTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Central.rawValue)
+                {
+                    centralTeamArray.append(team)
+                }
+                else if(team.division == DivisionEnum.Pacific.rawValue)
+                {
+                    pacificTeamArray.append(team)
+                }
+            }
+            
+            //  Sort the arrays
+            atlanticTeamArray.sort {$0.divisionRank < $1.divisionRank}
+            metropolitanTeamArray.sort {$0.divisionRank < $1.divisionRank}
+            centralTeamArray.sort {$0.divisionRank < $1.divisionRank}
+            pacificTeamArray.sort {$0.divisionRank < $1.divisionRank}
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

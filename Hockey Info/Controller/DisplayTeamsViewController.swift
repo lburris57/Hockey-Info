@@ -47,6 +47,24 @@ class DisplayTeamsViewController: UITableViewController
         header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return self.sections[section]
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.white
+        let footer = view as! UITableViewHeaderFooterView
+        footer.textLabel?.textColor = UIColor.white
+        footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
+    {
+        return self.sections[section]
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         switch (section)
@@ -60,11 +78,6 @@ class DisplayTeamsViewController: UITableViewController
             default:
                 return pacificTeamArray.count
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
-    {
-        return self.sections[section]
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
