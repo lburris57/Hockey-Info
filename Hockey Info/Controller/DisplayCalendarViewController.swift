@@ -22,32 +22,6 @@ class DisplayCalendarViewController: UIViewController
     var scheduledGames: Results<NHLSchedule>? = nil
     
     var schedules: [Schedule] = []
-    {
-        didSet
-        {
-            //calendarView.reloadData()
-            //tableView.reloadData()
-        }
-    }
-    
-    // MARK: DataSource
-//    var scheduleGroup : [String: [Schedule]]?
-//    {
-//        didSet
-//        {
-//            //calendarView.reloadData()
-//            //tableView.reloadData()
-//        }
-//    }
-    
-    var message: String = ""
-    {
-        didSet
-        {
-            print("Value of message is \(message)")
-        }
-    }
-
     
     // MARK: Config
     let formatter = DateFormatter()

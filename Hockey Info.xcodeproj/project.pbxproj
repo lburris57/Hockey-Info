@@ -219,9 +219,7 @@
 				76045B6F21B36B6200980C63 /* OverallRankData.swift */,
 				76045B7121B36B9100980C63 /* ConferenceRankData.swift */,
 				76045B7321B36BB900980C63 /* DivisionRankData.swift */,
-				76045B7521B36BE100980C63 /* PlayoffRankData.swift */,
 				76045B7721B36FC300980C63 /* StandingsData.swift */,
-				76045B7921B36FF200980C63 /* FaceoffData.swift */,
 				76045B7B21B3701800980C63 /* PowerplayData.swift */,
 				76045B7D21B3704A00980C63 /* MiscellaneousData.swift */,
 			);
@@ -279,6 +277,8 @@
 			isa = PBXGroup;
 			children = (
 				76590DF021C0540D0080E0CD /* MenuCategory.swift */,
+				76045B7921B36FF200980C63 /* FaceoffData.swift */,
+				76045B7521B36BE100980C63 /* PlayoffRankData.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";

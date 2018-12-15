@@ -20,7 +20,7 @@ class DivisionStandingsViewController: UITableViewController
     
     var viewTitle = "Players"
     
-    let sections = ["Atlantic", "Metro", "Central", "Pacific"]
+    let sections = ["Atlantic", "Metropolitan", "Central", "Pacific"]
     
     var atlanticTeamArray = [TeamStandings]()
     var metropolitanTeamArray = [TeamStandings]()
@@ -31,10 +31,19 @@ class DivisionStandingsViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        let headerNib = UINib(nibName: "StandingsHeaderViewCell", bundle: nil)
+        divisionView.register(headerNib, forCellReuseIdentifier: "standingsHeaderViewCell")
+        
+        let nib = UINib(nibName: "StandingsViewCell", bundle: nil)
+        divisionView.register(nib, forCellReuseIdentifier: "standingsViewCell")
+        
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
         teamStandings = displayStandingsTabViewController.teamStandingsResults
 
         print("Size of teamStandingsResults in DivisionStandingsViewController is \(teamStandings?.count ?? 9999)")
+        
+        divisionView.dataSource = self
+        divisionView.delegate = self
         
         loadTeamArrays()
     }
@@ -49,9 +58,25 @@ class DivisionStandingsViewController: UITableViewController
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
         view.tintColor = UIColor.purple
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.white
-        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        //let header = view as! UITableViewHeaderFooterView
+        //view.textLabel?.textColor = UIColor.white
+        //view.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+//    {
+//        return self.sections[section]
+//    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView()
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: "standingsHeaderViewCell") as! StandingsHeaderViewCell
+        
+        headerCell.headerName.text = self.sections[section]
+        
+        headerView.addSubview(headerCell)
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
@@ -81,11 +106,6 @@ class DivisionStandingsViewController: UITableViewController
                 return pacificTeamArray.count
         }
     }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
-    {
-        return self.sections[section] + "\t\tGP\t  W\t   L\t  OTL\t PTS"
-    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -101,28 +121,19 @@ class DivisionStandingsViewController: UITableViewController
                 teamArray = pacificTeamArray
         }
         
-        let gamesPlayed = String(teamArray[indexPath.row].gamesPlayed)
-        let wins = String(teamArray[indexPath.row].wins)
-        var losses = String(teamArray[indexPath.row].losses)
-        let overtimeLosses = String(teamArray[indexPath.row].overtimeLosses)
-        let points = String(teamArray[indexPath.row].points)
+        divisionView.rowHeight = CGFloat(44.0)
         
-        if(losses.count == 1)
-        {
-            losses = " " + losses
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "standingsViewCell") as! StandingsViewCell
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "teamStandingCell")
+        cell.teamLogo.image = UIImage(named: teamArray[indexPath.row].abbreviation)
+        cell.teamName.text = TeamManager.getTeamName(teamArray[indexPath.row].abbreviation)
+        cell.gamesPlayed.text = String(teamArray[indexPath.row].gamesPlayed)
+        cell.wins.text = String(teamArray[indexPath.row].wins)
+        cell.losses.text = String(teamArray[indexPath.row].losses)
+        cell.overtimeLosses.text = String(teamArray[indexPath.row].overtimeLosses)
+        cell.points.text = String(teamArray[indexPath.row].points)
         
-        if cell == nil
-        {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "teamStandingCell")
-        }
-        
-        cell?.imageView?.image = UIImage(named: teamArray[indexPath.row].abbreviation)
-        cell?.textLabel?.text = gamesPlayed + "\t  " + wins + "\t   " + losses + "\t" + overtimeLosses + "\t " + points
-        
-        return cell!
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
