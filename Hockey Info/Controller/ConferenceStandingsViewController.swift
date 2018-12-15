@@ -6,94 +6,128 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class ConferenceStandingsViewController: UITableViewController
 {
-    @IBOutlet var conferenceView: UITableView!
+    @IBOutlet weak var conferenceView: UITableView!
+    
+    var teamStandings: Results<TeamStandings>?
+    
+    let databaseManager = DatabaseManager()
+    
+    var teamArray = [TeamStandings]()
+    
+    var viewTitle = "Players"
+    
+    let sections = ["Eastern Conference", "Western Conference"]
+    
+    var easternTeamArray = [TeamStandings]()
+    var westernTeamArray = [TeamStandings]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
-        let teamStandingsResults = displayStandingsTabViewController.teamStandingsResults
+        teamStandings = displayStandingsTabViewController.teamStandingsResults
         
-        print("Size of teamStandingsResults in ConferenceStandingsViewController is \(teamStandingsResults?.count ?? 9999)")
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        loadTeamArrays()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.sections.count
     }
-
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.purple
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return self.sections[section]
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
+    {
+        view.tintColor = UIColor.white
+        let footer = view as! UITableViewHeaderFooterView
+        footer.textLabel?.textColor = UIColor.white
+        footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
+    {
+        return self.sections[section]
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch (section)
+        {
+        case 0:
+            return easternTeamArray.count
+        default:
+            return westernTeamArray.count
+        }
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        switch(indexPath.section)
+        {
+        case 0:
+            teamArray = easternTeamArray
+        default:
+            teamArray = westernTeamArray
+        }
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "conferenceViewCell")
+        
+        if cell == nil
+        {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "conferenceViewCell")
+        }
+        
+        cell?.textLabel?.text = TeamManager.getTeamName(teamArray[indexPath.row].abbreviation)
+        cell?.detailTextLabel?.text = String(teamArray[indexPath.row].gamesPlayed) + "\t\t" +
+            String(teamArray[indexPath.row].wins) + "\t\t" + String(teamArray[indexPath.row].losses) + "\t\t" +
+            String(teamArray[indexPath.row].overtimeLosses) + "\t\t" + String(teamArray[indexPath.row].points)
+        
+        return cell!
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func loadTeamArrays()
+    {
+        if(teamStandings != nil)
+        {
+            for team in teamStandings!
+            {
+                if(team.conference == ConferenceEnum.Eastern.rawValue)
+                {
+                    easternTeamArray.append(team)
+                }
+                else if(team.conference == ConferenceEnum.Western.rawValue)
+                {
+                    westernTeamArray.append(team)
+                }
+            }
+            
+            //  Sort the arrays
+            easternTeamArray.sort {$0.conferenceRank < $1.conferenceRank}
+            westernTeamArray.sort {$0.conferenceRank < $1.conferenceRank}
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
