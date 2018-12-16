@@ -111,8 +111,6 @@ extension DisplayCalendarViewController
 {
     func select(onVisibleDates visibleDates: DateSegmentInfo)
     {
-        //print("In DisplayCalendarViewController:select method.....")
-        
         guard let firstDateInMonth = visibleDates.monthDates.first?.date else
         { return }
         
@@ -169,35 +167,8 @@ extension DisplayCalendarViewController
 extension DisplayCalendarViewController
 {
     func getSchedule()
-    {
-//        print("Creating schedule with no arguments...")
-//
-//        print("Size of scheduledGames is \(scheduledGames?.count ?? 0)")
-//
-//        schedules.removeAll()
-//
-//        for scheduledGame in scheduledGames!
-//        {
-//            let awayTeam = TeamManager.getFullTeamName(scheduledGame.awayTeam)
-//            let homeTeam = TeamManager.getFullTeamName(scheduledGame.homeTeam)
-//            let venue = TeamManager.getVenueByTeam(scheduledGame.homeTeam)
-//            let startTime = scheduledGame.time
-//
-//            print("Scheduled start time is \(startTime)")
-//
-//            let schedule = Schedule(title: "\(awayTeam) @ \(homeTeam)",
-//                note: "\(venue)",
-//                startTime: "\(startTime)",
-//                endTime: "\(startTime)",
-//                categoryColor: .black)
-//
-//            schedules.append(schedule)
-//        }
-//
-//        tableView.reloadData()
-    }
+    {}
 }
-
 
 // MARK: CalendarCell's ui config
 extension DisplayCalendarViewController
@@ -221,15 +192,6 @@ extension DisplayCalendarViewController
         handleCellSelection(view: myCustomCell, cellState: cellState)
         
         myCustomCell.eventView.isHidden = true
-        
-        if(!schedules.isEmpty)
-        {
-            //myCustomCell.eventView.isHidden = false
-        }
-        else
-        {
-            //myCustomCell.eventView.isHidden = true
-        }
     }
     
     func handleCellSelection(view: CellView, cellState: CellState)
@@ -317,7 +279,6 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
         
         iii = visibleDates.monthDates.first?.date
         
-        //getSchedule()
         select(onVisibleDates: visibleDates)
         
         view.layoutIfNeeded()
@@ -351,8 +312,6 @@ extension DisplayCalendarViewController : UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        //print("In DisplayCalendarViewController:cellForRowAt method...")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellIdentifier, for: indexPath) as! ScheduleTableViewCell
         cell.selectionStyle = .none
         cell.schedule = schedules[indexPath.row]
@@ -369,11 +328,6 @@ extension DisplayCalendarViewController : UITableViewDataSource
 extension DisplayCalendarViewController : UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-//        let schedule = schedules[indexPath.row]
-//
-//        print(schedule)
-//        print("schedule selected")
-    }
+    {}
 }
 

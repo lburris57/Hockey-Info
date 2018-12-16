@@ -68,4 +68,59 @@ class TimeAndDateUtils
         
         return (date.toFormat("EEEE, MMM dd, yyyy"), date.toFormat("hh:mm a"))
     }
+    
+    static func getCurrentTimeRemainingString(_ currentPeriodSecondsRemaining: Int) -> String
+    {
+        var currentTimeRemainingString = ""
+        
+        if currentPeriodSecondsRemaining > 0
+        {
+            if currentPeriodSecondsRemaining >= 60
+            {
+                let mins = Int(currentPeriodSecondsRemaining / 60)
+                let sixtyMins: Int = mins * 60
+                let secs = currentPeriodSecondsRemaining - sixtyMins
+                
+                if(mins < 10)
+                {
+                    if(secs < 10)
+                    {
+                        currentTimeRemainingString = "0\(mins):0\(secs) Remaining"
+                    }
+                    else
+                    {
+                        currentTimeRemainingString = "0\(mins):\(secs) Remaining"
+                    }
+                }
+                else
+                {
+                    if(secs < 10)
+                    {
+                        currentTimeRemainingString = "\(mins):0\(secs) Remaining"
+                    }
+                    else
+                    {
+                        currentTimeRemainingString = "\(mins):\(secs) Remaining"
+                    }
+                }
+            }
+            else
+            {
+                if(currentPeriodSecondsRemaining < 10)
+                {
+                    currentTimeRemainingString = "00:0\(currentPeriodSecondsRemaining) Remaining"
+                }
+                else
+                {
+                    currentTimeRemainingString = "00:\(currentPeriodSecondsRemaining) Remaining"
+                }
+            }
+        }
+        else
+        {
+            return currentTimeRemainingString
+        }
+        
+        return currentTimeRemainingString
+    }
 }

@@ -122,6 +122,93 @@ class NetworkManager
         }
     }
     
+    //  Create the updateRostersForDate method
+    func updateRostersForDate(_ date: Date)
+    {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        shortDateFormatter.dateFormat = "yyyyMMdd"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        let scheduleDate = shortDateFormatter.string(from: date)
+        
+        let playerList = List<NHLPlayer>()
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?rosterstatus=assigned-to-roster?date=\(scheduleDate)")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let rosterPlayers = try JSONDecoder().decode(RosterPlayers.self, from: data!)
+                        
+                        DispatchQueue.main.async
+                        {
+                            for playerInfo in rosterPlayers.playerInfoList
+                            {
+                                let nhlPlayer = NHLPlayer()
+                                
+                                nhlPlayer.dateCreated = dateString
+                                nhlPlayer.id = String(playerInfo.player.id)
+                                nhlPlayer.firstName = playerInfo.player.firstName
+                                nhlPlayer.lastName = playerInfo.player.lastName
+                                nhlPlayer.age = String(playerInfo.player.age ?? 0)
+                                nhlPlayer.birthDate = playerInfo.player.birthDate ?? ""
+                                nhlPlayer.birthCity = playerInfo.player.birthCity ?? ""
+                                nhlPlayer.birthCountry = playerInfo.player.birthCountry ?? ""
+                                nhlPlayer.height = playerInfo.player.height ?? ""
+                                nhlPlayer.weight = String(playerInfo.player.weight ?? 0)
+                                nhlPlayer.jerseyNumber = String(playerInfo.player.jerseyNumber ?? 0)
+                                nhlPlayer.imageURL = playerInfo.player.officialImageSource?.absoluteString ?? ""
+                                nhlPlayer.position = playerInfo.player.position ?? ""
+                                nhlPlayer.shoots = playerInfo.player.handednessInfo?.shoots ?? ""
+                                nhlPlayer.teamId = String(playerInfo.currentTeamInfo?.id ?? 0)
+                                nhlPlayer.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
+                                
+                                playerList.append(nhlPlayer)
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(playerList, update: true)
+                                    
+                                    print("Roster players have successfully been updated in the database!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error updating roster players to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON in updateRostersForDate method...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in updateRostersForDate method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
+    
     //  Create the saveSchedule method
     func saveSchedule()
     {
@@ -198,7 +285,7 @@ class NetworkManager
                             }
                             catch
                             {
-                                print("Error saving teams to the database: \(error)")
+                                print("Error saving scheduled games to the database: \(error)")
                             }
 
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
@@ -212,6 +299,174 @@ class NetworkManager
                 else
                 {
                     print("Error retrieving data in saveSchedule method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
+    
+    //  Create the updateScheduleForDate method
+    func updateScheduleForDate(_ date :Date)
+    {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        shortDateFormatter.dateFormat = "yyyyMMdd"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        let scheduleDate = shortDateFormatter.string(from: date)
+        
+        let scheduledGames = List<NHLSchedule>()
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json?date=\(scheduleDate)")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
+                        
+                        let lastUpdatedOn = seasonSchedule.lastUpdatedOn
+                        
+                        DispatchQueue.main.async
+                        {
+                            for scheduledGame in seasonSchedule.gameList
+                            {
+                                let nhlSchedule = NHLSchedule()
+                                
+                                let startTime = scheduledGame.scheduleInfo.startTime
+                                
+                                nhlSchedule.id = String(scheduledGame.scheduleInfo.id)
+                                nhlSchedule.dateCreated = dateString
+                                nhlSchedule.lastUpdatedOn = "\(TimeAndDateUtils.getDate(lastUpdatedOn)) at \(TimeAndDateUtils.getTime(lastUpdatedOn))"
+                                nhlSchedule.date = TimeAndDateUtils.getDate(startTime)
+                                nhlSchedule.time = TimeAndDateUtils.getTime(startTime)
+                                nhlSchedule.homeTeam = scheduledGame.scheduleInfo.homeTeamInfo.abbreviation
+                                nhlSchedule.awayTeam = scheduledGame.scheduleInfo.awayTeamInfo.abbreviation
+                                nhlSchedule.homeScoreTotal = scheduledGame.scoreInfo.homeScoreTotal ?? 0
+                                nhlSchedule.awayScoreTotal = scheduledGame.scoreInfo.awayScoreTotal ?? 0
+                                nhlSchedule.homeShotsTotal = scheduledGame.scoreInfo.homeShotsTotal ?? 0
+                                nhlSchedule.awayShotsTotal = scheduledGame.scoreInfo.awayShotsTotal ?? 0
+                                nhlSchedule.playedStatus = scheduledGame.scheduleInfo.playedStatus
+                                nhlSchedule.scheduleStatus = scheduledGame.scheduleInfo.scheduleStatus
+                                nhlSchedule.numberOfPeriods = scheduledGame.scoreInfo.periodList?.count ?? 0
+                                
+                                scheduledGames.append(nhlSchedule)
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(scheduledGames, update: true)
+                                    
+                                    print("Scheduled games for \(scheduleDate) have successfully been updated in the database!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error updating scheduled games to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON data in updateScheduleForDate method...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in updateScheduleForDate method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
+    
+    //  Create the updateStandingsForDate method
+    func updateStandingsForDate(_ date :Date)
+    {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        shortDateFormatter.dateFormat = "yyyyMMdd"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        let scheduleDate = shortDateFormatter.string(from: date)
+        
+        let teamStandingsList = List<TeamStandings>()
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json?date=\(scheduleDate)")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                        
+                        DispatchQueue.main.async
+                        {
+                            for teamStandingsData in nhlStandings.teamList
+                            {
+                                let teamStandings = TeamStandings()
+                                
+                                teamStandings.id = String(teamStandingsData.teamInformation.id)
+                                teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
+                                teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
+                                teamStandings.conference = teamStandingsData.conferenceRankInfo.conferenceName
+                                teamStandings.conferenceRank = teamStandingsData.conferenceRankInfo.rank
+                                teamStandings.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
+                                teamStandings.dateCreated = dateString
+                                
+                                teamStandingsList.append(teamStandings)
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(teamStandingsList, update: true)
+                                    
+                                    print("Team standings have successfully been updated in the database for \(scheduleDate)!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error updating team standings to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error retrieving data...\(err.debugDescription)")
+                    }
                 }
             }.resume()
         }
@@ -283,13 +538,9 @@ class NetworkManager
                                 
                                 do
                                 {
-                                    print("Saving team data...")
-                                    
                                     try self.realm.write
                                     {
                                         self.realm.add(teamList)
-                                        
-                                        print("Teams have successfully been added to the database!!")
                                     }
                                 }
                                 catch
@@ -299,13 +550,9 @@ class NetworkManager
                                 
                                 do
                                 {
-                                    print("Saving team standings data...")
-                                    
                                     try self.realm.write
                                     {
                                         self.realm.add(teamStandingsList)
-                                        
-                                        print("Team standings have successfully been added to the database!!")
                                     }
                                 }
                                 catch
@@ -323,6 +570,46 @@ class NetworkManager
                 }
             }.resume()
         }
+    }
+    
+    //  Create the updateStatsForDate method
+    func updateStatsForDate(_ date :Date)
+    {
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        shortDateFormatter.dateFormat = "yyyyMMdd"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        let scheduleDate = shortDateFormatter.string(from: date)
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json?date=\(scheduleDate)")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        //  Get the JSON data with closure
+        session.dataTask(with: request)
+        {
+            (data, response, err) in
+            
+            if err == nil
+            {
+                do
+                {
+                    //                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                    
+                    //                    for standingsCategory in nhlStandings.references.standingsCategories
+                    //                    {
+                    //
+                    //                    }
+                }
+                catch
+                {
+                    print("Error retrieving data...\(err.debugDescription)")
+                }
+            }
+            }.resume()
     }
     
     //  Create the saveStats method
