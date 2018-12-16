@@ -22,10 +22,19 @@ class ScoreCell: UITableViewCell
     @IBOutlet weak var homeTeamScore: UITextField!
     @IBOutlet weak var period: UITextField!
     
+    var records = [String:String]()
+    
+    let databaseManager = DatabaseManager()
+    
     var scheduledGame :ScheduledGame!
     {
         didSet
         {
+            if records.count == 0
+            {
+                records = databaseManager.loadTeamRecords()
+            }
+            
             if let remainingTime = scheduledGame.scoreInfo.currentPeriodSecondsRemaining
             {
                 timeRemaining.text = TimeAndDateUtils.getCurrentTimeRemainingString(remainingTime)

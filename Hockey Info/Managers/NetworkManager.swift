@@ -71,7 +71,7 @@ class NetworkManager
                                 let nhlPlayer = NHLPlayer()
                                 
                                 nhlPlayer.dateCreated = dateString
-                                nhlPlayer.id = String(playerInfo.player.id)
+                                nhlPlayer.id = playerInfo.player.id
                                 nhlPlayer.firstName = playerInfo.player.firstName
                                 nhlPlayer.lastName = playerInfo.player.lastName
                                 nhlPlayer.age = String(playerInfo.player.age ?? 0)
@@ -84,7 +84,7 @@ class NetworkManager
                                 nhlPlayer.imageURL = playerInfo.player.officialImageSource?.absoluteString ?? ""
                                 nhlPlayer.position = playerInfo.player.position ?? ""
                                 nhlPlayer.shoots = playerInfo.player.handednessInfo?.shoots ?? ""
-                                nhlPlayer.teamId = String(playerInfo.currentTeamInfo?.id ?? 0)
+                                nhlPlayer.teamId = playerInfo.currentTeamInfo?.id ?? 0
                                 nhlPlayer.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
                                 
                                 playerList.append(nhlPlayer)
@@ -160,7 +160,7 @@ class NetworkManager
                                 let nhlPlayer = NHLPlayer()
                                 
                                 nhlPlayer.dateCreated = dateString
-                                nhlPlayer.id = String(playerInfo.player.id)
+                                nhlPlayer.id = playerInfo.player.id
                                 nhlPlayer.firstName = playerInfo.player.firstName
                                 nhlPlayer.lastName = playerInfo.player.lastName
                                 nhlPlayer.age = String(playerInfo.player.age ?? 0)
@@ -173,7 +173,7 @@ class NetworkManager
                                 nhlPlayer.imageURL = playerInfo.player.officialImageSource?.absoluteString ?? ""
                                 nhlPlayer.position = playerInfo.player.position ?? ""
                                 nhlPlayer.shoots = playerInfo.player.handednessInfo?.shoots ?? ""
-                                nhlPlayer.teamId = String(playerInfo.currentTeamInfo?.id ?? 0)
+                                nhlPlayer.teamId = playerInfo.currentTeamInfo?.id ?? 0
                                 nhlPlayer.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
                                 
                                 playerList.append(nhlPlayer)
@@ -254,7 +254,7 @@ class NetworkManager
         
                                 let startTime = scheduledGame.scheduleInfo.startTime
         
-                                nhlSchedule.id = String(scheduledGame.scheduleInfo.id)
+                                nhlSchedule.id = scheduledGame.scheduleInfo.id
                                 nhlSchedule.dateCreated = dateString
                                 nhlSchedule.lastUpdatedOn = "\(TimeAndDateUtils.getDate(lastUpdatedOn)) at \(TimeAndDateUtils.getTime(lastUpdatedOn))"
                                 nhlSchedule.date = TimeAndDateUtils.getDate(startTime)
@@ -345,7 +345,7 @@ class NetworkManager
                                 
                                 let startTime = scheduledGame.scheduleInfo.startTime
                                 
-                                nhlSchedule.id = String(scheduledGame.scheduleInfo.id)
+                                nhlSchedule.id = scheduledGame.scheduleInfo.id
                                 nhlSchedule.dateCreated = dateString
                                 nhlSchedule.lastUpdatedOn = "\(TimeAndDateUtils.getDate(lastUpdatedOn)) at \(TimeAndDateUtils.getTime(lastUpdatedOn))"
                                 nhlSchedule.date = TimeAndDateUtils.getDate(startTime)
@@ -430,7 +430,7 @@ class NetworkManager
                             {
                                 let teamStandings = TeamStandings()
                                 
-                                teamStandings.id = String(teamStandingsData.teamInformation.id)
+                                teamStandings.id = teamStandingsData.teamInformation.id
                                 teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
                                 teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
                                 teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
@@ -511,7 +511,7 @@ class NetworkManager
                                     let teamStandings = TeamStandings()
                                     let nhlTeam = NHLTeam()
                                     
-                                    teamStandings.id = String(teamStandingsData.teamInformation.id)
+                                    teamStandings.id = teamStandingsData.teamInformation.id
                                     teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
                                     teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
@@ -525,7 +525,7 @@ class NetworkManager
                                     teamStandings.dateCreated = dateString
                                     
                                     nhlTeam.dateCreated = dateString
-                                    nhlTeam.id = String(teamStandingsData.teamInformation.id)
+                                    nhlTeam.id = teamStandingsData.teamInformation.id
                                     nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     nhlTeam.city = teamStandingsData.teamInformation.city
                                     nhlTeam.name = teamStandingsData.teamInformation.name

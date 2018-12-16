@@ -10,7 +10,7 @@ import RealmSwift
 
 class TeamStandings: Object
 {
-    @objc dynamic var id : String = ""
+    @objc dynamic var id : Int = 0
     @objc dynamic var abbreviation : String = ""
     @objc dynamic var conference : String = ""
     @objc dynamic var conferenceRank : Int = 0
@@ -22,4 +22,11 @@ class TeamStandings: Object
     @objc dynamic var overtimeLosses : Int = 0
     @objc dynamic var points : Int = 0
     @objc dynamic var dateCreated: String = ""
+    
+    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "standings")
+    
+    override static func primaryKey() -> String?
+    {
+        return "id"
+    }
 }

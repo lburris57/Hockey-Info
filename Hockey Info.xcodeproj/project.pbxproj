@@ -326,9 +326,9 @@
 				76590DDA21BB04960080E0CD /* Extensions */,
 				76590DD521BB024F0080E0CD /* Utils */,
 				76F118C721A4DBFF009E5F67 /* Managers */,
-				76F0AD1421A2336900249F28 /* Data Model */,
+				76F0AD1421A2336900249F28 /* Database Models */,
 				76D60B59219D060F0058EEB0 /* AppDelegate.swift */,
-				76F0AD07219FCD0000249F28 /* Model */,
+				76F0AD07219FCD0000249F28 /* Models */,
 				76F0AD06219FCCBB00249F28 /* Controller */,
 				76F0AD05219FCCAA00249F28 /* View */,
 				76D60B60219D06110058EEB0 /* Assets.xcassets */,
@@ -364,7 +364,7 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		76F0AD07219FCD0000249F28 /* Model */ = {
+		76F0AD07219FCD0000249F28 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				76590DEF21C053AE0080E0CD /* Categories */,
@@ -379,10 +379,10 @@
 				76F0AD1221A2311D00249F28 /* TeamInfo.swift */,
 				76B478B921AF693F00337D98 /* PeriodEnum.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		76F0AD1421A2336900249F28 /* Data Model */ = {
+		76F0AD1421A2336900249F28 /* Database Models */ = {
 			isa = PBXGroup;
 			children = (
 				76F118C021A4C4C1009E5F67 /* NHLTeam.swift */,
@@ -391,7 +391,7 @@
 				76590DD321BAFE7B0080E0CD /* TeamStandings.swift */,
 				76590DED21C050EA0080E0CD /* MainMenuCategory.swift */,
 			);
-			path = "Data Model";
+			path = "Database Models";
 			sourceTree = "<group>";
 		};
 		76F118C721A4DBFF009E5F67 /* Managers */ = {

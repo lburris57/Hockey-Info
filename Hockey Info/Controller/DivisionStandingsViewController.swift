@@ -33,8 +33,6 @@ class DivisionStandingsViewController: UITableViewController
         
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
         teamStandings = displayStandingsTabViewController.teamStandingsResults
-
-        print("Size of teamStandingsResults in DivisionStandingsViewController is \(teamStandings?.count ?? 9999)")
         
         loadTeamArrays()
     }

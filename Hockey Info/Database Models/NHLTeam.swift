@@ -10,7 +10,7 @@ import RealmSwift
 
 class NHLTeam : Object
 {
-    @objc dynamic var id : String = ""
+    @objc dynamic var id : Int = 0
     @objc dynamic var abbreviation : String = ""
     @objc dynamic var city : String = ""
     @objc dynamic var name : String = ""
@@ -18,5 +18,12 @@ class NHLTeam : Object
     @objc dynamic var conference : String = ""
     @objc dynamic var dateCreated: String = ""
     
-    let players = List<NHLPlayer>()
+    var players = List<NHLPlayer>()
+    var standings = List<TeamStandings>()
+    var schedules = List<NHLSchedule>()
+    
+    override static func primaryKey() -> String?
+    {
+        return "id"
+    }
 }

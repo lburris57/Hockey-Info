@@ -10,7 +10,7 @@ import RealmSwift
 
 class NHLSchedule: Object
 {
-    @objc dynamic var id : String = ""
+    @objc dynamic var id : Int = 0
     @objc dynamic var date : String = ""
     @objc dynamic var time : String = ""
     @objc dynamic var homeTeam : String = ""
@@ -24,4 +24,11 @@ class NHLSchedule: Object
     @objc dynamic var scheduleStatus : String = ""
     @objc dynamic var lastUpdatedOn: String = ""
     @objc dynamic var dateCreated: String = ""
+    
+    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "schedules")
+    
+    override static func primaryKey() -> String?
+    {
+        return "id"
+    }
 }

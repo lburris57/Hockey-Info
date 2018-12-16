@@ -18,7 +18,7 @@ class DatabaseManager
     let realm = try! Realm()
     
     //  Create the displayPlayer method
-    func displayPlayer(_ viewController: DisplayRosterViewController, _ id: String)
+    func displayPlayer(_ viewController: DisplayRosterViewController, _ id: Int)
     {
         var playerResult: NHLPlayer?
         
@@ -26,7 +26,7 @@ class DatabaseManager
         {
             try realm.write
             {
-                playerResult = realm.objects(NHLPlayer.self).filter("id =='\(id)'").first
+                playerResult = realm.objects(NHLPlayer.self).filter("id ==\(id)").first
             }
         }
         catch
@@ -98,7 +98,7 @@ class DatabaseManager
     }
     
     //  Create the displayRoster method
-    func displayRoster(_ viewController: DisplayTeamsViewController, _ teamId: String)
+    func displayRoster(_ viewController: DisplayTeamsViewController, _ teamId: Int)
     {
         var rosterResult: Results<NHLPlayer>?
         
@@ -106,7 +106,7 @@ class DatabaseManager
         {
             try realm.write
             {
-                rosterResult = realm.objects(NHLPlayer.self).filter("teamId =='\(teamId)'")
+                rosterResult = realm.objects(NHLPlayer.self).filter("teamId ==\(teamId)")
             }
         }
         catch
@@ -281,7 +281,7 @@ class DatabaseManager
         {
             let mainMenuCategory = MainMenuCategory()
             
-            mainMenuCategory.id = String(id)
+            mainMenuCategory.id = id
             mainMenuCategory.category = category
             mainMenuCategory.dateCreated = dateString
             
@@ -333,6 +333,108 @@ class DatabaseManager
         return categories
     }
     
+    func linkPlayersToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the players based on the team id
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all players for that particular team
+                    let playerResults = realm.objects(NHLPlayer.self).filter("teamId ==\(team.id)")
+                    
+                    for player in playerResults
+                    {
+                        //  Set the players in the parent team
+                        team.players.append(player)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Players have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
+    func linkStandingsToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the standings based on the team abbreviation
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all standings for that particular team
+                    let standingsResults = realm.objects(TeamStandings.self).filter("abbreviation =='\(team.abbreviation)'")
+                    
+                    for standings in standingsResults
+                    {
+                        //  Set the standings in the parent team
+                        team.standings.append(standings)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Standings have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
+    func linkSchedulesToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the schedules based on the team abbreviation
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all schedules for that particular team
+                    let scheduleResults = realm.objects(NHLSchedule.self).filter("homeTeam =='\(team.abbreviation)' OR " + "awayTeam =='\(team.abbreviation)'")
+                    
+                    for schedule in scheduleResults
+                    {
+                        //  Set the standings in the parent team
+                        team.schedules.append(schedule)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Schedules have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
     func loadTeamRecords() -> [String:String]
     {
         var records = [String:String]()
@@ -346,13 +448,14 @@ class DatabaseManager
                 for teamStanding in teamStandings
                 {
                     let record = String(teamStanding.wins) + "-" + String(teamStanding.losses) + "-" + String(teamStanding.overtimeLosses)
+                    
                     records[teamStanding.abbreviation] = record
                 }
             }
         }
         catch
         {
-            print("Error retrieving main menu categories!")
+            print("Error loading team records!")
         }
         
         return records

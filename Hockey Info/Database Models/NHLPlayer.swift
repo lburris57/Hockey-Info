@@ -10,8 +10,8 @@ import RealmSwift
 
 class NHLPlayer : Object
 {
-    @objc dynamic var id : String = ""
-    @objc dynamic var teamId : String = ""
+    @objc dynamic var id : Int = 0
+    @objc dynamic var teamId : Int = 0
     @objc dynamic var teamAbbreviation : String = ""
     @objc dynamic var firstName : String = ""
     @objc dynamic var lastName : String = ""
@@ -28,4 +28,9 @@ class NHLPlayer : Object
     @objc dynamic var dateCreated: String = ""
     
     var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "players")
+    
+    override static func primaryKey() -> String?
+    {
+        return "id"
+    }
 }

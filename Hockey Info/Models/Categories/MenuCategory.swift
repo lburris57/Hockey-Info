@@ -9,7 +9,7 @@ import Foundation
 
 struct MenuCategory
 {
-    var id : String = ""
+    var id : Int = 0
     var category : String = ""
     var dateCreated: String = ""
 }
