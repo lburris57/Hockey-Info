@@ -61,6 +61,8 @@ class ScoreCell: UITableViewCell
                 visitingTeamScore.text = String(awayScore)
             }
             
+            visitingTeamRecord.text = records[scheduledGame.scheduleInfo.awayTeamInfo.abbreviation]
+            
             homeTeamLogo.image = UIImage(named: scheduledGame.scheduleInfo.homeTeamInfo.abbreviation)
             
             homeTeamName.text = TeamManager.getFullTeamName(scheduledGame.scheduleInfo.homeTeamInfo.abbreviation)
@@ -69,6 +71,8 @@ class ScoreCell: UITableViewCell
             {
                 homeTeamScore.text = String(homeScore)
             }
+            
+            homeTeamRecord.text = records[scheduledGame.scheduleInfo.homeTeamInfo.abbreviation]
         }
     }
     
