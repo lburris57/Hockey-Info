@@ -58,7 +58,7 @@ class DatabaseManager
     }
     
     //  Create the displaySchedule method
-    func displaySchedule(_ viewController: MainMenuViewController)
+    func displaySchedule(_ viewController: MainMenuViewController, _ segueId: String)
     {
         var scheduleResult: Results<NHLSchedule>?
         
@@ -74,7 +74,7 @@ class DatabaseManager
             print("Error retrieving schedule!")
         }
         
-        viewController.performSegue(withIdentifier: "displayCalendar", sender: scheduleResult)
+        viewController.performSegue(withIdentifier: segueId, sender: scheduleResult)
     }
     
     //  Create the displayTeams method
@@ -263,6 +263,29 @@ class DatabaseManager
         }
         
         return schedules
+    }
+    
+    func retrieveScoresAsNHLSchedules(_ date: Date) -> Results<NHLSchedule>
+    {
+        var scheduledGames : Results<NHLSchedule>?
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        
+        do
+        {
+            try realm.write
+            {
+                scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
+            }
+        }
+        catch
+        {
+            print("Error retrieving scheduled games for \(dateString)!")
+        }
+        
+        return scheduledGames!
     }
     
     func saveMainMenuCategories()

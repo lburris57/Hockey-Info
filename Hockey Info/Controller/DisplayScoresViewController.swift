@@ -6,132 +6,328 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import UIKit
-import Alamofire
-import SwiftyJSON
-import SwifterSwift
-import SwiftDate
+import RealmSwift
+import JTAppleCalendar
 
-class DisplayScoresViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class DisplayScoresViewController: UIViewController
 {
-    @IBOutlet var scoreView: UITableView!
+    // MARK: Outlets
+    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet weak var showTodayButton: UIBarButtonItem!
+    @IBOutlet weak var scoreView: UITableView!
     
-    var categoryValue: String = ""
+    @IBOutlet weak var separatorViewTopConstraint: NSLayoutConstraint!
     
-    let networkManager = NetworkManager()
     let databaseManager = DatabaseManager()
     
-    let today = Date()
-    let fullDateFormatter = DateFormatter()
-    let timeFormatter = DateFormatter()
-    let dateStringFormatter = DateFormatter()
+    var nhlSchedules: Results<NHLSchedule>? = nil
     
-    var timesRemaining = ["12:42", "09:47"]
-    var visitingTeamNames = ["BLUE JACKETS", "OILERS"]
-    var visitingTeamRecords = ["44-17-10", "47-14-10"]
-    var homeTeamNames = ["CAPITALS", "FLAMES"]
-    var homeTeamRecords = ["47-14-10", "44-17-10"]
-    var visitingTeamScores = ["2", "1"]
-    var homeTeamScores = ["5", "2"]
-    var periods = ["3rd", "2nd"]
+    //var scheduledGames: [ScheduledGame] = []
     
-    var teamRecords = [String:String]()
+    // MARK: Config
+    let formatter = DateFormatter()
+    let dateFormatterString = "yyyy MM dd"
+    let numOfRowsInCalendar = 6
+    let numOfRandomEvent = 100
+    let calendarCellIdentifier = "CellView"
+    let scoreCellIdentifier = "scoreCell"
     
-    var games = [Game]()
+    var iii: Date?
+    
+    // MARK: Helpers
+    var numOfRowIsSix: Bool
+    {
+        get
+        {
+            return calendarView.visibleDates().outdates.count < 7
+        }
+    }
+    
+    var currentMonthSymbol: String
+    {
+        get
+        {
+            let startDate = (calendarView.visibleDates().monthDates.first?.date)!
+            let month = Calendar.current.dateComponents([.month], from: startDate).month!
+            let monthString = DateFormatter().monthSymbols[month-1]
+            
+            return monthString
+        }
+    }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        teamRecords = databaseManager.loadTeamRecords()
+        setupViewNibs()
+        showTodayButton.target = self
+        showTodayButton.action = #selector(showTodayWithAnimate)
+        showToday(animate: false)
         
-        fullDateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
-        timeFormatter.dateFormat = "hh:mm a"
-        
-        scoreView.dataSource = self
-        scoreView.delegate = self
-        
-        let nib = UINib(nibName: "ScoreCell", bundle: nil)
-        scoreView.register(nib, forCellReuseIdentifier: "scoreCell")
-        
-        self.scoreView.reloadData()
+        let gesturer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+        calendarView.addGestureRecognizer(gesturer)
     }
     
-    override var prefersStatusBarHidden: Bool
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer)
     {
-        return true
-    }
-    
-    // MARK: - Scores Table Header Code
-    
-    /// Creates the header title for the scores table view
-    ///
-    /// - Parameters:
-    ///   - tableView: scores table view
-    ///   - section: the section header
-    /// - Returns: String representation of the section header text
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
-    {
-        return "Scores for " + fullDateFormatter.string(from: today) + " at " + timeFormatter.string(from: today)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-    {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.white
-        header.textLabel?.adjustsFontSizeToFitWidth = true
+        let point = gesture.location(in: calendarView)
         
-        view.tintColor = UIColor.black
-    }
-
-    // MARK: - Scores Table Cell Code
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        print("Size of games array in numberOfRowsInSection is \(games.count)")
-        
-        return games.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell") as! ScoreCell
-        
-        scoreView.rowHeight = CGFloat(130.0)
-        
-        let visitingTeamName = games[indexPath.row].awayTeam?.name
-        let homeTeamName = games[indexPath.row].homeTeam?.name
-        
-        if(games.count > 0)
+        guard let cellStatus = calendarView.cellStatus(at: point) else
         {
-            if games[indexPath.row].gameScore?.currentPeriod == "F" || games[indexPath.row].gameScore?.currentPeriodSecondsRemaining == 0
+            return
+        }
+        
+        if calendarView.selectedDates.first != cellStatus.date
+        {
+            calendarView.deselectAllDates()
+            calendarView.selectDates([cellStatus.date])
+        }
+    }
+    
+    func setupViewNibs()
+    {
+        let myNib = UINib(nibName: "CellView", bundle: Bundle.main)
+       calendarView.register(myNib, forCellWithReuseIdentifier: calendarCellIdentifier)
+        
+        let myNib2 = UINib(nibName: "ScoreCell", bundle: Bundle.main)
+        scoreView.register(myNib2, forCellReuseIdentifier: scoreCellIdentifier)
+    }
+    
+    func setupViewsOfCalendar(from visibleDates: DateSegmentInfo)
+    {
+        guard let startDate = visibleDates.monthDates.first?.date else
+        {
+            return
+        }
+        
+        let year = Calendar.current.component(.year, from: startDate)
+        
+        title = "\(currentMonthSymbol) \(year)"
+    }
+}
+
+// MARK: Helpers
+extension DisplayScoresViewController
+{
+    func select(onVisibleDates visibleDates: DateSegmentInfo)
+    {
+        guard let firstDateInMonth = visibleDates.monthDates.first?.date else
+        { return }
+        
+        if firstDateInMonth.isThisMonth()
+        {
+            calendarView.selectDates([Date()])
+        }
+        else
+        {
+            calendarView.selectDates([firstDateInMonth])
+        }
+    }
+}
+
+// MARK: Button events
+extension DisplayScoresViewController
+{
+    @objc func showTodayWithAnimate()
+    {
+        showToday(animate: true)
+    }
+    
+    func showToday(animate:Bool)
+    {
+        calendarView.scrollToDate(Date(), triggerScrollToDateDelegate: true, animateScroll: animate, preferredScrollPosition: nil, extraAddedOffset: 0)
+        {
+            [unowned self] in
+            //self.getSchedule()
+            self.calendarView.visibleDates {[unowned self] (visibleDates: DateSegmentInfo) in
+                self.setupViewsOfCalendar(from: visibleDates)
+            }
+            
+            self.adjustCalendarViewHeight()
+            self.calendarView.selectDates([Date()])
+        }
+    }
+}
+
+// MARK: Dynamic CalendarView's height
+extension DisplayScoresViewController
+{
+    func adjustCalendarViewHeight()
+    {
+        adjustCalendarViewHeight(higher: self.numOfRowIsSix)
+    }
+    
+    func adjustCalendarViewHeight(higher: Bool)
+    {
+        separatorViewTopConstraint.constant = higher ? 0 : -calendarView.frame.height / CGFloat(numOfRowsInCalendar)
+    }
+}
+
+// MARK: Prepare dataSource
+extension DisplayScoresViewController
+{
+    func getSchedule()
+    {}
+}
+
+// MARK: CalendarCell's ui config
+extension DisplayScoresViewController
+{
+    func configureCell(view: JTAppleCell?, cellState: CellState)
+    {
+        guard let myCustomCell = view as? CellView else { return }
+        
+        myCustomCell.dayLabel.text = cellState.text
+        let cellHidden = cellState.dateBelongsTo != .thisMonth
+        
+        myCustomCell.isHidden = cellHidden
+        myCustomCell.selectedView.backgroundColor = UIColor.black
+        
+        if Calendar.current.isDateInToday(cellState.date)
+        {
+            myCustomCell.selectedView.backgroundColor = UIColor.red
+        }
+        
+        handleCellTextColor(view: myCustomCell, cellState: cellState)
+        handleCellSelection(view: myCustomCell, cellState: cellState)
+        
+        myCustomCell.eventView.isHidden = true
+    }
+    
+    func handleCellSelection(view: CellView, cellState: CellState)
+    {
+        view.selectedView.isHidden = !cellState.isSelected
+    }
+    
+    func handleCellTextColor(view: CellView, cellState: CellState)
+    {
+        if cellState.isSelected
+        {
+            view.dayLabel.textColor = UIColor.white
+        }
+        else
+        {
+            view.dayLabel.textColor = UIColor.black
+            
+            if cellState.day == .sunday || cellState.day == .saturday
             {
-                print("Value of currentPeriodSecondsRemaining in controller is \(games[indexPath.row].gameScore?.currentPeriodSecondsRemaining ?? 9999999)")
-                
-                cell.timeRemaining.text = ""
-                
-                if games[indexPath.row].gameScore?.currentPeriod != "F"
-                {
-                    cell.period.text = games[indexPath.row].time
-                }
+                view.dayLabel.textColor = UIColor.gray
+            }
+        }
+        
+        if Calendar.current.isDateInToday(cellState.date)
+        {
+            if cellState.isSelected
+            {
+                view.dayLabel.textColor = UIColor.white
             }
             else
             {
-                print("Value of currentPeriodSecondsRemainingString in controller is \(games[indexPath.row].gameScore?.currentPeriodSecondsRemainingString ?? "WTF")")
-                
-                cell.timeRemaining.text = games[indexPath.row].gameScore?.currentPeriodSecondsRemainingString
-                cell.period.text = games[indexPath.row].gameScore?.currentPeriod
+                view.dayLabel.textColor = UIColor.red
             }
-            
-            cell.visitingTeamName.text = visitingTeamName
-            cell.visitingTeamRecord.text = visitingTeamRecords[0]
-            cell.homeTeamName.text = homeTeamName
-            cell.homeTeamRecord.text = homeTeamRecords[0]
-            cell.visitingTeamScore.text = "\(games[indexPath.row].gameScore?.awayScore ?? 0)"
-            cell.homeTeamScore.text = "\(games[indexPath.row].gameScore?.homeScore ?? 0)"
-            cell.homeTeamLogo.image = UIImage(named: games[indexPath.row].homeTeam?.abbreviation ?? "")
-            cell.visitingTeamLogo.image = UIImage(named: games[indexPath.row].awayTeam?.abbreviation ?? "")
         }
+    }
+}
+
+// MARK: JTAppleCalendarViewDataSource
+extension DisplayScoresViewController: JTAppleCalendarViewDataSource
+{
+    func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters
+    {
+        formatter.dateFormat = dateFormatterString
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
+        
+        let startDate = formatter.date(from: "2017 01 01")!
+        let endDate = formatter.date(from: "2030 02 01")!
+        
+        let parameters = ConfigurationParameters(startDate: startDate,
+                                                 endDate: endDate,
+                                                 numberOfRows: numOfRowsInCalendar,
+                                                 calendar: Calendar.current,
+                                                 generateInDates: .forAllMonths,
+                                                 generateOutDates: .tillEndOfGrid,
+                                                 firstDayOfWeek: .sunday,
+                                                 hasStrictBoundaries: true)
+        return parameters
+    }
+}
+
+// MARK: JTAppleCalendarViewDelegate
+extension DisplayScoresViewController: JTAppleCalendarViewDelegate
+{
+    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath)
+    {
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: calendarCellIdentifier, for: indexPath) as! CellView
+        configureCell(view: cell, cellState: cellState)
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell
+    {
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: calendarCellIdentifier, for: indexPath) as! CellView
+        configureCell(view: cell, cellState: cellState)
+        return cell
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo)
+    {
+        setupViewsOfCalendar(from: visibleDates)
+        if visibleDates.monthDates.first?.date == iii
+        {
+            return
+        }
+        
+        iii = visibleDates.monthDates.first?.date
+        
+        select(onVisibleDates: visibleDates)
+        
+        view.layoutIfNeeded()
+        
+        adjustCalendarViewHeight()
+        
+        UIView.animate(withDuration: 0.5)
+        { [unowned self] in
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
+    {
+        nhlSchedules = databaseManager.retrieveScoresAsNHLSchedules(date)
+        
+        configureCell(view: cell, cellState: cellState)
+        scoreView.reloadData()
+        scoreView.contentOffset = CGPoint()
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState)
+    {
+        configureCell(view: cell, cellState: cellState)
+    }
+}
+
+// MARK: UITableViewDataSource
+extension DisplayScoresViewController : UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath) as! ScoreCell
+        cell.selectionStyle = .none
+        cell.scheduledGame = nhlSchedules?[indexPath.row]
+        scoreView.rowHeight = CGFloat(130.0)
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return nhlSchedules?.count ?? 0
+    }
+}
+
+// MARK: UITableViewDelegate
+extension DisplayScoresViewController : UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {}
 }

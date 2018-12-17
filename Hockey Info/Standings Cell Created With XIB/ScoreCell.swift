@@ -26,7 +26,7 @@ class ScoreCell: UITableViewCell
     
     let databaseManager = DatabaseManager()
     
-    var scheduledGame :ScheduledGame!
+    var scheduledGame: NHLSchedule!
     {
         didSet
         {
@@ -35,44 +35,51 @@ class ScoreCell: UITableViewCell
                 records = databaseManager.loadTeamRecords()
             }
             
-            if let remainingTime = scheduledGame.scoreInfo.currentPeriodSecondsRemaining
+            let remainingTime = scheduledGame.currentTimeRemaining
+                
+            if(remainingTime > 0)
             {
                 timeRemaining.text = TimeAndDateUtils.getCurrentTimeRemainingString(remainingTime)
             }
             
-            if scheduledGame.scheduleInfo.playedStatus == PlayedStatusEnum.unplayed.rawValue
+            if scheduledGame.playedStatus == PlayedStatusEnum.unplayed.rawValue
             {
-                period.text = TimeAndDateUtils.getTime(scheduledGame.scheduleInfo.startTime)
+                period.text = scheduledGame.time
+                timeRemaining.text = ""
             }
-            else if(scheduledGame.scheduleInfo.playedStatus == PlayedStatusEnum.completed.rawValue)
+            else if(scheduledGame.playedStatus == PlayedStatusEnum.completed.rawValue)
             {
-                if let periodList = scheduledGame.scoreInfo.periodList
+                if scheduledGame.numberOfPeriods > 0
                 {
-                    period.text = ConversionUtils.retrievePlayedStatusFromNumberOfPeriods(periodList.count)
+                    period.text = ConversionUtils.retrievePlayedStatusFromNumberOfPeriods(scheduledGame.numberOfPeriods)
+                    timeRemaining.text = ""
+                }
+            }
+            else if(scheduledGame.playedStatus == PlayedStatusEnum.inProgress.rawValue)
+            {
+                let currentPeriod = scheduledGame.currentPeriod
+                
+                switch (currentPeriod)
+                {
+                    case 1: period.text = String(currentPeriod) + "st"
+                    
+                    case 2: period.text = String(currentPeriod) + "nd"
+                    
+                    case 3: period.text = String(currentPeriod) + "rd"
+                    
+                    default: period.text = ""
                 }
             }
             
-            visitingTeamLogo.image = UIImage(named: scheduledGame.scheduleInfo.awayTeamInfo.abbreviation)
+            visitingTeamLogo.image = UIImage(named: scheduledGame.awayTeam)
+            visitingTeamName.text = TeamManager.getFullTeamName(scheduledGame.awayTeam)
+            visitingTeamScore.text = String(scheduledGame.awayScoreTotal)
+            visitingTeamRecord.text = records[scheduledGame.awayTeam]
             
-            visitingTeamName.text = TeamManager.getFullTeamName(scheduledGame.scheduleInfo.awayTeamInfo.abbreviation)
-            
-            if let awayScore = scheduledGame.scoreInfo.awayScoreTotal
-            {
-                visitingTeamScore.text = String(awayScore)
-            }
-            
-            visitingTeamRecord.text = records[scheduledGame.scheduleInfo.awayTeamInfo.abbreviation]
-            
-            homeTeamLogo.image = UIImage(named: scheduledGame.scheduleInfo.homeTeamInfo.abbreviation)
-            
-            homeTeamName.text = TeamManager.getFullTeamName(scheduledGame.scheduleInfo.homeTeamInfo.abbreviation)
-            
-            if let homeScore = scheduledGame.scoreInfo.awayScoreTotal
-            {
-                homeTeamScore.text = String(homeScore)
-            }
-            
-            homeTeamRecord.text = records[scheduledGame.scheduleInfo.homeTeamInfo.abbreviation]
+            homeTeamLogo.image = UIImage(named: scheduledGame.homeTeam)
+            homeTeamName.text = TeamManager.getFullTeamName(scheduledGame.homeTeam)
+            homeTeamScore.text = String(scheduledGame.homeScoreTotal)
+            homeTeamRecord.text = records[scheduledGame.homeTeam]
         }
     }
     

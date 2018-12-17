@@ -10,9 +10,9 @@ import Foundation
 enum PeriodEnum : String
 {
     case final = "F"
-    case overtime = "OT"
-    case shootout = "SO"
-    case doubleOvertime = "2OT"
-    case tripleOvertime = "3OT"
-    case quadrupleOvertime = "4OT"
+    case overtime = "F/OT"
+    case shootout = "F/SO"
+    case doubleOvertime = "F/2OT"
+    case tripleOvertime = "F/3OT"
+    case quadrupleOvertime = "F/4OT"
 }

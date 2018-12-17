@@ -6,6 +6,7 @@
 //  Copyright © 2018 Larry Burris. All rights reserved.
 //
 import Foundation
+import SwiftDate
 
 class TimeAndDateUtils
 {
@@ -26,7 +27,7 @@ class TimeAndDateUtils
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
         
-        return (date.toFormat("EEEE, MMM dd, yyyy"))
+        return date.toFormat("EEEE, MMM dd, yyyy")
     }
     
     static func getTime(_ timestamp: String) -> String

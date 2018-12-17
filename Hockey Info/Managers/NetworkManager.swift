@@ -268,6 +268,8 @@ class NetworkManager
                                 nhlSchedule.playedStatus = scheduledGame.scheduleInfo.playedStatus
                                 nhlSchedule.scheduleStatus = scheduledGame.scheduleInfo.scheduleStatus
                                 nhlSchedule.numberOfPeriods = scheduledGame.scoreInfo.periodList?.count ?? 0
+                                nhlSchedule.currentPeriod = scheduledGame.scoreInfo.currentPeriod ?? 0
+                                nhlSchedule.currentTimeRemaining = scheduledGame.scoreInfo.currentPeriodSecondsRemaining ?? 0
         
                                 scheduledGames.append(nhlSchedule)
                             }
@@ -315,6 +317,8 @@ class NetworkManager
         
         let scheduledGames = List<NHLSchedule>()
         
+        var seasonSchedule: SeasonSchedule?
+        
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json?date=\(scheduleDate)")
         let session = URLSession.shared
@@ -333,13 +337,13 @@ class NetworkManager
                 {
                     do
                     {
-                        let seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
+                        seasonSchedule = try JSONDecoder().decode(SeasonSchedule.self, from: data!)
                         
-                        let lastUpdatedOn = seasonSchedule.lastUpdatedOn
+                        let lastUpdatedOn = seasonSchedule!.lastUpdatedOn
                         
                         DispatchQueue.main.async
                         {
-                            for scheduledGame in seasonSchedule.gameList
+                            for scheduledGame in seasonSchedule!.gameList
                             {
                                 let nhlSchedule = NHLSchedule()
                                 
@@ -359,6 +363,8 @@ class NetworkManager
                                 nhlSchedule.playedStatus = scheduledGame.scheduleInfo.playedStatus
                                 nhlSchedule.scheduleStatus = scheduledGame.scheduleInfo.scheduleStatus
                                 nhlSchedule.numberOfPeriods = scheduledGame.scoreInfo.periodList?.count ?? 0
+                                nhlSchedule.currentPeriod = scheduledGame.scoreInfo.currentPeriod ?? 0
+                                nhlSchedule.currentTimeRemaining = scheduledGame.scoreInfo.currentPeriodSecondsRemaining ?? 0
                                 
                                 scheduledGames.append(nhlSchedule)
                             }

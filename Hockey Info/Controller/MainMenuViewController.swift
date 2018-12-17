@@ -16,6 +16,8 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let databaseManager = DatabaseManager()
     
+    let displayScoresViewController = DisplayScoresViewController()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -77,7 +79,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
         if(category == "Scores")
         {
-            //networkManager.retrieveScores(self)
+            databaseManager.displaySchedule(self, "displayScores")
         }
         else if(category == "Schedule")
         {
@@ -106,6 +108,12 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
+        }
+        else if(segue.identifier == "displayScores")
+        {
+            let displayScoresViewController = segue.destination as! DisplayScoresViewController
+            
+            displayScoresViewController.nhlSchedules = sender as? Results<NHLSchedule>
         }
         else if(segue.identifier == "displayStandings")
         {
