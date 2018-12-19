@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
 //        databaseManager.linkPlayersToTeams()
 //        databaseManager.linkStandingsToTeams()
+//        databaseManager.linkStatisticsToTeams()
 //        databaseManager.linkSchedulesToTeams()
         
         networkManager.updateScheduleForDate(Date())

@@ -18,7 +18,7 @@ class DisplayTeamsViewController: UITableViewController
     
     var teamArray = [NHLTeam]()
     
-    var viewTitle = "Players"
+    var viewTitle = ""
     
     let sections = ["Atlantic", "Metropolitan", "Central", "Pacific"]
     
@@ -146,7 +146,15 @@ class DisplayTeamsViewController: UITableViewController
             
             displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
 
-            displayRosterViewController.title = viewTitle
+            displayRosterViewController.title = "Players"
+        }
+        else if(segue.identifier == "displayTeamStatistics")
+        {
+            let displayTeamStatsViewController = segue.destination as! DisplayTeamStatsViewController
+            
+            displayTeamStatsViewController.statsResults = sender as? Results<TeamStatistics>
+            
+            displayTeamStatsViewController.title = "Stats"
         }
     }
     

@@ -79,6 +79,8 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
         if(category == "Scores")
         {
+            networkManager.updateScheduleForDate(Date())
+            
             databaseManager.displaySchedule(self, "displayScores")
         }
         else if(category == "Schedule")
@@ -86,6 +88,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             databaseManager.retrieveTodaysGames(self)
         }
         else if(category == "Team Rosters")
+        {
+            databaseManager.displayTeams(self)
+        }
+        else if(category == "Team Stats")
         {
             databaseManager.displayTeams(self)
         }
@@ -103,7 +109,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
             displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
         }
-        else if(segue.identifier == "displayTeams")
+        else if(segue.identifier == "displayTeams" || segue.identifier == "displayTeamStatistics")
         {
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
@@ -121,6 +127,5 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             
             displayStandingsTabViewController.teamStandingsResults = sender as? Results<TeamStandings>
         }
-        
     }
 }

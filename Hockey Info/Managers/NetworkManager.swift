@@ -22,12 +22,7 @@ class NetworkManager
     let timeFormatter = DateFormatter()
     let dateStringFormatter = DateFormatter()
     
-    var games = [Game]()
-    
-    var game = Game()
-    var homeTeam = TeamInfo()
-    var awayTeam = TeamInfo()
-    var gameScore = GameScore()
+    let userId = "6faa8a21-d219-433a-914b-fcd2d4:MYSPORTSFEEDS"
     
     //  Create a new Realm database
     let realm = try! Realm()
@@ -45,7 +40,7 @@ class NetworkManager
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -63,8 +58,6 @@ class NetworkManager
                         DispatchQueue.main.async
                         {
                            print("Populating team roster data...")
-                            
-                            print("Value of official image source is \(rosterPlayers.playerInfoList[0].player.officialImageSource?.absoluteString ?? "WTF???")")
                             
                             for playerInfo in rosterPlayers.playerInfoList
                             {
@@ -138,7 +131,7 @@ class NetworkManager
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -223,7 +216,7 @@ class NetworkManager
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -320,11 +313,11 @@ class NetworkManager
         var seasonSchedule: SeasonSchedule?
         
         //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json?date=\(scheduleDate)")
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/date/\(scheduleDate)/games.json")
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -399,6 +392,8 @@ class NetworkManager
         }
     }
     
+
+    
     //  Create the updateStandingsForDate method
     func updateStandingsForDate(_ date :Date)
     {
@@ -415,7 +410,7 @@ class NetworkManager
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -486,6 +481,7 @@ class NetworkManager
         let dateString = fullDateFormatter.string(from: today)
         
         let teamStandingsList = List<TeamStandings>()
+        let teamStatisticsList = List<TeamStatistics>()
         let teamList = List<NHLTeam>()
         
         //  Set the URL
@@ -493,7 +489,7 @@ class NetworkManager
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
         autoreleasepool
         {
@@ -515,8 +511,10 @@ class NetworkManager
                                 for teamStandingsData in nhlStandings.teamList
                                 {
                                     let teamStandings = TeamStandings()
+                                    let teamStatistics = TeamStatistics()
                                     let nhlTeam = NHLTeam()
                                     
+                                    //  Populate the Team Standings table
                                     teamStandings.id = teamStandingsData.teamInformation.id
                                     teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
                                     teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
@@ -530,6 +528,32 @@ class NetworkManager
                                     teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
                                     teamStandings.dateCreated = dateString
                                     
+                                    //  Populate the Team Statistics table
+                                    teamStatistics.id = teamStandingsData.teamInformation.id
+                                    teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                    teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                    teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                    teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                    teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                    teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
+                                    teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
+                                    teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
+                                    teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
+                                    teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
+                                    teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
+                                    teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
+                                    teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
+                                    teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
+                                    teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
+                                    teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
+                                    teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
+                                    teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
+                                    teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
+                                    teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
+                                    teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
+                                    teamStatistics.dateCreated = dateString
+                                    
+                                    //  Populate the NHLTeam table
                                     nhlTeam.dateCreated = dateString
                                     nhlTeam.id = teamStandingsData.teamInformation.id
                                     nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
@@ -539,9 +563,11 @@ class NetworkManager
                                     nhlTeam.conference = teamStandingsData.conferenceRankInfo.conferenceName
                                     
                                     teamStandingsList.append(teamStandings)
+                                    teamStatisticsList.append(teamStatistics)
                                     teamList.append(nhlTeam)
                                 }
                                 
+                                print("Saving standings information...")
                                 do
                                 {
                                     try self.realm.write
@@ -558,6 +584,18 @@ class NetworkManager
                                 {
                                     try self.realm.write
                                     {
+                                        self.realm.add(teamStatisticsList)
+                                    }
+                                }
+                                catch
+                                {
+                                    print("Error saving team statistics to the database: \(error)")
+                                }
+                                
+                                do
+                                {
+                                    try self.realm.write
+                                    {
                                         self.realm.add(teamStandingsList)
                                     }
                                 }
@@ -565,6 +603,8 @@ class NetworkManager
                                 {
                                     print("Error saving team standings to the database: \(error)")
                                 }
+                                
+                                print("Standings information successfully saved to the database!")
                                 
                                 print(Realm.Configuration.defaultConfiguration.fileURL!)
                         }
@@ -587,69 +627,86 @@ class NetworkManager
         let dateString = fullDateFormatter.string(from: date)
         let scheduleDate = shortDateFormatter.string(from: date)
         
+        let teamStatisticsList = List<TeamStatistics>()
+        
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json?date=\(scheduleDate)")
         let session = URLSession.shared
         var request = URLRequest(url: url!)
         
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
         
-        //  Get the JSON data with closure
-        session.dataTask(with: request)
+        autoreleasepool
         {
-            (data, response, err) in
-            
-            if err == nil
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
             {
-                do
+                (data, response, err) in
+                
+                if err == nil
                 {
-                    //                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
-                    
-                    //                    for standingsCategory in nhlStandings.references.standingsCategories
-                    //                    {
-                    //
-                    //                    }
+                    do
+                    {
+                        let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                        
+                        DispatchQueue.main.async
+                            {
+                                for teamStandingsData in nhlStandings.teamList
+                                {
+                                    let teamStatistics = TeamStatistics()
+                                    
+                                    //  Populate the Team Statistics table
+                                    teamStatistics.id = teamStandingsData.teamInformation.id
+                                    teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                    teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                    teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                    teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                    teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                    teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
+                                    teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
+                                    teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
+                                    teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
+                                    teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
+                                    teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
+                                    teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
+                                    teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
+                                    teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
+                                    teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
+                                    teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
+                                    teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
+                                    teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
+                                    teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
+                                    teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
+                                    teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
+                                    teamStatistics.dateCreated = dateString
+                                    
+                                    teamStatisticsList.append(teamStatistics)
+                                }
+                                
+                                do
+                                {
+                                    try self.realm.write
+                                    {
+                                        self.realm.add(teamStatisticsList, update: true)
+                                        
+                                        print("Team statistics have successfully been updated in the database for \(scheduleDate)!!")
+                                    }
+                                }
+                                catch
+                                {
+                                    print("Error updating team statistics to the database: \(error)")
+                                }
+                                
+                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error retrieving data...\(err.debugDescription)")
+                    }
                 }
-                catch
-                {
-                    print("Error retrieving data...\(err.debugDescription)")
-                }
-            }
             }.resume()
-    }
-    
-    //  Create the saveStats method
-    func saveStats()
-    {
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        
-        request.addValue("Basic " + "lburris57:MYSPORTSFEEDS".toBase64()!, forHTTPHeaderField: "Authorization")
-        
-        //  Get the JSON data with closure
-        session.dataTask(with: request)
-        {
-            (data, response, err) in
-            
-            if err == nil
-            {
-                do
-                {
-//                    let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
-                    
-//                    for standingsCategory in nhlStandings.references.standingsCategories
-//                    {
-//
-//                    }
-                }
-                catch
-                {
-                    print("Error retrieving data...\(err.debugDescription)")
-                }
-            }
-        }.resume()
+        }
     }
 }
 

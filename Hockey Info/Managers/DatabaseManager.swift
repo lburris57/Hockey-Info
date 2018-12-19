@@ -288,6 +288,25 @@ class DatabaseManager
         return scheduledGames!
     }
     
+    func retrieveTeamStatistics(_ teamId: Int) -> Results<TeamStatistics>
+    {
+        var teamStatistics : Results<TeamStatistics>?
+            
+        do
+        {
+            try realm.write
+            {
+                teamStatistics = realm.objects(TeamStatistics.self).filter("teamId = \(teamId)")
+            }
+        }
+        catch
+        {
+            print("Error retrieving team statistics for \(teamId)!")
+        }
+        
+        return teamStatistics!
+    }
+    
     func saveMainMenuCategories()
     {
         let categories = ["Schedule", "Standings", "Scores", "Team Rosters", "Team Stats"]
@@ -415,6 +434,40 @@ class DatabaseManager
                     realm.add(team)
                     
                     print("Standings have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
+    func linkStatisticsToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the statistics based on the team abbreviation
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all statistics for that particular team
+                    let statisticsResults = realm.objects(TeamStatistics.self).filter("abbreviation =='\(team.abbreviation)'")
+                    
+                    for statistics in statisticsResults
+                    {
+                        //  Set the statistics in the parent team
+                        team.statistics.append(statistics)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Statistics have successfully been linked to \(team.name)!")
                 }
             }
             catch

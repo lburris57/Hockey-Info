@@ -57,17 +57,17 @@ class ScoreCell: UITableViewCell
             }
             else if(scheduledGame.playedStatus == PlayedStatusEnum.inProgress.rawValue)
             {
-                let currentPeriod = scheduledGame.currentPeriod
+                let numberOfPeriods = scheduledGame.numberOfPeriods
                 
-                switch (currentPeriod)
+                switch (numberOfPeriods)
                 {
-                    case 1: period.text = String(currentPeriod) + "st"
+                    case 1: period.text = String(numberOfPeriods) + "st"
                     
-                    case 2: period.text = String(currentPeriod) + "nd"
+                    case 2: period.text = String(numberOfPeriods) + "nd"
                     
-                    case 3: period.text = String(currentPeriod) + "rd"
+                    case 3: period.text = String(numberOfPeriods) + "rd"
                     
-                    default: period.text = ""
+                    default: period.text = "End of \(numberOfPeriods)"
                 }
             }
             

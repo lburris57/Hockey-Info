@@ -19,10 +19,9 @@ class DisplayScoresViewController: UIViewController
     @IBOutlet weak var separatorViewTopConstraint: NSLayoutConstraint!
     
     let databaseManager = DatabaseManager()
+    let networkManager = NetworkManager()
     
     var nhlSchedules: Results<NHLSchedule>? = nil
-    
-    //var scheduledGames: [ScheduledGame] = []
     
     // MARK: Config
     let formatter = DateFormatter()
@@ -293,6 +292,8 @@ extension DisplayScoresViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
+        networkManager.updateScheduleForDate(date)
+        
         nhlSchedules = databaseManager.retrieveScoresAsNHLSchedules(date)
         
         configureCell(view: cell, cellState: cellState)
