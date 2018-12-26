@@ -10,11 +10,11 @@ import RealmSwift
 
 class DisplayTeamStatsViewController: UITableViewController
 {
-    let sections = ["Standings", "Faceoffs", "Powerplays", "Miscellaneous"]
+    let sections = ["Record", "Faceoffs", "Powerplays", "Miscellaneous"]
     
     let databaseManager = DatabaseManager()
     
-    var statsResults: Results<TeamStatistics>?
+    var team: NHLTeam?
     
     var statsArray = [TeamStatistics]()
     
@@ -92,8 +92,6 @@ class DisplayTeamStatsViewController: UITableViewController
                 statsArray = miscellaneousArray
         }
         
-        
-        
         var cell = tableView.dequeueReusableCell(withIdentifier: "statsCell")
         
         if cell == nil
@@ -115,20 +113,19 @@ class DisplayTeamStatsViewController: UITableViewController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if(segue.identifier == "displayPlayer")
+        if(segue.identifier == "displayTeamStats")
         {
-            let displayPlayerViewController = segue.destination as! DisplayPlayerViewController
-            
-            displayPlayerViewController.playerResult = sender as? NHLPlayer
+            //let displayPlayerViewController = segue.destination as! DisplayPlayerViewController
+
+            //displayPlayerViewController.playerResult = sender as? NHLPlayer
         }
     }
     
     func loadStatsArrays()
     {
-        if(statsResults != nil)
+        if(team != nil)
         {
-            for stats in statsResults!
-            {
+            
 //                if(player.position == PositionEnum.leftWing.rawValue ||
 //                    player.position == PositionEnum.rightWing.rawValue ||
 //                    player.position == PositionEnum.center.rawValue)
@@ -142,7 +139,6 @@ class DisplayTeamStatsViewController: UITableViewController
 //                else if(player.position == PositionEnum.goalie.rawValue)
 //                {
 //                    goalieArray.append(player)
-                }
             }
         }
     }

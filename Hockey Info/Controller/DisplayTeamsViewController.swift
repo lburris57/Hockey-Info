@@ -16,9 +16,13 @@ class DisplayTeamsViewController: UITableViewController
     
     let databaseManager = DatabaseManager()
     
+    let teamStatsViewController = DisplayTeamStatsViewController()
+    
     var teamArray = [NHLTeam]()
     
     var viewTitle = ""
+    
+    var segueId = ""
     
     let sections = ["Atlantic", "Metropolitan", "Central", "Pacific"]
     
@@ -133,7 +137,14 @@ class DisplayTeamsViewController: UITableViewController
         
         viewTitle = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
         
-        databaseManager.displayRoster(self, teamId)
+        if(segueId == "displayTeams")
+        {
+            databaseManager.displayRoster(self, teamId)
+        }
+        else if(segueId == "displayTeamStatistics")
+        {
+            databaseManager.displayTeamStatistics(self, teamId)
+        }
     }
     
     // MARK: - Navigation
@@ -152,9 +163,9 @@ class DisplayTeamsViewController: UITableViewController
         {
             let displayTeamStatsViewController = segue.destination as! DisplayTeamStatsViewController
             
-            displayTeamStatsViewController.statsResults = sender as? Results<TeamStatistics>
+            displayTeamStatsViewController.team = sender as? NHLTeam
             
-            displayTeamStatsViewController.title = "Stats"
+            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName( (displayTeamStatsViewController.team?.abbreviation)!))"
         }
     }
     

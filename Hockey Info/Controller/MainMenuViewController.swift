@@ -89,11 +89,11 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else if(category == "Team Rosters")
         {
-            databaseManager.displayTeams(self)
+            databaseManager.displayTeams(self, category)
         }
         else if(category == "Team Stats")
         {
-            databaseManager.displayTeams(self)
+            databaseManager.displayTeams(self, category)
         }
         else if(category == "Standings")
         {
@@ -111,7 +111,11 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else if(segue.identifier == "displayTeams" || segue.identifier == "displayTeamStatistics")
         {
+            //print("Segue identifier is \(segue.identifier!)")
+            
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
+            
+            displayTeamsViewController.segueId = segue.identifier!
             
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
         }

@@ -78,9 +78,20 @@ class DatabaseManager
     }
     
     //  Create the displayTeams method
-    func displayTeams(_ viewController: MainMenuViewController)
+    func displayTeams(_ viewController: MainMenuViewController, _ category:String)
     {
         var teamResults: Results<NHLTeam>?
+        
+        var segueId = ""
+        
+        if(category == "Team Rosters")
+        {
+            segueId = "displayTeams"
+        }
+        else
+        {
+            segueId = "displayTeamStatistics"
+        }
         
         do
         {
@@ -94,7 +105,7 @@ class DatabaseManager
             print("Error retrieving teams!")
         }
         
-        viewController.performSegue(withIdentifier: "displayTeams", sender: teamResults)
+        viewController.performSegue(withIdentifier: segueId, sender: teamResults)
     }
     
     //  Create the displayRoster method
@@ -115,6 +126,25 @@ class DatabaseManager
         }
         
         viewController.performSegue(withIdentifier: "displayRoster", sender: rosterResult)
+    }
+    
+    func displayTeamStatistics(_ viewController: DisplayTeamsViewController, _ teamId: Int)
+    {
+        var team : NHLTeam?
+        
+        do
+        {
+            try realm.write
+            {
+                team = realm.objects(NHLTeam.self).filter("id = \(teamId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving team result for \(teamId)!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayTeamStatistics", sender: team)
     }
     
     func mainMenuCategoriesRequiresSaving() -> Bool
@@ -286,25 +316,6 @@ class DatabaseManager
         }
         
         return scheduledGames!
-    }
-    
-    func retrieveTeamStatistics(_ teamId: Int) -> Results<TeamStatistics>
-    {
-        var teamStatistics : Results<TeamStatistics>?
-            
-        do
-        {
-            try realm.write
-            {
-                teamStatistics = realm.objects(TeamStatistics.self).filter("teamId = \(teamId)")
-            }
-        }
-        catch
-        {
-            print("Error retrieving team statistics for \(teamId)!")
-        }
-        
-        return teamStatistics!
     }
     
     func saveMainMenuCategories()

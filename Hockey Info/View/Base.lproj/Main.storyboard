@@ -115,17 +115,17 @@
                     </tableView>
                     <connections>
                         <outlet property="teamView" destination="ekB-Br-WwN" id="cb4-b6-8YN"/>
-                        <segue destination="vPC-qc-W42" kind="show" identifier="displayStats" id="1T8-v3-KJk"/>
+                        <segue destination="vPC-qc-W42" kind="show" identifier="displayTeamStatistics" id="1T8-v3-KJk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jz-pr-OhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4767" y="435"/>
+            <point key="canvasLocation" x="4767" y="342"/>
         </scene>
         <!--Stats-->
         <scene sceneID="sPy-Za-7Bj">
             <objects>
-                <tableViewController title="Stats" id="vPC-qc-W42" sceneMemberID="viewController">
+                <tableViewController title="Stats" id="vPC-qc-W42" customClass="DisplayTeamStatsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1FF-tL-Qk0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
