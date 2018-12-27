@@ -83,7 +83,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             
             databaseManager.displaySchedule(self, "displayScores")
         }
-        else if(category == "Schedule")
+        else if(category == "Season Schedule")
         {
             databaseManager.retrieveTodaysGames(self)
         }
@@ -91,7 +91,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.displayTeams(self, category)
         }
-        else if(category == "Team Stats")
+        else if(category == "Team Statistics")
         {
             databaseManager.displayTeams(self, category)
         }

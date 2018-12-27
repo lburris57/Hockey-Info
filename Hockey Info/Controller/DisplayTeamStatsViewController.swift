@@ -11,7 +11,7 @@ import SwiftDate
 
 class DisplayTeamStatsViewController: UITableViewController
 {
-    let sections = ["Record as of \(Date().toFormat("EEEE, MMM dd, yyyy"))", "Faceoffs", "Power Plays", "Penalty Kills", "Miscellaneous"]
+    let sections = ["Record as of \(DateInRegion().toFormat("EEEE, MMM dd, yyyy"))", "Faceoffs", "Power Plays", "Penalty Kills", "Miscellaneous"]
     
     let databaseManager = DatabaseManager()
     
