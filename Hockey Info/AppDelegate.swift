@@ -18,12 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         let databaseManager = DatabaseManager()
         let networkManager = NetworkManager()
         
-//        databaseManager.linkPlayersToTeams()
-//        databaseManager.linkStandingsToTeams()
-//        databaseManager.linkStatisticsToTeams()
-//        databaseManager.linkSchedulesToTeams()
+        if(databaseManager.teamTableRequiresLinking())
+        {
+            print("Linking table data...")
+            
+            databaseManager.linkPlayersToTeams()
+            databaseManager.linkStandingsToTeams()
+            databaseManager.linkStatisticsToTeams()
+            databaseManager.linkSchedulesToTeams()
+            
+            print("Linking of table data was successful!")
+        }
         
-        networkManager.updateScheduleForDate(Date())
+        if(!databaseManager.teamTableRequiresLinking())
+        {
+            networkManager.updateScheduleForDate(Date())
+        }
         
         return true
     }

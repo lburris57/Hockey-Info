@@ -7,21 +7,23 @@
 //
 import UIKit
 import RealmSwift
+import SwiftDate
 
 class DisplayTeamStatsViewController: UITableViewController
 {
-    let sections = ["Record", "Faceoffs", "Powerplays", "Miscellaneous"]
+    let sections = ["Record as of \(Date().toFormat("EEEE, MMM dd, yyyy"))", "Faceoffs", "Power Plays", "Penalty Kills", "Miscellaneous"]
     
     let databaseManager = DatabaseManager()
     
     var team: NHLTeam?
     
-    var statsArray = [TeamStatistics]()
+    var statsArray = [String]()
     
-    var standingsArray = [TeamStatistics]()
-    var faceoffsArray = [TeamStatistics]()
-    var powerplaysArray = [TeamStatistics]()
-    var miscellaneousArray = [TeamStatistics]()
+    var standingsArray = [String]()
+    var faceoffsArray = [String]()
+    var powerplaysArray = [String]()
+    var penaltyKillsArray = [String]()
+    var miscellaneousArray = [String]()
     
     override func viewDidLoad()
     {
@@ -47,6 +49,8 @@ class DisplayTeamStatsViewController: UITableViewController
                 return faceoffsArray.count
             case 2:
                 return powerplaysArray.count
+            case 3:
+                return penaltyKillsArray.count
             default:
                 return miscellaneousArray.count
         }
@@ -88,6 +92,8 @@ class DisplayTeamStatsViewController: UITableViewController
                 statsArray = faceoffsArray
             case 2:
                 statsArray = powerplaysArray
+            case 3:
+                statsArray = penaltyKillsArray
             default:
                 statsArray = miscellaneousArray
         }
@@ -99,7 +105,7 @@ class DisplayTeamStatsViewController: UITableViewController
             cell = UITableViewCell(style: .default, reuseIdentifier: "statsCell")
         }
         
-        //cell?.textLabel?.text = playerName
+        cell?.textLabel?.text = statsArray[indexPath.row]
         
         return cell!
     }
@@ -108,38 +114,82 @@ class DisplayTeamStatsViewController: UITableViewController
     {
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if(segue.identifier == "displayTeamStats")
-        {
-            //let displayPlayerViewController = segue.destination as! DisplayPlayerViewController
 
-            //displayPlayerViewController.playerResult = sender as? NHLPlayer
-        }
-    }
-    
     func loadStatsArrays()
     {
         if(team != nil)
         {
+            //  Load the standings data
+            let conferenceName = team?.conference
+            let conferenceRank = ConversionUtils.normalizeRank((team?.standings[0].conferenceRank)!)
+            let divisionName = team?.division
+            let divisionRank = ConversionUtils.normalizeRank((team?.standings[0].divisionRank)!)
+            let gamesPlayed = team?.statistics[0].gamesPlayed
+            let points = team?.statistics[0].points
+            let wins = team?.statistics[0].wins
+            let losses = team?.statistics[0].losses
+            let overtimeLosses = team?.statistics[0].overtimeLosses
             
-//                if(player.position == PositionEnum.leftWing.rawValue ||
-//                    player.position == PositionEnum.rightWing.rawValue ||
-//                    player.position == PositionEnum.center.rawValue)
-//                {
-//                    forwardsArray.append(player)
-//                }
-//                else if(player.position == PositionEnum.defenseman.rawValue)
-//                {
-//                    defensemenArray.append(player)
-//                }
-//                else if(player.position == PositionEnum.goalie.rawValue)
-//                {
-//                    goalieArray.append(player)
-            }
+            let conferenceString = "Rank in the \(conferenceName ?? "") conference: \(conferenceRank)"
+            let divisionString = "Rank in the \(divisionName ?? "") division: \(divisionRank)"
+            let gamesPlayedString = "Games played: \(gamesPlayed ?? 0)"
+            let pointsString = "Points: \(points ?? 0)"
+            let winsString = "\(wins ?? 0)"
+            let lossesString = "\(losses ?? 0)"
+            let overtimeLossesString = "\(overtimeLosses ?? 0)"
+            let recordString = "Record: " + winsString + "-" + lossesString + "-" + overtimeLossesString
+            
+            standingsArray.append(gamesPlayedString)
+            standingsArray.append(pointsString)
+            standingsArray.append(recordString)
+            standingsArray.append(divisionString)
+            standingsArray.append(conferenceString)
+            
+            let faceoffWins = team?.statistics[0].faceoffWins ?? 0
+            let faceoffLosses = team?.statistics[0].faceoffLosses ?? 0
+            
+            //  Load the faceoff data
+            let totalFaceoffs = "Total Faceoffs: \(faceoffWins + faceoffLosses)"
+            let faceoffWinsString = "Faceoff Wins: \(faceoffWins)"
+            let faceoffLossesString = "Faceoff Losses: \(faceoffLosses)"
+            let faceoffPercent = "Faceoff Percent: \(team?.statistics[0].faceoffPercent ?? 0.0)%"
+            
+            faceoffsArray.append(totalFaceoffs)
+            faceoffsArray.append(faceoffWinsString)
+            faceoffsArray.append(faceoffLossesString)
+            faceoffsArray.append(faceoffPercent)
+            
+            //  Load the power play data
+            let powerPlays = "Power Plays: \(team?.statistics[0].powerplays ?? 0)"
+            let powerPlayGoals = "Power Play Goals: \(team?.statistics[0].powerplayGoals ?? 0)"
+            let powerPlayPercent = "Power Play Percent: \(team?.statistics[0].powerplayPercent ?? 0.0)%"
+            
+            powerplaysArray.append(powerPlays)
+            powerplaysArray.append(powerPlayGoals)
+            powerplaysArray.append(powerPlayPercent)
+            
+            //  Load the penalty kill data
+            let penaltyMinutes = "Penalty Minutes: \(team?.statistics[0].penaltyMinutes ?? 0)"
+            let penaltyKill = "Penalties Killed: \(team?.statistics[0].penaltyKills ?? 0)/\(team?.statistics[0].penalties ?? 0)"
+            let penaltyKillGoalsAllowed = "Penalty Kill Goals Allowed: \(team?.statistics[0].penaltyKillGoalsAllowed ?? 0)"
+            let penaltyKillPercent = "Penalty Kill Percent: \(team?.statistics[0].penaltyKillPercent ?? 0.0)%"
+            
+            penaltyKillsArray.append(penaltyMinutes)
+            penaltyKillsArray.append(penaltyKill)
+            penaltyKillsArray.append(penaltyKillGoalsAllowed)
+            penaltyKillsArray.append(penaltyKillPercent)
+            
+            //  Load the Misc data
+            let goalsFor = "Goals For: \(team?.statistics[0].goalsFor ?? 0)"
+            let goalAgainst = "Goals Against: \(team?.statistics[0].goalsAgainst ?? 0)"
+            let shots = "Shots: \(team?.statistics[0].shots ?? 0)"
+            let hits = "Hits: \(team?.statistics[0].hits ?? 0)"
+            
+            miscellaneousArray.append(goalsFor)
+            miscellaneousArray.append(goalAgainst)
+            miscellaneousArray.append(shots)
+            miscellaneousArray.append(hits)
         }
     }
+}
 

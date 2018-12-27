@@ -27,6 +27,8 @@ class NHLPlayer : Object
     @objc dynamic var shoots : String = ""
     @objc dynamic var dateCreated: String = ""
     
+    var statistics = List<PlayerStatistics>()
+    
     var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "players")
     
     override static func primaryKey() -> String?

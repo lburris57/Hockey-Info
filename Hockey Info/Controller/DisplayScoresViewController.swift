@@ -316,7 +316,7 @@ extension DisplayScoresViewController : UITableViewDataSource
         cell.selectionStyle = .none
         cell.scheduledGame = nhlSchedules?[indexPath.row]
         scoreView.rowHeight = CGFloat(130.0)
-        
+
         return cell
     }
     

@@ -213,6 +213,31 @@ class DatabaseManager
         return result
     }
     
+    func teamTableRequiresLinking() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if let team = realm.objects(NHLTeam.self).filter("id = \(5)").first
+                {
+                    if(team.players.count == 0)
+                    {
+                        result = true
+                    }
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving team!")
+        }
+        
+        return result
+    }
+    
     func teamRosterRequiresSaving() -> Bool
     {
         var result = false

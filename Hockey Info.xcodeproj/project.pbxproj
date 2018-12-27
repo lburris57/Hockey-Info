@@ -70,6 +70,14 @@
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B478B921AF693F00337D98 /* PeriodEnum.swift */; };
+		76BDDDA221D412E500614AFA /* HockeyInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDA121D412E500614AFA /* HockeyInfoTests.swift */; };
+		76BDDDAA21D443B700614AFA /* PlayerStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDA921D443B700614AFA /* PlayerStatistics.swift */; };
+		76BDDDAC21D449AD00614AFA /* PenaltyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDAB21D449AD00614AFA /* PenaltyData.swift */; };
+		76BDDDAE21D44B5C00614AFA /* SkatingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDAD21D44B5C00614AFA /* SkatingData.swift */; };
+		76BDDDB021D44C8A00614AFA /* ScoringData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDAF21D44C8A00614AFA /* ScoringData.swift */; };
+		76BDDDB221D44E0B00614AFA /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDB121D44E0B00614AFA /* PlayerStats.swift */; };
+		76BDDDB421D44EBA00614AFA /* PlayerStatsTotal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDB321D44EBA00614AFA /* PlayerStatsTotal.swift */; };
+		76BDDDB621D44FF600614AFA /* PlayerStatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDB521D44FF600614AFA /* PlayerStatData.swift */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
 		76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */; };
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
@@ -80,6 +88,16 @@
 		76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C521A4D537009E5F67 /* NetworkManager.swift */; };
 		772B6025421B3DE3331C384B /* Pods_Hockey_Info.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		76BDDDA421D412E500614AFA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76D60B4E219D060F0058EEB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76D60B55219D060F0058EEB0;
+			remoteInfo = "Hockey Info";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hockey_Info.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +163,16 @@
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76B478B921AF693F00337D98 /* PeriodEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEnum.swift; sourceTree = "<group>"; };
+		76BDDD9F21D412E500614AFA /* HockeyInfoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HockeyInfoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		76BDDDA121D412E500614AFA /* HockeyInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HockeyInfoTests.swift; sourceTree = "<group>"; };
+		76BDDDA321D412E500614AFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76BDDDA921D443B700614AFA /* PlayerStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatistics.swift; sourceTree = "<group>"; };
+		76BDDDAB21D449AD00614AFA /* PenaltyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenaltyData.swift; sourceTree = "<group>"; };
+		76BDDDAD21D44B5C00614AFA /* SkatingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkatingData.swift; sourceTree = "<group>"; };
+		76BDDDAF21D44C8A00614AFA /* ScoringData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringData.swift; sourceTree = "<group>"; };
+		76BDDDB121D44E0B00614AFA /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
+		76BDDDB321D44EBA00614AFA /* PlayerStatsTotal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsTotal.swift; sourceTree = "<group>"; };
+		76BDDDB521D44FF600614AFA /* PlayerStatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatData.swift; sourceTree = "<group>"; };
 		76D60B56219D060F0058EEB0 /* Hockey Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hockey Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D60B59219D060F0058EEB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoresViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +189,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		76BDDD9C21D412E500614AFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		76D60B53219D060F0058EEB0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,6 +230,12 @@
 				76045B5C21B347A200980C63 /* PlayerData.swift */,
 				76045B5E21B34C6900980C63 /* CurrentInjuryData.swift */,
 				76045B6021B34C9C00980C63 /* HandednessData.swift */,
+				76BDDDAB21D449AD00614AFA /* PenaltyData.swift */,
+				76BDDDAD21D44B5C00614AFA /* SkatingData.swift */,
+				76BDDDAF21D44C8A00614AFA /* ScoringData.swift */,
+				76BDDDB121D44E0B00614AFA /* PlayerStats.swift */,
+				76BDDDB321D44EBA00614AFA /* PlayerStatsTotal.swift */,
+				76BDDDB521D44FF600614AFA /* PlayerStatData.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -289,10 +330,20 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		76BDDDA021D412E500614AFA /* HockeyInfoTests */ = {
+			isa = PBXGroup;
+			children = (
+				76BDDDA121D412E500614AFA /* HockeyInfoTests.swift */,
+				76BDDDA321D412E500614AFA /* Info.plist */,
+			);
+			path = HockeyInfoTests;
+			sourceTree = "<group>";
+		};
 		76D60B4D219D060F0058EEB0 = {
 			isa = PBXGroup;
 			children = (
 				76D60B58219D060F0058EEB0 /* Hockey Info */,
+				76BDDDA021D412E500614AFA /* HockeyInfoTests */,
 				76D60B57219D060F0058EEB0 /* Products */,
 				B624197FF41FCB21FFC70336 /* Pods */,
 				94206E9051B91E02CF05169A /* Frameworks */,
@@ -303,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				76D60B56219D060F0058EEB0 /* Hockey Info.app */,
+				76BDDD9F21D412E500614AFA /* HockeyInfoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -375,6 +427,7 @@
 				76590DD321BAFE7B0080E0CD /* TeamStandings.swift */,
 				76590DED21C050EA0080E0CD /* MainMenuCategory.swift */,
 				7640587021C8623D00695D68 /* TeamStatistics.swift */,
+				76BDDDA921D443B700614AFA /* PlayerStatistics.swift */,
 			);
 			path = "Database Models";
 			sourceTree = "<group>";
@@ -409,6 +462,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		76BDDD9E21D412E500614AFA /* HockeyInfoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 76BDDDA821D412E500614AFA /* Build configuration list for PBXNativeTarget "HockeyInfoTests" */;
+			buildPhases = (
+				76BDDD9B21D412E500614AFA /* Sources */,
+				76BDDD9C21D412E500614AFA /* Frameworks */,
+				76BDDD9D21D412E500614AFA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				76BDDDA521D412E500614AFA /* PBXTargetDependency */,
+			);
+			name = HockeyInfoTests;
+			productName = HockeyInfoTests;
+			productReference = 76BDDD9F21D412E500614AFA /* HockeyInfoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		76D60B55219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76D60B68219D06110058EEB0 /* Build configuration list for PBXNativeTarget "Hockey Info" */;
@@ -438,6 +509,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Larry Burris";
 				TargetAttributes = {
+					76BDDD9E21D412E500614AFA = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 76D60B55219D060F0058EEB0;
+					};
 					76D60B55219D060F0058EEB0 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -457,11 +532,19 @@
 			projectRoot = "";
 			targets = (
 				76D60B55219D060F0058EEB0 /* Hockey Info */,
+				76BDDD9E21D412E500614AFA /* HockeyInfoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		76BDDD9D21D412E500614AFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		76D60B54219D060F0058EEB0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,6 +626,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		76BDDD9B21D412E500614AFA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76BDDDA221D412E500614AFA /* HockeyInfoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		76D60B52219D060F0058EEB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -556,6 +647,7 @@
 				76045B4321B0AFDE00980C63 /* NHLSchedule.swift in Sources */,
 				76045B6A21B3673500980C63 /* TeamStandingsData.swift in Sources */,
 				7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */,
+				76BDDDAA21D443B700614AFA /* PlayerStatistics.swift in Sources */,
 				76045B5421B3369100980C63 /* VenueData.swift in Sources */,
 				76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */,
 				76F118C321A4C719009E5F67 /* NHLPlayer.swift in Sources */,
@@ -564,17 +656,20 @@
 				76045B4E21B3331400980C63 /* PeriodInfo.swift in Sources */,
 				76590DF321C07DF50080E0CD /* DisplayStandingsTabViewController.swift in Sources */,
 				766759D921C1C7FE00AFD881 /* DivisionEnum.swift in Sources */,
+				76BDDDAC21D449AD00614AFA /* PenaltyData.swift in Sources */,
 				76590DF721C07F740080E0CD /* DisplayTeamStatsViewController.swift in Sources */,
 				7640586521C47A9700695D68 /* StandingsViewCell.swift in Sources */,
 				76045B7621B36BE100980C63 /* PlayoffRankData.swift in Sources */,
 				766759DD21C1F9CA00AFD881 /* DisplayPlayerViewController.swift in Sources */,
 				7640586121C4746C00695D68 /* StandingsHeaderViewCell.swift in Sources */,
 				76045B7421B36BB900980C63 /* DivisionRankData.swift in Sources */,
+				76BDDDB221D44E0B00614AFA /* PlayerStats.swift in Sources */,
 				76590DF121C0540D0080E0CD /* MenuCategory.swift in Sources */,
 				76590DD721BB02870080E0CD /* TimeAndDateUtils.swift in Sources */,
 				76045B6321B3609100980C63 /* NHLStandings.swift in Sources */,
 				76045B7C21B3701800980C63 /* PowerplayData.swift in Sources */,
 				76045B7821B36FC300980C63 /* StandingsData.swift in Sources */,
+				76BDDDB021D44C8A00614AFA /* ScoringData.swift in Sources */,
 				76045B7E21B3704A00980C63 /* MiscellaneousData.swift in Sources */,
 				7640586821C4D5CB00695D68 /* ConferenceEnum.swift in Sources */,
 				76045B4821B3255300980C63 /* SeasonSchedule.swift in Sources */,
@@ -594,17 +689,20 @@
 				76045B6121B34C9C00980C63 /* HandednessData.swift in Sources */,
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				7640585921C2F76A00695D68 /* DivisionStandingsViewController.swift in Sources */,
+				76BDDDAE21D44B5C00614AFA /* SkatingData.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
 				76045B6821B3642E00980C63 /* StandingsCategory.swift in Sources */,
 				7671F19621C0C76000A65E27 /* DisplayRosterViewController.swift in Sources */,
 				76045B5D21B347A200980C63 /* PlayerData.swift in Sources */,
 				76045B4A21B3297200980C63 /* ScheduledGame.swift in Sources */,
+				76BDDDB421D44EBA00614AFA /* PlayerStatsTotal.swift in Sources */,
 				7671F19221C0A44300A65E27 /* DisplayTeamsViewController.swift in Sources */,
 				76590DE121BDBE150080E0CD /* CellView.swift in Sources */,
 				76045B7A21B36FF200980C63 /* FaceoffData.swift in Sources */,
 				76045B5921B3448100980C63 /* PlayerInfo.swift in Sources */,
 				76045B5F21B34C6900980C63 /* CurrentInjuryData.swift in Sources */,
 				76045B7021B36B6200980C63 /* OverallRankData.swift in Sources */,
+				76BDDDB621D44FF600614AFA /* PlayerStatData.swift in Sources */,
 				76590DEC21BDCAA70080E0CD /* DisplayCalendarViewController.swift in Sources */,
 				76045B5221B3362F00980C63 /* TeamData.swift in Sources */,
 				76045B7221B36B9100980C63 /* ConferenceRankData.swift in Sources */,
@@ -614,6 +712,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		76BDDDA521D412E500614AFA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76D60B55219D060F0058EEB0 /* Hockey Info */;
+			targetProxy = 76BDDDA421D412E500614AFA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		76D60B5D219D060F0058EEB0 /* Main.storyboard */ = {
@@ -635,6 +741,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		76BDDDA621D412E500614AFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HockeyInfoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.larry.burris.HockeyInfoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hockey Info.app/Hockey Info";
+			};
+			name = Debug;
+		};
+		76BDDDA721D412E500614AFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HockeyInfoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.larry.burris.HockeyInfoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hockey Info.app/Hockey Info";
+			};
+			name = Release;
+		};
 		76D60B66219D06110058EEB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -792,6 +936,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		76BDDDA821D412E500614AFA /* Build configuration list for PBXNativeTarget "HockeyInfoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76BDDDA621D412E500614AFA /* Debug */,
+				76BDDDA721D412E500614AFA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		76D60B51219D060F0058EEB0 /* Build configuration list for PBXProject "Hockey Info" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -28,4 +28,15 @@ class ConversionUtils
             default: return PeriodEnum.final.rawValue
         }
     }
+    
+    static func normalizeRank(_ rank: Int) -> String
+    {
+        switch(rank)
+        {
+            case 1: return String(rank) + "st"
+            case 2: return String(rank) + "nd"
+            case 3: return String(rank) + "rd"
+            default: return String(rank) + "th"
+        }
+    }
 }
