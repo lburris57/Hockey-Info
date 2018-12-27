@@ -147,6 +147,25 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayTeamStatistics", sender: team)
     }
     
+    func displayTeamSchedule(_ viewController: DisplayTeamsViewController, _ teamId: Int)
+    {
+        var team : NHLTeam?
+        
+        do
+        {
+            try realm.write
+            {
+                team = realm.objects(NHLTeam.self).filter("id = \(teamId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving team result for \(teamId)!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayTeamSchedule", sender: team)
+    }
+    
     func mainMenuCategoriesRequiresSaving() -> Bool
     {
         var result = false
@@ -208,6 +227,28 @@ class DatabaseManager
         catch
         {
             print("Error retrieving team standings count!")
+        }
+        
+        return result
+    }
+    
+    func playerStatsRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(PlayerStatistics.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving player stats count!")
         }
         
         return result
@@ -385,6 +426,26 @@ class DatabaseManager
         }
         
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+    }
+    
+    //  Create the retrieveAllPlayers method
+    func retrieveAllPlayers() -> Results<NHLPlayer>
+    {
+        var rosterResult: Results<NHLPlayer>?
+        
+        do
+        {
+            try realm.write
+            {
+                rosterResult = realm.objects(NHLPlayer.self)
+            }
+        }
+        catch
+        {
+            print("Error retrieving roster!")
+        }
+        
+        return rosterResult!
     }
     
     func retrieveMainMenuCategories() -> [MenuCategory]

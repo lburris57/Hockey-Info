@@ -15,6 +15,8 @@ import SVProgressHUD
 
 class NetworkManager
 {
+    let databaseManager = DatabaseManager()
+    
     let today = Date()
     
     let shortDateFormatter = DateFormatter()
@@ -618,8 +620,8 @@ class NetworkManager
         }
     }
     
-    //  Create the updateStatsForDate method
-    func updateStatsForDate(_ date :Date)
+    //  Create the updateTeamStatsForDate method
+    func updateTeamStatsForDate(_ date :Date)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
         shortDateFormatter.dateFormat = "yyyyMMdd"
@@ -708,6 +710,120 @@ class NetworkManager
             }.resume()
         }
     }
+    
+    //  Create the savePlayerStats method
+    func savePlayerStats()
+    {
+        let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
+        
+        var playerDictionary = [Int:NHLPlayer]()
+        
+        //  Create a dictionary with id as the key
+        for player in playerResultList
+        {
+            playerDictionary[player.id] = player
+        }
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/player_stats_totals.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let playerStats = try JSONDecoder().decode(PlayerStats.self, from: data!)
+                        
+                        let lastUpdatedOn = playerStats.lastUpdatedOn
+                        
+                        print("Value of lastUpdatedOn is \(lastUpdatedOn ?? "What the hell happened????")")
+                        
+                        print("Size of playerStatsTotal list is \(playerStats.playerStatsTotals?.count ?? 0)")
+                        
+                        print("Populating player stat data...")
+                        
+                        if let playerStatsTotalList = playerStats.playerStatsTotals
+                        {
+                            DispatchQueue.main.async
+                            {
+                                try! self.realm.write
+                                {
+                                    for playerStatsTotal in playerStatsTotalList
+                                    {
+                                        let playerStatistics = PlayerStatistics()
+                                        let playerId = playerStatsTotal.player?.id!
+                                        let nhlPlayer = playerDictionary[playerId!]
+                                        
+                                        playerStatistics.id = playerId!
+                                        playerStatistics.dateCreated = dateString
+                                        playerStatistics.gamesPlayed = playerStatsTotal.playerStats?.gamesPlayed ?? 0
+                                        playerStatistics.goals = playerStatsTotal.playerStats?.scoringData?.goals ?? 0
+                                        playerStatistics.assists = playerStatsTotal.playerStats?.scoringData?.assists ?? 0
+                                        playerStatistics.points = playerStatsTotal.playerStats?.scoringData?.points ?? 0
+                                        playerStatistics.hatTricks = playerStatsTotal.playerStats?.scoringData?.hatTricks ?? 0
+                                        playerStatistics.powerplayGoals = playerStatsTotal.playerStats?.scoringData?.powerplayGoals ?? 0
+                                        playerStatistics.powerplayAssists = playerStatsTotal.playerStats?.scoringData?.powerplayAssists ?? 0
+                                        playerStatistics.powerplayPoints = playerStatsTotal.playerStats?.scoringData?.powerplayPoints ?? 0
+                                        playerStatistics.shortHandedGoals = playerStatsTotal.playerStats?.scoringData?.shorthandedGoals ?? 0
+                                        playerStatistics.shortHandedAssists = playerStatsTotal.playerStats?.scoringData?.shorthandedAssists ?? 0
+                                        playerStatistics.shortHandedPoints = playerStatsTotal.playerStats?.scoringData?.shorthandedPoints ?? 0
+                                        playerStatistics.gameWinningGoals = playerStatsTotal.playerStats?.scoringData?.gameWinningGoals ?? 0
+                                        playerStatistics.gameTyingGoals = playerStatsTotal.playerStats?.scoringData?.gameTyingGoals ?? 0
+                                        playerStatistics.plusMinus = playerStatsTotal.playerStats?.skatingData?.plusMinus ?? 0
+                                        playerStatistics.shots = playerStatsTotal.playerStats?.skatingData?.shots ?? 0
+                                        playerStatistics.shotPercentage = playerStatsTotal.playerStats?.skatingData?.shotPercentage ?? 0.0
+                                        playerStatistics.blockedShots = playerStatsTotal.playerStats?.skatingData?.blockedShots ?? 0
+                                        playerStatistics.hits = playerStatsTotal.playerStats?.skatingData?.hits ?? 0
+                                        playerStatistics.faceoffs = playerStatsTotal.playerStats?.skatingData?.faceoffs ?? 0
+                                        playerStatistics.faceoffWins = playerStatsTotal.playerStats?.skatingData?.faceoffWins ?? 0
+                                        playerStatistics.faceoffLosses = playerStatsTotal.playerStats?.skatingData?.faceoffLosses ?? 0
+                                        playerStatistics.faceoffPercent = playerStatsTotal.playerStats?.skatingData?.faceoffPercent ?? 0.0
+                                        playerStatistics.penalties = playerStatsTotal.playerStats?.penaltyData?.penalties ?? 0
+                                        playerStatistics.penaltyMinutes = playerStatsTotal.playerStats?.penaltyData?.penaltyMinutes ?? 0
+                                        
+                                        //  Save it to realm
+                                        self.realm.create(PlayerStatistics.self, value: playerStatistics, update: true)
+                                        
+                                        //  Get the playerStatistics reference from the database
+                                        let realmPlayerStatistics = self.realm.object(ofType: PlayerStatistics.self, forPrimaryKey: playerId)
+                                        
+                                        nhlPlayer?.playerStatisticsList.append(realmPlayerStatistics!)
+                                    }
+                                }
+                            }
+                        
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON data in savePlayerStats method...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in savePlayerStats method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+        
+        print("Player stat data successfully populated!")
+    }
 }
+
 
 

@@ -29,8 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             
             print("Linking of table data was successful!")
         }
-        
-        if(!databaseManager.teamTableRequiresLinking())
+        else
         {
             networkManager.updateScheduleForDate(Date())
         }

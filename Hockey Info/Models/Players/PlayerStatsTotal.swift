@@ -9,10 +9,12 @@ import Foundation
 
 struct PlayerStatsTotal: Decodable
 {
+    var player: PlayerStatId?
     var playerStats: PlayerStatData?
     
     private enum CodingKeys : String, CodingKey
     {
+        case player = "player"
         case playerStats = "stats"
     }
 }
