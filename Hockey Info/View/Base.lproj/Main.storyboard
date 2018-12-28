@@ -43,6 +43,7 @@
                         <segue destination="zFe-lb-etD" kind="show" identifier="displayTeams" id="Uyk-Vt-9NI"/>
                         <segue destination="15f-m3-ueA" kind="show" identifier="displayScores" id="i3t-ew-fjL"/>
                         <segue destination="0Y7-VQ-BR1" kind="show" identifier="displayTeamStatistics" id="rER-cr-hjC"/>
+                        <segue destination="vl1-ZA-jk2" kind="show" identifier="displayTeamSchedule" id="Kcx-Qc-rP8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ma-lr-Rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -452,6 +453,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qtj-ef-4wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6980" y="-978"/>
+        </scene>
+        <!--Team Schedule-->
+        <scene sceneID="T7z-Dr-eyi">
+            <objects>
+                <tableViewController title="Team Schedule" id="vl1-ZA-jk2" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qDh-fp-bWn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rbK-id-D9C">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rbK-id-D9C" id="PWM-GC-QjT">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vl1-ZA-jk2" id="7Wt-m0-0tR"/>
+                            <outlet property="delegate" destination="vl1-ZA-jk2" id="Hh7-43-D7V"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Off-Hs-oCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4052" y="-691"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="7Xh-ZY-jik">

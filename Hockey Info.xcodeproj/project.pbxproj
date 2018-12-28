@@ -79,6 +79,7 @@
 		76BDDDBE21D59C1000614AFA /* CompletedScheduleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76BDDDBC21D59C1000614AFA /* CompletedScheduleViewCell.xib */; };
 		76BDDDC121D59C7F00614AFA /* FutureScheduleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDBF21D59C7F00614AFA /* FutureScheduleViewCell.swift */; };
 		76BDDDC221D59C7F00614AFA /* FutureScheduleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76BDDDC021D59C7F00614AFA /* FutureScheduleViewCell.xib */; };
+		76BDDDC421D5A8C600614AFA /* DisplayTeamScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDDDC321D5A8C600614AFA /* DisplayTeamScheduleViewController.swift */; };
 		76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B59219D060F0058EEB0 /* AppDelegate.swift */; };
 		76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */; };
 		76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D60B5D219D060F0058EEB0 /* Main.storyboard */; };
@@ -175,6 +176,7 @@
 		76BDDDBC21D59C1000614AFA /* CompletedScheduleViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletedScheduleViewCell.xib; sourceTree = "<group>"; };
 		76BDDDBF21D59C7F00614AFA /* FutureScheduleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureScheduleViewCell.swift; sourceTree = "<group>"; };
 		76BDDDC021D59C7F00614AFA /* FutureScheduleViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FutureScheduleViewCell.xib; sourceTree = "<group>"; };
+		76BDDDC321D5A8C600614AFA /* DisplayTeamScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamScheduleViewController.swift; sourceTree = "<group>"; };
 		76D60B56219D060F0058EEB0 /* Hockey Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hockey Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D60B59219D060F0058EEB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D60B5B219D060F0058EEB0 /* DisplayScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoresViewController.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */,
 				7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */,
 				7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */,
+				76BDDDC321D5A8C600614AFA /* DisplayTeamScheduleViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				76045B6E21B36B1E00980C63 /* TeamStats.swift in Sources */,
 				76590DEA21BDC09B0080E0CD /* ScheduleTableViewCell.swift in Sources */,
 				76F118C121A4C4C1009E5F67 /* NHLTeam.swift in Sources */,
+				76BDDDC421D5A8C600614AFA /* DisplayTeamScheduleViewController.swift in Sources */,
 				76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */,
 				76045B5B21B3461800980C63 /* CurrentTeamData.swift in Sources */,
 				76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */,
