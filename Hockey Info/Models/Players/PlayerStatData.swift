@@ -12,6 +12,7 @@ struct PlayerStatData: Decodable
     var gamesPlayed: Int?
     var scoringData: ScoringData?
     var skatingData: SkatingData?
+    var goaltendingData: GoaltendingData?
     var penaltyData: PenaltyData?
     
     private enum CodingKeys : String, CodingKey
@@ -19,6 +20,7 @@ struct PlayerStatData: Decodable
         case gamesPlayed = "gamesPlayed"
         case scoringData = "scoring"
         case skatingData = "skating"
+        case goaltendingData = "goaltending"
         case penaltyData = "penalties"
     }
 }

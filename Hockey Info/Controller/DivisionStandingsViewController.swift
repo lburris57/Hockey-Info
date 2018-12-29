@@ -106,7 +106,7 @@ class DivisionStandingsViewController: UITableViewController
             cell = UITableViewCell(style: .default, reuseIdentifier: "divisionViewCell")
         }
         
-        cell?.textLabel?.text = TeamManager.getTeamName(teamArray[indexPath.row].abbreviation)
+        cell?.textLabel?.text = TeamManager.getTeamCityName(teamArray[indexPath.row].abbreviation)
         cell?.detailTextLabel?.text = String(teamArray[indexPath.row].gamesPlayed) + "\t\t" +
         String(teamArray[indexPath.row].wins) + "\t\t" + String(teamArray[indexPath.row].losses) + "\t\t" +
         String(teamArray[indexPath.row].overtimeLosses) + "\t\t" + String(teamArray[indexPath.row].points)

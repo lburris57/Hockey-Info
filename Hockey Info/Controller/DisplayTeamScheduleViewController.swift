@@ -7,14 +7,15 @@
 //
 import UIKit
 import RealmSwift
-import SwiftDate
 
-class DisplayTeamScheduleViewController: UITableViewController
+class DisplayTeamScheduleViewController: UITableViewController, CompletedScheduleViewCellDelegate
 {
+    let homeTeamAbbreviation = ""
+    
     var completedGames = [NHLSchedule]()
     var gamesRemaining = [NHLSchedule]()
     
-    var sections = ["Section 1", "Section 2"]
+    var sections = ["", ""]
     
     let databaseManager = DatabaseManager()
     
@@ -31,7 +32,8 @@ class DisplayTeamScheduleViewController: UITableViewController
         
         loadArrays()
         
-        sections = ["Completed Games: \(completedGames.count)", "Games Remaining: \(gamesRemaining.count)"]
+        sections[0] = "Completed Games: \(completedGames.count)"
+        sections[1] = "Games Remaining: \(gamesRemaining.count)"
     }
 
     // MARK: - Table view data source
@@ -82,6 +84,7 @@ class DisplayTeamScheduleViewController: UITableViewController
         switch(indexPath.section)
         {
             case 0:
+                
                 scheduleArray = completedGamesArray
                 
                 var scoreString = ""
@@ -111,6 +114,7 @@ class DisplayTeamScheduleViewController: UITableViewController
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "completedScheduleViewCell", for: indexPath) as! CompletedScheduleViewCell
                 cell.selectionStyle = .none
+                cell.delegate = self
             
                 cell.date.text = scheduleArray[indexPath.row].date
                 cell.opponent.text = scheduleArray[indexPath.row].awayTeam
@@ -125,12 +129,21 @@ class DisplayTeamScheduleViewController: UITableViewController
                 let cell = tableView.dequeueReusableCell(withIdentifier: "futureScheduleViewCell", for: indexPath) as! FutureScheduleViewCell
                 cell.selectionStyle = .none
                 
+                let designator = scheduleArray[indexPath.row].homeTeam == homeTeamAbbreviation ? "vs" : "@"
+                
                 cell.date.text = scheduleArray[indexPath.row].date
-                cell.opponent.text = scheduleArray[indexPath.row].awayTeam
+                cell.opponent.text = designator + " " + scheduleArray[indexPath.row].awayTeam
                 cell.time.text = scheduleArray[indexPath.row].time
             
                 return cell
         }
+    }
+    
+    func completedScheduleViewCellDidTapGameLog(_ sender: CompletedScheduleViewCell)
+    {
+        //guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        
+        //completedGamesArray[tappedIndexPath.row].id
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

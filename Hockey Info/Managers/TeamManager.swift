@@ -16,6 +16,13 @@ class TeamManager
         return teamNames[name] ?? "What the hell happened???"
     }
     
+    static func getTeamCityName(_ name: String) -> String
+    {
+        let teamNames = ["ANA":"Anaheim", "ARI":"Arizona", "BOS":"Boston", "BUF":"Buffalo", "CGY":"Calgary", "CAR":"Carolina", "CHI":"Chicago", "COL":"Colorado", "CBJ":"Columbus", "DAL":"Dallas", "DET":"Detroit", "EDM":"Edmonton","FLO":"Florida", "LAK":"Los Angeles", "MIN":"Minnesota", "MTL":"Montreal", "NSH":"Nashville", "NJD":"New Jersey", "NYI":"NY Islanders", "NYR":"NY Rangers", "OTT":"Ottawa", "PHI":"Philadelphia", "PIT":"Pittsburgh", "SJS":"San Jose", "STL":"St. Louis","TBL":"Tampa Bay", "TOR":"Toronto", "VAN":"Vancouver", "VGK":"Las Vegas", "WSH":"Washington", "WPJ":"Winnipeg"]
+        
+        return teamNames[name] ?? "What the hell happened???"
+    }
+    
     static func getTeamName(_ name: String) -> String
     {
         let teamNames = ["ANA":"Ducks", "ARI":"Coytotes", "BOS":"Bruins", "BUF":"Sabres", "CGY":"Flames", "CAR":"Hurricanes", "CHI":"Blackhawks", "COL":"Avalanche", "CBJ":"Blue Jackets", "DAL":"Stars", "DET":"Red Wings", "EDM":"Oilers", "FLO":"Panthers", "LAK":"Kings", "MIN":"Wild", "MTL":"Canadiens", "NSH":"Predators", "NJD":"Devils", "NYI":"Islanders", "NYR":"Rangers", "OTT":"Senators", "PHI":"Flyers", "PIT":"Penguins", "SJS":"Sharks", "STL":"Blues", "TBL":"Lightning", "TOR":"Maple Leafs", "VAN":"Canucks", "VGK":"Golden Knights", "WSH":"Capitals", "WPJ":"Jets"]

@@ -24,6 +24,11 @@ class PlayerStatistics : Object
     @objc dynamic var shortHandedPoints: Int = 0
     @objc dynamic var gameWinningGoals: Int = 0
     @objc dynamic var gameTyingGoals: Int = 0
+    @objc dynamic var penalties: Int = 0
+    @objc dynamic var penaltyMinutes: Int = 0
+    @objc dynamic var dateCreated: String = ""
+    
+    //  Skater Data
     @objc dynamic var plusMinus: Int = 0
     @objc dynamic var shots: Int = 0
     @objc dynamic var shotPercentage: Double = 0.0
@@ -33,9 +38,21 @@ class PlayerStatistics : Object
     @objc dynamic var faceoffWins: Int = 0
     @objc dynamic var faceoffLosses: Int = 0
     @objc dynamic var faceoffPercent: Double = 0.0
-    @objc dynamic var penalties: Int = 0
-    @objc dynamic var penaltyMinutes: Int = 0
-    @objc dynamic var dateCreated: String = ""
+    
+    //  Goaltending data
+    @objc dynamic var wins: Int = 0
+    @objc dynamic var losses: Int = 0
+    @objc dynamic var overtimeWins: Int = 0
+    @objc dynamic var overtimeLosses: Int = 0
+    @objc dynamic var goalsAgainst: Int = 0
+    @objc dynamic var shotsAgainst: Int = 0
+    @objc dynamic var saves: Int = 0
+    @objc dynamic var goalsAgainstAverage: Double = 0.0
+    @objc dynamic var savePercentage: Double = 0.0
+    @objc dynamic var shutouts: Int = 0
+    @objc dynamic var gamesStarted: Int = 0
+    @objc dynamic var creditForGame: Int = 0
+    @objc dynamic var minutesPlayed: Int = 0
     
     var parentPlayer = LinkingObjects(fromType: NHLPlayer.self, property: "playerStatisticsList")
     

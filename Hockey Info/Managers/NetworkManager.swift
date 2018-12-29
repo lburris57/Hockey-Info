@@ -102,6 +102,8 @@ class NetworkManager
                             }
                             
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
+                            
+                            self.savePlayerStats()
                         }
                     }
                     catch
@@ -794,6 +796,19 @@ class NetworkManager
                                         playerStatistics.faceoffPercent = playerStatsTotal.playerStats?.skatingData?.faceoffPercent ?? 0.0
                                         playerStatistics.penalties = playerStatsTotal.playerStats?.penaltyData?.penalties ?? 0
                                         playerStatistics.penaltyMinutes = playerStatsTotal.playerStats?.penaltyData?.penaltyMinutes ?? 0
+                                        playerStatistics.wins = playerStatsTotal.playerStats?.goaltendingData?.wins ?? 0
+                                        playerStatistics.losses = playerStatsTotal.playerStats?.goaltendingData?.losses ?? 0
+                                        playerStatistics.overtimeWins = playerStatsTotal.playerStats?.goaltendingData?.overtimeWins ?? 0
+                                        playerStatistics.overtimeLosses = playerStatsTotal.playerStats?.goaltendingData?.overtimeLosses ?? 0
+                                        playerStatistics.goalsAgainst = playerStatsTotal.playerStats?.goaltendingData?.goalsAgainst ?? 0
+                                        playerStatistics.shotsAgainst = playerStatsTotal.playerStats?.goaltendingData?.shotsAgainst ?? 0
+                                        playerStatistics.saves = playerStatsTotal.playerStats?.goaltendingData?.saves ?? 0
+                                        playerStatistics.goalsAgainstAverage = playerStatsTotal.playerStats?.goaltendingData?.goalsAgainstAverage ?? 0.0
+                                        playerStatistics.savePercentage = playerStatsTotal.playerStats?.goaltendingData?.savePercentage ?? 0.0
+                                        playerStatistics.shutouts = playerStatsTotal.playerStats?.goaltendingData?.shutouts ?? 0
+                                        playerStatistics.gamesStarted = playerStatsTotal.playerStats?.goaltendingData?.gamesStarted ?? 0
+                                        playerStatistics.creditForGame = playerStatsTotal.playerStats?.goaltendingData?.creditForGame ?? 0
+                                        playerStatistics.minutesPlayed = playerStatsTotal.playerStats?.goaltendingData?.minutesPlayed ?? 0
                                         
                                         //  Save it to realm
                                         self.realm.create(PlayerStatistics.self, value: playerStatistics, update: true)
@@ -807,6 +822,8 @@ class NetworkManager
                             }
                         
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
+                            
+                            print("Player stat data successfully populated!")
                         }
                     }
                     catch
@@ -820,8 +837,6 @@ class NetworkManager
                 }
             }.resume()
         }
-        
-        print("Player stat data successfully populated!")
     }
 }
 
