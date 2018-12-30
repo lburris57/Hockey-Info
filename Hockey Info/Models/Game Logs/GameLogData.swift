@@ -10,8 +10,8 @@ import Foundation
 struct GameLogData: Decodable
 {
     var game: GameData
-    var team: [TeamData]
-    var stats: [StatsData]
+    var team: TeamData
+    var stats: StatsData
     
     private enum CodingKeys : String, CodingKey
     {

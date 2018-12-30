@@ -301,6 +301,28 @@ class DatabaseManager
         return result
     }
     
+    func gameLogRequiresSaving() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if realm.objects(NHLGameLog.self).count == 0
+                {
+                    result = true
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving game log count!")
+        }
+        
+        return result
+    }
+    
     func retrieveTodaysGames(_ mainViewController: MainMenuViewController)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -448,6 +470,49 @@ class DatabaseManager
         return rosterResult!
     }
     
+    //  Create the retrieveAllTeams method
+    func retrieveAllTeams() -> Results<NHLTeam>
+    {
+        var teamResult: Results<NHLTeam>?
+        
+        do
+        {
+            try realm.write
+            {
+                teamResult = realm.objects(NHLTeam.self)
+            }
+        }
+        catch
+        {
+            print("Error retrieving roster!")
+        }
+        
+        return teamResult!
+    }
+    
+    func retrieveGameLogForDate(_ date: Date) -> Results<NHLGameLog>
+    {
+        var gameLogResult: Results<NHLGameLog>?
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: date)
+        
+        do
+        {
+            try realm.write
+            {
+                gameLogResult = realm.objects(NHLGameLog.self).filter("date='\(dateString)'")
+            }
+        }
+        catch
+        {
+            print("Error retrieving game logs!")
+        }
+        
+        return gameLogResult!
+    }
+    
     func retrieveMainMenuCategories() -> [MenuCategory]
     {
         var categories = [MenuCategory]()
@@ -591,7 +656,7 @@ class DatabaseManager
                     
                     for schedule in scheduleResults
                     {
-                        //  Set the standings in the parent team
+                        //  Set the schedule in the parent team
                         team.schedules.append(schedule)
                     }
                     
@@ -599,6 +664,40 @@ class DatabaseManager
                     realm.add(team)
                     
                     print("Schedules have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
+    func linkGameLogsToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the schedules based on the team abbreviation
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all game logs for that particular team
+                    let gameLogResults = realm.objects(NHLGameLog.self).filter("homeTeamAbbreviation =='\(team.abbreviation)' OR " + "awayTeamAbbreviation =='\(team.abbreviation)'")
+                    
+                    for gameLog in gameLogResults
+                    {
+                        //  Set the gameLog in the parent team
+                        team.gameLogs.append(gameLog)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Game logs have successfully been linked to \(team.name)!")
                 }
             }
             catch

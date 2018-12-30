@@ -13,11 +13,9 @@ class NHLGameLog: Object
     @objc dynamic var id : Int = 0
     @objc dynamic var date : String = ""
     @objc dynamic var time : String = ""
-    @objc dynamic var homeTeamId : Int = 0
-    @objc dynamic var awayTeamId : Int = 0
-    @objc dynamic var homeTeamAbbreviation : String = ""
-    @objc dynamic var awayTeamAbbreviation : String = ""
     @objc dynamic var playedStatus : String = ""
+    @objc dynamic var homeTeamId : Int = 0
+    @objc dynamic var homeTeamAbbreviation : String = ""
     @objc dynamic var homeWins : Int = 0
     @objc dynamic var homeLosses : Int = 0
     @objc dynamic var homeOvertimeWins : Int = 0
@@ -38,6 +36,8 @@ class NHLGameLog: Object
     @objc dynamic var homePenalties: Int = 0
     @objc dynamic var homePenaltyMinutes: Int = 0
     @objc dynamic var homeHits: Int = 0
+    @objc dynamic var awayTeamId : Int = 0
+    @objc dynamic var awayTeamAbbreviation : String = ""
     @objc dynamic var awayWins : Int = 0
     @objc dynamic var awayLosses : Int = 0
     @objc dynamic var awayOvertimeWins : Int = 0
@@ -60,6 +60,8 @@ class NHLGameLog: Object
     @objc dynamic var awayHits: Int = 0
     @objc dynamic var lastUpdatedOn: String = ""
     @objc dynamic var dateCreated: String = ""
+    
+    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "gameLogs")
     
     override static func primaryKey() -> String?
     {

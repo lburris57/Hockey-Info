@@ -838,6 +838,167 @@ class NetworkManager
             }.resume()
         }
     }
+    
+    //  Create the saveGameLogs method
+    func saveGameLogs()
+    {
+        let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        var gameLogDictionary = [Int:NHLGameLog]()
+        
+        var gameLogList = [NHLGameLog]()
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/team_gamelogs.json?team=\(teamString)")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let gameLog = try JSONDecoder().decode(GameLog.self, from: data!)
+                        
+                        let lastUpdatedOn = gameLog.lastUpdatedOn
+                        
+                        print("Value of lastUpdatedOn is \(lastUpdatedOn )")
+                        
+                        print("Size of gameLogDataList list is \(gameLog.gameLogDataList.count )")
+                        
+                        print("Populating game log data...")
+                        
+                        DispatchQueue.main.async
+                        {
+                            try! self.realm.write
+                            {
+                                for gameLogData in gameLog.gameLogDataList
+                                {
+                                    var nhlGameLog: NHLGameLog
+                                
+                                    var found = false
+                                
+                                    let gameId = gameLogData.game.id
+                                    let teamAbbreviation = gameLogData.team.abbreviation
+                                
+                                    //  If game id is found in the dictionary, update that object,
+                                    //  otherwise, create a new one to be inserted
+                                    if gameLogDictionary.keys.contains(gameId)
+                                    {
+                                        found = true
+                                        
+                                        nhlGameLog = gameLogDictionary[gameId]!
+                                    }
+                                    else
+                                    {
+                                        nhlGameLog = NHLGameLog()
+                                        nhlGameLog.id = gameId
+                                    }
+                                
+                                    let timeString = gameLogData.game.startTime
+                                
+                                    nhlGameLog.dateCreated = dateString
+                                    nhlGameLog.lastUpdatedOn = lastUpdatedOn
+                                    nhlGameLog.date = TimeAndDateUtils.getDate(timeString)
+                                    nhlGameLog.time = TimeAndDateUtils.getTime(timeString)
+                                    nhlGameLog.playedStatus = PlayedStatusEnum.completed.rawValue
+                                
+                                    //  If the game log is the home team, update the home team information,
+                                    //  otherwise, update the away team information
+                                    if gameLogData.game.homeTeamAbbreviation == teamAbbreviation
+                                    {
+                                        nhlGameLog.homeTeamId = gameLogData.team.id
+                                        nhlGameLog.homeTeamAbbreviation = gameLogData.game.homeTeamAbbreviation
+                                        nhlGameLog.homeWins = gameLogData.stats.standings.wins
+                                        nhlGameLog.homeLosses = gameLogData.stats.standings.losses
+                                        nhlGameLog.homeOvertimeWins = gameLogData.stats.standings.overtimeWins
+                                        nhlGameLog.homeOvertimeLosses = gameLogData.stats.standings.overtimeLosses
+                                        nhlGameLog.homePoints = gameLogData.stats.standings.points
+                                        nhlGameLog.homeFaceoffWins = gameLogData.stats.faceoffs.faceoffWins
+                                        nhlGameLog.homeFaceoffLosses = gameLogData.stats.faceoffs.faceoffLosses
+                                        nhlGameLog.homeFaceoffPercent = gameLogData.stats.faceoffs.faceoffPercent
+                                        nhlGameLog.homePowerplays = gameLogData.stats.powerplay.powerplays
+                                        nhlGameLog.homePowerplayGoals = gameLogData.stats.powerplay.powerplayGoals
+                                        nhlGameLog.homePowerplayPercent = gameLogData.stats.powerplay.powerplayPercent
+                                        nhlGameLog.homePenaltyKills = gameLogData.stats.powerplay.penaltyKills
+                                        nhlGameLog.homePenaltyKillGoalsAllowed = gameLogData.stats.powerplay.penaltyKillGoalsAllowed
+                                        nhlGameLog.homePenaltyKillPercent = gameLogData.stats.powerplay.penaltyKillPercent
+                                        nhlGameLog.homeGoalsFor = gameLogData.stats.miscellaneous.goalsFor
+                                        nhlGameLog.homeGoalsAgainst = gameLogData.stats.miscellaneous.goalsAgainst
+                                        nhlGameLog.homeShots = gameLogData.stats.miscellaneous.shots
+                                        nhlGameLog.homePenalties = gameLogData.stats.miscellaneous.penalties
+                                        nhlGameLog.homePenaltyMinutes = gameLogData.stats.miscellaneous.penaltyMinutes
+                                        nhlGameLog.homeHits = gameLogData.stats.miscellaneous.hits
+                                    }
+                                    else if gameLogData.game.awayTeamAbbreviation == teamAbbreviation
+                                    {
+                                        nhlGameLog.awayTeamId = gameLogData.team.id
+                                        nhlGameLog.awayTeamAbbreviation = gameLogData.game.awayTeamAbbreviation
+                                        nhlGameLog.awayWins = gameLogData.stats.standings.wins
+                                        nhlGameLog.awayLosses = gameLogData.stats.standings.losses
+                                        nhlGameLog.awayOvertimeWins = gameLogData.stats.standings.overtimeWins
+                                        nhlGameLog.awayOvertimeLosses = gameLogData.stats.standings.overtimeLosses
+                                        nhlGameLog.awayPoints = gameLogData.stats.standings.points
+                                        nhlGameLog.awayFaceoffWins = gameLogData.stats.faceoffs.faceoffWins
+                                        nhlGameLog.awayFaceoffLosses = gameLogData.stats.faceoffs.faceoffLosses
+                                        nhlGameLog.awayFaceoffPercent = gameLogData.stats.faceoffs.faceoffPercent
+                                        nhlGameLog.awayPowerplays = gameLogData.stats.powerplay.powerplays
+                                        nhlGameLog.awayPowerplayGoals = gameLogData.stats.powerplay.powerplayGoals
+                                        nhlGameLog.awayPowerplayPercent = gameLogData.stats.powerplay.powerplayPercent
+                                        nhlGameLog.awayPenaltyKills = gameLogData.stats.powerplay.penaltyKills
+                                        nhlGameLog.awayPenaltyKillGoalsAllowed = gameLogData.stats.powerplay.penaltyKillGoalsAllowed
+                                        nhlGameLog.awayPenaltyKillPercent = gameLogData.stats.powerplay.penaltyKillPercent
+                                        nhlGameLog.awayGoalsFor = gameLogData.stats.miscellaneous.goalsFor
+                                        nhlGameLog.awayGoalsAgainst = gameLogData.stats.miscellaneous.goalsAgainst
+                                        nhlGameLog.awayShots = gameLogData.stats.miscellaneous.shots
+                                        nhlGameLog.awayPenalties = gameLogData.stats.miscellaneous.penalties
+                                        nhlGameLog.awayPenaltyMinutes = gameLogData.stats.miscellaneous.penaltyMinutes
+                                        nhlGameLog.awayHits = gameLogData.stats.miscellaneous.hits
+                                    }
+                                
+                                    //  If object was not found, add the created object to the dictionary
+                                    if !found
+                                    {
+                                        gameLogDictionary[gameId] = nhlGameLog
+                                    }
+                                
+                                    //  Add the game log to the gameLogList
+                                    gameLogList.append(nhlGameLog)
+                                }
+                                
+                                //  Save the entire gameLogList to the database
+                                self.realm.add(gameLogList, update: true)
+                                
+                                print("Game log data successfully populated for all teams!")
+                            }
+                        }
+                        
+                        print(Realm.Configuration.defaultConfiguration.fileURL!)
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON data in saveGameLogs method for all teams...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in saveGameLogs method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
 }
 
 

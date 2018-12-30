@@ -26,12 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             databaseManager.linkStandingsToTeams()
             databaseManager.linkStatisticsToTeams()
             databaseManager.linkSchedulesToTeams()
+            databaseManager.linkGameLogsToTeams()
             
             print("Linking of table data was successful!")
         }
         else
         {
-            //networkManager.updateScheduleForDate(Date())
+            networkManager.updateScheduleForDate(Date())
         }
         
         return true

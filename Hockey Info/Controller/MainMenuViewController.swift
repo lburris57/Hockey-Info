@@ -42,6 +42,11 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             networkManager.saveSchedule()
         }
         
+        if(databaseManager.gameLogRequiresSaving())
+        {
+            networkManager.saveGameLogs()
+        }
+        
         categories = databaseManager.retrieveMainMenuCategories()
     }
     
