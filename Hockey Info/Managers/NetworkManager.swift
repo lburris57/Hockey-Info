@@ -104,6 +104,7 @@ class NetworkManager
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
                             
                             self.savePlayerStats()
+                            self.savePlayerInjuries()
                         }
                     }
                     catch
@@ -814,9 +815,10 @@ class NetworkManager
                                         self.realm.create(PlayerStatistics.self, value: playerStatistics, update: true)
                                         
                                         //  Get the playerStatistics reference from the database
-                                        let realmPlayerStatistics = self.realm.object(ofType: PlayerStatistics.self, forPrimaryKey: playerId)
-                                        
-                                        nhlPlayer?.playerStatisticsList.append(realmPlayerStatistics!)
+                                        if let realmPlayerStatistics = self.realm.object(ofType: PlayerStatistics.self, forPrimaryKey: playerId)
+                                        {
+                                            nhlPlayer?.playerStatisticsList.append(realmPlayerStatistics)
+                                        }
                                     }
                                 }
                             }
@@ -834,6 +836,102 @@ class NetworkManager
                 else
                 {
                     print("Error retrieving data in savePlayerStats method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
+    
+    //  Create the savePlayerInjuries method
+    func savePlayerInjuries()
+    {
+        let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
+
+        var playerDictionary = [Int:NHLPlayer]()
+
+        //  Create a dictionary with id as the key
+        for player in playerResultList
+        {
+            playerDictionary[player.id] = player
+        }
+
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+
+        let dateString = fullDateFormatter.string(from: today)
+
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/injuries.json")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
+
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+
+                if err == nil
+                {
+                    do
+                    {
+                        let players = try JSONDecoder().decode(PlayerInjuries.self, from: data!)
+
+                        let lastUpdatedOn = players.lastUpdatedOn
+
+                        print("Value of lastUpdatedOn is \(lastUpdatedOn)")
+
+                        print("Size of playerInfoList list is \(players.playerInfoList.count )")
+
+                        print("Populating player injury data...")
+
+                        DispatchQueue.main.async
+                        {
+                            try! self.realm.write
+                            {
+                                for playerInfo in players.playerInfoList
+                                {
+                                    let playerInjury = NHLPlayerInjury()
+                                    let playerId = playerInfo.id
+                                    let nhlPlayer = playerDictionary[playerId]
+
+                                    playerInjury.id = playerId
+                                    playerInjury.dateCreated = dateString
+                                    playerInjury.teamId = playerInfo.currentTeamInfo?.id ?? 0
+                                    playerInjury.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
+                                    playerInjury.firstName = playerInfo.firstName
+                                    playerInjury.lastName = playerInfo.lastName
+                                    playerInjury.position = playerInfo.position ?? ""
+                                    playerInjury.jerseyNumber = String(playerInfo.jerseyNumber ?? 0)
+                                    playerInjury.injuryDescription = playerInfo.currentInjuryInfo?.description ?? ""
+                                    playerInjury.playingProbablity = playerInfo.currentInjuryInfo?.playingProbability ?? ""
+
+                                    //  Save it to realm
+                                    self.realm.create(NHLPlayerInjury.self, value: playerInjury, update: true)
+
+                                    //  Get the playerInjury reference from the database
+                                    if let realmPlayerInjury = self.realm.object(ofType: NHLPlayerInjury.self, forPrimaryKey: playerId)
+                                    {
+                                        nhlPlayer?.playerInjuries.append(realmPlayerInjury)
+                                    }
+                                }
+                            }
+                        }
+
+                        print(Realm.Configuration.defaultConfiguration.fileURL!)
+
+                        print("Player injury data successfully populated!")
+
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON data in savePlayerInjuries method...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in savePlayerInjuries method...\(err.debugDescription)")
                 }
             }.resume()
         }

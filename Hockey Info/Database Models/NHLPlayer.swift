@@ -28,6 +28,7 @@ class NHLPlayer : Object
     @objc dynamic var dateCreated: String = ""
     
     var playerStatisticsList = List<PlayerStatistics>()
+    var playerInjuries = List<NHLPlayerInjury>()
     
     var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "players")
     

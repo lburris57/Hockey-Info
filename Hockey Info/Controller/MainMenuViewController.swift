@@ -116,8 +116,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else if(segue.identifier == "displayTeams" || segue.identifier == "displayTeamStatistics")
         {
-            //print("Segue identifier is \(segue.identifier!)")
-            
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.segueId = segue.identifier!

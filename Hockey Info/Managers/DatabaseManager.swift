@@ -17,6 +17,36 @@ class DatabaseManager
     //  Create a new Realm database
     let realm = try! Realm()
     
+    func reloadInjuryTableIfRequired()
+    {
+        let networkManager = NetworkManager()
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        let playerInjuryResults = realm.objects(NHLPlayerInjury.self)
+        
+        if(playerInjuryResults[0].dateCreated != dateString)
+        {
+            do
+            {
+                try realm.write
+                {
+                    realm.delete(realm.objects(NHLPlayerInjury.self))
+                }
+            }
+            catch
+            {
+                print("Error deleting player injury data!")
+            }
+            
+            networkManager.savePlayerInjuries()
+            
+            networkManager.updateScheduleForDate(Date())
+        }
+    }
+    
     //  Create the displayPlayer method
     func displayPlayer(_ viewController: DisplayRosterViewController, _ id: Int)
     {
@@ -551,6 +581,8 @@ class DatabaseManager
                 {
                     //  Get all players for that particular team
                     let playerResults = realm.objects(NHLPlayer.self).filter("teamId ==\(team.id)")
+                    
+                    print("Size of playerResults is: \(playerResults.count)")
                     
                     for player in playerResults
                     {

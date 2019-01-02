@@ -29,11 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             databaseManager.linkGameLogsToTeams()
             
             print("Linking of table data was successful!")
-        }
-        else
-        {
+            
             networkManager.updateScheduleForDate(Date())
         }
+        
+        //  If the player injury table is populated and the last updated date is not today,
+        //  delete the current data and reload the table
+        databaseManager.reloadInjuryTableIfRequired()
         
         return true
     }
