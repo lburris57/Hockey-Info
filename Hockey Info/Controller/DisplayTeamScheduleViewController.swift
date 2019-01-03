@@ -10,6 +10,8 @@ import RealmSwift
 
 class DisplayTeamScheduleViewController: UITableViewController, CompletedScheduleViewCellDelegate
 {
+    @IBOutlet weak var scheduleView: UITableView!
+    
     let homeTeamAbbreviation = ""
     
     var completedGames = [NHLSchedule]()
@@ -19,7 +21,7 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     
     let databaseManager = DatabaseManager()
     
-    var teamSchedules: [NHLSchedule]?
+    var teamSchedules: Results<NHLSchedule>?
     
     var scheduleArray = [NHLSchedule]()
     
@@ -30,10 +32,16 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     {
         super.viewDidLoad()
         
+        let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
+        scheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
+        
+        let myNib2 = UINib(nibName: "FutureScheduleViewCell", bundle: Bundle.main)
+        scheduleView.register(myNib2, forCellReuseIdentifier: "futureScheduleViewCell")
+        
         loadArrays()
         
-        sections[0] = "Completed Games: \(completedGames.count)"
-        sections[1] = "Games Remaining: \(gamesRemaining.count)"
+        sections[0] = "Completed Games: \(completedGamesArray.count)"
+        sections[1] = "Games Remaining: \(gamesRemainingArray.count)"
     }
 
     // MARK: - Table view data source

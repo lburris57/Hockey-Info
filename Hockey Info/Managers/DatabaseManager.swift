@@ -17,37 +17,7 @@ class DatabaseManager
     //  Create a new Realm database
     let realm = try! Realm()
     
-    func reloadInjuryTableIfRequired()
-    {
-        let networkManager = NetworkManager()
-        
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: today)
-        
-        let playerInjuryResults = realm.objects(NHLPlayerInjury.self)
-        
-        if(playerInjuryResults[0].dateCreated != dateString)
-        {
-            do
-            {
-                try realm.write
-                {
-                    realm.delete(realm.objects(NHLPlayerInjury.self))
-                }
-            }
-            catch
-            {
-                print("Error deleting player injury data!")
-            }
-            
-            networkManager.savePlayerInjuries()
-            
-            networkManager.updateScheduleForDate(Date())
-        }
-    }
-    
-    //  Create the displayPlayer method
+    // MARK: Display Methods
     func displayPlayer(_ viewController: DisplayRosterViewController, _ id: Int)
     {
         var playerResult: NHLPlayer?
@@ -67,7 +37,11 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
     }
     
-    //  Create the displayStandings method
+    func displayGameLog()
+    {
+        
+    }
+    
     func displayStandings(_ viewController: MainMenuViewController)
     {
         var standingsResult: Results<TeamStandings>?
@@ -87,7 +61,6 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayStandings", sender: standingsResult)
     }
     
-    //  Create the displaySchedule method
     func displaySchedule(_ viewController: MainMenuViewController, _ segueId: String)
     {
         var scheduleResult: Results<NHLSchedule>?
@@ -107,7 +80,6 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: segueId, sender: scheduleResult)
     }
     
-    //  Create the displayTeams method
     func displayTeams(_ viewController: MainMenuViewController, _ category:String)
     {
         var teamResults: Results<NHLTeam>?
@@ -117,6 +89,10 @@ class DatabaseManager
         if(category == "Team Rosters")
         {
             segueId = "displayTeams"
+        }
+        else if(category == "Team Schedule")
+        {
+            segueId = "displayTeamsForSchedule"
         }
         else
         {
@@ -138,7 +114,6 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: segueId, sender: teamResults)
     }
     
-    //  Create the displayRoster method
     func displayRoster(_ viewController: DisplayTeamsViewController, _ teamId: Int)
     {
         var rosterResult: Results<NHLPlayer>?
@@ -179,23 +154,26 @@ class DatabaseManager
     
     func displayTeamSchedule(_ viewController: DisplayTeamsViewController, _ teamId: Int)
     {
-        var team : NHLTeam?
+        var teamSchedules : Results<NHLSchedule>?
+        
+        let team = TeamManager.getTeamByID(teamId)
         
         do
         {
             try realm.write
             {
-                team = realm.objects(NHLTeam.self).filter("id = \(teamId)").first
+                teamSchedules = realm.objects(NHLSchedule.self).filter("homeTeam = '\(team)' OR awayTeam = '\(team)'")
             }
         }
         catch
         {
-            print("Error retrieving team result for \(teamId)!")
+            print("Error retrieving schedule results for \(teamId)!")
         }
         
-        viewController.performSegue(withIdentifier: "displayTeamSchedule", sender: team)
+        viewController.performSegue(withIdentifier: "displayTeamSchedule", sender: teamSchedules)
     }
     
+    // MARK: Requires saving methods
     func mainMenuCategoriesRequiresSaving() -> Bool
     {
         var result = false
@@ -284,31 +262,6 @@ class DatabaseManager
         return result
     }
     
-    func teamTableRequiresLinking() -> Bool
-    {
-        var result = false
-        
-        do
-        {
-            try realm.write
-            {
-                if let team = realm.objects(NHLTeam.self).filter("id = \(5)").first
-                {
-                    if(team.players.count == 0)
-                    {
-                        result = true
-                    }
-                }
-            }
-        }
-        catch
-        {
-            print("Error retrieving team!")
-        }
-        
-        return result
-    }
-    
     func teamRosterRequiresSaving() -> Bool
     {
         var result = false
@@ -353,6 +306,51 @@ class DatabaseManager
         return result
     }
     
+    func saveMainMenuCategories()
+    {
+        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics", "Player Statistics"]
+        
+        let categoryList = List<MainMenuCategory>()
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        var id = 0
+        
+        for category in categories
+        {
+            let mainMenuCategory = MainMenuCategory()
+            
+            mainMenuCategory.id = id
+            mainMenuCategory.category = category
+            mainMenuCategory.dateCreated = dateString
+            
+            id = id + 1
+            
+            categoryList.append(mainMenuCategory)
+        }
+        
+        do
+        {
+            print("Saving main menu category data...")
+            
+            try self.realm.write
+            {
+                self.realm.add(categoryList)
+                
+                print("Main menu categories have successfully been added to the database!!")
+            }
+        }
+        catch
+        {
+            print("Error saving main menu categories to the database: \(error)")
+        }
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+    }
+    
+    // MARK: Retrieve methods
     func retrieveTodaysGames(_ mainViewController: MainMenuViewController)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -436,51 +434,6 @@ class DatabaseManager
         return scheduledGames!
     }
     
-    func saveMainMenuCategories()
-    {
-        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics", "Player Statistics"]
-        
-        let categoryList = List<MainMenuCategory>()
-        
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: today)
-        
-        var id = 0
-        
-        for category in categories
-        {
-            let mainMenuCategory = MainMenuCategory()
-            
-            mainMenuCategory.id = id
-            mainMenuCategory.category = category
-            mainMenuCategory.dateCreated = dateString
-            
-            id = id + 1
-            
-            categoryList.append(mainMenuCategory)
-        }
-        
-        do
-        {
-            print("Saving main menu category data...")
-            
-            try self.realm.write
-            {
-                self.realm.add(categoryList)
-                
-                print("Main menu categories have successfully been added to the database!!")
-            }
-        }
-        catch
-        {
-            print("Error saving main menu categories to the database: \(error)")
-        }
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-    }
-    
-    //  Create the retrieveAllPlayers method
     func retrieveAllPlayers() -> Results<NHLPlayer>
     {
         var rosterResult: Results<NHLPlayer>?
@@ -500,7 +453,6 @@ class DatabaseManager
         return rosterResult!
     }
     
-    //  Create the retrieveAllTeams method
     func retrieveAllTeams() -> Results<NHLTeam>
     {
         var teamResult: Results<NHLTeam>?
@@ -565,6 +517,32 @@ class DatabaseManager
         }
         
         return categories
+    }
+    
+    // MARK: Link methods
+    func teamTableRequiresLinking() -> Bool
+    {
+        var result = false
+        
+        do
+        {
+            try realm.write
+            {
+                if let team = realm.objects(NHLTeam.self).filter("id = \(5)").first
+                {
+                    if(team.players.count == 0)
+                    {
+                        result = true
+                    }
+                }
+            }
+        }
+        catch
+        {
+            print("Error retrieving team!")
+        }
+        
+        return result
     }
     
     func linkPlayersToTeams()
@@ -739,6 +717,7 @@ class DatabaseManager
         }
     }
     
+    // MARK: Load/Reload methods
     func loadTeamRecords() -> [String:String]
     {
         var records = [String:String]()
@@ -763,5 +742,35 @@ class DatabaseManager
         }
         
         return records
+    }
+    
+    func reloadInjuryTableIfRequired()
+    {
+        let networkManager = NetworkManager()
+        
+        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
+        
+        let dateString = fullDateFormatter.string(from: today)
+        
+        let playerInjuryResults = realm.objects(NHLPlayerInjury.self)
+        
+        if(playerInjuryResults[0].dateCreated != dateString)
+        {
+            do
+            {
+                try realm.write
+                {
+                    realm.delete(realm.objects(NHLPlayerInjury.self))
+                }
+            }
+            catch
+            {
+                print("Error deleting player injury data!")
+            }
+            
+            networkManager.savePlayerInjuries()
+            
+            networkManager.updateScheduleForDate(Date())
+        }
     }
 }

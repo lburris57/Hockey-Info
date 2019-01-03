@@ -145,6 +145,10 @@ class DisplayTeamsViewController: UITableViewController
         {
             databaseManager.displayTeamStatistics(self, teamId)
         }
+        else if(segueId == "displayTeamsForSchedule")
+        {
+            databaseManager.displayTeamSchedule(self, teamId)
+        }
     }
     
     // MARK: - Navigation
@@ -156,8 +160,11 @@ class DisplayTeamsViewController: UITableViewController
             let displayRosterViewController = segue.destination as! DisplayRosterViewController
             
             displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
-
-            displayRosterViewController.title = "Players"
+            
+            if let players = displayRosterViewController.playerResults
+            {
+                displayRosterViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(players[0].teamId))) Players"
+            }
         }
         else if(segue.identifier == "displayTeamStatistics")
         {
@@ -165,7 +172,18 @@ class DisplayTeamsViewController: UITableViewController
             
             displayTeamStatsViewController.team = sender as? NHLTeam
             
-            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName( (displayTeamStatsViewController.team?.abbreviation)!))"
+            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName((displayTeamStatsViewController.team?.abbreviation)!))"
+        }
+        else if(segue.identifier == "displayTeamSchedule")
+        {
+            let displayTeamScheduleViewController = segue.destination as! DisplayTeamScheduleViewController
+            
+            displayTeamScheduleViewController.teamSchedules = sender as? Results<NHLSchedule>
+            
+            if let schedules = displayTeamScheduleViewController.teamSchedules
+            {
+                displayTeamScheduleViewController.title = "Schedule for \(TeamManager.getFullTeamName((schedules[0].parentTeam.first?.abbreviation)!))"
+            }
         }
     }
     

@@ -43,7 +43,7 @@
                         <segue destination="zFe-lb-etD" kind="show" identifier="displayTeams" id="Uyk-Vt-9NI"/>
                         <segue destination="15f-m3-ueA" kind="show" identifier="displayScores" id="i3t-ew-fjL"/>
                         <segue destination="0Y7-VQ-BR1" kind="show" identifier="displayTeamStatistics" id="rER-cr-hjC"/>
-                        <segue destination="vl1-ZA-jk2" kind="show" identifier="displayTeamSchedule" id="Kcx-Qc-rP8"/>
+                        <segue destination="vl1-ZA-jk2" kind="show" identifier="displayTeamsForSchedule" id="Kcx-Qc-rP8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ma-lr-Rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -457,7 +457,7 @@
         <!--Team Schedule-->
         <scene sceneID="T7z-Dr-eyi">
             <objects>
-                <tableViewController title="Team Schedule" id="vl1-ZA-jk2" sceneMemberID="viewController">
+                <tableViewController title="Team Schedule" id="vl1-ZA-jk2" customClass="DisplayTeamsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qDh-fp-bWn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -477,10 +477,13 @@
                             <outlet property="delegate" destination="vl1-ZA-jk2" id="Hh7-43-D7V"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="l0l-3T-CPl" kind="show" identifier="displayTeamSchedule" id="BEY-gp-hnp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Off-Hs-oCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4052" y="-691"/>
+            <point key="canvasLocation" x="4390" y="-1297"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="7Xh-ZY-jik">
@@ -654,7 +657,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zz0-Pa-i97" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4890" y="-299"/>
+            <point key="canvasLocation" x="4767" y="-458"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pif-IE-RUi">
@@ -844,10 +847,41 @@
             </objects>
             <point key="canvasLocation" x="6980" y="492"/>
         </scene>
+        <!--Display Team Schedule View Controller-->
+        <scene sceneID="Hab-wj-eIB">
+            <objects>
+                <tableViewController id="l0l-3T-CPl" customClass="DisplayTeamScheduleViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fd-8d-yTs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eqG-cD-wNv">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eqG-cD-wNv" id="OMz-Ao-kW5">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="l0l-3T-CPl" id="o3F-LL-Lkz"/>
+                            <outlet property="delegate" destination="l0l-3T-CPl" id="Plf-qG-5gj"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="scheduleView" destination="1fd-8d-yTs" id="0aW-Z7-Fjr"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4N-6Z-qUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5271" y="-1301"/>
+        </scene>
         <!--Game Log-->
         <scene sceneID="gU3-AC-VeQ">
             <objects>
-                <viewController title="Game Log" id="ARt-Zr-qMg" sceneMemberID="viewController">
+                <viewController title="Game Log" id="ARt-Zr-qMg" customClass="DisplayGameLogViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FYi-x7-KY5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1434,10 +1468,45 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pza-Fl-P7G"/>
                     </view>
+                    <connections>
+                        <outlet property="awayFaceoffLosses" destination="Ozn-jj-uZ6" id="gcU-DZ-d6y"/>
+                        <outlet property="awayFaceoffPercentage" destination="J4Y-XY-8bd" id="G8W-Pg-n9l"/>
+                        <outlet property="awayFaceoffWins" destination="2Fy-Aa-CIV" id="BcB-4W-HiA"/>
+                        <outlet property="awayGoalsAgainst" destination="sVK-CI-C1x" id="avL-5e-3Of"/>
+                        <outlet property="awayGoalsFor" destination="eXx-py-3E1" id="hut-MW-sU2"/>
+                        <outlet property="awayHits" destination="xW6-eB-Qga" id="doh-BX-Xuq"/>
+                        <outlet property="awayLogo" destination="CK6-EI-b92" id="CtF-lr-qsY"/>
+                        <outlet property="awayPKGoalsAllowed" destination="QoR-aU-9hR" id="f6n-tg-5b8"/>
+                        <outlet property="awayPenalties" destination="mJY-9r-ccb" id="JZY-be-f1A"/>
+                        <outlet property="awayPenaltyKillPercentage" destination="gOi-MU-lkY" id="gAu-Ce-CwK"/>
+                        <outlet property="awayPenaltyKills" destination="4RD-bD-RY3" id="YXu-Gm-nqt"/>
+                        <outlet property="awayPenaltyMinutes" destination="ANM-6h-KeV" id="tFI-cr-tis"/>
+                        <outlet property="awayPowerPlayGoals" destination="pvV-gD-3xW" id="1nt-Gf-69t"/>
+                        <outlet property="awayPowerPlayPercentage" destination="3z6-9W-LNH" id="POq-2N-muu"/>
+                        <outlet property="awayPowerPlays" destination="Ee2-wG-Yi2" id="7yp-0j-fSv"/>
+                        <outlet property="awayShots" destination="XuI-QI-ceX" id="xAT-Ly-EVY"/>
+                        <outlet property="dateString" destination="ylS-aS-Yfe" id="9WG-Qc-Xbg"/>
+                        <outlet property="homeFaceoffLosses" destination="l1A-7K-Nn8" id="uao-oq-JpY"/>
+                        <outlet property="homeFaceoffPercentage" destination="ELN-BS-FRG" id="8uU-hK-hos"/>
+                        <outlet property="homeFaceoffWins" destination="khv-eJ-HwK" id="AqK-hG-6Dd"/>
+                        <outlet property="homeGoalsAgainst" destination="d3z-Pd-DGP" id="Kgg-HH-2Iz"/>
+                        <outlet property="homeGoalsFor" destination="6SS-wH-U78" id="LXO-co-AO2"/>
+                        <outlet property="homeHits" destination="Ajm-Ws-hkH" id="i7P-U3-qRg"/>
+                        <outlet property="homeLogo" destination="n9D-sO-Vpj" id="Ttw-J8-ohc"/>
+                        <outlet property="homePKGoalsAllowed" destination="bO9-CR-eXi" id="jh0-53-iyk"/>
+                        <outlet property="homePenalties" destination="ZWR-Dq-CaY" id="cfc-uL-nCO"/>
+                        <outlet property="homePenaltyKillPercentage" destination="BYg-we-VmL" id="wXo-Up-got"/>
+                        <outlet property="homePenaltyKills" destination="zie-bI-bWX" id="IRl-kL-QMu"/>
+                        <outlet property="homePenaltyMinutes" destination="Zg0-9C-0Sz" id="hiQ-Oy-Siu"/>
+                        <outlet property="homePowerPlayGoals" destination="1vM-fQ-BTA" id="TeP-Qp-ScP"/>
+                        <outlet property="homePowerPlayPercentage" destination="G2j-BI-rHe" id="ccW-Jb-ZRv"/>
+                        <outlet property="homePowerPlays" destination="0bc-TT-3On" id="md0-CF-IT1"/>
+                        <outlet property="homeShots" destination="9Ip-a4-EDF" id="BuM-I6-fsa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTf-p4-IgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2486.9565217391305" y="1057.3369565217392"/>
+            <point key="canvasLocation" x="6183" y="-1297"/>
         </scene>
         <!--Display scores-->
         <scene sceneID="3ou-Tf-msw">

@@ -48,6 +48,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         categories = databaseManager.retrieveMainMenuCategories()
+        
+        //  If the player injury table is populated and the last updated date is not today,
+        //  delete the current data and reload the table
+        databaseManager.reloadInjuryTableIfRequired()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
@@ -100,6 +104,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.displayTeams(self, category)
         }
+        else if(category == "Team Schedule")
+        {
+            databaseManager.displayTeams(self, category)
+        }
         else if(category == "Standings")
         {
             databaseManager.displayStandings(self)
@@ -114,11 +122,15 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 
             displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
         }
-        else if(segue.identifier == "displayTeams" || segue.identifier == "displayTeamStatistics")
+        else if(segue.identifier == "displayTeams"
+                || segue.identifier == "displayTeamStatistics"
+                || segue.identifier == "displayTeamsForSchedule")
         {
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.segueId = segue.identifier!
+            
+            print("Segue id is: \(segue.identifier!)")
             
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
         }
