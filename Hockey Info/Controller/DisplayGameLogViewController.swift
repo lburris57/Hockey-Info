@@ -54,7 +54,7 @@ class DisplayGameLogViewController: UIViewController
         {
             homeLogo.image = UIImage(named: (gameLog.homeTeamAbbreviation))
             awayLogo.image = UIImage(named: (gameLog.awayTeamAbbreviation))
-            dateString.text = gameLog.dateCreated
+            dateString.text = gameLog.date
             homeGoalsFor.text = String(gameLog.homeGoalsFor)
             awayGoalsFor.text = String(gameLog.awayGoalsFor)
             homeGoalsAgainst.text = String(gameLog.homeGoalsAgainst)
