@@ -130,8 +130,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             
             displayTeamsViewController.segueId = segue.identifier!
             
-            print("Segue id is: \(segue.identifier!)")
-            
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
         }
         else if(segue.identifier == "displayScores")

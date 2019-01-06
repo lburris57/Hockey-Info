@@ -872,6 +872,7 @@
                     </tableView>
                     <connections>
                         <outlet property="scheduleView" destination="1fd-8d-yTs" id="0aW-Z7-Fjr"/>
+                        <segue destination="ARt-Zr-qMg" kind="show" identifier="displayGameLog" id="IMb-My-2dt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4N-6Z-qUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1281,7 +1282,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpS-d2-E4a">
                                         <rect key="frame" x="73" y="525.66666666666663" width="34.666666666666657" height="20.333333333333371"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYg-we-VmL">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYg-we-VmL">
                                                 <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="20.333333333333332"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="34.670000000000002" id="VLt-Ac-dTN"/>

@@ -182,9 +182,18 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     
     func completedScheduleViewCellDidTapGameLog(_ sender: CompletedScheduleViewCell)
     {
-        //guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
+        guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
-        //completedGamesArray[tappedIndexPath.row].id
+        print("Game id is: \(completedGamesArray[tappedIndexPath.row].id)")
+        
+        databaseManager.displayGameLog(self, completedGamesArray[tappedIndexPath.row].id)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let displayGameLogViewController = segue.destination as! DisplayGameLogViewController
+            
+        displayGameLogViewController.gameLogResult = sender as? NHLGameLog
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
