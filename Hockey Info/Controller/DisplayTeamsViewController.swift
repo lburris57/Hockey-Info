@@ -20,7 +20,8 @@ class DisplayTeamsViewController: UITableViewController
     
     var teamArray = [NHLTeam]()
     
-    var viewTitle = ""
+    var selectedTeamAbbreviation = ""
+    var selectedTeamName = ""
     
     var segueId = ""
     
@@ -135,7 +136,8 @@ class DisplayTeamsViewController: UITableViewController
         
         let teamId = teamArray[indexPath.row].id
         
-        viewTitle = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
+        selectedTeamName = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
+        selectedTeamAbbreviation = teamArray[indexPath.row].abbreviation
         
         if(segueId == "displayTeams")
         {
@@ -180,10 +182,8 @@ class DisplayTeamsViewController: UITableViewController
             
             displayTeamScheduleViewController.teamSchedules = sender as? Results<NHLSchedule>
             
-            if let schedules = displayTeamScheduleViewController.teamSchedules
-            {
-                displayTeamScheduleViewController.title = "Schedule for \(TeamManager.getFullTeamName((schedules[0].parentTeam.first?.abbreviation)!))"
-            }
+            displayTeamScheduleViewController.title = "Schedule for \(selectedTeamName)"
+            displayTeamScheduleViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
         }
     }
     

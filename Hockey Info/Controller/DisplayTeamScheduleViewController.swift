@@ -12,7 +12,8 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
 {
     @IBOutlet weak var scheduleView: UITableView!
     
-    let homeTeamAbbreviation = ""
+    var selectedTeamName = ""
+    var selectedTeamAbbreviation = ""
     
     var completedGames = [NHLSchedule]()
     var gamesRemaining = [NHLSchedule]()
@@ -89,17 +90,40 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        var designator = ""
+        var result = ""
+        
+        var isHomeTeam = false
+        
         switch(indexPath.section)
         {
             case 0:
                 
+                scheduleView.rowHeight = CGFloat(65.0)
+                
                 scheduleArray = completedGamesArray
+                
+                if(selectedTeamAbbreviation == scheduleArray[indexPath.row].homeTeam)
+                {
+                    isHomeTeam = true
+                }
                 
                 var scoreString = ""
                 
                 let homeScore = scheduleArray[indexPath.row].homeScoreTotal
                 let awayScore = scheduleArray[indexPath.row].awayScoreTotal
-                let result = homeScore > awayScore ? "W" : "L"
+                
+                designator = scheduleArray[indexPath.row].homeTeam == selectedTeamAbbreviation ? "vs" : "@"
+                
+                if(isHomeTeam)
+                {
+                    result = homeScore > awayScore ? "W" : "L"
+                }
+                else
+                {
+                    result = homeScore > awayScore ? "L" : "W"
+                }
+                
                 let numberOfPeriods = scheduleArray[indexPath.row].numberOfPeriods
                 
                 if(homeScore > awayScore)
@@ -125,22 +149,31 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
                 cell.delegate = self
             
                 cell.date.text = scheduleArray[indexPath.row].date
-                cell.opponent.text = scheduleArray[indexPath.row].awayTeam
+                cell.opponent.text = isHomeTeam ?
+                    designator + " " + TeamManager.getTeamCityName(scheduleArray[indexPath.row].awayTeam) : designator + " " + TeamManager.getTeamCityName(scheduleArray[indexPath.row].homeTeam)
                 cell.result.text = scoreString
             
                 return cell
            
             default:
             
+                scheduleView.rowHeight = CGFloat(45.0)
+                
                 scheduleArray = gamesRemainingArray
+                
+                if(selectedTeamAbbreviation == scheduleArray[indexPath.row].homeTeam)
+                {
+                    isHomeTeam = true
+                }
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "futureScheduleViewCell", for: indexPath) as! FutureScheduleViewCell
                 cell.selectionStyle = .none
                 
-                let designator = scheduleArray[indexPath.row].homeTeam == homeTeamAbbreviation ? "vs" : "@"
+                designator = scheduleArray[indexPath.row].homeTeam == selectedTeamAbbreviation ? "vs" : "@"
                 
                 cell.date.text = scheduleArray[indexPath.row].date
-                cell.opponent.text = designator + " " + scheduleArray[indexPath.row].awayTeam
+                cell.opponent.text = isHomeTeam ?
+                    designator + " " + TeamManager.getTeamCityName(scheduleArray[indexPath.row].awayTeam) : designator + " " + TeamManager.getTeamCityName(scheduleArray[indexPath.row].homeTeam)
                 cell.time.text = scheduleArray[indexPath.row].time
             
                 return cell
