@@ -157,7 +157,7 @@ class DisplayPlayerStatisticsViewController: UITableViewController
             }
             
             penaltiesArray.append("Penalties: \(playerStats.penalties)")
-            penaltiesArray.append("Penalties: \(playerStats.penaltyMinutes)")
+            penaltiesArray.append("Penalty Minutes: \(playerStats.penaltyMinutes)")
         }
     }
 }
