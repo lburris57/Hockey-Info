@@ -815,7 +815,7 @@ class NetworkManager
                         
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
                             
-                            print("Player stat data successfully populated!")
+                            print("Player stat data successfully populated!") 
                         }
                     }
                     catch
@@ -829,6 +829,8 @@ class NetworkManager
                 }
             }.resume()
         }
+        
+        linkTables()
     }
     
     func savePlayerInjuries()
@@ -1083,6 +1085,24 @@ class NetworkManager
                     print("Error retrieving data in saveGameLogs method...\(err.debugDescription)")
                 }
             }.resume()
+        }
+    }
+    
+    func linkTables()
+    {
+        if(self.databaseManager.teamTableRequiresLinking())
+        {
+            print("Linking table data...")
+            
+            self.databaseManager.linkPlayersToTeams()
+            self.databaseManager.linkStandingsToTeams()
+            self.databaseManager.linkStatisticsToTeams()
+            self.databaseManager.linkSchedulesToTeams()
+            self.databaseManager.linkGameLogsToTeams()
+            
+            print("Linking of table data was successful!")
+            
+            self.updateScheduleForDate(Date())
         }
     }
 }

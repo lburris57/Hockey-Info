@@ -341,7 +341,7 @@ class DatabaseManager
     
     func saveMainMenuCategories()
     {
-        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics", "Player Statistics"]
+        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics"]
         
         let categoryList = List<MainMenuCategory>()
         

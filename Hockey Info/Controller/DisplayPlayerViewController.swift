@@ -94,8 +94,6 @@ class DisplayPlayerViewController: UIViewController
     
     @IBAction func displayPlayerStatisticsButtonTapped(_ sender: UIButton)
     {
-        print("Player id is: \(playerId)")
-        
         databaseManager.displayPlayerStatistics(self, playerId)
     }
     
@@ -104,5 +102,8 @@ class DisplayPlayerViewController: UIViewController
         let displayPlayerStatisticsViewController = segue.destination as! DisplayPlayerStatisticsViewController
         
         displayPlayerStatisticsViewController.playerStatistics = sender as? PlayerStatistics
+        
+        displayPlayerStatisticsViewController.title = "Player Statistics for \(displayPlayerStatisticsViewController.playerStatistics?.parentPlayer.first?.firstName ?? "")" + " " +
+        "\(displayPlayerStatisticsViewController.playerStatistics?.parentPlayer.first?.lastName ?? "")"
     }
 }
