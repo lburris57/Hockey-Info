@@ -25,8 +25,13 @@ class DisplayPlayerViewController: UIViewController
     @IBOutlet weak var shoots: UILabel!
     @IBOutlet weak var shootsLabel: UILabel!
     @IBOutlet weak var position: UILabel!
+    @IBOutlet weak var displayPlayerStatsButtonTapped: UIButton!
+    
+    let databaseManager = DatabaseManager()
     
     var playerResult: NHLPlayer?
+    
+    var playerId: Int = 0
     
     override func viewDidLoad()
     {
@@ -34,6 +39,8 @@ class DisplayPlayerViewController: UIViewController
         
         if let player = playerResult
         {
+            playerId = player.id
+            
             let dateOfBirth = player.birthDate
             
             if(!dateOfBirth.isEmpty)
@@ -83,5 +90,19 @@ class DisplayPlayerViewController: UIViewController
                 shoots.text = player.shoots
             }
         }
+    }
+    
+    @IBAction func displayPlayerStatisticsButtonTapped(_ sender: UIButton)
+    {
+        print("Player id is: \(playerId)")
+        
+        //databaseManager.displayPlayerStatistics(self, playerId)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        //let displayPlayerStatisticsTabViewController = segue.destination as! DisplayPlayerStatisticsTabViewController
+        
+        //displayPlayerStatisticsTabViewController.playerStatisticsResult = sender as? PlayerStatistics
     }
 }

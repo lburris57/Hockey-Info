@@ -7,7 +7,6 @@
 //
 import Foundation
 import RealmSwift
-import SwiftyJSON
 import SwifterSwift
 import Alamofire
 import Kingfisher
@@ -29,7 +28,6 @@ class NetworkManager
     //  Create a new Realm database
     let realm = try! Realm()
     
-    //  Create the saveRosters method
     func saveRosters()
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -120,7 +118,6 @@ class NetworkManager
         }
     }
     
-    //  Create the updateRostersForDate method
     func updateRostersForDate(_ date: Date)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -207,7 +204,6 @@ class NetworkManager
         }
     }
     
-    //  Create the saveSchedule method
     func saveSchedule()
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -304,7 +300,6 @@ class NetworkManager
         }
     }
     
-    //  Create the updateScheduleForDate method
     func updateScheduleForDate(_ date :Date)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -397,9 +392,6 @@ class NetworkManager
         }
     }
     
-
-    
-    //  Create the updateStandingsForDate method
     func updateStandingsForDate(_ date :Date)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -478,7 +470,6 @@ class NetworkManager
         }
     }
     
-    //  Create the saveStandings method
     func saveStandings()
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -507,111 +498,112 @@ class NetworkManager
                 {
                     do
                     {
-                            let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
-                            
-                            print("Value of lastUpdatedOn is \(nhlStandings.lastUpdatedOn)")
-                            
-                            DispatchQueue.main.async
+                        let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
+                        
+                        print("Value of lastUpdatedOn is \(nhlStandings.lastUpdatedOn)")
+                        
+                        DispatchQueue.main.async
+                        {
+                            for teamStandingsData in nhlStandings.teamList
                             {
-                                for teamStandingsData in nhlStandings.teamList
-                                {
-                                    let teamStandings = TeamStandings()
-                                    let teamStatistics = TeamStatistics()
-                                    let nhlTeam = NHLTeam()
-                                    
-                                    //  Populate the Team Standings table
-                                    teamStandings.id = teamStandingsData.teamInformation.id
-                                    teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                    teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
-                                    teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
-                                    teamStandings.conference = teamStandingsData.conferenceRankInfo.conferenceName
-                                    teamStandings.conferenceRank = teamStandingsData.conferenceRankInfo.rank
-                                    teamStandings.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
-                                    teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
-                                    teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                    teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
-                                    teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
-                                    teamStandings.dateCreated = dateString
-                                    
-                                    //  Populate the Team Statistics table
-                                    teamStatistics.id = teamStandingsData.teamInformation.id
-                                    teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                    teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
-                                    teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
-                                    teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                    teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
-                                    teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
-                                    teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
-                                    teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
-                                    teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
-                                    teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
-                                    teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
-                                    teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
-                                    teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
-                                    teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
-                                    teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
-                                    teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
-                                    teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
-                                    teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
-                                    teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
-                                    teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
-                                    teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
-                                    teamStatistics.dateCreated = dateString
-                                    
-                                    //  Populate the NHLTeam table
-                                    nhlTeam.dateCreated = dateString
-                                    nhlTeam.id = teamStandingsData.teamInformation.id
-                                    nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                    nhlTeam.city = teamStandingsData.teamInformation.city
-                                    nhlTeam.name = teamStandingsData.teamInformation.name
-                                    nhlTeam.division = teamStandingsData.divisionRankInfo.divisionName
-                                    nhlTeam.conference = teamStandingsData.conferenceRankInfo.conferenceName
-                                    
-                                    teamStandingsList.append(teamStandings)
-                                    teamStatisticsList.append(teamStatistics)
-                                    teamList.append(nhlTeam)
-                                }
+                                let teamStandings = TeamStandings()
+                                let teamStatistics = TeamStatistics()
+                                let nhlTeam = NHLTeam()
                                 
-                                print("Saving standings information...")
-                                do
-                                {
-                                    try self.realm.write
-                                    {
-                                        self.realm.add(teamList)
-                                    }
-                                }
-                                catch
-                                {
-                                    print("Error saving teams to the database: \(error)")
-                                }
+                                //  Populate the Team Standings table
+                                teamStandings.id = teamStandingsData.teamInformation.id
+                                teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
+                                teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
+                                teamStandings.conference = teamStandingsData.conferenceRankInfo.conferenceName
+                                teamStandings.conferenceRank = teamStandingsData.conferenceRankInfo.rank
+                                teamStandings.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
+                                teamStandings.dateCreated = dateString
                                 
-                                do
-                                {
-                                    try self.realm.write
-                                    {
-                                        self.realm.add(teamStatisticsList)
-                                    }
-                                }
-                                catch
-                                {
-                                    print("Error saving team statistics to the database: \(error)")
-                                }
+                                //  Populate the Team Statistics table
+                                teamStatistics.id = teamStandingsData.teamInformation.id
+                                teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
+                                teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
+                                teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
+                                teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
+                                teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
+                                teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
+                                teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
+                                teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
+                                teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
+                                teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
+                                teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
+                                teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
+                                teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
+                                teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
+                                teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
+                                teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
+                                teamStatistics.dateCreated = dateString
                                 
-                                do
-                                {
-                                    try self.realm.write
-                                    {
-                                        self.realm.add(teamStandingsList)
-                                    }
-                                }
-                                catch
-                                {
-                                    print("Error saving team standings to the database: \(error)")
-                                }
+                                //  Populate the NHLTeam table
+                                nhlTeam.dateCreated = dateString
+                                nhlTeam.id = teamStandingsData.teamInformation.id
+                                nhlTeam.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                nhlTeam.city = teamStandingsData.teamInformation.city
+                                nhlTeam.name = teamStandingsData.teamInformation.name
+                                nhlTeam.division = teamStandingsData.divisionRankInfo.divisionName
+                                nhlTeam.conference = teamStandingsData.conferenceRankInfo.conferenceName
                                 
-                                print("Standings information successfully saved to the database!")
-                                
-                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                                teamStandingsList.append(teamStandings)
+                                teamStatisticsList.append(teamStatistics)
+                                teamList.append(nhlTeam)
+                            }
+                            
+                            print("Saving standings information...")
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(teamList)
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving teams to the database: \(error)")
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(teamStatisticsList)
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving team statistics to the database: \(error)")
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(teamStandingsList)
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving team standings to the database: \(error)")
+                            }
+                            
+                            print("Standings information successfully saved to the database!")
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
                         }
                     }
                     catch
@@ -623,7 +615,6 @@ class NetworkManager
         }
     }
     
-    //  Create the updateTeamStatsForDate method
     func updateTeamStatsForDate(_ date :Date)
     {
         fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
@@ -655,54 +646,54 @@ class NetworkManager
                         let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
                         
                         DispatchQueue.main.async
+                        {
+                            for teamStandingsData in nhlStandings.teamList
                             {
-                                for teamStandingsData in nhlStandings.teamList
-                                {
-                                    let teamStatistics = TeamStatistics()
-                                    
-                                    //  Populate the Team Statistics table
-                                    teamStatistics.id = teamStandingsData.teamInformation.id
-                                    teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                    teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
-                                    teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
-                                    teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                    teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
-                                    teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
-                                    teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
-                                    teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
-                                    teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
-                                    teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
-                                    teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
-                                    teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
-                                    teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
-                                    teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
-                                    teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
-                                    teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
-                                    teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
-                                    teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
-                                    teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
-                                    teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
-                                    teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
-                                    teamStatistics.dateCreated = dateString
-                                    
-                                    teamStatisticsList.append(teamStatistics)
-                                }
+                                let teamStatistics = TeamStatistics()
                                 
-                                do
-                                {
-                                    try self.realm.write
-                                    {
-                                        self.realm.add(teamStatisticsList, update: true)
-                                        
-                                        print("Team statistics have successfully been updated in the database for \(scheduleDate)!!")
-                                    }
-                                }
-                                catch
-                                {
-                                    print("Error updating team statistics to the database: \(error)")
-                                }
+                                //  Populate the Team Statistics table
+                                teamStatistics.id = teamStandingsData.teamInformation.id
+                                teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
+                                teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
+                                teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
+                                teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
+                                teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
+                                teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
+                                teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
+                                teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
+                                teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
+                                teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
+                                teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
+                                teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
+                                teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
+                                teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
+                                teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
+                                teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
+                                teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
+                                teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
+                                teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
+                                teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
+                                teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
+                                teamStatistics.dateCreated = dateString
                                 
-                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                                teamStatisticsList.append(teamStatistics)
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    self.realm.add(teamStatisticsList, update: true)
+                                    
+                                    print("Team statistics have successfully been updated in the database for \(scheduleDate)!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error updating team statistics to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
                         }
                     }
                     catch
@@ -714,7 +705,6 @@ class NetworkManager
         }
     }
     
-    //  Create the savePlayerStats method
     func savePlayerStats()
     {
         let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
@@ -841,7 +831,6 @@ class NetworkManager
         }
     }
     
-    //  Create the savePlayerInjuries method
     func savePlayerInjuries()
     {
         let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
@@ -937,7 +926,6 @@ class NetworkManager
         }
     }
     
-    //  Create the saveGameLogs method
     func saveGameLogs()
     {
         let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"

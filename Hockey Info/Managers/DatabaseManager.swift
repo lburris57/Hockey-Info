@@ -37,6 +37,25 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayPlayer", sender: playerResult)
     }
     
+    func displayPlayerStatistics(_ viewController: DisplayPlayerViewController, _ playerId: Int)
+    {
+        var playerStatisticsResult: PlayerStatistics?
+        
+        do
+        {
+            try realm.write
+            {
+                playerStatisticsResult = realm.objects(PlayerStatistics.self).filter("id ==\(playerId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving player statistics!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayPlayerStatistics", sender: playerStatisticsResult)
+    }
+    
     func displayGameLog(_ viewController: DisplayTeamScheduleViewController, _ gameId: Int)
     {
         var gameLogResult: NHLGameLog?
@@ -768,23 +787,26 @@ class DatabaseManager
         
         let playerInjuryResults = realm.objects(NHLPlayerInjury.self)
         
-        if(playerInjuryResults[0].dateCreated != dateString)
+        if playerInjuryResults.count > 0
         {
-            do
+            if(playerInjuryResults[0].dateCreated != dateString)
             {
-                try realm.write
+                do
                 {
-                    realm.delete(realm.objects(NHLPlayerInjury.self))
+                    try realm.write
+                    {
+                        realm.delete(realm.objects(NHLPlayerInjury.self))
+                    }
                 }
+                catch
+                {
+                    print("Error deleting player injury data!")
+                }
+                
+                networkManager.savePlayerInjuries()
+                
+                networkManager.updateScheduleForDate(Date())
             }
-            catch
-            {
-                print("Error deleting player injury data!")
-            }
-            
-            networkManager.savePlayerInjuries()
-            
-            networkManager.updateScheduleForDate(Date())
         }
     }
 }

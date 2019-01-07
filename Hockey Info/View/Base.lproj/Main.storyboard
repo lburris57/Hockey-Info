@@ -293,6 +293,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cV7-zx-0vq">
+                                <rect key="frame" x="72" y="624" width="270" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Display Player Statistics"/>
+                                <connections>
+                                    <action selector="displayPlayerStatisticsButtonTapped:" destination="8fp-Vq-WKt" eventType="touchUpInside" id="XEw-aa-Vdi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="esx-dh-IEW"/>
@@ -302,6 +310,7 @@
                         <outlet property="birthCountry" destination="rIf-DP-UyH" id="Qej-Dd-t2c"/>
                         <outlet property="birthCty" destination="v8z-MG-bo5" id="VSe-Aa-xIg"/>
                         <outlet property="birthDate" destination="q6b-EA-7l6" id="FIO-eQ-15u"/>
+                        <outlet property="displayPlayerStatsButtonTapped" destination="cV7-zx-0vq" id="AvB-ZK-eQ3"/>
                         <outlet property="firstName" destination="rgh-x0-gir" id="PZm-pQ-GR5"/>
                         <outlet property="height" destination="3xe-as-Kfw" id="lF7-5Q-6Uf"/>
                         <outlet property="jerseyNumber" destination="pQa-Bb-LkF" id="m6w-cd-aZG"/>
