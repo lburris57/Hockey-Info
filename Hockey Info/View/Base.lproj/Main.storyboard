@@ -310,7 +310,6 @@
                         <outlet property="birthCountry" destination="rIf-DP-UyH" id="Qej-Dd-t2c"/>
                         <outlet property="birthCty" destination="v8z-MG-bo5" id="VSe-Aa-xIg"/>
                         <outlet property="birthDate" destination="q6b-EA-7l6" id="FIO-eQ-15u"/>
-                        <outlet property="displayPlayerStatsButtonTapped" destination="cV7-zx-0vq" id="AvB-ZK-eQ3"/>
                         <outlet property="firstName" destination="rgh-x0-gir" id="PZm-pQ-GR5"/>
                         <outlet property="height" destination="3xe-as-Kfw" id="lF7-5Q-6Uf"/>
                         <outlet property="jerseyNumber" destination="pQa-Bb-LkF" id="m6w-cd-aZG"/>
@@ -321,11 +320,40 @@
                         <outlet property="shootsLabel" destination="PGR-7U-gTF" id="Yh8-ct-wlo"/>
                         <outlet property="teamLogo" destination="zeF-bH-3eN" id="fq1-f6-cve"/>
                         <outlet property="weight" destination="Veh-gQ-6Fl" id="UM7-iQ-Ksd"/>
+                        <segue destination="DD1-e3-uD8" kind="show" identifier="displayPlayerStatistics" id="wIo-pZ-QR3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tr6-e1-vEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4034.7826086956525" y="1638.5869565217392"/>
+        </scene>
+        <!--Display Player Statistics View Controller-->
+        <scene sceneID="Yc2-oK-pcZ">
+            <objects>
+                <tableViewController id="DD1-e3-uD8" customClass="DisplayPlayerStatisticsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nPW-id-xGd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3xW-BB-7xM">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3xW-BB-7xM" id="V7k-Wt-ssy">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="DD1-e3-uD8" id="OU4-bL-yWC"/>
+                            <outlet property="delegate" destination="DD1-e3-uD8" id="Oi3-3L-2qz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ai9-d4-KRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4775" y="1971"/>
         </scene>
         <!--Players-->
         <scene sceneID="vFd-SR-eG1">

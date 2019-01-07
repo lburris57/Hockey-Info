@@ -50,6 +50,7 @@
 		760D138521DAAF9B00AD40A4 /* PlayerInjuries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760D138421DAAF9B00AD40A4 /* PlayerInjuries.swift */; };
 		760D138721DAB01900AD40A4 /* PlayerInjuryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760D138621DAB01900AD40A4 /* PlayerInjuryInfo.swift */; };
 		760D138921DD698300AD40A4 /* DisplayGameLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760D138821DD698300AD40A4 /* DisplayGameLogViewController.swift */; };
+		7612AB6C21E2DE3C00661CE4 /* DisplayPlayerStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7612AB6B21E2DE3C00661CE4 /* DisplayPlayerStatisticsViewController.swift */; };
 		7640585921C2F76A00695D68 /* DivisionStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */; };
 		7640585B21C2F8A300695D68 /* ConferenceStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */; };
 		7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */; };
@@ -159,6 +160,7 @@
 		760D138421DAAF9B00AD40A4 /* PlayerInjuries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInjuries.swift; sourceTree = "<group>"; };
 		760D138621DAB01900AD40A4 /* PlayerInjuryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInjuryInfo.swift; sourceTree = "<group>"; };
 		760D138821DD698300AD40A4 /* DisplayGameLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGameLogViewController.swift; sourceTree = "<group>"; };
+		7612AB6B21E2DE3C00661CE4 /* DisplayPlayerStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPlayerStatisticsViewController.swift; sourceTree = "<group>"; };
 		7640585821C2F76A00695D68 /* DivisionStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionStandingsViewController.swift; sourceTree = "<group>"; };
 		7640585A21C2F8A300695D68 /* ConferenceStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceStandingsViewController.swift; sourceTree = "<group>"; };
 		7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStandingsViewController.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				7640585C21C2F91800695D68 /* LeagueStandingsViewController.swift */,
 				76BDDDC321D5A8C600614AFA /* DisplayTeamScheduleViewController.swift */,
 				760D138821DD698300AD40A4 /* DisplayGameLogViewController.swift */,
+				7612AB6B21E2DE3C00661CE4 /* DisplayPlayerStatisticsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				76045B7A21B36FF200980C63 /* FaceoffData.swift in Sources */,
 				76045B5921B3448100980C63 /* PlayerInfo.swift in Sources */,
 				76045B5F21B34C6900980C63 /* CurrentInjuryData.swift in Sources */,
+				7612AB6C21E2DE3C00661CE4 /* DisplayPlayerStatisticsViewController.swift in Sources */,
 				76045B7021B36B6200980C63 /* OverallRankData.swift in Sources */,
 				76BDDDB621D44FF600614AFA /* PlayerStatData.swift in Sources */,
 				76590DEC21BDCAA70080E0CD /* DisplayCalendarViewController.swift in Sources */,

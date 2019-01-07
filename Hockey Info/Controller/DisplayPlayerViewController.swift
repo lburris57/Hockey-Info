@@ -96,13 +96,13 @@ class DisplayPlayerViewController: UIViewController
     {
         print("Player id is: \(playerId)")
         
-        //databaseManager.displayPlayerStatistics(self, playerId)
+        databaseManager.displayPlayerStatistics(self, playerId)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        //let displayPlayerStatisticsTabViewController = segue.destination as! DisplayPlayerStatisticsTabViewController
+        let displayPlayerStatisticsViewController = segue.destination as! DisplayPlayerStatisticsViewController
         
-        //displayPlayerStatisticsTabViewController.playerStatisticsResult = sender as? PlayerStatistics
+        displayPlayerStatisticsViewController.playerStatistics = sender as? PlayerStatistics
     }
 }
