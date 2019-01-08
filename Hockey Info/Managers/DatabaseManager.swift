@@ -563,7 +563,9 @@ class DatabaseManager
             {
                 if let team = realm.objects(NHLTeam.self).filter("id = \(5)").first
                 {
-                    if(team.players.count == 0)
+                    if(team.players.count == 0 || team.schedules.count == 0 ||
+                       team.gameLogs.count == 0 || team.standings.count == 0 ||
+                       team.statistics.count == 0)
                     {
                         result = true
                     }
@@ -593,7 +595,7 @@ class DatabaseManager
                     //  Get all players for that particular team
                     let playerResults = realm.objects(NHLPlayer.self).filter("teamId ==\(team.id)")
                     
-                    print("Size of playerResults is: \(playerResults.count)")
+                    //print("Size of playerResults is: \(playerResults.count)")
                     
                     for player in playerResults
                     {

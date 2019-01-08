@@ -13,5 +13,6 @@ pod 'RealmSwift'
 pod 'Kingfisher', '~> 4.0'
 pod 'JTAppleCalendar', '~> 7.0'
 pod 'SwiftDate', '~> 5.0'
+pod 'NVActivityIndicatorView'
 
 end

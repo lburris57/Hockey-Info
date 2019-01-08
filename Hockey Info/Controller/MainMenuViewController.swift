@@ -16,24 +16,18 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let databaseManager = DatabaseManager()
     
+    var alert: UIAlertController?
+    
     let displayScoresViewController = DisplayScoresViewController()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        if(databaseManager.mainMenuCategoriesRequiresSaving())
-        {
-            databaseManager.saveMainMenuCategories()
-        }
-        
-        if(databaseManager.teamStandingsRequiresSaving())
-        {
-            networkManager.saveStandings()
-        }
-        
         if(databaseManager.teamRosterRequiresSaving())
         {
+            self.presentAlert()
+            
             networkManager.saveRosters()
         }
         
@@ -42,9 +36,20 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             networkManager.saveSchedule()
         }
         
+        if(databaseManager.teamStandingsRequiresSaving())
+        {
+            networkManager.saveStandings()
+        }
+        
         if(databaseManager.gameLogRequiresSaving())
         {
             networkManager.saveGameLogs()
+            dismissAlert()
+        }
+        
+        if(databaseManager.mainMenuCategoriesRequiresSaving())
+        {
+            databaseManager.saveMainMenuCategories()
         }
         
         categories = databaseManager.retrieveMainMenuCategories()
@@ -82,6 +87,11 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        if(databaseManager.teamTableRequiresLinking())
+        {
+            linkTables()
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
         let category = categories[indexPath.row].category
@@ -144,5 +154,53 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             
             displayStandingsTabViewController.teamStandingsResults = sender as? Results<TeamStandings>
         }
+    }
+}
+
+extension MainMenuViewController
+{
+    func presentAlert()
+    {
+        alert = UIAlertController(title: "Loading Database Tables", message: "Database tables must be populated the first time Hockey Info is run.  Please wait...", preferredStyle: .alert)
+        alert!.view.tintColor = UIColor.black
+        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10,y: 5,width: 50, height: 50)) as UIActivityIndicatorView
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
+        loadingIndicator.startAnimating();
+        
+        alert!.view.addSubview(loadingIndicator)
+        self.present(alert!, animated: true)
+    }
+    
+    func linkTables()
+    {
+        print("Linking table data...")
+
+        databaseManager.linkPlayersToTeams()
+        databaseManager.linkStandingsToTeams()
+        databaseManager.linkStatisticsToTeams()
+        databaseManager.linkSchedulesToTeams()
+        databaseManager.linkGameLogsToTeams()
+
+        print("Linking of table data was successful!")
+
+        networkManager.updateScheduleForDate(Date())
+    }
+    
+    func dismissAlert()
+    {
+        print("Linking table data...")
+        
+        databaseManager.linkPlayersToTeams()
+        databaseManager.linkStandingsToTeams()
+        databaseManager.linkStatisticsToTeams()
+        databaseManager.linkSchedulesToTeams()
+        databaseManager.linkGameLogsToTeams()
+        
+        print("Linking of table data was successful!")
+        
+        networkManager.updateScheduleForDate(Date())
+        
+        self.alert?.dismiss(animated: false, completion: nil)
     }
 }
