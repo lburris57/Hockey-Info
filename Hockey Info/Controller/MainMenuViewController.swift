@@ -189,18 +189,6 @@ extension MainMenuViewController
     
     func dismissAlert()
     {
-        print("Linking table data...")
-        
-        databaseManager.linkPlayersToTeams()
-        databaseManager.linkStandingsToTeams()
-        databaseManager.linkStatisticsToTeams()
-        databaseManager.linkSchedulesToTeams()
-        databaseManager.linkGameLogsToTeams()
-        
-        print("Linking of table data was successful!")
-        
-        networkManager.updateScheduleForDate(Date())
-        
         self.alert?.dismiss(animated: false, completion: nil)
     }
 }
