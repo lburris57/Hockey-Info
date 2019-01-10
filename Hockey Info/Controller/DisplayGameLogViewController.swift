@@ -57,8 +57,8 @@ class DisplayGameLogViewController: UIViewController
             dateString.text = gameLog.date
             homeGoalsFor.text = String(gameLog.homeGoalsFor)
             awayGoalsFor.text = String(gameLog.awayGoalsFor)
-            homeGoalsAgainst.text = String(gameLog.homeGoalsAgainst)
-            awayGoalsAgainst.text = String(gameLog.awayGoalsAgainst)
+            //homeGoalsAgainst.text = String(gameLog.homeGoalsAgainst)
+            //awayGoalsAgainst.text = String(gameLog.awayGoalsAgainst)
             homeShots.text = String(gameLog.homeShots)
             awayShots.text = String(gameLog.awayShots)
             homeHits.text = String(gameLog.homeHits)
