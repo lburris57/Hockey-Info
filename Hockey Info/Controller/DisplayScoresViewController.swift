@@ -137,7 +137,7 @@ extension DisplayScoresViewController
         calendarView.scrollToDate(Date(), triggerScrollToDateDelegate: true, animateScroll: animate, preferredScrollPosition: nil, extraAddedOffset: 0)
         {
             [unowned self] in
-            //self.getSchedule()
+            
             self.calendarView.visibleDates {[unowned self] (visibleDates: DateSegmentInfo) in
                 self.setupViewsOfCalendar(from: visibleDates)
             }
@@ -160,13 +160,6 @@ extension DisplayScoresViewController
     {
         separatorViewTopConstraint.constant = higher ? 0 : -calendarView.frame.height / CGFloat(numOfRowsInCalendar)
     }
-}
-
-// MARK: Prepare dataSource
-extension DisplayScoresViewController
-{
-    func getSchedule()
-    {}
 }
 
 // MARK: CalendarCell's ui config
@@ -324,11 +317,4 @@ extension DisplayScoresViewController : UITableViewDataSource
     {
         return nhlSchedules?.count ?? 0
     }
-}
-
-// MARK: UITableViewDelegate
-extension DisplayScoresViewController : UITableViewDelegate
-{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {}
 }
