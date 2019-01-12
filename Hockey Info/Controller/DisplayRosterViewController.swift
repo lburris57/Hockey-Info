@@ -92,13 +92,23 @@ class DisplayRosterViewController: UITableViewController
         var jerseyNumber = playerArray[indexPath.row].jerseyNumber
         let firstName = playerArray[indexPath.row].firstName
         let lastName = playerArray[indexPath.row].lastName
+        let position = playerArray[indexPath.row].position
+        
+        var playerName = ""
         
         if(jerseyNumber.count == 1)
         {
             jerseyNumber = " " + jerseyNumber
         }
         
-        let playerName =  jerseyNumber + "   " + firstName + " " + lastName
+        if(position == "D" || position == "G")
+        {
+            playerName = jerseyNumber + "   " + firstName + " " + lastName
+        }
+        else
+        {
+            playerName = jerseyNumber + "   " + position + " - " + firstName + " " + lastName
+        }
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "playerCell")
         
