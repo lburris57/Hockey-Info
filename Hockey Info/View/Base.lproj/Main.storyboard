@@ -400,8 +400,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="cl0-Sk-C5a" kind="relationship" relationship="viewControllers" id="och-kS-8g6"/>
+                        <outlet property="tabbar" destination="bZI-oW-Fm7" id="LPH-wj-NlL"/>
                         <segue destination="sfA-Py-fQQ" kind="relationship" relationship="viewControllers" id="VOj-5B-EUt"/>
+                        <segue destination="cl0-Sk-C5a" kind="relationship" relationship="viewControllers" id="och-kS-8g6"/>
                         <segue destination="N5k-cE-F6F" kind="relationship" relationship="viewControllers" id="7qs-wM-Gxc"/>
                     </connections>
                 </tabBarController>
@@ -493,6 +494,96 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qtj-ef-4wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6980" y="-978"/>
+        </scene>
+        <!--Games Remaining-->
+        <scene sceneID="tMR-cX-dkD">
+            <objects>
+                <viewController title="Games Remaining" id="eEs-O3-qfR" customClass="GamesRemainingViewController" customModule="Hockey_Info" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xlp-ag-Elv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ube-Z8-XUK">
+                                <rect key="frame" x="20" y="20" width="374" height="654"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gamesRemainingCell" id="nCr-zV-j3M">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nCr-zV-j3M" id="cZq-lv-Hma">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Luj-tK-oeb"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Games Remaining" id="zON-jI-RDI"/>
+                    <connections>
+                        <outlet property="scheduleView" destination="Ube-Z8-XUK" id="umN-HC-Y0e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cuU-ih-EiS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3234.7826086956525" y="-911.41304347826099"/>
+        </scene>
+        <!--Completed Games-->
+        <scene sceneID="dqG-Nd-3KE">
+            <objects>
+                <viewController title="Completed Games" id="ddF-YZ-0ac" customClass="CompletedGamesViewController" customModule="Hockey_Info" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nxh-dr-M6s">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LAZ-7R-l1H">
+                                <rect key="frame" x="20" y="20" width="374" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="completedGameCell" id="nu8-Go-8ZO">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nu8-Go-8ZO" id="gEF-3L-HAB">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="edg-7a-iqh"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Completed Games" id="Mig-Y2-pOg"/>
+                    <connections>
+                        <outlet property="scheduleView" destination="LAZ-7R-l1H" id="ygj-o6-hOA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ySV-JZ-J1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3234.7826086956525" y="-1569.2934782608697"/>
+        </scene>
+        <!--Team Schedule-->
+        <scene sceneID="Lrw-0i-t1U">
+            <objects>
+                <tabBarController title="Team Schedule" id="I3O-5e-6pn" customClass="DisplayTeamScheduleTabViewController" customModule="Hockey_Info" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UZr-Xh-vKi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ddF-YZ-0ac" kind="relationship" relationship="viewControllers" id="T3F-IF-pO6"/>
+                        <segue destination="eEs-O3-qfR" kind="relationship" relationship="viewControllers" id="fIF-Xw-pQe"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4SL-qB-oSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2317" y="-1240"/>
         </scene>
         <!--Team Schedule-->
         <scene sceneID="T7z-Dr-eyi">

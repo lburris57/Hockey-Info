@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 import SwifterSwift
-import Alamofire
 import Kingfisher
 import SVProgressHUD
 
