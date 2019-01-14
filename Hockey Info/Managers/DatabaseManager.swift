@@ -127,6 +127,10 @@ class DatabaseManager
         {
             segueId = "displayTeamsForSchedule"
         }
+        else if(category == "Team Injuries")
+        {
+            segueId = "displayTeamInjuries"
+        }
         else
         {
             segueId = "displayTeamStatistics"
@@ -164,6 +168,27 @@ class DatabaseManager
         }
         
         viewController.performSegue(withIdentifier: "displayRoster", sender: rosterResult)
+    }
+    
+    func displayInjuries(_ viewController: DisplayTeamsViewController, _ teamId: Int)
+    {
+        var injuryResult: Results<NHLPlayerInjury>?
+        
+        do
+        {
+            try realm.write
+            {
+                injuryResult = realm.objects(NHLPlayerInjury.self).filter("teamId ==\(teamId)")
+                
+                print("Size of injuryResult is: \(injuryResult?.count ?? 0)")
+            }
+        }
+        catch
+        {
+            print("Error retrieving injuries!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayInjuries", sender: injuryResult)
     }
     
     func displayTeamStatistics(_ viewController: DisplayTeamsViewController, _ teamId: Int)
@@ -341,7 +366,7 @@ class DatabaseManager
     
     func saveMainMenuCategories()
     {
-        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics"]
+        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics", "Team Injuries"]
         
         let categoryList = List<MainMenuCategory>()
         

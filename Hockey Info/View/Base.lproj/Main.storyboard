@@ -44,6 +44,7 @@
                         <segue destination="15f-m3-ueA" kind="show" identifier="displayScores" id="i3t-ew-fjL"/>
                         <segue destination="0Y7-VQ-BR1" kind="show" identifier="displayTeamStatistics" id="rER-cr-hjC"/>
                         <segue destination="vl1-ZA-jk2" kind="show" identifier="displayTeamsForSchedule" id="Kcx-Qc-rP8"/>
+                        <segue destination="cle-0n-y8H" kind="show" identifier="displayTeamInjuries" id="28K-7Z-x3D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ma-lr-Rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -121,7 +122,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jz-pr-OhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4767" y="342"/>
+            <point key="canvasLocation" x="4774" y="227"/>
         </scene>
         <!--Stats-->
         <scene sceneID="sPy-Za-7Bj">
@@ -389,6 +390,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A9G-Ax-TZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4739" y="1185"/>
+        </scene>
+        <!--Team Injuries-->
+        <scene sceneID="cc6-2L-NOr">
+            <objects>
+                <tableViewController title="Team Injuries" id="cle-0n-y8H" customClass="DisplayTeamsViewController" customModule="Hockey_Info" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6ky-xh-XmJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="injuriesCell" id="rBp-YW-MqX">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rBp-YW-MqX" id="eiP-Na-iTt">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cle-0n-y8H" id="uT8-4k-TAJ"/>
+                            <outlet property="delegate" destination="cle-0n-y8H" id="FSe-Xm-reC"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="9gT-9v-w4S" kind="show" identifier="displayInjuries" id="0kW-XK-Np2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MQt-Z4-Gup" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5483" y="1182"/>
+        </scene>
+        <!--Injuries-->
+        <scene sceneID="PPy-9B-wqv">
+            <objects>
+                <tableViewController title="Injuries" id="9gT-9v-w4S" customClass="DisplayPlayerInjuryViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6XZ-Se-VR0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="injuryCell" id="nVS-Su-f7Y">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nVS-Su-f7Y" id="Lm0-8l-WoF">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9gT-9v-w4S" id="Oz8-cf-jy6"/>
+                            <outlet property="delegate" destination="9gT-9v-w4S" id="Gqd-Vw-Xy1"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="injuryView" destination="6XZ-Se-VR0" id="ebt-aJ-Kge"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9HK-Ym-XkY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6474" y="1194"/>
         </scene>
         <!--Display Standings Tab View Controller-->
         <scene sceneID="o3X-BQ-ck2">

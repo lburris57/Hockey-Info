@@ -124,4 +124,9 @@ class TimeAndDateUtils
         
         return currentTimeRemainingString
     }
+    
+    static func getCurrentDateAsString() -> String
+    {
+        return (Date().toFormat("EEEE, MMM dd, yyyy"))
+    }
 }

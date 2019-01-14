@@ -118,6 +118,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.displayTeams(self, category)
         }
+        else if(category == "Team Injuries")
+        {
+            databaseManager.displayTeams(self, category)
+        }
         else if(category == "Standings")
         {
             databaseManager.displayStandings(self)
@@ -134,8 +138,11 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else if(segue.identifier == "displayTeams"
                 || segue.identifier == "displayTeamStatistics"
+                || segue.identifier == "displayTeamInjuries"
                 || segue.identifier == "displayTeamsForSchedule")
         {
+            print("Segue identifier is: \(segue.identifier!)")
+            
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.segueId = segue.identifier!

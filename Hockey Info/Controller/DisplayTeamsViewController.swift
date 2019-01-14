@@ -151,6 +151,10 @@ class DisplayTeamsViewController: UITableViewController
         {
             databaseManager.displayTeamSchedule(self, teamId)
         }
+        else if(segueId == "displayTeamInjuries")
+        {
+            databaseManager.displayInjuries(self, teamId)
+        }
     }
     
     // MARK: - Navigation
@@ -183,6 +187,15 @@ class DisplayTeamsViewController: UITableViewController
             
             displayTeamScheduleViewController.title = "Schedule for \(selectedTeamName)"
             displayTeamScheduleViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
+        }
+        else if(segue.identifier == "displayInjuries")
+        {
+            let displayPlayerInjuryViewController = segue.destination as! DisplayPlayerInjuryViewController
+            
+            displayPlayerInjuryViewController.injuries = sender as? Results<NHLPlayerInjury>
+            
+            displayPlayerInjuryViewController.title = "Injuries for \(selectedTeamName)"
+            displayPlayerInjuryViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
         }
     }
     
