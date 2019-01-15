@@ -157,7 +157,7 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
            
             default:
             
-                scheduleView.rowHeight = CGFloat(45.0)
+                scheduleView.rowHeight = CGFloat(65.0)
                 
                 scheduleArray = gamesRemainingArray
                 

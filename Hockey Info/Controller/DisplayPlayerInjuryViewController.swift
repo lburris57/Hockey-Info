@@ -70,6 +70,7 @@ class DisplayPlayerInjuryViewController: UITableViewController
         injuryView.rowHeight = CGFloat(100.0)
         
         var playerName = ""
+        var position = ""
         var injuryDescription = ""
         var playingProbablity = ""
         
@@ -87,11 +88,12 @@ class DisplayPlayerInjuryViewController: UITableViewController
             hasInjuries = true
             
             playerName = (injuries?[indexPath.row].firstName)! + " " + (injuries?[indexPath.row].lastName)!
+            position = (injuries?[indexPath.row].position)!
             injuryDescription = (injuries?[indexPath.row].injuryDescription)!.uppercased()
             playingProbablity = (injuries?[indexPath.row].playingProbablity)!
             
             let labelText =
-                    "Player: \(playerName) \n" +
+                    "Player: \(playerName) - \(position)\n" +
                     "Injury Description: \(injuryDescription) \n" +
                     "Playing Probablity: \(playingProbablity)"
             

@@ -22,7 +22,7 @@ struct PlayerInjuryInfo: Decodable
         case id = "id"
         case firstName = "firstName"
         case lastName = "lastName"
-        case position = "position"
+        case position = "primaryPosition"
         case jerseyNumber = "jerseyNumber"
         case currentTeamInfo = "currentTeam"
         case currentInjuryInfo = "currentInjury"
