@@ -69,6 +69,11 @@ class ScoreCell: UITableViewCell
                     
                     default: period.text = "End of \(numberOfPeriods)"
                 }
+                
+                if(timeRemaining.text == "")
+                {
+                    period.text = "End of \(period.text!)"
+                }
             }
             
             visitingTeamLogo.image = UIImage(named: scheduledGame.awayTeam)

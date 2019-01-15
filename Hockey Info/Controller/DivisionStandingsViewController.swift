@@ -12,16 +12,12 @@ class DivisionStandingsViewController: UITableViewController
 {
     @IBOutlet weak var divisionView: UITableView!
     
-    var teamStandings: Results<TeamStandings>?
-    
     let databaseManager = DatabaseManager()
-    
-    var teamArray = [TeamStandings]()
-    
-    var viewTitle = "Players"
     
     let sections = ["Atlantic Division", "Metropolitan Division", "Central Division", "Pacific Division"]
     
+    var teamStandings: Results<TeamStandings>?
+    var teamArray = [TeamStandings]()
     var atlanticTeamArray = [TeamStandings]()
     var metropolitanTeamArray = [TeamStandings]()
     var centralTeamArray = [TeamStandings]()
@@ -38,7 +34,6 @@ class DivisionStandingsViewController: UITableViewController
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return self.sections.count

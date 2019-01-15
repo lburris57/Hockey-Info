@@ -464,8 +464,8 @@
                     </tabBar>
                     <connections>
                         <outlet property="tabbar" destination="bZI-oW-Fm7" id="LPH-wj-NlL"/>
-                        <segue destination="sfA-Py-fQQ" kind="relationship" relationship="viewControllers" id="VOj-5B-EUt"/>
                         <segue destination="cl0-Sk-C5a" kind="relationship" relationship="viewControllers" id="och-kS-8g6"/>
+                        <segue destination="sfA-Py-fQQ" kind="relationship" relationship="viewControllers" id="VOj-5B-EUt"/>
                         <segue destination="N5k-cE-F6F" kind="relationship" relationship="viewControllers" id="7qs-wM-Gxc"/>
                     </connections>
                 </tabBarController>

@@ -18,8 +18,6 @@ class ConferenceStandingsViewController: UITableViewController
     
     var teamArray = [TeamStandings]()
     
-    var viewTitle = "Players"
-    
     let sections = ["Eastern Conference", "Western Conference"]
     
     var easternTeamArray = [TeamStandings]()
@@ -36,7 +34,6 @@ class ConferenceStandingsViewController: UITableViewController
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return self.sections.count

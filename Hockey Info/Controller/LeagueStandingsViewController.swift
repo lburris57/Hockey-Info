@@ -18,8 +18,6 @@ class LeagueStandingsViewController: UITableViewController
     
     var teamArray = [TeamStandings]()
     
-    var viewTitle = "Players"
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -31,7 +29,6 @@ class LeagueStandingsViewController: UITableViewController
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1

@@ -18,9 +18,4 @@ class DisplayStandingsTabViewController: UITabBarController
     {
         super.viewDidLoad()
     }
-    
-//    override func viewDidLayoutSubviews()
-//    {
-//        self.tabbar.frame = CGRect( x: 0, y: 64, width: 420, height: 50)
-//    }
 }
