@@ -16,9 +16,10 @@ class DisplayRosterViewController: UITableViewController
     
     let databaseManager = DatabaseManager()
     
-    //let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
+    var selectedTeamName = ""
+    var selectedTeamAbbreviation = ""
     
-    var playerResults: Results<NHLPlayer>?
+    var playerArrayList = [NHLPlayer]()
     
     var playerArray = [NHLPlayer]()
     
@@ -30,11 +31,17 @@ class DisplayRosterViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        let displayTeamInfoTabBarViewController = self.tabBarController  as! DisplayTeamInfoTabBarViewController
+        
+        playerArrayList = displayTeamInfoTabBarViewController.playerArray
+        
+        selectedTeamName = displayTeamInfoTabBarViewController.selectedTeamName
+        selectedTeamAbbreviation = displayTeamInfoTabBarViewController.selectedTeamAbbreviation
+        
         loadPlayerArrays()
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return sections.count
@@ -148,7 +155,6 @@ class DisplayRosterViewController: UITableViewController
     }
     
     // MARK: - Navigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if(segue.identifier == "displayPlayer")
@@ -161,24 +167,21 @@ class DisplayRosterViewController: UITableViewController
     
     func loadPlayerArrays()
     {
-        if(playerResults != nil)
+        for player in playerArrayList
         {
-            for player in playerResults!
+            if(player.position == PositionEnum.leftWing.rawValue ||
+                player.position == PositionEnum.rightWing.rawValue ||
+                player.position == PositionEnum.center.rawValue)
             {
-                if(player.position == PositionEnum.leftWing.rawValue ||
-                    player.position == PositionEnum.rightWing.rawValue ||
-                    player.position == PositionEnum.center.rawValue)
-                {
-                    forwardsArray.append(player)
-                }
-                else if(player.position == PositionEnum.defenseman.rawValue)
-                {
-                    defensemenArray.append(player)
-                }
-                else if(player.position == PositionEnum.goalie.rawValue)
-                {
-                    goalieArray.append(player)
-                }
+                forwardsArray.append(player)
+            }
+            else if(player.position == PositionEnum.defenseman.rawValue)
+            {
+                defensemenArray.append(player)
+            }
+            else if(player.position == PositionEnum.goalie.rawValue)
+            {
+                goalieArray.append(player)
             }
         }
     }

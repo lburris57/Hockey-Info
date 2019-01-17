@@ -10,20 +10,27 @@ import RealmSwift
 
 class DisplayPlayerInjuryViewController: UITableViewController
 {
-    @IBOutlet var injuryView: UITableView!
+    @IBOutlet weak var injuryView: UITableView!
     
     var selectedTeamName = ""
     var selectedTeamAbbreviation = ""
     
     let sections = ["Injuries for \(TimeAndDateUtils.getCurrentDateAsString())"]
     
-    var hasInjuries: Bool = false
-    
-    var injuries: Results<NHLPlayerInjury>?
+    var injuryArray = [NHLPlayerInjury]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        let displayTeamInfoTabBarViewController = self.tabBarController  as! DisplayTeamInfoTabBarViewController
+        
+        injuryArray = displayTeamInfoTabBarViewController.injuryArray
+        
+        print("Size of injuryArray is: \(injuryArray.count)")
+        
+        selectedTeamName = displayTeamInfoTabBarViewController.selectedTeamName
+        selectedTeamAbbreviation = displayTeamInfoTabBarViewController.selectedTeamAbbreviation
     }
 
     // MARK: - Table view data source
@@ -60,7 +67,8 @@ class DisplayPlayerInjuryViewController: UITableViewController
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return injuries?.count ?? 1
+        //  Always display at least one row
+        return injuryArray.count > 0 ? injuryArray.count : 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -81,14 +89,12 @@ class DisplayPlayerInjuryViewController: UITableViewController
         
         cell?.textLabel?.numberOfLines = 0
         
-        if injuries != nil
+        if injuryArray.count > 0
         {
-            hasInjuries = true
-            
-            playerName = (injuries?[indexPath.row].firstName)! + " " + (injuries?[indexPath.row].lastName)!
-            position = (injuries?[indexPath.row].position)!
-            injuryDescription = (injuries?[indexPath.row].injuryDescription)!.uppercased()
-            playingProbablity = (injuries?[indexPath.row].playingProbablity)!
+            playerName = injuryArray[indexPath.row].firstName + " " + injuryArray[indexPath.row].lastName
+            position = injuryArray[indexPath.row].position
+            injuryDescription = injuryArray[indexPath.row].injuryDescription.uppercased()
+            playingProbablity = injuryArray[indexPath.row].playingProbablity
             
             let labelText =
                     "Player: \(playerName) - \(position)\n" +

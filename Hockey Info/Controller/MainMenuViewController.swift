@@ -24,6 +24,8 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     {
         super.viewDidLoad()
         
+        //databaseManager.linkPlayerInjuriesToTeams()
+        
         if(databaseManager.teamRosterRequiresSaving())
         {
             self.presentAlert()
@@ -202,8 +204,8 @@ extension MainMenuViewController
         databaseManager.linkStandingsToTeams()
         databaseManager.linkStatisticsToTeams()
         databaseManager.linkSchedulesToTeams()
-        databaseManager.linkPlayerInjuriesToTeams()
         databaseManager.linkGameLogsToTeams()
+        databaseManager.linkPlayerInjuriesToTeams()
 
         print("Linking of table data was successful!")
 

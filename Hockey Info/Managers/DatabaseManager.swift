@@ -56,7 +56,7 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayPlayerStatistics", sender: playerStatisticsResult)
     }
     
-    func displayGameLog(_ viewController: DisplayTeamScheduleViewController, _ gameId: Int)
+    func displayGameLog(_ viewController: CompletedGamesViewController, _ gameId: Int)
     {
         var gameLogResult: NHLGameLog?
         
@@ -389,7 +389,7 @@ class DatabaseManager
     
     func saveMainMenuCategories()
     {
-        let categories = ["Season Schedule", "Team Information", "Standings", "Scores", "Team Schedule", "Team Rosters", "Team Statistics", "Team Injuries"]
+        let categories = ["Season Schedule", "Team Information", "Standings", "Scores"]
         
         let categoryList = List<MainMenuCategory>()
         

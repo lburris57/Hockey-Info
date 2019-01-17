@@ -6,10 +6,11 @@
 //  Copyright © 2019 Larry Burris. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class CompletedGamesViewController: UITableViewController, CompletedScheduleViewCellDelegate
 {
-    @IBOutlet weak var scheduleView: UITableView!
+    @IBOutlet weak var completeScheduleView: UITableView!
     
     var completedGamesArray = [NHLSchedule]()
     
@@ -22,13 +23,15 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     {
         super.viewDidLoad()
         
-//        let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
-//        completedGamesArray = displayTeamScheduleTabViewController.completedGamesArray
-//        selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
-//        selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
-//
-//        let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
-//        scheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
+        let displayTeamInfoTabBarViewController = self.tabBarController  as! DisplayTeamInfoTabBarViewController
+        
+        completedGamesArray = displayTeamInfoTabBarViewController.completedGamesArray
+        
+        selectedTeamName = displayTeamInfoTabBarViewController.selectedTeamName
+        selectedTeamAbbreviation = displayTeamInfoTabBarViewController.selectedTeamAbbreviation
+
+        let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
+        completeScheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
     }
 
     // MARK: - Table view data source
@@ -52,7 +55,7 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "Completed Games"
+        return "Completed Games for \(selectedTeamName)"
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
@@ -75,7 +78,7 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         
         var isHomeTeam = false
         
-            scheduleView.rowHeight = CGFloat(65.0)
+            completeScheduleView.rowHeight = CGFloat(65.0)
             
             if(selectedTeamAbbreviation == completedGamesArray[indexPath.row].homeTeam)
             {
@@ -136,7 +139,7 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         
         print("Game id is: \(completedGamesArray[tappedIndexPath.row].id)")
         
-        //databaseManager.displayGameLog(self, completedGamesArray[tappedIndexPath.row].id)
+        databaseManager.displayGameLog(self, completedGamesArray[tappedIndexPath.row].id)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

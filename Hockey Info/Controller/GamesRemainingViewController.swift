@@ -6,10 +6,11 @@
 //  Copyright © 2019 Larry Burris. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class GamesRemainingViewController: UITableViewController
 {
-    @IBOutlet weak var scheduleView: UITableView!
+    @IBOutlet weak var remainingScheduleView: UITableView!
     
     var gamesRemainingArray = [NHLSchedule]()
     
@@ -22,13 +23,15 @@ class GamesRemainingViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        //let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
-        //gamesRemainingArray = displayTeamScheduleTabViewController.gamesRemainingArray
-        //selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
-        //selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
+        let displayTeamInfoTabBarViewController = self.tabBarController  as! DisplayTeamInfoTabBarViewController
         
-        //let myNib = UINib(nibName: "FutureScheduleViewCell", bundle: Bundle.main)
-        //scheduleView.register(myNib, forCellReuseIdentifier: "futureScheduleViewCell")
+        gamesRemainingArray = displayTeamInfoTabBarViewController.gamesRemainingArray
+        
+        selectedTeamName = displayTeamInfoTabBarViewController.selectedTeamName
+        selectedTeamAbbreviation = displayTeamInfoTabBarViewController.selectedTeamAbbreviation
+        
+        let myNib = UINib(nibName: "FutureScheduleViewCell", bundle: Bundle.main)
+        remainingScheduleView.register(myNib, forCellReuseIdentifier: "futureScheduleViewCell")
     }
     
     // MARK: - Table view data source
@@ -52,7 +55,7 @@ class GamesRemainingViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "Games Remaining"
+        return "Games Remaining for \(selectedTeamName)"
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
@@ -73,6 +76,8 @@ class GamesRemainingViewController: UITableViewController
         var designator = ""
         
         var isHomeTeam = false
+        
+         remainingScheduleView.rowHeight = CGFloat(65.0)
         
         if(selectedTeamAbbreviation == gamesRemainingArray[indexPath.row].homeTeam)
         {

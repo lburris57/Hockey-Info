@@ -171,14 +171,14 @@ class DisplayTeamsViewController: UITableViewController
     {
         if(segue.identifier == "displayRoster")
         {
-            let displayRosterViewController = segue.destination as! DisplayRosterViewController
-            
-            displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
-            
-            if let players = displayRosterViewController.playerResults
-            {
-                displayRosterViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(players[0].teamId))) Players"
-            }
+//            let displayRosterViewController = segue.destination as! DisplayRosterViewController
+//
+//            displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
+//
+//            if let players = displayRosterViewController.playerResults
+//            {
+//                displayRosterViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(players[0].teamId))) Players"
+//            }
         }
         if(segue.identifier == "displayDefaultRoster")
         {
@@ -189,15 +189,19 @@ class DisplayTeamsViewController: UITableViewController
             if let teams = displayTeamInfoTabBarViewController.teamResults
             {
                 displayTeamInfoTabBarViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id))) Players"
+                
+                displayTeamInfoTabBarViewController.segueId = "displayDefaultRosters"
+                displayTeamInfoTabBarViewController.selectedTeamAbbreviation = teams[0].abbreviation
+                displayTeamInfoTabBarViewController.selectedTeamName = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id)))"
             }
         }
         else if(segue.identifier == "displayTeamStatistics")
         {
-            let displayTeamStatsViewController = segue.destination as! DisplayTeamStatsViewController
-            
-            displayTeamStatsViewController.team = sender as? NHLTeam
-            
-            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName((displayTeamStatsViewController.team?.abbreviation)!))"
+//            let displayTeamStatsViewController = segue.destination as! DisplayTeamStatsViewController
+//            
+//            displayTeamStatsViewController.team = sender as? NHLTeam
+//            
+//            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName((displayTeamStatsViewController.team?.abbreviation)!))"
         }
         else if(segue.identifier == "displayTeamSchedule")
         {
@@ -210,12 +214,12 @@ class DisplayTeamsViewController: UITableViewController
         }
         else if(segue.identifier == "displayInjuries")
         {
-            let displayPlayerInjuryViewController = segue.destination as! DisplayPlayerInjuryViewController
-            
-            displayPlayerInjuryViewController.injuries = sender as? Results<NHLPlayerInjury>
-            
-            displayPlayerInjuryViewController.title = "Injuries for \(selectedTeamName)"
-            displayPlayerInjuryViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
+//            let displayPlayerInjuryViewController = segue.destination as! DisplayPlayerInjuryViewController
+//
+//            //displayTeamInfoTabBarViewController.injuries = sender as? Results<NHLPlayerInjury>
+//
+//            displayPlayerInjuryViewController.title = "Injuries for \(selectedTeamName)"
+//            displayPlayerInjuryViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
         }
     }
     

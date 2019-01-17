@@ -40,11 +40,7 @@
                     <connections>
                         <segue destination="cEk-dL-YwM" kind="show" identifier="displayCalendar" id="Vxv-yC-pQV"/>
                         <segue destination="4Ej-aU-ptl" kind="show" identifier="displayStandings" id="F9C-bT-ubu"/>
-                        <segue destination="zFe-lb-etD" kind="show" identifier="displayTeams" id="Uyk-Vt-9NI"/>
                         <segue destination="15f-m3-ueA" kind="show" identifier="displayScores" id="i3t-ew-fjL"/>
-                        <segue destination="0Y7-VQ-BR1" kind="show" identifier="displayTeamStatistics" id="rER-cr-hjC"/>
-                        <segue destination="vl1-ZA-jk2" kind="show" identifier="displayTeamsForSchedule" id="Kcx-Qc-rP8"/>
-                        <segue destination="cle-0n-y8H" kind="show" identifier="displayTeamInjuries" id="28K-7Z-x3D"/>
                         <segue destination="ofz-qt-b5Y" kind="show" identifier="displayAllTeams" id="DbM-dE-Qzx"/>
                     </connections>
                 </viewController>
@@ -81,108 +77,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tgr-A9-puj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2904" y="848"/>
-        </scene>
-        <!--Team Rosters-->
-        <scene sceneID="6Ys-mc-LGi">
-            <objects>
-                <tableViewController title="Team Rosters" id="zFe-lb-etD" customClass="DisplayTeamsViewController" customModule="Hockey_Info" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nPH-Vy-j2N">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="teamCell" textLabel="P8g-FT-tdY" style="IBUITableViewCellStyleDefault" id="KQK-Yb-DeY">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KQK-Yb-DeY" id="PFR-Td-rk0">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P8g-FT-tdY">
-                                            <rect key="frame" x="20" y="0.0" width="356" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="zFe-lb-etD" id="E79-pb-AF9"/>
-                            <outlet property="delegate" destination="zFe-lb-etD" id="c3t-7p-a25"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="teamView" destination="nPH-Vy-j2N" id="ZgJ-mD-rqF"/>
-                        <segue destination="nGs-DU-Y0b" kind="show" identifier="displayRoster" id="wTj-u7-Miq"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8YN-bE-FVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4026" y="811"/>
-        </scene>
-        <!--Team Statistics-->
-        <scene sceneID="qIi-zB-e7N">
-            <objects>
-                <tableViewController title="Team Statistics" id="0Y7-VQ-BR1" customClass="DisplayTeamsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ekB-Br-WwN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="NIJ-NL-yP2">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NIJ-NL-yP2" id="wNR-6J-oT4">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="0Y7-VQ-BR1" id="CMk-3r-Sv3"/>
-                            <outlet property="delegate" destination="0Y7-VQ-BR1" id="gtL-AT-3vX"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="teamView" destination="ekB-Br-WwN" id="cb4-b6-8YN"/>
-                        <segue destination="vPC-qc-W42" kind="show" identifier="displayTeamStatistics" id="1T8-v3-KJk"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3jz-pr-OhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4774" y="227"/>
-        </scene>
-        <!--Stats-->
-        <scene sceneID="sPy-Za-7Bj">
-            <objects>
-                <tableViewController title="Stats" id="vPC-qc-W42" customClass="DisplayTeamStatsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1FF-tL-Qk0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="statsCell" id="cH8-7g-IRf">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cH8-7g-IRf" id="SPP-f4-19Y">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vPC-qc-W42" id="3xM-nr-aYE"/>
-                            <outlet property="delegate" destination="vPC-qc-W42" id="fKp-5l-StQ"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K4e-4E-umC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5510" y="511"/>
+            <point key="canvasLocation" x="3122" y="786"/>
         </scene>
         <!--Display Player View Controller-->
         <scene sceneID="UYl-iV-fXa">
@@ -358,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tr6-e1-vEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5603" y="1939"/>
+            <point key="canvasLocation" x="4914" y="1843"/>
         </scene>
         <!--Remaining Games-->
         <scene sceneID="I09-la-Ya4">
@@ -384,15 +279,18 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Remaining Games" id="0lf-DG-eFI"/>
+                    <connections>
+                        <outlet property="remainingScheduleView" destination="v4h-3h-pKj" id="3Pi-5R-qRW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GP2-ee-Aul" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="2571"/>
+            <point key="canvasLocation" x="2783" y="2570"/>
         </scene>
         <!--Injuries-->
         <scene sceneID="bEv-02-8as">
             <objects>
-                <tableViewController id="y82-MO-IDe" sceneMemberID="viewController">
+                <tableViewController id="y82-MO-IDe" customClass="DisplayPlayerInjuryViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hbz-XD-M1q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -413,10 +311,13 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Injuries" id="Qar-8h-FRh"/>
+                    <connections>
+                        <outlet property="injuryView" destination="Hbz-XD-M1q" id="imE-Ld-k3l"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GdO-G6-sSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2101" y="1492"/>
+            <point key="canvasLocation" x="3929" y="3143"/>
         </scene>
         <!--Completed Games-->
         <scene sceneID="S1v-vg-C3v">
@@ -442,10 +343,14 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Completed Games" id="Xgb-Ix-7rx"/>
+                    <connections>
+                        <outlet property="completeScheduleView" destination="h3n-cw-ZkG" id="gz5-HD-O3B"/>
+                        <segue destination="ARt-Zr-qMg" kind="show" identifier="displayGameLog" id="pSY-kD-X95"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWa-NO-KVm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2087" y="2206"/>
+            <point key="canvasLocation" x="2016" y="2570"/>
         </scene>
         <!--Display Team Info Tab Bar View Controller-->
         <scene sceneID="YQr-uc-VgW">
@@ -492,15 +397,18 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Roster" id="sRd-eK-GXJ"/>
+                    <connections>
+                        <segue destination="8fp-Vq-WKt" kind="show" identifier="displayPlayer" id="gcQ-UI-ce9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ior-fR-FSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3925" y="1456"/>
+            <point key="canvasLocation" x="4039" y="1471"/>
         </scene>
         <!--Stats-->
         <scene sceneID="z5k-eV-HFT">
             <objects>
-                <tableViewController id="36h-A8-c8P" customClass="DisplayPlayerStatisticsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="36h-A8-c8P" customClass="DisplayTeamStatsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xsu-yR-nTW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -521,10 +429,13 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Stats" id="76F-66-mLn"/>
+                    <connections>
+                        <outlet property="statsView" destination="xsu-yR-nTW" id="NAq-vG-hCh"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHH-Ca-n1J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3930" y="2231"/>
+            <point key="canvasLocation" x="4032" y="2240"/>
         </scene>
         <!--Display Player Statistics View Controller-->
         <scene sceneID="Yc2-oK-pcZ">
@@ -555,101 +466,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ai9-d4-KRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4775" y="1971"/>
-        </scene>
-        <!--Players-->
-        <scene sceneID="vFd-SR-eG1">
-            <objects>
-                <tableViewController title="Players" id="nGs-DU-Y0b" customClass="DisplayRosterViewController" customModule="Hockey_Info" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="l97-ra-spx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rosterCell" id="aml-5h-fzC">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aml-5h-fzC" id="xvG-kC-Ed5">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="nGs-DU-Y0b" id="VGH-eM-kXO"/>
-                            <outlet property="delegate" destination="nGs-DU-Y0b" id="ZC8-xU-81j"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="rosterView" destination="l97-ra-spx" id="yLE-S4-LbQ"/>
-                        <segue destination="8fp-Vq-WKt" kind="show" identifier="displayPlayer" id="TUp-1Y-L20"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A9G-Ax-TZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4739" y="1185"/>
-        </scene>
-        <!--Team Injuries-->
-        <scene sceneID="cc6-2L-NOr">
-            <objects>
-                <tableViewController title="Team Injuries" id="cle-0n-y8H" customClass="DisplayTeamsViewController" customModule="Hockey_Info" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6ky-xh-XmJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="injuriesCell" id="rBp-YW-MqX">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rBp-YW-MqX" id="eiP-Na-iTt">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="cle-0n-y8H" id="uT8-4k-TAJ"/>
-                            <outlet property="delegate" destination="cle-0n-y8H" id="FSe-Xm-reC"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="9gT-9v-w4S" kind="show" identifier="displayInjuries" id="0kW-XK-Np2"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MQt-Z4-Gup" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5483" y="1182"/>
-        </scene>
-        <!--Injuries-->
-        <scene sceneID="PPy-9B-wqv">
-            <objects>
-                <tableViewController title="Injuries" id="9gT-9v-w4S" customClass="DisplayPlayerInjuryViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6XZ-Se-VR0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="injuryCell" id="nVS-Su-f7Y">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nVS-Su-f7Y" id="Lm0-8l-WoF">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9gT-9v-w4S" id="Oz8-cf-jy6"/>
-                            <outlet property="delegate" destination="9gT-9v-w4S" id="Gqd-Vw-Xy1"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="injuryView" destination="6XZ-Se-VR0" id="ebt-aJ-Kge"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9HK-Ym-XkY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6474" y="1194"/>
+            <point key="canvasLocation" x="4913" y="2834"/>
         </scene>
         <!--Display Standings Tab View Controller-->
         <scene sceneID="o3X-BQ-ck2">
@@ -680,7 +497,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ea-bJ-b4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6184" y="-458"/>
+            <point key="canvasLocation" x="5041" y="398"/>
         </scene>
         <!--Division Standings-->
         <scene sceneID="KpG-ii-7mO">
@@ -765,38 +582,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qtj-ef-4wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6980" y="-978"/>
-        </scene>
-        <!--Team Schedule-->
-        <scene sceneID="T7z-Dr-eyi">
-            <objects>
-                <tableViewController title="Team Schedule" id="vl1-ZA-jk2" customClass="DisplayTeamsViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qDh-fp-bWn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rbK-id-D9C">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rbK-id-D9C" id="PWM-GC-QjT">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vl1-ZA-jk2" id="7Wt-m0-0tR"/>
-                            <outlet property="delegate" destination="vl1-ZA-jk2" id="Hh7-43-D7V"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="l0l-3T-CPl" kind="show" identifier="displayTeamSchedule" id="BEY-gp-hnp"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Off-Hs-oCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4390" y="-1297"/>
+            <point key="canvasLocation" x="5867" y="-263"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="7Xh-ZY-jik">
@@ -1073,7 +859,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P2m-Mb-iyR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6980" y="-307"/>
+            <point key="canvasLocation" x="5867" y="521"/>
         </scene>
         <!--League Standings-->
         <scene sceneID="QKi-So-Zo3">
@@ -1158,39 +944,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoQ-7P-Brp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6980" y="492"/>
-        </scene>
-        <!--Display Team Schedule View Controller-->
-        <scene sceneID="Hab-wj-eIB">
-            <objects>
-                <tableViewController id="l0l-3T-CPl" customClass="DisplayTeamScheduleViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fd-8d-yTs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eqG-cD-wNv">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eqG-cD-wNv" id="OMz-Ao-kW5">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="l0l-3T-CPl" id="o3F-LL-Lkz"/>
-                            <outlet property="delegate" destination="l0l-3T-CPl" id="Plf-qG-5gj"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="scheduleView" destination="1fd-8d-yTs" id="0aW-Z7-Fjr"/>
-                        <segue destination="ARt-Zr-qMg" kind="show" identifier="displayGameLog" id="IMb-My-2dt"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J4N-6Z-qUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5271" y="-1301"/>
+            <point key="canvasLocation" x="5867" y="1304"/>
         </scene>
         <!--Game Log-->
         <scene sceneID="gU3-AC-VeQ">
@@ -1796,7 +1550,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTf-p4-IgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6182.608695652174" y="-1297.0108695652175"/>
+            <point key="canvasLocation" x="2597" y="3315"/>
         </scene>
         <!--Display scores-->
         <scene sceneID="3ou-Tf-msw">
@@ -1970,7 +1724,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="816-a1-4rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2065" y="184"/>
+            <point key="canvasLocation" x="4032" y="786"/>
         </scene>
     </scenes>
     <resources>

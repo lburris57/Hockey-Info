@@ -22,6 +22,8 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     
     let databaseManager = DatabaseManager()
     
+    let completedGamesViewController = CompletedGamesViewController()
+    
     var teamSchedules: Results<NHLSchedule>?
     
     var scheduleArray = [NHLSchedule]()
@@ -184,9 +186,7 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
-        print("Game id is: \(completedGamesArray[tappedIndexPath.row].id)")
-        
-        databaseManager.displayGameLog(self, completedGamesArray[tappedIndexPath.row].id)
+        databaseManager.displayGameLog(completedGamesViewController, completedGamesArray[tappedIndexPath.row].id)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
