@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 import SwifterSwift
 import Kingfisher
-import SVProgressHUD
 
 class NetworkManager
 {

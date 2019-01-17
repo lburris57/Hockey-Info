@@ -22,13 +22,13 @@ class GamesRemainingViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
-        gamesRemainingArray = displayTeamScheduleTabViewController.gamesRemainingArray
-        selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
-        selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
+        //let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
+        //gamesRemainingArray = displayTeamScheduleTabViewController.gamesRemainingArray
+        //selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
+        //selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
         
-        let myNib = UINib(nibName: "FutureScheduleViewCell", bundle: Bundle.main)
-        scheduleView.register(myNib, forCellReuseIdentifier: "futureScheduleViewCell")
+        //let myNib = UINib(nibName: "FutureScheduleViewCell", bundle: Bundle.main)
+        //scheduleView.register(myNib, forCellReuseIdentifier: "futureScheduleViewCell")
     }
     
     // MARK: - Table view data source

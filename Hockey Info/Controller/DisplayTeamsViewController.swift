@@ -17,6 +17,7 @@ class DisplayTeamsViewController: UITableViewController
     let databaseManager = DatabaseManager()
     
     let teamStatsViewController = DisplayTeamStatsViewController()
+    let teamInfoTabBarViewController = DisplayTeamInfoTabBarViewController()
     
     var teamArray = [NHLTeam]()
     
@@ -35,6 +36,8 @@ class DisplayTeamsViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        print("Size of teamResults is: \(teamResults?.count ?? 0)")
         
         loadTeamArrays()
     }
@@ -139,9 +142,15 @@ class DisplayTeamsViewController: UITableViewController
         selectedTeamName = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
         selectedTeamAbbreviation = teamArray[indexPath.row].abbreviation
         
+        print("Segue id in DisplayTeamsViewController is: \(segueId)")
+        
         if(segueId == "displayTeams")
         {
             databaseManager.displayRoster(self, teamId)
+        }
+        if(segueId == "displayAllTeams")
+        {
+            databaseManager.displayTeamInfo(self, teamId)
         }
         else if(segueId == "displayTeamStatistics")
         {
@@ -169,6 +178,17 @@ class DisplayTeamsViewController: UITableViewController
             if let players = displayRosterViewController.playerResults
             {
                 displayRosterViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(players[0].teamId))) Players"
+            }
+        }
+        if(segue.identifier == "displayDefaultRoster")
+        {
+            let displayTeamInfoTabBarViewController = segue.destination as! DisplayTeamInfoTabBarViewController
+            
+            displayTeamInfoTabBarViewController.teamResults = sender as? Results<NHLTeam>
+            
+            if let teams = displayTeamInfoTabBarViewController.teamResults
+            {
+                displayTeamInfoTabBarViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id))) Players"
             }
         }
         else if(segue.identifier == "displayTeamStatistics")

@@ -24,8 +24,6 @@ class DisplayPlayerInjuryViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        print("Size of injury list in controller is: \(injuries?.count ?? 0)")
     }
 
     // MARK: - Table view data source
@@ -96,8 +94,6 @@ class DisplayPlayerInjuryViewController: UITableViewController
                     "Player: \(playerName) - \(position)\n" +
                     "Injury Description: \(injuryDescription) \n" +
                     "Playing Probablity: \(playingProbablity)"
-            
-            print("Label text is: \(labelText)")
             
             cell?.textLabel?.text = labelText
         }

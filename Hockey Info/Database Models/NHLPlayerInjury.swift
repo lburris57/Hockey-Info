@@ -22,6 +22,7 @@ class NHLPlayerInjury : Object
     @objc dynamic var dateCreated: String = ""
     
     var parentPlayer = LinkingObjects(fromType: NHLPlayer.self, property: "playerInjuries")
+    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "playerInjuries")
     
     override static func primaryKey() -> String?
     {

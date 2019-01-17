@@ -81,6 +81,7 @@
 		7686944E21E990ED007F3D02 /* DisplayTeamScheduleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7686944D21E990ED007F3D02 /* DisplayTeamScheduleTabViewController.swift */; };
 		7686945021E9915F007F3D02 /* GamesRemainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7686944F21E9915F007F3D02 /* GamesRemainingViewController.swift */; };
 		7686945221EC19E4007F3D02 /* DisplayPlayerInjuryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7686945121EC19E4007F3D02 /* DisplayPlayerInjuryViewController.swift */; };
+		7686945421EFCB9A007F3D02 /* DisplayTeamInfoTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7686945321EFCB9A007F3D02 /* DisplayTeamInfoTabBarViewController.swift */; };
 		769F46E7219E543000E89895 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F46E5219E543000E89895 /* ScoreCell.swift */; };
 		769F46E8219E543000E89895 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769F46E6219E543000E89895 /* ScoreCell.xib */; };
 		76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B478B921AF693F00337D98 /* PeriodEnum.swift */; };
@@ -194,6 +195,7 @@
 		7686944D21E990ED007F3D02 /* DisplayTeamScheduleTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamScheduleTabViewController.swift; sourceTree = "<group>"; };
 		7686944F21E9915F007F3D02 /* GamesRemainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesRemainingViewController.swift; sourceTree = "<group>"; };
 		7686945121EC19E4007F3D02 /* DisplayPlayerInjuryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPlayerInjuryViewController.swift; sourceTree = "<group>"; };
+		7686945321EFCB9A007F3D02 /* DisplayTeamInfoTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTeamInfoTabBarViewController.swift; sourceTree = "<group>"; };
 		769F46E5219E543000E89895 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		769F46E6219E543000E89895 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		76B478B921AF693F00337D98 /* PeriodEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEnum.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 				7686944D21E990ED007F3D02 /* DisplayTeamScheduleTabViewController.swift */,
 				7686944F21E9915F007F3D02 /* GamesRemainingViewController.swift */,
 				7686945121EC19E4007F3D02 /* DisplayPlayerInjuryViewController.swift */,
+				7686945321EFCB9A007F3D02 /* DisplayTeamInfoTabBarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -640,29 +643,25 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Hockey Info/Pods-Hockey Info-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CBFlashyTabBarController/CBFlashyTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/VBRRollingPit/VBRRollingPit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBFlashyTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VBRRollingPit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -771,6 +770,7 @@
 				76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */,
 				7640585921C2F76A00695D68 /* DivisionStandingsViewController.swift in Sources */,
 				76BDDDAE21D44B5C00614AFA /* SkatingData.swift in Sources */,
+				7686945421EFCB9A007F3D02 /* DisplayTeamInfoTabBarViewController.swift in Sources */,
 				7686945221EC19E4007F3D02 /* DisplayPlayerInjuryViewController.swift in Sources */,
 				76D60B5A219D060F0058EEB0 /* AppDelegate.swift in Sources */,
 				76045B6821B3642E00980C63 /* StandingsCategory.swift in Sources */,

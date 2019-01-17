@@ -22,13 +22,13 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     {
         super.viewDidLoad()
         
-        let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
-        completedGamesArray = displayTeamScheduleTabViewController.completedGamesArray
-        selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
-        selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
-        
-        let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
-        scheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
+//        let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
+//        completedGamesArray = displayTeamScheduleTabViewController.completedGamesArray
+//        selectedTeamName = displayTeamScheduleTabViewController.selectedTeamName
+//        selectedTeamAbbreviation = displayTeamScheduleTabViewController.selectedTeamAbbreviation
+//
+//        let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
+//        scheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
     }
 
     // MARK: - Table view data source

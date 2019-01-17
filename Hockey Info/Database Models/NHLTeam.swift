@@ -22,6 +22,7 @@ class NHLTeam : Object
     var standings = List<TeamStandings>()
     var statistics = List<TeamStatistics>()
     var schedules = List<NHLSchedule>()
+    var playerInjuries = List<NHLPlayerInjury>()
     var gameLogs = List<NHLGameLog>()
     
     override static func primaryKey() -> String?

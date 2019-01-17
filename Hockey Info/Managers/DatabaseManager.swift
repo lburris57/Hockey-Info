@@ -131,6 +131,10 @@ class DatabaseManager
         {
             segueId = "displayTeamInjuries"
         }
+        else if(category == "Team Information")
+        {
+            segueId = "displayAllTeams"
+        }
         else
         {
             segueId = "displayTeamStatistics"
@@ -141,6 +145,8 @@ class DatabaseManager
             try realm.write
             {
                 teamResults = realm.objects(NHLTeam.self)
+                
+                print("Size of teamResults for segue id \(segueId) in database manager is: \(teamResults?.count ?? 0)")
             }
         }
         catch
@@ -170,6 +176,25 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayRoster", sender: rosterResult)
     }
     
+    func displayTeamInfo(_ viewController: DisplayTeamsViewController, _ teamId: Int)
+    {
+        var teamResult: Results<NHLTeam>?
+        
+        do
+        {
+            try realm.write
+            {
+                teamResult = realm.objects(NHLTeam.self).filter("id ==\(teamId)")
+            }
+        }
+        catch
+        {
+            print("Error retrieving team info!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayDefaultRoster", sender: teamResult)
+    }
+    
     func displayInjuries(_ viewController: DisplayTeamsViewController, _ teamId: Int)
     {
         var injuryResult: Results<NHLPlayerInjury>?
@@ -179,8 +204,6 @@ class DatabaseManager
             try realm.write
             {
                 injuryResult = realm.objects(NHLPlayerInjury.self).filter("teamId ==\(teamId)")
-                
-                print("Size of injuryResult is: \(injuryResult?.count ?? 0)")
             }
         }
         catch
@@ -366,7 +389,7 @@ class DatabaseManager
     
     func saveMainMenuCategories()
     {
-        let categories = ["Season Schedule", "Team Schedule", "Standings", "Scores", "Team Rosters", "Team Statistics", "Team Injuries"]
+        let categories = ["Season Schedule", "Team Information", "Standings", "Scores", "Team Schedule", "Team Rosters", "Team Statistics", "Team Injuries"]
         
         let categoryList = List<MainMenuCategory>()
         
@@ -700,6 +723,40 @@ class DatabaseManager
                     realm.add(team)
                     
                     print("Statistics have successfully been linked to \(team.name)!")
+                }
+            }
+            catch
+            {
+                print("Error saving teams to the database: \(error)")
+            }
+        }
+    }
+    
+    func linkPlayerInjuriesToTeams()
+    {
+        //  Get all the teams
+        let teamResults = realm.objects(NHLTeam.self)
+        
+        //  Spin through the teams and retrieve the player injuries based on the team abbreviation
+        for team in teamResults
+        {
+            do
+            {
+                try realm.write
+                {
+                    //  Get all player injuries for that particular team
+                    let injuryResults = realm.objects(NHLPlayerInjury.self).filter("teamAbbreviation =='\(team.abbreviation)'").sorted(byKeyPath: "playingProbablity", ascending: false)
+                    
+                    for injuries in injuryResults
+                    {
+                        //  Set the player injuries in the parent team
+                        team.playerInjuries.append(injuries)
+                    }
+                    
+                    //  Save the team to the database
+                    realm.add(team)
+                    
+                    print("Player injuries have successfully been linked to \(team.name)!")
                 }
             }
             catch

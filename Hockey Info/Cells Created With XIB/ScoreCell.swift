@@ -67,7 +67,7 @@ class ScoreCell: UITableViewCell
                     
                     case 3: period.text = String(numberOfPeriods) + "rd"
                     
-                    default: period.text = "End of \(numberOfPeriods)"
+                    default: period.text = "1st"
                 }
                 
                 if(timeRemaining.text == "")

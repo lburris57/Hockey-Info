@@ -16,6 +16,8 @@ class DisplayRosterViewController: UITableViewController
     
     let databaseManager = DatabaseManager()
     
+    //let displayTeamScheduleTabViewController = self.tabBarController  as! DisplayTeamScheduleTabViewController
+    
     var playerResults: Results<NHLPlayer>?
     
     var playerArray = [NHLPlayer]()
