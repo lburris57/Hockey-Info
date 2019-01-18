@@ -55,7 +55,7 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "Completed Games for \(selectedTeamName)"
+        return "Completed Games for \(selectedTeamName): \(completedGamesArray.count)"
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)

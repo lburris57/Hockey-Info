@@ -27,8 +27,6 @@ class DisplayPlayerInjuryViewController: UITableViewController
         
         injuryArray = displayTeamInfoTabBarViewController.injuryArray
         
-        print("Size of injuryArray is: \(injuryArray.count)")
-        
         selectedTeamName = displayTeamInfoTabBarViewController.selectedTeamName
         selectedTeamAbbreviation = displayTeamInfoTabBarViewController.selectedTeamAbbreviation
     }

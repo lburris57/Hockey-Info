@@ -37,8 +37,6 @@ class DisplayTeamsViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        print("Size of teamResults is: \(teamResults?.count ?? 0)")
-        
         loadTeamArrays()
     }
     
@@ -142,84 +140,22 @@ class DisplayTeamsViewController: UITableViewController
         selectedTeamName = TeamManager.getFullTeamName((teamArray[indexPath.row].abbreviation))
         selectedTeamAbbreviation = teamArray[indexPath.row].abbreviation
         
-        print("Segue id in DisplayTeamsViewController is: \(segueId)")
-        
-        if(segueId == "displayTeams")
-        {
-            databaseManager.displayRoster(self, teamId)
-        }
-        if(segueId == "displayAllTeams")
-        {
-            databaseManager.displayTeamInfo(self, teamId)
-        }
-        else if(segueId == "displayTeamStatistics")
-        {
-            databaseManager.displayTeamStatistics(self, teamId)
-        }
-        else if(segueId == "displayTeamsForSchedule")
-        {
-            databaseManager.displayTeamSchedule(self, teamId)
-        }
-        else if(segueId == "displayTeamInjuries")
-        {
-            databaseManager.displayInjuries(self, teamId)
-        }
+        databaseManager.displayTeamInfo(self, teamId)
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if(segue.identifier == "displayRoster")
-        {
-//            let displayRosterViewController = segue.destination as! DisplayRosterViewController
-//
-//            displayRosterViewController.playerResults = sender as? Results<NHLPlayer>
-//
-//            if let players = displayRosterViewController.playerResults
-//            {
-//                displayRosterViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(players[0].teamId))) Players"
-//            }
-        }
-        if(segue.identifier == "displayDefaultRoster")
-        {
-            let displayTeamInfoTabBarViewController = segue.destination as! DisplayTeamInfoTabBarViewController
+        let displayTeamInfoTabBarViewController = segue.destination as! DisplayTeamInfoTabBarViewController
             
-            displayTeamInfoTabBarViewController.teamResults = sender as? Results<NHLTeam>
-            
-            if let teams = displayTeamInfoTabBarViewController.teamResults
-            {
-                displayTeamInfoTabBarViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id))) Players"
-                
-                displayTeamInfoTabBarViewController.segueId = "displayDefaultRosters"
-                displayTeamInfoTabBarViewController.selectedTeamAbbreviation = teams[0].abbreviation
-                displayTeamInfoTabBarViewController.selectedTeamName = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id)))"
-            }
-        }
-        else if(segue.identifier == "displayTeamStatistics")
+        displayTeamInfoTabBarViewController.teamResults = sender as? Results<NHLTeam>
+        
+        if let teams = displayTeamInfoTabBarViewController.teamResults
         {
-//            let displayTeamStatsViewController = segue.destination as! DisplayTeamStatsViewController
-//            
-//            displayTeamStatsViewController.team = sender as? NHLTeam
-//            
-//            displayTeamStatsViewController.title = "Stats for \(TeamManager.getFullTeamName((displayTeamStatsViewController.team?.abbreviation)!))"
-        }
-        else if(segue.identifier == "displayTeamSchedule")
-        {
-            let displayTeamScheduleViewController = segue.destination as! DisplayTeamScheduleViewController
+            displayTeamInfoTabBarViewController.title = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id))) Information"
             
-            displayTeamScheduleViewController.teamSchedules = sender as? Results<NHLSchedule>
-            
-            displayTeamScheduleViewController.title = "Schedule for \(selectedTeamName)"
-            displayTeamScheduleViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
-        }
-        else if(segue.identifier == "displayInjuries")
-        {
-//            let displayPlayerInjuryViewController = segue.destination as! DisplayPlayerInjuryViewController
-//
-//            //displayTeamInfoTabBarViewController.injuries = sender as? Results<NHLPlayerInjury>
-//
-//            displayPlayerInjuryViewController.title = "Injuries for \(selectedTeamName)"
-//            displayPlayerInjuryViewController.selectedTeamAbbreviation = selectedTeamAbbreviation
+            displayTeamInfoTabBarViewController.selectedTeamAbbreviation = teams[0].abbreviation
+            displayTeamInfoTabBarViewController.selectedTeamName = "\(TeamManager.getFullTeamName(TeamManager.getTeamByID(teams[0].id)))"
         }
     }
     

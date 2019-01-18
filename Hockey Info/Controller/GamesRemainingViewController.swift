@@ -55,7 +55,7 @@ class GamesRemainingViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "Games Remaining for \(selectedTeamName)"
+        return "Games Remaining for \(selectedTeamName): \(gamesRemainingArray.count)"
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)

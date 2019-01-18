@@ -24,8 +24,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     {
         super.viewDidLoad()
         
-        //databaseManager.linkPlayerInjuriesToTeams()
-        
         if(databaseManager.teamRosterRequiresSaving())
         {
             self.presentAlert()
@@ -108,23 +106,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             databaseManager.retrieveTodaysGames(self)
         }
-        else if(category == "Team Rosters")
-        {
-            databaseManager.displayTeams(self, category)
-        }
-        else if(category == "Team Statistics")
-        {
-            databaseManager.displayTeams(self, category)
-        }
         else if(category == "Team Information")
-        {
-            databaseManager.displayTeams(self, category)
-        }
-        else if(category == "Team Schedule")
-        {
-            databaseManager.displayTeams(self, category)
-        }
-        else if(category == "Team Injuries")
         {
             databaseManager.displayTeams(self, category)
         }
@@ -136,29 +118,19 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        print("Segue identifier is: \(segue.identifier!)")
-        
         if(segue.identifier == "displaySchedule")
         {
             let displayCalendarViewController = segue.destination as! DisplayCalendarViewController
 
             displayCalendarViewController.scheduledGames = sender as? Results<NHLSchedule>
         }
-        else if(segue.identifier == "displayTeams"
-                || segue.identifier == "displayTeamStatistics"
-                || segue.identifier == "displayTeamInjuries"
-                || segue.identifier == "displayAllTeams"
-                || segue.identifier == "displayTeamsForSchedule")
+        else if(segue.identifier == "displayAllTeams")
         {
-            //print("Segue identifier is: \(segue.identifier!)")
-            
             let displayTeamsViewController = segue.destination as! DisplayTeamsViewController
             
             displayTeamsViewController.segueId = segue.identifier!
             
             displayTeamsViewController.teamResults = sender as? Results<NHLTeam>
-            
-            print("Size of teamResults in displayTeamsViewController is: \(displayTeamsViewController.teamResults?.count ?? 0)")
         }
         else if(segue.identifier == "displayScores")
         {
@@ -172,12 +144,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
             
             displayStandingsTabViewController.teamStandingsResults = sender as? Results<TeamStandings>
         }
-//        else if(segue.identifier == "displayAllTeams")
-//        {
-//            let displayTeamInfoTabBarViewController = segue.destination as! DisplayTeamInfoTabBarViewController
-//            
-//            displayTeamInfoTabBarViewController.teamResults = sender as? Results<NHLTeam>
-//        }
     }
 }
 

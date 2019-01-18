@@ -10,7 +10,6 @@ import RealmSwift
 
 class DisplayTeamInfoTabBarViewController: UITabBarController
 {
-    var segueId = ""
     var selectedTeamName = ""
     var selectedTeamAbbreviation = ""
     

@@ -72,7 +72,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="8ut-bq-cXc" kind="showDetail" identifier="displayDefaultRoster" id="dqJ-Sw-NtV"/>
+                        <segue destination="8ut-bq-cXc" kind="show" identifier="displayDefaultRoster" id="dqJ-Sw-NtV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tgr-A9-puj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -255,7 +255,7 @@
             </objects>
             <point key="canvasLocation" x="4914" y="1843"/>
         </scene>
-        <!--Remaining Games-->
+        <!--Games Left-->
         <scene sceneID="I09-la-Ya4">
             <objects>
                 <tableViewController id="Ofp-7K-3gE" customClass="GamesRemainingViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
@@ -278,7 +278,7 @@
                             <outlet property="delegate" destination="Ofp-7K-3gE" id="rmh-Vz-b4Q"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Remaining Games" id="0lf-DG-eFI"/>
+                    <tabBarItem key="tabBarItem" title="Games Left" id="0lf-DG-eFI"/>
                     <connections>
                         <outlet property="remainingScheduleView" destination="v4h-3h-pKj" id="3Pi-5R-qRW"/>
                     </connections>
