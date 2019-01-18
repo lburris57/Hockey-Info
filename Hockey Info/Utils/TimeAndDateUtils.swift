@@ -129,4 +129,9 @@ class TimeAndDateUtils
     {
         return (Date().toFormat("EEEE, MMM dd, yyyy"))
     }
+    
+    static func getDateAsString(_ date: Date) -> String
+    {
+        return (date.toFormat("EEEE, MMM dd, yyyy"))
+    }
 }

@@ -31,6 +31,10 @@ class DisplayScoresViewController: UIViewController
     let calendarCellIdentifier = "CellView"
     let scoreCellIdentifier = "scoreCell"
     
+    var selectedDate = Date()
+    
+    private let refreshControl = UIRefreshControl()
+    
     var iii: Date?
     
     // MARK: Helpers
@@ -65,6 +69,40 @@ class DisplayScoresViewController: UIViewController
         
         let gesturer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         calendarView.addGestureRecognizer(gesturer)
+        
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Updating scores...")
+        
+        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *)
+        {
+            scoreView.refreshControl = refreshControl
+        }
+        else
+        {
+            scoreView.addSubview(refreshControl)
+        }
+
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshScoreData(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshScoreData(_ sender: Any)
+    {
+        self.fetchScoreData()
+    }
+    
+    func fetchScoreData()
+    {
+        networkManager.updateScheduleForDate(selectedDate)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            self.refreshControl.endRefreshing()
+            self.nhlSchedules = self.databaseManager.retrieveScoresAsNHLSchedules(self.selectedDate)
+            self.scoreView.reloadData()
+        }
     }
     
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer)
@@ -285,13 +323,15 @@ extension DisplayScoresViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
+        selectedDate = date
+        
         networkManager.updateScheduleForDate(date)
         
         nhlSchedules = databaseManager.retrieveScoresAsNHLSchedules(date)
-        
+            
         configureCell(view: cell, cellState: cellState)
-        scoreView.reloadData()
         scoreView.contentOffset = CGPoint()
+        scoreView.reloadData()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState)

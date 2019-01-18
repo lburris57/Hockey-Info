@@ -375,6 +375,8 @@ class NetworkManager
                             }
                             
                             print(Realm.Configuration.defaultConfiguration.fileURL!)
+                            
+                            //print("Getting here 1.....")
                         }
                     }
                     catch
@@ -387,6 +389,8 @@ class NetworkManager
                     print("Error retrieving data in updateScheduleForDate method...\(err.debugDescription)")
                 }
             }.resume()
+            
+            //print("Getting here 2.....")
         }
     }
     

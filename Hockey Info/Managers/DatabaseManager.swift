@@ -117,36 +117,11 @@ class DatabaseManager
     {
         var teamResults: Results<NHLTeam>?
         
-        var segueId = ""
-        
-        if(category == "Team Rosters")
-        {
-            segueId = "displayTeams"
-        }
-        else if(category == "Team Schedule")
-        {
-            segueId = "displayTeamsForSchedule"
-        }
-        else if(category == "Team Injuries")
-        {
-            segueId = "displayTeamInjuries"
-        }
-        else if(category == "Team Information")
-        {
-            segueId = "displayAllTeams"
-        }
-        else
-        {
-            segueId = "displayTeamStatistics"
-        }
-        
         do
         {
             try realm.write
             {
                 teamResults = realm.objects(NHLTeam.self)
-                
-                print("Size of teamResults for segue id \(segueId) in database manager is: \(teamResults?.count ?? 0)")
             }
         }
         catch
@@ -154,7 +129,7 @@ class DatabaseManager
             print("Error retrieving teams!")
         }
         
-        viewController.performSegue(withIdentifier: segueId, sender: teamResults)
+        viewController.performSegue(withIdentifier: "displayAllTeams", sender: teamResults)
     }
     
     func displayRoster(_ viewController: DisplayTeamsViewController, _ teamId: Int)
@@ -613,7 +588,7 @@ class DatabaseManager
                 {
                     if(team.players.count == 0 || team.schedules.count == 0 ||
                        team.gameLogs.count == 0 || team.standings.count == 0 ||
-                       team.statistics.count == 0)
+                       team.statistics.count == 0 || team.playerInjuries.count == 0)
                     {
                         result = true
                     }
