@@ -22,9 +22,11 @@ class DisplayPlayerViewController: UIViewController
     @IBOutlet weak var birthCountry: UILabel!
     @IBOutlet weak var height: UILabel!
     @IBOutlet weak var weight: UILabel!
+    @IBOutlet weak var status: UILabel!
     @IBOutlet weak var shoots: UILabel!
     @IBOutlet weak var shootsLabel: UILabel!
     @IBOutlet weak var position: UILabel!
+    
     @IBOutlet weak var displayPlayerStatsButtonTapped: UIButton!
     
     let databaseManager = DatabaseManager()
@@ -66,6 +68,11 @@ class DisplayPlayerViewController: UIViewController
             height.text = player.height
             weight.text = player.weight
             position.text = player.position
+            
+            if player.playerInjuries.count > 0
+            {
+                status.text = player.playerInjuries[0].playingProbablity.camelCased.capitalized
+            }
             
             if(player.imageURL.isEmpty)
             {
