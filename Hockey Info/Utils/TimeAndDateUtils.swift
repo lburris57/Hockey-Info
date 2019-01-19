@@ -134,4 +134,14 @@ class TimeAndDateUtils
     {
         return (date.toFormat("EEEE, MMM dd, yyyy"))
     }
+    
+    static func getCurrentDateAsStringInWebServiceFormat() -> String
+    {
+        return (Date().toFormat("yyyyMMdd"))
+    }
+    
+    static func createDateStringInWebServiceFormat(from beginDate: Date, to endDate: Date) -> String
+    {
+        return (beginDate.toFormat("yyyyMMdd")) + "-" + (endDate.toFormat("yyyyMMdd"))
+    }
 }

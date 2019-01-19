@@ -26,6 +26,8 @@ class ScoreCell: UITableViewCell
     
     let databaseManager = DatabaseManager()
     
+    
+    
     var scheduledGame: NHLSchedule!
     {
         didSet
@@ -85,6 +87,15 @@ class ScoreCell: UITableViewCell
             homeTeamName.text = TeamManager.getFullTeamName(scheduledGame.homeTeam)
             homeTeamScore.text = String(scheduledGame.homeScoreTotal)
             homeTeamRecord.text = records[scheduledGame.homeTeam]
+            
+            timeRemaining.isEnabled = false
+            visitingTeamName.isEnabled = false
+            visitingTeamRecord.isEnabled = false
+            homeTeamName.isEnabled = false
+            homeTeamRecord.isEnabled = false
+            visitingTeamScore.isEnabled = false
+            homeTeamScore.isEnabled = false
+            period.isEnabled = false
         }
     }
     

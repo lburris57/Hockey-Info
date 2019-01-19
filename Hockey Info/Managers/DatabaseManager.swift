@@ -868,4 +868,56 @@ class DatabaseManager
             }
         }
     }
+    
+    func tablesRequireReload() -> Bool
+    {
+        let dateString = TimeAndDateUtils.getCurrentDateAsString()
+        
+        let playerInjuryResult = realm.objects(NHLPlayerInjury.self).first
+        
+        let dateCreated = playerInjuryResult?.dateCreated
+        
+        if dateString != dateCreated
+        {
+            return true
+        }
+        
+        return false
+    }
+    
+    func deleteTeamLinks()
+    {
+        do
+        {
+            try realm.write
+            {
+                let teamResults = realm.objects(NHLTeam.self)
+                
+                for team in teamResults
+                {
+                    team.players.removeAll()
+                    team.playerInjuries.removeAll()
+                    team.standings.removeAll()
+                    team.statistics.removeAll()
+                    team.schedules.removeAll()
+                    team.gameLogs.removeAll()
+                    
+                    realm.add(team, update: true)
+                }
+            }
+        }
+        catch
+        {
+            print("Error deleting team links!")
+        }
+    }
+    
+    func getLatestDateCreated() -> String
+    {
+        let playerInjuryResult = realm.objects(NHLPlayerInjury.self).first
+        
+        return playerInjuryResult?.dateCreated ?? TimeAndDateUtils.getCurrentDateAsString()
+    }
+    
+    // https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/player_stats_totals.json?date=20190115-20190117
 }
