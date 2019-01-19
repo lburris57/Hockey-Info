@@ -26,6 +26,7 @@ class NetworkManager
     //  Create a new Realm database
     let realm = try! Realm()
     
+     // MARK: Save methods
     func saveRosters()
     {
         let playerList = List<NHLPlayer>()
@@ -84,7 +85,7 @@ class NetworkManager
                                 
                                 try self.realm.write
                                 {
-                                    self.realm.add(playerList)
+                                    self.realm.add(playerList, update: true)
                                     
                                     print("Roster players have successfully been added to the database!!")
                                 }
@@ -108,88 +109,6 @@ class NetworkManager
                 else
                 {
                     print("Error retrieving data in saveRosters method...\(err.debugDescription)")
-                }
-            }.resume()
-        }
-    }
-    
-    func reloadRosters()
-    {
-        let todaysDate = TimeAndDateUtils.getCurrentDateAsStringInWebServiceFormat()
-        
-        let playerList = List<NHLPlayer>()
-        
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/players.json?rosterstatus=assigned-to-roster?date=\(todaysDate)")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        
-        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
-        
-        autoreleasepool
-        {
-            //  Get the JSON data with closure
-            session.dataTask(with: request)
-            {
-                (data, response, err) in
-                
-                if err == nil
-                {
-                    do
-                    {
-                        let rosterPlayers = try JSONDecoder().decode(RosterPlayers.self, from: data!)
-                        
-                        DispatchQueue.main.async
-                        {
-                            for playerInfo in rosterPlayers.playerInfoList
-                            {
-                                let nhlPlayer = NHLPlayer()
-                                
-                                nhlPlayer.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
-                                nhlPlayer.id = playerInfo.player.id
-                                nhlPlayer.firstName = playerInfo.player.firstName
-                                nhlPlayer.lastName = playerInfo.player.lastName
-                                nhlPlayer.age = String(playerInfo.player.age ?? 0)
-                                nhlPlayer.birthDate = playerInfo.player.birthDate ?? ""
-                                nhlPlayer.birthCity = playerInfo.player.birthCity ?? ""
-                                nhlPlayer.birthCountry = playerInfo.player.birthCountry ?? ""
-                                nhlPlayer.height = playerInfo.player.height ?? ""
-                                nhlPlayer.weight = String(playerInfo.player.weight ?? 0)
-                                nhlPlayer.jerseyNumber = String(playerInfo.player.jerseyNumber ?? 0)
-                                nhlPlayer.imageURL = playerInfo.player.officialImageSource?.absoluteString ?? ""
-                                nhlPlayer.position = playerInfo.player.position ?? ""
-                                nhlPlayer.shoots = playerInfo.player.handednessInfo?.shoots ?? ""
-                                nhlPlayer.teamId = playerInfo.currentTeamInfo?.id ?? 0
-                                nhlPlayer.teamAbbreviation = playerInfo.currentTeamInfo?.abbreviation ?? ""
-                                
-                                playerList.append(nhlPlayer)
-                            }
-                            
-                            do
-                            {
-                                try self.realm.write
-                                {
-                                    self.realm.add(playerList, update: true)
-                                    
-                                    print("Roster players have successfully been updated in the database!!")
-                                }
-                            }
-                            catch
-                            {
-                                print("Error updating roster players to the database: \(error)")
-                            }
-                            
-                            print(Realm.Configuration.defaultConfiguration.fileURL!)
-                        }
-                    }
-                    catch
-                    {
-                        print("Error decoding JSON in updateRostersForDate method...")
-                    }
-                }
-                else
-                {
-                    print("Error retrieving data in updateRostersForDate method...\(err.debugDescription)")
                 }
             }.resume()
         }
@@ -377,80 +296,6 @@ class NetworkManager
         }
     }
     
-    func reloadStandings()
-    {
-        let todaysDate = TimeAndDateUtils.getCurrentDateAsStringInWebServiceFormat()
-        
-        let teamStandingsList = List<TeamStandings>()
-        
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json?date=\(todaysDate)")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        
-        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
-        
-        autoreleasepool
-        {
-            //  Get the JSON data with closure
-            session.dataTask(with: request)
-            {
-                (data, response, err) in
-                
-                if err == nil
-                {
-                    do
-                    {
-                        let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
-                        
-                        DispatchQueue.main.async
-                        {
-                            for teamStandingsData in nhlStandings.teamList
-                            {
-                                let teamStandings = TeamStandings()
-                                
-                                teamStandings.id = teamStandingsData.teamInformation.id
-                                teamStandings.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                teamStandings.division = teamStandingsData.divisionRankInfo.divisionName
-                                teamStandings.divisionRank = teamStandingsData.divisionRankInfo.rank
-                                teamStandings.conference = teamStandingsData.conferenceRankInfo.conferenceName
-                                teamStandings.conferenceRank = teamStandingsData.conferenceRankInfo.rank
-                                teamStandings.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
-                                teamStandings.wins = teamStandingsData.teamStats.standingsInfo.wins
-                                teamStandings.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                teamStandings.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
-                                teamStandings.points = teamStandingsData.teamStats.standingsInfo.points
-                                teamStandings.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
-                                
-                                teamStandingsList.append(teamStandings)
-                            }
-                            
-                            do
-                            {
-                                try self.realm.write
-                                {
-                                    self.realm.add(teamStandingsList, update: true)
-                                    
-                                    print("Team standings have successfully been reloaded in the database for \(todaysDate)!!")
-                                }
-                            }
-                            catch
-                            {
-                                print("Error updating team standings to the database: \(error)")
-                            }
-                            
-                            print(Realm.Configuration.defaultConfiguration.fileURL!)
-                        }
-                    }
-                    catch
-                    {
-                        print("Error retrieving data...\(err.debugDescription)")
-                    }
-                }
-            }.resume()
-        }
-    }
-    
     func saveStandings()
     {
         let teamStandingsList = List<TeamStandings>()
@@ -546,7 +391,7 @@ class NetworkManager
                             {
                                 try self.realm.write
                                 {
-                                    self.realm.add(teamList)
+                                    self.realm.add(teamList, update: true)
                                 }
                             }
                             catch
@@ -558,7 +403,7 @@ class NetworkManager
                             {
                                 try self.realm.write
                                 {
-                                    self.realm.add(teamStatisticsList)
+                                    self.realm.add(teamStatisticsList, update: true)
                                 }
                             }
                             catch
@@ -570,7 +415,7 @@ class NetworkManager
                             {
                                 try self.realm.write
                                 {
-                                    self.realm.add(teamStandingsList)
+                                    self.realm.add(teamStandingsList, update: true)
                                 }
                             }
                             catch
@@ -592,91 +437,7 @@ class NetworkManager
         }
     }
     
-    func reloadTeamStats()
-    {
-        let scheduleDate = TimeAndDateUtils.getCurrentDateAsStringInWebServiceFormat()
-        
-        let teamStatisticsList = List<TeamStatistics>()
-        
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/standings.json?date=\(scheduleDate)")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        
-        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
-        
-        autoreleasepool
-        {
-            //  Get the JSON data with closure
-            session.dataTask(with: request)
-            {
-                (data, response, err) in
-                
-                if err == nil
-                {
-                    do
-                    {
-                        let nhlStandings = try JSONDecoder().decode(NHLStandings.self, from: data!)
-                        
-                        DispatchQueue.main.async
-                        {
-                            for teamStandingsData in nhlStandings.teamList
-                            {
-                                let teamStatistics = TeamStatistics()
-                                
-                                //  Populate the Team Statistics table
-                                teamStatistics.id = teamStandingsData.teamInformation.id
-                                teamStatistics.abbreviation = teamStandingsData.teamInformation.abbreviation
-                                teamStatistics.gamesPlayed = teamStandingsData.teamStats.gamesPlayed
-                                teamStatistics.wins = teamStandingsData.teamStats.standingsInfo.wins
-                                teamStatistics.losses = teamStandingsData.teamStats.standingsInfo.losses
-                                teamStatistics.overtimeLosses = teamStandingsData.teamStats.standingsInfo.overtimeLosses
-                                teamStatistics.points = teamStandingsData.teamStats.standingsInfo.points
-                                teamStatistics.powerplays = teamStandingsData.teamStats.powerplayInfo.powerplays
-                                teamStatistics.powerplayGoals = teamStandingsData.teamStats.powerplayInfo.powerplayGoals
-                                teamStatistics.powerplayPercent = teamStandingsData.teamStats.powerplayInfo.powerplayPercent
-                                teamStatistics.penaltyKills = teamStandingsData.teamStats.powerplayInfo.penaltyKills
-                                teamStatistics.penaltyKillGoalsAllowed = teamStandingsData.teamStats.powerplayInfo.penaltyKillGoalsAllowed
-                                teamStatistics.penaltyKillPercent = teamStandingsData.teamStats.powerplayInfo.penaltyKillPercent
-                                teamStatistics.goalsFor = teamStandingsData.teamStats.miscellaneousInfo.goalsFor
-                                teamStatistics.goalsAgainst = teamStandingsData.teamStats.miscellaneousInfo.goalsAgainst
-                                teamStatistics.shots = teamStandingsData.teamStats.miscellaneousInfo.shots
-                                teamStatistics.penalties = teamStandingsData.teamStats.miscellaneousInfo.penalties
-                                teamStatistics.penaltyMinutes = teamStandingsData.teamStats.miscellaneousInfo.penaltyMinutes
-                                teamStatistics.hits = teamStandingsData.teamStats.miscellaneousInfo.hits
-                                teamStatistics.faceoffWins = teamStandingsData.teamStats.faceoffInfo.faceoffWins
-                                teamStatistics.faceoffLosses = teamStandingsData.teamStats.faceoffInfo.faceoffLosses
-                                teamStatistics.faceoffPercent = teamStandingsData.teamStats.faceoffInfo.faceoffPercent
-                                teamStatistics.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
-                                
-                                teamStatisticsList.append(teamStatistics)
-                            }
-                            
-                            do
-                            {
-                                try self.realm.write
-                                {
-                                    self.realm.add(teamStatisticsList, update: true)
-                                    
-                                    print("Team statistics have successfully been reloaded in the database for \(scheduleDate)!!")
-                                }
-                            }
-                            catch
-                            {
-                                print("Error reloading team statistics to the database: \(error)")
-                            }
-                            
-                            print(Realm.Configuration.defaultConfiguration.fileURL!)
-                        }
-                    }
-                    catch
-                    {
-                        print("Error retrieving data...\(err.debugDescription)")
-                    }
-                }
-            }.resume()
-        }
-    }
+    
     
     func savePlayerStats()
     {
@@ -800,128 +561,6 @@ class NetworkManager
         }
     }
     
-    func reloadPlayerStats()
-    {
-        let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
-        
-        var playerDictionary = [Int:NHLPlayer]()
-        
-        //  Create a dictionary with id as the key
-        for player in playerResultList
-        {
-            playerDictionary[player.id] = player
-        }
-        
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/player_stats_totals.json")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        
-        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
-        
-        autoreleasepool
-        {
-            //  Get the JSON data with closure
-            session.dataTask(with: request)
-            {
-                (data, response, err) in
-                
-                if err == nil
-                {
-                    do
-                    {
-                        let playerStats = try JSONDecoder().decode(PlayerStats.self, from: data!)
-                        
-                        let lastUpdatedOn = playerStats.lastUpdatedOn
-                        
-                        print("Value of lastUpdatedOn is \(lastUpdatedOn ?? "What the hell happened????")")
-                        
-                        print("Size of playerStatsTotal list is \(playerStats.playerStatsTotals?.count ?? 0)")
-                        
-                        print("Reloading player stat data...")
-                        
-                        if let playerStatsTotalList = playerStats.playerStatsTotals
-                        {
-                        DispatchQueue.main.async
-                            {
-                                try! self.realm.write
-                                {
-                                    for playerStatsTotal in playerStatsTotalList
-                                    {
-                                        let playerStatistics = PlayerStatistics()
-                                        let playerId = playerStatsTotal.player?.id!
-                                        let nhlPlayer = playerDictionary[playerId!]
-                                        
-                                        playerStatistics.id = playerId!
-                                        playerStatistics.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
-                                        playerStatistics.gamesPlayed = playerStatsTotal.playerStats?.gamesPlayed ?? 0
-                                        playerStatistics.goals = playerStatsTotal.playerStats?.scoringData?.goals ?? 0
-                                        playerStatistics.assists = playerStatsTotal.playerStats?.scoringData?.assists ?? 0
-                                        playerStatistics.points = playerStatsTotal.playerStats?.scoringData?.points ?? 0
-                                        playerStatistics.hatTricks = playerStatsTotal.playerStats?.scoringData?.hatTricks ?? 0
-                                        playerStatistics.powerplayGoals = playerStatsTotal.playerStats?.scoringData?.powerplayGoals ?? 0
-                                        playerStatistics.powerplayAssists = playerStatsTotal.playerStats?.scoringData?.powerplayAssists ?? 0
-                                        playerStatistics.powerplayPoints = playerStatsTotal.playerStats?.scoringData?.powerplayPoints ?? 0
-                                        playerStatistics.shortHandedGoals = playerStatsTotal.playerStats?.scoringData?.shorthandedGoals ?? 0
-                                        playerStatistics.shortHandedAssists = playerStatsTotal.playerStats?.scoringData?.shorthandedAssists ?? 0
-                                        playerStatistics.shortHandedPoints = playerStatsTotal.playerStats?.scoringData?.shorthandedPoints ?? 0
-                                        playerStatistics.gameWinningGoals = playerStatsTotal.playerStats?.scoringData?.gameWinningGoals ?? 0
-                                        playerStatistics.gameTyingGoals = playerStatsTotal.playerStats?.scoringData?.gameTyingGoals ?? 0
-                                        playerStatistics.plusMinus = playerStatsTotal.playerStats?.skatingData?.plusMinus ?? 0
-                                        playerStatistics.shots = playerStatsTotal.playerStats?.skatingData?.shots ?? 0
-                                        playerStatistics.shotPercentage = playerStatsTotal.playerStats?.skatingData?.shotPercentage ?? 0.0
-                                        playerStatistics.blockedShots = playerStatsTotal.playerStats?.skatingData?.blockedShots ?? 0
-                                        playerStatistics.hits = playerStatsTotal.playerStats?.skatingData?.hits ?? 0
-                                        playerStatistics.faceoffs = playerStatsTotal.playerStats?.skatingData?.faceoffs ?? 0
-                                        playerStatistics.faceoffWins = playerStatsTotal.playerStats?.skatingData?.faceoffWins ?? 0
-                                        playerStatistics.faceoffLosses = playerStatsTotal.playerStats?.skatingData?.faceoffLosses ?? 0
-                                        playerStatistics.faceoffPercent = playerStatsTotal.playerStats?.skatingData?.faceoffPercent ?? 0.0
-                                        playerStatistics.penalties = playerStatsTotal.playerStats?.penaltyData?.penalties ?? 0
-                                        playerStatistics.penaltyMinutes = playerStatsTotal.playerStats?.penaltyData?.penaltyMinutes ?? 0
-                                        playerStatistics.wins = playerStatsTotal.playerStats?.goaltendingData?.wins ?? 0
-                                        playerStatistics.losses = playerStatsTotal.playerStats?.goaltendingData?.losses ?? 0
-                                        playerStatistics.overtimeWins = playerStatsTotal.playerStats?.goaltendingData?.overtimeWins ?? 0
-                                        playerStatistics.overtimeLosses = playerStatsTotal.playerStats?.goaltendingData?.overtimeLosses ?? 0
-                                        playerStatistics.goalsAgainst = playerStatsTotal.playerStats?.goaltendingData?.goalsAgainst ?? 0
-                                        playerStatistics.shotsAgainst = playerStatsTotal.playerStats?.goaltendingData?.shotsAgainst ?? 0
-                                        playerStatistics.saves = playerStatsTotal.playerStats?.goaltendingData?.saves ?? 0
-                                        playerStatistics.goalsAgainstAverage = playerStatsTotal.playerStats?.goaltendingData?.goalsAgainstAverage ?? 0.0
-                                        playerStatistics.savePercentage = playerStatsTotal.playerStats?.goaltendingData?.savePercentage ?? 0.0
-                                        playerStatistics.shutouts = playerStatsTotal.playerStats?.goaltendingData?.shutouts ?? 0
-                                        playerStatistics.gamesStarted = playerStatsTotal.playerStats?.goaltendingData?.gamesStarted ?? 0
-                                        playerStatistics.creditForGame = playerStatsTotal.playerStats?.goaltendingData?.creditForGame ?? 0
-                                        playerStatistics.minutesPlayed = playerStatsTotal.playerStats?.goaltendingData?.minutesPlayed ?? 0
-                                        
-                                        //  Save it to realm
-                                        self.realm.create(PlayerStatistics.self, value: playerStatistics, update: true)
-                                        
-                                        //  Get the playerStatistics reference from the database
-                                        if let realmPlayerStatistics = self.realm.object(ofType: PlayerStatistics.self, forPrimaryKey: playerId)
-                                        {
-                                            nhlPlayer?.playerStatisticsList.append(realmPlayerStatistics)
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            print(Realm.Configuration.defaultConfiguration.fileURL!)
-                            
-                            print("Player stat data successfully reloaded!")
-                        }
-                    }
-                    catch
-                    {
-                        print("Error decoding JSON data in reloadPlayerStats method...")
-                    }
-                }
-                else
-                {
-                    print("Error retrieving data in reloadPlayerStats method...\(err.debugDescription)")
-                }
-            }.resume()
-        }
-    }
-    
     func savePlayerInjuries()
     {
         let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
@@ -966,6 +605,9 @@ class NetworkManager
                         {
                             try! self.realm.write
                             {
+                                //  Delete any records in the injury table
+                                self.realm.delete(self.realm.objects(NHLPlayerInjury.self))
+                                
                                 for playerInfo in players.playerInfoList
                                 {
                                     let playerInjury = NHLPlayerInjury()
@@ -986,7 +628,7 @@ class NetworkManager
                                     //  Save it to realm
                                     self.realm.create(NHLPlayerInjury.self, value: playerInjury, update: true)
 
-                                    //  Get the playerInjury reference from the database
+                                    //  Get the playerInjury reference from the database and save it to the player
                                     if let realmPlayerInjury = self.realm.object(ofType: NHLPlayerInjury.self, forPrimaryKey: playerId)
                                     {
                                         nhlPlayer?.playerInjuries.append(realmPlayerInjury)
@@ -1168,6 +810,7 @@ class NetworkManager
         }
     }
     
+     // MARK: Reload methods
     func reloadGameLogs()
     {
         let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"

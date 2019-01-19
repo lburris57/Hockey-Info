@@ -64,32 +64,27 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if (databaseManager.tablesRequireReload())
         {
-            //reloadTables()
+            reloadTables()
         }
         else
         {
-            //print("Tables don't need to be reloaded...")
+            print("Tables don't need to be reloaded...")
         }
     }
     
     private func reloadTables()
     {
-//        print("Reloading tables...")
-//
-//        self.presentUpdatingTablesAlert()
-//
-//        networkManager.reloadRosters()
-//        networkManager.reloadSchedule()
-//        networkManager.reloadStandings()
-//        networkManager.reloadTeamStats()
-//        networkManager.reloadPlayerStats()
-//        networkManager.reloadGameLogs()
-//        networkManager.reloadInjuries()
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
-//        {
-//            self.dismissAlert()
-//        }
+        self.presentUpdatingTablesAlert()
+
+        networkManager.saveRosters()
+        networkManager.saveStandings()
+        networkManager.reloadGameLogs()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        {
+            self.linkTables()
+            self.dismissAlert()
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
@@ -120,11 +115,6 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if (databaseManager.tablesRequireReload())
-        {
-            //reloadTables()
-        }
-        
         if(databaseManager.teamTableRequiresLinking())
         {
             linkTables()
@@ -202,7 +192,7 @@ extension MainMenuViewController
     
     func presentUpdatingTablesAlert()
     {
-        alert = UIAlertController(title: "Loading Database Tables", message: "Database tables must be updated daily.  Please wait...", preferredStyle: .alert)
+        alert = UIAlertController(title: "Loading Database Tables", message: "Database tables are updated daily.  Please wait...", preferredStyle: .alert)
         alert!.view.tintColor = UIColor.black
         let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10,y: 5,width: 50, height: 50)) as UIActivityIndicatorView
         loadingIndicator.hidesWhenStopped = true
