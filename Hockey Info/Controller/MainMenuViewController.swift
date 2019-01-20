@@ -10,6 +10,10 @@ import RealmSwift
 
 class MainMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
+    @IBOutlet weak var mainMenuView: UITableView!
+    
+    var refreshControl = UIRefreshControl()
+    
     var categories = [MenuCategory]()
     
     let networkManager = NetworkManager()
@@ -58,32 +62,46 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         
         categories = databaseManager.retrieveMainMenuCategories()
         
-        //  If the player injury table is populated and the last updated date is not today,
-        //  delete the current data and reload the table
-        databaseManager.reloadInjuryTableIfRequired()
-        
-        if (databaseManager.tablesRequireReload())
+        if (!databaseManager.teamRosterRequiresSaving() && databaseManager.tablesRequireReload())
         {
-            reloadTables()
+            self.reloadTables()
         }
         else
         {
             print("Tables don't need to be reloaded...")
         }
+        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *)
+        {
+            mainMenuView.refreshControl = refreshControl
+        }
+        else
+        {
+            mainMenuView.addSubview(refreshControl)
+        }
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshTableData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing database tables...")
     }
     
-    private func reloadTables()
+    @objc private func refreshTableData(_ sender: Any)
     {
-        self.presentUpdatingTablesAlert()
-
+        self.refreshTableData()
+    }
+    
+    func refreshTableData()
+    {
         networkManager.saveRosters()
         networkManager.saveStandings()
         networkManager.reloadGameLogs()
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 2)
         {
+            self.refreshControl.endRefreshing()
             self.linkTables()
-            self.dismissAlert()
         }
     }
     
@@ -201,6 +219,21 @@ extension MainMenuViewController
         
         alert!.view.addSubview(loadingIndicator)
         self.present(alert!, animated: true)
+    }
+    
+    func reloadTables()
+    {
+        self.presentUpdatingTablesAlert()
+        
+        networkManager.saveRosters()
+        networkManager.saveStandings()
+        networkManager.reloadGameLogs()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        {
+            self.linkTables()
+            self.dismissAlert()
+        }
     }
     
     func linkTables()

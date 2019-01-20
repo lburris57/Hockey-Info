@@ -38,6 +38,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Hockey Info" id="UjG-ye-jPl"/>
                     <connections>
+                        <outlet property="mainMenuView" destination="IlS-bd-SFy" id="xLQ-sC-T49"/>
                         <segue destination="cEk-dL-YwM" kind="show" identifier="displayCalendar" id="Vxv-yC-pQV"/>
                         <segue destination="4Ej-aU-ptl" kind="show" identifier="displayStandings" id="F9C-bT-ubu"/>
                         <segue destination="15f-m3-ueA" kind="show" identifier="displayScores" id="i3t-ew-fjL"/>
