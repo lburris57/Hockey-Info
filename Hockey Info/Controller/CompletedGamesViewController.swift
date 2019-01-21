@@ -17,7 +17,10 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     var selectedTeamName = ""
     var selectedTeamAbbreviation = ""
     
+    var selectedGameId = 0
+    
     let databaseManager = DatabaseManager()
+    let networkManager = NetworkManager()
     
     override func viewDidLoad()
     {
@@ -137,16 +140,24 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     {
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
-        print("Game id is: \(completedGamesArray[tappedIndexPath.row].id)")
+        selectedGameId = completedGamesArray[tappedIndexPath.row].id
         
-        databaseManager.displayGameLog(self, completedGamesArray[tappedIndexPath.row].id)
+        print("Selected game id is: \(selectedGameId)")
+        
+        networkManager.saveScoringSummary(forGameId: selectedGameId)
+        
+        self.databaseManager.displayGameLog(self, self.selectedGameId)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let displayGameLogViewController = segue.destination as! DisplayGameLogViewController
         
+        print("Selected game id in prepare for segue is \(selectedGameId)")
+        
         displayGameLogViewController.gameLogResult = sender as? NHLGameLog
+        
+        displayGameLogViewController.selectedGameId = selectedGameId
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

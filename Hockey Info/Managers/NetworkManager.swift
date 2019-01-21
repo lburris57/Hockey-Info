@@ -114,6 +114,128 @@ class NetworkManager
         }
     }
     
+    func saveScoringSummary(forGameId gameId: Int)
+    {
+        let nhlScoringSummary = NHLScoringSummary()
+        
+        var maxValue = 0
+        
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games/\(gameId)/boxscore.json?teamstats=none&playerstats=none")
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
+        
+        autoreleasepool
+        {
+            //  Get the JSON data with closure
+            session.dataTask(with: request)
+            {
+                (data, response, err) in
+                
+                if err == nil
+                {
+                    do
+                    {
+                        let scoringSummary = try JSONDecoder().decode(ScoringSummary.self, from: data!)
+                        
+                        DispatchQueue.main.async
+                        {
+                            print("Populating scoring summary data...")
+                            
+                            nhlScoringSummary.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
+                            nhlScoringSummary.id = gameId
+                            nhlScoringSummary.gameId = gameId
+                            nhlScoringSummary.playedStatus = scoringSummary.game.playedStatus
+                            nhlScoringSummary.homeTeamAbbreviation = scoringSummary.game.homeTeam.abbreviation
+                            nhlScoringSummary.awayTeamAbbreviation = scoringSummary.game.awayTeam.abbreviation
+                            nhlScoringSummary.homeScoreTotal = scoringSummary.scoringInfo.homeScoreTotal
+                            nhlScoringSummary.awayScoreTotal = scoringSummary.scoringInfo.awayScoreTotal
+                            nhlScoringSummary.numberOfPeriods = scoringSummary.scoringInfo.periodList.count
+                            
+                            do
+                            {
+                                print("Saving scoring summary...")
+                                
+                                try self.realm.write
+                                {
+                                    //  Save it to realm
+                                    self.realm.add(nhlScoringSummary, update: true)
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving period scoring data to the database: \(error)")
+                            }
+                            
+                            do
+                            {
+                                try self.realm.write
+                                {
+                                    let realmNHLPeriodScoringSummary = self.realm.object(ofType: NHLScoringSummary.self, forPrimaryKey: nhlScoringSummary.id)
+                                    
+                                    maxValue = self.realm.objects(NHLPeriodScoringData.self).max(ofProperty: "id") as Int? ?? 0
+                                    
+                                    print("Scoring summary for \(gameId) has successfully been added to the database!!")
+                            
+                                    for periodScoringData in scoringSummary.scoringInfo.periodList
+                                    {
+                                        for scoringPlay in periodScoringData.scoringPlays
+                                        {
+                                            //print("Saving period scoring data...")
+                                            
+                                            let nhlPeriodScoringData = NHLPeriodScoringData()
+                                            
+                                            nhlPeriodScoringData.dateCreated = TimeAndDateUtils.getCurrentDateAsString()
+                                            nhlPeriodScoringData.id = maxValue + 1
+                                            nhlPeriodScoringData.gameId = gameId
+                                            nhlPeriodScoringData.periodNumber = periodScoringData.periodNumber
+                                            nhlPeriodScoringData.teamAbbreviation = scoringPlay.team.abbreviation
+                                            nhlPeriodScoringData.periodSecondsElapsed = scoringPlay.periodSecondsElapsed
+                                            nhlPeriodScoringData.playDescription = scoringPlay.playDescription
+                                            
+                                            //print("Period scoring data for \(gameId) has successfully been added to the database!!")
+                                            
+                                            maxValue += 1
+                                            
+                                            //print("Saving  and linking period scoring data...")
+                                            
+                                            //  Save it to realm
+                                            self.realm.create(NHLPeriodScoringData.self, value: nhlPeriodScoringData, update: true)
+                                            
+                                            //  Get the playerStatistics reference from the database
+                                            if let realmNHLPeriodScoringData = self.realm.object(ofType: NHLPeriodScoringData.self, forPrimaryKey: nhlPeriodScoringData.id)
+                                            {
+                                                realmNHLPeriodScoringSummary?.periodScoringList.append(realmNHLPeriodScoringData)
+                                            }
+                                        }
+                                    }
+                                    
+                                    print("Period scoring data for \(gameId) has successfully been added to the database!!")
+                                }
+                            }
+                            catch
+                            {
+                                print("Error saving period scoring data to the database: \(error)")
+                            }
+                            
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
+                        }
+                    }
+                    catch
+                    {
+                        print("Error decoding JSON in saveScoringSummary method...")
+                    }
+                }
+                else
+                {
+                    print("Error retrieving data in saveScoringSummary method...\(err.debugDescription)")
+                }
+            }.resume()
+        }
+    }
+    
     func saveSchedule()
     {
         let scheduledGames = List<NHLSchedule>()

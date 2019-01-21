@@ -43,8 +43,13 @@ class DisplayGameLogViewController: UIViewController
     @IBOutlet weak var awayPKGoalsAllowed: UILabel!
     @IBOutlet weak var homePenaltyKillPercentage: UILabel!
     @IBOutlet weak var awayPenaltyKillPercentage: UILabel!
+    @IBOutlet weak var displayScoringSummaryButtonTapped: UIView!
     
     var gameLogResult: NHLGameLog?
+    var selectedGameId = 0
+    
+    let databaseManager = DatabaseManager()
+    let networkManager = NetworkManager()
     
     override func viewDidLoad()
     {
@@ -83,6 +88,28 @@ class DisplayGameLogViewController: UIViewController
             awayPKGoalsAllowed.text = String(gameLog.awayPenaltyKillGoalsAllowed)
             homePenaltyKillPercentage.text = String(gameLog.homePenaltyKillPercent)
             awayPenaltyKillPercentage.text = String(gameLog.awayPenaltyKillPercent)
+        }
+    }
+    
+    @IBAction func displayScoringSummaryButtonWasTapped(_ sender: UIButton)
+    {
+        databaseManager.displayScoringSummary(self, selectedGameId)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let displayScoreSummaryViewController = segue.destination as! DisplayScoreSummaryViewController
+
+        displayScoreSummaryViewController.scoringSummary = sender as? NHLScoringSummary
+        
+        if let summary = displayScoreSummaryViewController.scoringSummary
+        {
+            let homeTeamName = TeamManager.getTeamName (summary.homeTeamAbbreviation)
+            let awayTeamName = TeamManager.getTeamName (summary.awayTeamAbbreviation)
+            let homeScore = String(summary.homeScoreTotal)
+            let awayScore = String(summary.awayScoreTotal)
+            
+            displayScoreSummaryViewController.title = homeTeamName + " " +  homeScore + "   " + awayTeamName + " " + awayScore
         }
     }
 }

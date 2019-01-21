@@ -56,6 +56,25 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayPlayerStatistics", sender: playerStatisticsResult)
     }
     
+    func displayScoringSummary(_ viewController: DisplayGameLogViewController, _ gameId: Int)
+    {
+        var scoringSummaryResult: NHLScoringSummary?
+        
+        do
+        {
+            try realm.write
+            {
+                scoringSummaryResult = realm.objects(NHLScoringSummary.self).filter("id ==\(gameId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving scoring summary!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayScoringSummary", sender: scoringSummaryResult)
+    }
+    
     func displayGameLog(_ viewController: CompletedGamesViewController, _ gameId: Int)
     {
         var gameLogResult: NHLGameLog?
@@ -368,9 +387,7 @@ class DatabaseManager
         
         let categoryList = List<MainMenuCategory>()
         
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: today)
+        let dateString = TimeAndDateUtils.getCurrentDateAsString()
         
         var id = 0
         
@@ -409,15 +426,11 @@ class DatabaseManager
     // MARK: Retrieve methods
     func retrieveTodaysGames(_ mainViewController: MainMenuViewController)
     {
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: today)
-        
         do
         {
             try realm.write
             {
-                let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(dateString)'")
+                let scheduledGames = realm.objects(NHLSchedule.self).filter("date = '\(TimeAndDateUtils.getCurrentDateAsString())'")
                 
                 mainViewController.performSegue(withIdentifier: "displayCalendar", sender: scheduledGames)
             }
@@ -432,9 +445,7 @@ class DatabaseManager
     {
         var schedules = [Schedule]()
         
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: date)
+        let dateString = TimeAndDateUtils.getDateAsString(date)
         
         do
         {
@@ -467,13 +478,30 @@ class DatabaseManager
         return schedules
     }
     
+    func retrieveScoringSummary(for gameId: Int) -> NHLScoringSummary?
+    {
+        var scoringSummary: NHLScoringSummary?
+        
+        do
+        {
+            try self.realm.write
+            {
+                scoringSummary = self.realm.objects(NHLScoringSummary.self).filter("id = \(gameId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving scoring summary for \(gameId)!")
+        }
+        
+        return scoringSummary
+    }
+    
     func retrieveScoresAsNHLSchedules(_ date: Date) -> Results<NHLSchedule>
     {
         var scheduledGames : Results<NHLSchedule>?
         
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: date)
+        let dateString = TimeAndDateUtils.getDateAsString(date)
         
         do
         {
@@ -532,9 +560,7 @@ class DatabaseManager
     {
         var gameLogResult: Results<NHLGameLog>?
         
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: date)
+        let dateString = TimeAndDateUtils.getDateAsString(date)
         
         do
         {
@@ -617,8 +643,6 @@ class DatabaseManager
                 {
                     //  Get all players for that particular team
                     let playerResults = realm.objects(NHLPlayer.self).filter("teamId ==\(team.id)")
-                    
-                    //print("Size of playerResults is: \(playerResults.count)")
                     
                     for player in playerResults
                     {
@@ -836,39 +860,6 @@ class DatabaseManager
         return records
     }
     
-    func reloadInjuryTableIfRequired()
-    {
-        let networkManager = NetworkManager()
-        
-        fullDateFormatter.dateFormat = "EEEE, MMM dd, yyyy"
-        
-        let dateString = fullDateFormatter.string(from: today)
-        
-        let playerInjuryResults = realm.objects(NHLPlayerInjury.self)
-        
-        if playerInjuryResults.count > 0
-        {
-            if(playerInjuryResults[0].dateCreated != dateString)
-            {
-                do
-                {
-                    try realm.write
-                    {
-                        realm.delete(realm.objects(NHLPlayerInjury.self))
-                    }
-                }
-                catch
-                {
-                    print("Error deleting player injury data!")
-                }
-                
-                networkManager.savePlayerInjuries()
-                
-                networkManager.updateScheduleForDate(Date())
-            }
-        }
-    }
-    
     func tablesRequireReload() -> Bool
     {
         let dateString = TimeAndDateUtils.getCurrentDateAsString()
@@ -912,12 +903,29 @@ class DatabaseManager
         }
     }
     
+    func deleteScoringSummaryData()
+    {
+        do
+        {
+            try realm.write
+            {
+                let scoringSummaryResults = realm.objects(NHLScoringSummary.self)
+                let periodScoringDataResults = realm.objects(NHLPeriodScoringData.self)
+                
+                realm.delete(scoringSummaryResults)
+                realm.delete(periodScoringDataResults)
+            }
+        }
+        catch
+        {
+            print("Error deleting scoring summary data!")
+        }
+    }
+    
     func getLatestDateCreated() -> String
     {
         let playerInjuryResult = realm.objects(NHLPlayerInjury.self).first
         
         return playerInjuryResult?.dateCreated ?? TimeAndDateUtils.getCurrentDateAsString()
     }
-    
-    // https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/player_stats_totals.json?date=20190115-20190117
 }

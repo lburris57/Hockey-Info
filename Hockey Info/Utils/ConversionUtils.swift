@@ -14,17 +14,11 @@ class ConversionUtils
         switch numberOfPeriods
         {
             case 3: return PeriodEnum.final.rawValue
-            
             case 4: return PeriodEnum.overtime.rawValue
-            
             case 5: return PeriodEnum.shootout.rawValue
-            
             case 6: return PeriodEnum.doubleOvertime.rawValue
-            
             case 7: return PeriodEnum.tripleOvertime.rawValue
-            
             case 8: return PeriodEnum.quadrupleOvertime.rawValue
-            
             default: return PeriodEnum.final.rawValue
         }
     }
@@ -38,5 +32,10 @@ class ConversionUtils
             case 3: return String(rank) + "rd"
             default: return String(rank) + "th"
         }
+    }
+    
+    static func removeRemainingText(_ text: String) -> String
+    {
+        return text.replacingOccurrences(of: " Remaining", with: "")
     }
 }

@@ -335,6 +335,37 @@
             </objects>
             <point key="canvasLocation" x="3929" y="3143"/>
         </scene>
+        <!--Display Score Summary View Controller-->
+        <scene sceneID="9Se-BY-XJI">
+            <objects>
+                <tableViewController id="zVM-Rn-sfO" customClass="DisplayScoreSummaryViewController" customModule="Hockey_Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ndy-hN-UTj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreSummaryCell" id="duM-mn-cIs">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="duM-mn-cIs" id="H3d-kU-FSh">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="zVM-Rn-sfO" id="BFA-g7-kHE"/>
+                            <outlet property="delegate" destination="zVM-Rn-sfO" id="9gv-iG-tHO"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="scoreSummaryView" destination="Ndy-hN-UTj" id="xNU-nB-yJ6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zvS-AK-CIk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3536" y="3832"/>
+        </scene>
         <!--Completed Games-->
         <scene sceneID="S1v-vg-C3v">
             <objects>
@@ -1420,6 +1451,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lA4-HH-RlZ">
+                                        <rect key="frame" x="146" y="647" width="122" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Scoring Summary"/>
+                                        <connections>
+                                            <action selector="displayScoringSummaryButtonWasTapped:" destination="ARt-Zr-qMg" eventType="touchUpInside" id="joM-1R-pqt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1547,6 +1586,7 @@
                         <outlet property="awayPowerPlays" destination="Ee2-wG-Yi2" id="7yp-0j-fSv"/>
                         <outlet property="awayShots" destination="XuI-QI-ceX" id="xAT-Ly-EVY"/>
                         <outlet property="dateString" destination="ylS-aS-Yfe" id="9WG-Qc-Xbg"/>
+                        <outlet property="displayScoringSummaryButtonTapped" destination="csY-xs-WYE" id="109-N2-Nh2"/>
                         <outlet property="homeFaceoffLosses" destination="l1A-7K-Nn8" id="uao-oq-JpY"/>
                         <outlet property="homeFaceoffPercentage" destination="ELN-BS-FRG" id="8uU-hK-hos"/>
                         <outlet property="homeFaceoffWins" destination="khv-eJ-HwK" id="AqK-hG-6Dd"/>
@@ -1562,6 +1602,7 @@
                         <outlet property="homePowerPlayPercentage" destination="G2j-BI-rHe" id="ccW-Jb-ZRv"/>
                         <outlet property="homePowerPlays" destination="0bc-TT-3On" id="md0-CF-IT1"/>
                         <outlet property="homeShots" destination="9Ip-a4-EDF" id="BuM-I6-fsa"/>
+                        <segue destination="zVM-Rn-sfO" kind="show" identifier="displayScoringSummary" id="J4t-8v-Uqq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTf-p4-IgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
