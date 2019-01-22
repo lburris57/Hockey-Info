@@ -113,14 +113,21 @@ class DisplayScoreSummaryViewController: UITableViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreSummaryCell", for: indexPath) as! ScoreSummaryCell
         
-        let time = TimeAndDateUtils.getCurrentTimeRemainingString(displayArray[indexPath.row].periodSecondsElapsed)
-        
-        //  Remove the "Remaining" text from the time string
-        cell.time.text = ConversionUtils.removeRemainingText(time)
-        cell.teamLogo?.image = UIImage(named: displayArray[indexPath.row].teamAbbreviation)
-        cell.scoringText.text = displayArray[indexPath.row].playDescription
-        
-        scoreSummaryView.rowHeight = CGFloat(60.0)
+        if(isEmpty(displayArray))
+        {
+            cell.scoringText.text = "No scoring this period"
+        }
+        else
+        {
+            let time = TimeAndDateUtils.getCurrentTimeRemainingString(displayArray[indexPath.row].periodSecondsElapsed)
+            
+            //  Remove the "Remaining" text from the time string
+            cell.time.text = ConversionUtils.removeRemainingText(time)
+            cell.teamLogo?.image = UIImage(named: displayArray[indexPath.row].teamAbbreviation)
+            cell.scoringText.text = displayArray[indexPath.row].playDescription
+            
+            scoreSummaryView.rowHeight = CGFloat(60.0)
+        }
         
         return cell
     }
@@ -167,5 +174,10 @@ class DisplayScoreSummaryViewController: UITableViewController
         {
             shootoutArray.sort {$0.periodSecondsElapsed < $1.periodSecondsElapsed}
         }
+    }
+    
+    func isEmpty(_ displayArray: [NHLPeriodScoringData]) -> Bool
+    {
+        return displayArray.count == 0
     }
 }
