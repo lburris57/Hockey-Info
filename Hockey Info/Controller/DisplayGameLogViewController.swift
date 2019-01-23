@@ -104,12 +104,24 @@ class DisplayGameLogViewController: UIViewController
         
         if let summary = displayScoreSummaryViewController.scoringSummary
         {
+            var finalScore = ""
+            
             let homeTeamName = TeamManager.getTeamName (summary.homeTeamAbbreviation)
             let awayTeamName = TeamManager.getTeamName (summary.awayTeamAbbreviation)
             let homeScore = String(summary.homeScoreTotal)
             let awayScore = String(summary.awayScoreTotal)
             
-            displayScoreSummaryViewController.title = homeTeamName + " " +  homeScore + "   " + awayTeamName + " " + awayScore
+            if(homeScore > awayScore)
+            {
+                finalScore = homeTeamName + " " +  homeScore + "   " + awayTeamName + " " + awayScore
+            }
+            else
+            {
+                finalScore = awayTeamName + " " + awayScore + "   " + homeTeamName + " " +  homeScore
+            }
+            
+            displayScoreSummaryViewController.title = finalScore
+            displayScoreSummaryViewController.finalScore = finalScore
         }
     }
 }

@@ -15,6 +15,8 @@ class DisplayScoreSummaryViewController: UITableViewController
     
     var scoringSummary: NHLScoringSummary?
     
+    var finalScore: String = ""
+    
     var displayArray = [NHLPeriodScoringData]()
     var firstPeriodArray = [NHLPeriodScoringData]()
     var secondPeriodArray = [NHLPeriodScoringData]()
@@ -28,13 +30,13 @@ class DisplayScoreSummaryViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        let myNib = UINib(nibName: "ScoreSummaryCell", bundle: Bundle.main)
+        scoreSummaryView.register(myNib, forCellReuseIdentifier: "scoreSummaryCell")
+        
         if let summary = scoringSummary
         {
             loadArrays(summary)
         }
-        
-        let myNib = UINib(nibName: "ScoreSummaryCell", bundle: Bundle.main)
-        scoreSummaryView.register(myNib, forCellReuseIdentifier: "scoreSummaryCell")
     }
 
     // MARK: - Table view data source
@@ -53,10 +55,21 @@ class DisplayScoreSummaryViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
     {
-        view.tintColor = UIColor.white
         let footer = view as! UITableViewHeaderFooterView
-        footer.textLabel?.textColor = UIColor.white
-        footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        
+        if(section == periodListSize - 1)
+        {
+            view.tintColor = UIColor.purple
+            footer.textLabel?.textColor = UIColor.white
+            footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            footer.textLabel?.text = "Final Score: \(finalScore)"
+        }
+        else
+        {
+            view.tintColor = UIColor.white
+            footer.textLabel?.textColor = UIColor.white
+            footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
@@ -79,13 +92,41 @@ class DisplayScoreSummaryViewController: UITableViewController
         switch (section)
         {
             case 0:
-                return firstPeriodArray.count
+                if(isEmpty(firstPeriodArray))
+                {
+                    return 1
+                }
+                else
+                {
+                    return firstPeriodArray.count
+                }
             case 1:
-                return secondPeriodArray.count
+                if(isEmpty(secondPeriodArray))
+                {
+                    return 1
+                }
+                else
+                {
+                    return secondPeriodArray.count
+                }
             case 2:
-                return thirdPeriodArray.count
+                if(isEmpty(thirdPeriodArray))
+                {
+                    return 1
+                }
+                else
+                {
+                    return thirdPeriodArray.count
+                }
             case 3:
-                return overtimeArray.count
+                if(isEmpty(overtimeArray))
+                {
+                    return 1
+                }
+                else
+                {
+                    return overtimeArray.count
+                }
             case 4:
                 return shootoutArray.count
             default:
@@ -115,7 +156,11 @@ class DisplayScoreSummaryViewController: UITableViewController
         
         if(isEmpty(displayArray))
         {
+            cell.time.text = ""
+            cell.teamLogo?.image = nil
             cell.scoringText.text = "No scoring this period"
+            
+            scoreSummaryView.rowHeight = CGFloat(50.0)
         }
         else
         {
@@ -126,7 +171,7 @@ class DisplayScoreSummaryViewController: UITableViewController
             cell.teamLogo?.image = UIImage(named: displayArray[indexPath.row].teamAbbreviation)
             cell.scoringText.text = displayArray[indexPath.row].playDescription
             
-            scoreSummaryView.rowHeight = CGFloat(60.0)
+            scoreSummaryView.rowHeight = CGFloat(70.0)
         }
         
         return cell
