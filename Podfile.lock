@@ -24,7 +24,6 @@ PODS:
   - SwifterSwift/SpriteKit (4.6.0)
   - SwifterSwift/SwiftStdlib (4.6.0)
   - SwifterSwift/UIKit (4.6.0)
-  - VBRRollingPit (1.0.1)
 
 DEPENDENCIES:
   - JTAppleCalendar (~> 7.0)
@@ -32,7 +31,6 @@ DEPENDENCIES:
   - RealmSwift
   - SwiftDate (~> 5.0)
   - SwifterSwift
-  - VBRRollingPit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -42,7 +40,6 @@ SPEC REPOS:
     - RealmSwift
     - SwiftDate
     - SwifterSwift
-    - VBRRollingPit
 
 SPEC CHECKSUMS:
   JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
@@ -51,8 +48,7 @@ SPEC CHECKSUMS:
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwifterSwift: 812ffec6f301922f5430e75be3f2939ea3a80024
-  VBRRollingPit: 62a79cc663aeea6a196878b3a907056617f96b6a
 
-PODFILE CHECKSUM: b261b72b2b9d232d279169687b6c27630848f210
+PODFILE CHECKSUM: 51ce49ac2ced7f14856b7af41fd2e57e99479ba7
 
 COCOAPODS: 1.6.0.beta.2
