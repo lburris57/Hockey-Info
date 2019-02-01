@@ -1,6 +1,16 @@
 PODS:
+  - Alamofire (4.8.1)
   - JTAppleCalendar (7.1.6)
   - Kingfisher (4.10.1)
+  - PromiseKit (6.8.0):
+    - PromiseKit/CorePromise (= 6.8.0)
+    - PromiseKit/Foundation (= 6.8.0)
+    - PromiseKit/UIKit (= 6.8.0)
+  - PromiseKit/CorePromise (6.8.0)
+  - PromiseKit/Foundation (6.8.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.8.0):
+    - PromiseKit/CorePromise
   - Realm (3.13.1):
     - Realm/Headers (= 3.13.1)
   - Realm/Headers (3.13.1)
@@ -26,29 +36,35 @@ PODS:
   - SwifterSwift/UIKit (4.6.0)
 
 DEPENDENCIES:
+  - Alamofire
   - JTAppleCalendar (~> 7.0)
   - Kingfisher (~> 4.0)
+  - PromiseKit (~> 6.8)
   - RealmSwift
   - SwiftDate (~> 5.0)
   - SwifterSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - JTAppleCalendar
     - Kingfisher
+    - PromiseKit
     - Realm
     - RealmSwift
     - SwiftDate
     - SwifterSwift
 
 SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  PromiseKit: 02c93833283c37ce94ef7d25de63d48d62b0754e
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwifterSwift: 812ffec6f301922f5430e75be3f2939ea3a80024
 
-PODFILE CHECKSUM: 51ce49ac2ced7f14856b7af41fd2e57e99479ba7
+PODFILE CHECKSUM: c46dcc2bec636837850167ba546377df5b103c37
 
 COCOAPODS: 1.6.0.beta.2

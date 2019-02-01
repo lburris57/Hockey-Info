@@ -9,6 +9,8 @@ import Foundation
 import RealmSwift
 import SwifterSwift
 import Kingfisher
+import PromiseKit
+import Alamofire
 
 class NetworkManager
 {
@@ -111,6 +113,23 @@ class NetworkManager
                     print("Error retrieving data in saveRosters method...\(err.debugDescription)")
                 }
             }.resume()
+        }
+    }
+    
+    func downLoadScoringSummary(forGameId gameId: Int) throws ->  Promise<ScoringSummary>
+    {
+        //  Set the URL
+        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games/\(gameId)/boxscore.json?teamstats=none&playerstats=none")
+        var request = URLRequest(url: url!)
+
+        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
+
+        return firstly
+        {
+            URLSession.shared.dataTask(.promise, with: url!)
+        }.compactMap
+        {
+            return try JSONDecoder().decode(ScoringSummary.self, from: $0.data)
         }
     }
     
@@ -230,7 +249,7 @@ class NetworkManager
                 }
                 else
                 {
-                    print("Error retrieving data in saveScoringSummary method...\(err.debugDescription)")
+                    print("Error retrieving data in saveScoringSummary method...\(err!.localizedDescription)")
                 }
             }.resume()
         }

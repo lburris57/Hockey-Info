@@ -45,7 +45,7 @@ class DisplayPlayerViewController: UIViewController
             
             let dateOfBirth = player.birthDate
             
-            if(!dateOfBirth.isEmpty)
+            if(!dateOfBirth.isEmpty && dateOfBirth != "2018-12-22")
             {
                 let month = dateOfBirth.slicing(from: 5, length: 2)
                 let day = dateOfBirth.slicing(from: 8, length: 2)
@@ -55,18 +55,18 @@ class DisplayPlayerViewController: UIViewController
             }
             else
             {
-                birthDate.text = ""
+                birthDate.text = "Data not available"
             }
             
             teamLogo.image = UIImage(named: player.teamAbbreviation)
             jerseyNumber.text = player.jerseyNumber
             firstName.text = player.firstName
             lastName.text = player.lastName
-            age.text = player.age
-            birthCty.text = player.birthCity
-            birthCountry.text = player.birthCountry
-            height.text = player.height
-            weight.text = player.weight
+            age.text = player.age != "0" ? player.age : "Data not available"
+            birthCty.text = !player.birthCity.isEmpty  ? player.birthCity : "Data not available"
+            birthCountry.text = !player.birthCountry.isEmpty  ? player.birthCountry : "Data not available"
+            height.text = !player.height.isEmpty  ? player.height : "Data not available"
+            weight.text = player.weight != "0" ? player.weight : "Data not available"
             position.text = player.position
             
             if player.playerInjuries.count > 0

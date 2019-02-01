@@ -38,4 +38,9 @@ class ConversionUtils
     {
         return text.replacingOccurrences(of: " Remaining", with: "")
     }
+    
+    static func removeEmptyNetText(_ text: String) -> String
+    {
+        return text.replacingOccurrences(of: "(Empty Net) ", with: "")
+    }
 }

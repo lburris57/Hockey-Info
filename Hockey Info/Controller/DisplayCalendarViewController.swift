@@ -303,6 +303,8 @@ extension DisplayCalendarViewController: JTAppleCalendarViewDelegate
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState)
     {
+        schedules.removeAll()
+        
         configureCell(view: cell, cellState: cellState)
     }
 }
@@ -315,6 +317,20 @@ extension DisplayCalendarViewController : UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: scheduleCellIdentifier, for: indexPath) as! ScheduleTableViewCell
         cell.selectionStyle = .none
         cell.schedule = schedules[indexPath.row]
+        
+        if(cell.noteLabel.text == "No games scheduled")
+        {
+            cell.noteLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+            cell.categoryLine.isHidden = true
+            tableView.separatorStyle = .none
+        }
+        else
+        {
+            cell.noteLabel.font = UIFont.systemFont(ofSize: 12.5)
+            cell.categoryLine.isHidden = false
+            tableView.separatorStyle = .singleLine
+        }
+        
         return cell
     }
     

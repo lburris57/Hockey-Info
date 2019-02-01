@@ -14,7 +14,7 @@ class NHLSchedule: Object
     @objc dynamic var date : String = ""
     @objc dynamic var time : String = ""
     @objc dynamic var homeTeam : String = ""
-    @objc dynamic var awayTeam : String = ""
+    @objc dynamic var awayTeam : String = "No games scheduled"
     @objc dynamic var playedStatus : String = ""
     @objc dynamic var homeScoreTotal : Int = 0
     @objc dynamic var awayScoreTotal : Int = 0

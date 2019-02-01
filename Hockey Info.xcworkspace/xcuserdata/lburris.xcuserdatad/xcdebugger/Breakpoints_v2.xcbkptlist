@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hockey Info/Controller/CompletedGamesViewController.swift"
-            timestampString = "569806809.000823"
+            filePath = "Hockey Info/Controller/DisplayGameLogViewController.swift"
+            timestampString = "569893040.617352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "completedScheduleViewCellDidTapGameLog(_:)"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hockey Info/Controller/DisplayGameLogViewController.swift"
-            timestampString = "569893040.617352"
+            filePath = "Hockey Info/Managers/DatabaseManager.swift"
+            timestampString = "570682551.8122081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "454"
+            endingLineNumber = "454"
+            landmarkName = "retrieveGames(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

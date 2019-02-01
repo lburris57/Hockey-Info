@@ -159,5 +159,11 @@ class DisplayPlayerStatisticsViewController: UITableViewController
             penaltiesArray.append("Penalties: \(playerStats.penalties)")
             penaltiesArray.append("Penalty Minutes: \(playerStats.penaltyMinutes)")
         }
+        else
+        {
+            scoringArray.append("Data not available")
+            skatingGoaltendingArray.append("Data not available")
+            penaltiesArray.append("Data not available")
+        }
     }
 }

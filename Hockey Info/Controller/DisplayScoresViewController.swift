@@ -128,6 +128,9 @@ class DisplayScoresViewController: UIViewController
         
         let myNib2 = UINib(nibName: "ScoreCell", bundle: Bundle.main)
         scoreView.register(myNib2, forCellReuseIdentifier: scoreCellIdentifier)
+        
+        let myNib3 = UINib(nibName: "ScheduleTableViewCell", bundle: Bundle.main)
+        scoreView.register(myNib3, forCellReuseIdentifier: "detail")
     }
     
     func setupViewsOfCalendar(from visibleDates: DateSegmentInfo)
@@ -345,16 +348,35 @@ extension DisplayScoresViewController : UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath) as! ScoreCell
-        cell.selectionStyle = .none
-        cell.scheduledGame = nhlSchedules?[indexPath.row]
-        scoreView.rowHeight = CGFloat(130.0)
-
-        return cell
+        if(nhlSchedules?.count == 0)
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "detail", for: indexPath) as! ScheduleTableViewCell
+            cell.selectionStyle = .none
+            cell.noteLabel.text = "No games scheduled"
+            cell.startTimeLabel.text = ""
+            cell.endTimeLabel.text = ""
+            cell.titleLabel.text = ""
+            cell.noteLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+            cell.categoryLine.isHidden = true
+            
+            scoreView.rowHeight = CGFloat(40.0)
+            scoreView.separatorStyle = .none
+            
+            return cell
+        }
+        else
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath) as! ScoreCell
+            cell.selectionStyle = .none
+            cell.scheduledGame = nhlSchedules?[indexPath.row]
+            scoreView.rowHeight = CGFloat(130.0)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return nhlSchedules?.count ?? 0
+        return nhlSchedules?.count == 0 ? 1 : nhlSchedules?.count ?? 0
     }
 }

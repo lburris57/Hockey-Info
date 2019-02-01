@@ -26,8 +26,6 @@ class ScoreCell: UITableViewCell
     
     let databaseManager = DatabaseManager()
     
-    
-    
     var scheduledGame: NHLSchedule!
     {
         didSet

@@ -468,6 +468,17 @@ class DatabaseManager
                     
                     schedules.append(schedule)
                 }
+                
+                if(schedules.count == 0)
+                {
+                    let schedule = Schedule(title: "",
+                        note: "No games scheduled",
+                        startTime: "",
+                        endTime: "",
+                        categoryColor: .black)
+                    
+                    schedules.append(schedule)
+                }
             }
         }
         catch
@@ -478,23 +489,24 @@ class DatabaseManager
         return schedules
     }
     
-    func retrieveScoringSummary(for gameId: Int) -> NHLScoringSummary?
+    func retrieveScoringSummary(for gameId: Int) throws -> NHLScoringSummary?
     {
-        var scoringSummary: NHLScoringSummary?
+        var scoringSummaryResult: NHLScoringSummary?
         
         do
         {
-            try self.realm.write
+            try realm.write
             {
-                scoringSummary = self.realm.objects(NHLScoringSummary.self).filter("id = \(gameId)").first
+                scoringSummaryResult = realm.objects(NHLScoringSummary.self).filter("id ==\(gameId)").first
             }
         }
         catch
         {
-            print("Error retrieving scoring summary for \(gameId)!")
+            print("Error retrieving scoring summary!")
+            throw DatabaseErrorEnum.readFromDatabase
         }
         
-        return scoringSummary
+        return scoringSummaryResult
     }
     
     func retrieveScoresAsNHLSchedules(_ date: Date) -> Results<NHLSchedule>

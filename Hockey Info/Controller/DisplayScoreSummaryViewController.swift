@@ -92,41 +92,13 @@ class DisplayScoreSummaryViewController: UITableViewController
         switch (section)
         {
             case 0:
-                if(isEmpty(firstPeriodArray))
-                {
-                    return 1
-                }
-                else
-                {
-                    return firstPeriodArray.count
-                }
+                return evaluateNumberOfRowsInSection(firstPeriodArray)
             case 1:
-                if(isEmpty(secondPeriodArray))
-                {
-                    return 1
-                }
-                else
-                {
-                    return secondPeriodArray.count
-                }
+                return evaluateNumberOfRowsInSection(secondPeriodArray)
             case 2:
-                if(isEmpty(thirdPeriodArray))
-                {
-                    return 1
-                }
-                else
-                {
-                    return thirdPeriodArray.count
-                }
+                return evaluateNumberOfRowsInSection(thirdPeriodArray)
             case 3:
-                if(isEmpty(overtimeArray))
-                {
-                    return 1
-                }
-                else
-                {
-                    return overtimeArray.count
-                }
+                return evaluateNumberOfRowsInSection(overtimeArray)
             case 4:
                 return shootoutArray.count
             default:
@@ -154,22 +126,30 @@ class DisplayScoreSummaryViewController: UITableViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreSummaryCell", for: indexPath) as! ScoreSummaryCell
         
-        if(isEmpty(displayArray))
+        if(displayArray.count == 0)
         {
             cell.time.text = ""
-            cell.teamLogo?.image = nil
+            cell.teamLogo?.image = UIImage(named: "NHL")
             cell.scoringText.text = "No scoring this period"
             
-            scoreSummaryView.rowHeight = CGFloat(50.0)
+            scoreSummaryView.rowHeight = CGFloat(55.0)
         }
         else
         {
+            //  This call adds "Remaining" to the end of the text for score display
             let time = TimeAndDateUtils.getCurrentTimeRemainingString(displayArray[indexPath.row].periodSecondsElapsed)
+            
+            var playDescription = displayArray[indexPath.row].playDescription
+            
+            if playDescription.contains("Empty Net")
+            {
+                playDescription = ConversionUtils.removeEmptyNetText(playDescription)
+            }
             
             //  Remove the "Remaining" text from the time string
             cell.time.text = ConversionUtils.removeRemainingText(time)
             cell.teamLogo?.image = UIImage(named: displayArray[indexPath.row].teamAbbreviation)
-            cell.scoringText.text = displayArray[indexPath.row].playDescription
+            cell.scoringText.text = playDescription
             
             scoreSummaryView.rowHeight = CGFloat(70.0)
         }
@@ -221,8 +201,8 @@ class DisplayScoreSummaryViewController: UITableViewController
         }
     }
     
-    func isEmpty(_ displayArray: [NHLPeriodScoringData]) -> Bool
+    func evaluateNumberOfRowsInSection(_ displayArray: [NHLPeriodScoringData]) -> Int
     {
-        return displayArray.count == 0
+        return displayArray.count == 0 ? 1 : displayArray.count
     }
 }

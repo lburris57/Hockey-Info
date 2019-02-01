@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760246A921FD50ED007A709B /* NetworkErrorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760246A821FD50ED007A709B /* NetworkErrorEnum.swift */; };
+		760246AC21FD6A5F007A709B /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760246AB21FD6A5F007A709B /* Alert.swift */; };
+		760246AF21FE3E85007A709B /* DatabaseErrorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760246AE21FE3E85007A709B /* DatabaseErrorEnum.swift */; };
 		76045B4321B0AFDE00980C63 /* NHLSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4221B0AFDE00980C63 /* NHLSchedule.swift */; };
 		76045B4521B0B1E000980C63 /* PlayedStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */; };
 		76045B4821B3255300980C63 /* SeasonSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76045B4721B3255300980C63 /* SeasonSchedule.swift */; };
@@ -131,6 +134,9 @@
 
 /* Begin PBXFileReference section */
 		38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hockey_Info.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		760246A821FD50ED007A709B /* NetworkErrorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorEnum.swift; sourceTree = "<group>"; };
+		760246AB21FD6A5F007A709B /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		760246AE21FE3E85007A709B /* DatabaseErrorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseErrorEnum.swift; sourceTree = "<group>"; };
 		76045B4221B0AFDE00980C63 /* NHLSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHLSchedule.swift; sourceTree = "<group>"; };
 		76045B4421B0B1E000980C63 /* PlayedStatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayedStatusEnum.swift; sourceTree = "<group>"; };
 		76045B4721B3255300980C63 /* SeasonSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSchedule.swift; sourceTree = "<group>"; };
@@ -267,6 +273,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		760246AA21FD6A48007A709B /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				760246AB21FD6A5F007A709B /* Alert.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		760246AD21FE3E4A007A709B /* Error Enums */ = {
+			isa = PBXGroup;
+			children = (
+				760246A821FD50ED007A709B /* NetworkErrorEnum.swift */,
+				760246AE21FE3E85007A709B /* DatabaseErrorEnum.swift */,
+			);
+			path = "Error Enums";
+			sourceTree = "<group>";
+		};
 		76045B4621B324D400980C63 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +476,8 @@
 		76D60B58219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXGroup;
 			children = (
+				760246AD21FE3E4A007A709B /* Error Enums */,
+				760246AA21FD6A48007A709B /* Alerts */,
 				76F0AD07219FCD0000249F28 /* Models */,
 				7640585E21C4733B00695D68 /* Cells Created With XIB */,
 				76590DE421BDC09B0080E0CD /* Schedules */,
@@ -679,8 +704,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Hockey Info/Pods-Hockey Info-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
@@ -690,8 +717,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
@@ -745,10 +774,12 @@
 				760D136E21D708DB00AD40A4 /* GameLog.swift in Sources */,
 				76BDDDC421D5A8C600614AFA /* DisplayTeamScheduleViewController.swift in Sources */,
 				76D60B5C219D060F0058EEB0 /* DisplayScoresViewController.swift in Sources */,
+				760246AC21FD6A5F007A709B /* Alert.swift in Sources */,
 				76045B5B21B3461800980C63 /* CurrentTeamData.swift in Sources */,
 				76B478BA21AF693F00337D98 /* PeriodEnum.swift in Sources */,
 				76045B4321B0AFDE00980C63 /* NHLSchedule.swift in Sources */,
 				76045B6A21B3673500980C63 /* TeamStandingsData.swift in Sources */,
+				760246A921FD50ED007A709B /* NetworkErrorEnum.swift in Sources */,
 				760D138921DD698300AD40A4 /* DisplayGameLogViewController.swift in Sources */,
 				7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */,
 				76BDDDAA21D443B700614AFA /* PlayerStatistics.swift in Sources */,
@@ -831,6 +862,7 @@
 				7618B19221F5210400C7ECBF /* NHLScoringSummary.swift in Sources */,
 				7618B19421F524AF00C7ECBF /* NHLPeriodScoringData.swift in Sources */,
 				76045B7021B36B6200980C63 /* OverallRankData.swift in Sources */,
+				760246AF21FE3E85007A709B /* DatabaseErrorEnum.swift in Sources */,
 				76BDDDB621D44FF600614AFA /* PlayerStatData.swift in Sources */,
 				76590DEC21BDCAA70080E0CD /* DisplayCalendarViewController.swift in Sources */,
 				76045B5221B3362F00980C63 /* TeamData.swift in Sources */,
