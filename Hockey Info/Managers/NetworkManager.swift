@@ -116,7 +116,7 @@ class NetworkManager
         }
     }
     
-    func downLoadScoringSummary(forGameId gameId: Int) throws ->  Promise<ScoringSummary>
+    func downloadScoringSummary(forGameId gameId: Int) throws ->  Promise<ScoringSummary>
     {
         //  Set the URL
         let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games/\(gameId)/boxscore.json?teamstats=none&playerstats=none")

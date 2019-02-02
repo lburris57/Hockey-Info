@@ -89,9 +89,9 @@ class LeagueStandingsViewController: UITableViewController
     
     func loadTeamArray()
     {
-        if(teamStandings != nil)
+        if let standings = teamStandings
         {
-            for team in teamStandings!
+            for team in standings
             {
                 teamArray.append(team)
             }

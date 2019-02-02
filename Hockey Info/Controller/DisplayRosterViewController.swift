@@ -167,23 +167,14 @@ class DisplayRosterViewController: UITableViewController
     
     func loadPlayerArrays()
     {
-        for player in playerArrayList
-        {
-            if(player.position == PositionEnum.leftWing.rawValue ||
-                player.position == PositionEnum.rightWing.rawValue ||
-                player.position == PositionEnum.center.rawValue)
-            {
-                forwardsArray.append(player)
-            }
-            else if(player.position == PositionEnum.defenseman.rawValue)
-            {
-                defensemenArray.append(player)
-            }
-            else if(player.position == PositionEnum.goalie.rawValue)
-            {
-                goalieArray.append(player)
-            }
-        }
+        forwardsArray = playerArrayList.filter({$0.position == PositionEnum.leftWing.rawValue || $0.position == PositionEnum.rightWing.rawValue || $0.position == PositionEnum.center.rawValue})
+        defensemenArray = playerArrayList.filter({$0.position == PositionEnum.defenseman.rawValue})
+        goalieArray = playerArrayList.filter({$0.position == PositionEnum.goalie.rawValue})
+        
+        //  Sort the arrays
+        forwardsArray.sort {Int($0.jerseyNumber)! < Int($1.jerseyNumber)!}
+        defensemenArray.sort {Int($0.jerseyNumber)! < Int($1.jerseyNumber)!}
+        goalieArray.sort {Int($0.jerseyNumber)! < Int($1.jerseyNumber)!}
     }
 }
 

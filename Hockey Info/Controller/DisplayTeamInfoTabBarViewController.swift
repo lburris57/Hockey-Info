@@ -55,16 +55,7 @@ class DisplayTeamInfoTabBarViewController: UITabBarController
         }
         
         //  Load the schedule arrays
-        for teamSchedule in teams[0].schedules
-        {
-            if (teamSchedule.playedStatus == PlayedStatusEnum.completed.rawValue)
-            {
-                completedGamesArray.append(teamSchedule)
-            }
-            else
-            {
-                gamesRemainingArray.append(teamSchedule)
-            }
-        }
+        completedGamesArray = teams[0].schedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue})
+        gamesRemainingArray = teams[0].schedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue})
     }
 }

@@ -108,19 +108,10 @@ class ConferenceStandingsViewController: UITableViewController
     
     func loadTeamArrays()
     {
-        if(teamStandings != nil)
+        if let standings = teamStandings
         {
-            for team in teamStandings!
-            {
-                if(team.conference == ConferenceEnum.Eastern.rawValue)
-                {
-                    easternTeamArray.append(team)
-                }
-                else if(team.conference == ConferenceEnum.Western.rawValue)
-                {
-                    westernTeamArray.append(team)
-                }
-            }
+            easternTeamArray = standings.filter({$0.conference == ConferenceEnum.Eastern.rawValue})
+            westernTeamArray = standings.filter({$0.conference == ConferenceEnum.Western.rawValue})
             
             //  Sort the arrays
             easternTeamArray.sort {$0.conferenceRank < $1.conferenceRank}

@@ -116,27 +116,12 @@ class DivisionStandingsViewController: UITableViewController
     
     func loadTeamArrays()
     {
-        if(teamStandings != nil)
+        if let standings = teamStandings
         {
-            for team in teamStandings!
-            {
-                if(team.division == DivisionEnum.Atlantic.rawValue)
-                {
-                    atlanticTeamArray.append(team)
-                }
-                else if(team.division == DivisionEnum.Metropolitan.rawValue)
-                {
-                    metropolitanTeamArray.append(team)
-                }
-                else if(team.division == DivisionEnum.Central.rawValue)
-                {
-                    centralTeamArray.append(team)
-                }
-                else if(team.division == DivisionEnum.Pacific.rawValue)
-                {
-                    pacificTeamArray.append(team)
-                }
-            }
+            atlanticTeamArray = standings.filter({$0.division == DivisionEnum.Atlantic.rawValue})
+            metropolitanTeamArray = standings.filter({$0.division == DivisionEnum.Metropolitan.rawValue})
+            centralTeamArray = standings.filter({$0.division == DivisionEnum.Central.rawValue})
+            pacificTeamArray = standings.filter({$0.division == DivisionEnum.Pacific.rawValue})
             
             //  Sort the arrays
             atlanticTeamArray.sort {$0.divisionRank < $1.divisionRank}

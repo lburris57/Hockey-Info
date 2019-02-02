@@ -203,19 +203,10 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     
     func loadArrays()
     {
-        if (teamSchedules?.count) != nil
+        if let schedules = teamSchedules
         {
-            for teamSchedule in teamSchedules!
-            {
-                if (teamSchedule.playedStatus == PlayedStatusEnum.completed.rawValue)
-                {
-                    completedGamesArray.append(teamSchedule)
-                }
-                else
-                {
-                    gamesRemainingArray.append(teamSchedule)
-                }
-            }
+            completedGamesArray = schedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue})
+            gamesRemainingArray = schedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue})
         }
     }
 }

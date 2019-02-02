@@ -27,19 +27,10 @@ class DisplayTeamScheduleTabViewController: UITabBarController
     
     func loadTeamArrays()
     {
-        if (teamScheduleResults?.count) != nil
+        if let teamSchedules = teamScheduleResults
         {
-            for teamSchedule in teamScheduleResults!
-            {
-                if (teamSchedule.playedStatus == PlayedStatusEnum.completed.rawValue)
-                {
-                    completedGamesArray.append(teamSchedule)
-                }
-                else
-                {
-                    gamesRemainingArray.append(teamSchedule)
-                }
-            }
+            completedGamesArray = teamSchedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue})
+            gamesRemainingArray = teamSchedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue})
         }
     }
 }

@@ -136,7 +136,7 @@ class DisplayScoreSummaryViewController: UITableViewController
         }
         else
         {
-            //  This call adds "Remaining" to the end of the text for score display
+            //  This call adds "Remaining" to the end of the text for score display which needs to be removed
             let time = TimeAndDateUtils.getCurrentTimeRemainingString(displayArray[indexPath.row].periodSecondsElapsed)
             
             var playDescription = displayArray[indexPath.row].playDescription
@@ -164,26 +164,12 @@ class DisplayScoreSummaryViewController: UITableViewController
     
     func loadArrays(_ summary: NHLScoringSummary)
     {
-        let periodScoringList = summary.periodScoringList
-        
-        for periodScoringData in periodScoringList
-        {
-            switch(periodScoringData.periodNumber)
-            {
-                case 1:
-                    firstPeriodArray.append(periodScoringData)
-                case 2:
-                    secondPeriodArray.append(periodScoringData)
-                case 3:
-                    thirdPeriodArray.append(periodScoringData)
-                case 4:
-                    overtimeArray.append(periodScoringData)
-                case 5:
-                    shootoutArray.append(periodScoringData)
-                default:
-                    return
-            }
-        }
+        //  Load arrays based on period number
+        firstPeriodArray = summary.periodScoringList.filter({$0.periodNumber == 1})
+        secondPeriodArray = summary.periodScoringList.filter({$0.periodNumber == 2})
+        thirdPeriodArray = summary.periodScoringList.filter({$0.periodNumber == 3})
+        overtimeArray = summary.periodScoringList.filter({$0.periodNumber == 4})
+        shootoutArray = summary.periodScoringList.filter({$0.periodNumber == 5})
         
         //  Sort the arrays
         firstPeriodArray.sort {$0.periodSecondsElapsed < $1.periodSecondsElapsed}
