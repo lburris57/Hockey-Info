@@ -24,6 +24,20 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let displayScoresViewController = DisplayScoresViewController()
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        let backgroundImage = UIImage(named: "HockeyBackground")
+        
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.alpha = 0.1
+        
+        mainMenuView.backgroundView = imageView
+        mainMenuView.separatorStyle = .none
+        
+        // Center and scale background image
+        mainMenuView.contentMode = .scaleAspectFit
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -128,6 +142,8 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         cell?.textLabel?.text = categories[indexPath.row].category
         
         cell?.accessoryType = .disclosureIndicator
+        
+        cell!.backgroundColor = UIColor.clear
         
         return cell!
     }

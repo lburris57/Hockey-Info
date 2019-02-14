@@ -626,7 +626,7 @@ class DatabaseManager
                 {
                     if(team.players.count == 0 || team.schedules.count == 0 ||
                        team.gameLogs.count == 0 || team.standings.count == 0 ||
-                       team.statistics.count == 0 || team.playerInjuries.count == 0)
+                       team.statistics.count == 0)
                     {
                         result = true
                     }
