@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import PromiseKit
+import SVProgressHUD
 
 class CompletedGamesViewController: UITableViewController, CompletedScheduleViewCellDelegate
 {
@@ -149,7 +150,12 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         
         networkManager.saveScoringSummary(forGameId: selectedGameId)
         
-        self.databaseManager.displayGameLog(self, self.selectedGameId)
+        SVProgressHUD.show(withStatus: "Loading...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+        {
+            self.databaseManager.displayGameLog(self, self.selectedGameId)
+            SVProgressHUD.dismiss()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

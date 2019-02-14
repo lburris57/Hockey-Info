@@ -96,9 +96,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     {
         networkManager.saveRosters()
         networkManager.saveStandings()
-        networkManager.reloadGameLogs()
+        networkManager.updateSchedule()
+        networkManager.updateGameLogs()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4)
         {
             self.refreshControl.endRefreshing()
             self.linkTables()
@@ -227,9 +228,10 @@ extension MainMenuViewController
         
         networkManager.saveRosters()
         networkManager.saveStandings()
-        networkManager.reloadGameLogs()
+        networkManager.updateSchedule()
+        networkManager.updateGameLogs()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4)
         {
             self.linkTables()
             self.dismissAlert()

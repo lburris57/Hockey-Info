@@ -16,6 +16,7 @@ PODS:
   - Realm/Headers (3.13.1)
   - RealmSwift (3.13.1):
     - Realm (= 3.13.1)
+  - SVProgressHUD (2.2.5)
   - SwiftDate (5.0.13)
   - SwifterSwift (4.6.0):
     - SwifterSwift/AppKit (= 4.6.0)
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - PromiseKit (~> 6.8)
   - RealmSwift
+  - SVProgressHUD
   - SwiftDate (~> 5.0)
   - SwifterSwift
 
@@ -52,6 +54,7 @@ SPEC REPOS:
     - PromiseKit
     - Realm
     - RealmSwift
+    - SVProgressHUD
     - SwiftDate
     - SwifterSwift
 
@@ -62,9 +65,10 @@ SPEC CHECKSUMS:
   PromiseKit: 02c93833283c37ce94ef7d25de63d48d62b0754e
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwifterSwift: 812ffec6f301922f5430e75be3f2939ea3a80024
 
-PODFILE CHECKSUM: c46dcc2bec636837850167ba546377df5b103c37
+PODFILE CHECKSUM: 24f5de5ddb5f145ea8e4001082b8af40500df95e
 
 COCOAPODS: 1.6.0.beta.2

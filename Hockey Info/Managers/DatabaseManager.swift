@@ -934,10 +934,11 @@ class DatabaseManager
         }
     }
     
-    func getLatestDateCreated() -> String
+    func getLatestDatePlayed() -> String
     {
-        let playerInjuryResult = realm.objects(NHLPlayerInjury.self).first
+        let scheduleResult = realm.objects(NHLSchedule.self).filter("playedStatus == 'COMPLETED'")
+        let sortedScheduleResult = scheduleResult.sorted(byKeyPath: "id", ascending: false)
         
-        return playerInjuryResult?.dateCreated ?? TimeAndDateUtils.getCurrentDateAsString()
+        return sortedScheduleResult[0].date
     }
 }

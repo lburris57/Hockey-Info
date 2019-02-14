@@ -12,6 +12,7 @@ pod 'JTAppleCalendar', '~> 7.0'
 pod 'SwiftDate', '~> 5.0'
 pod "PromiseKit", "~> 6.8"
 pod 'Alamofire'
+pod 'SVProgressHUD'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

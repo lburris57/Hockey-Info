@@ -144,4 +144,18 @@ class TimeAndDateUtils
     {
         return (beginDate.toFormat("yyyyMMdd")) + "-" + (endDate.toFormat("yyyyMMdd"))
     }
+    
+    static func createUpdateDateStringInWebServiceFormat(from date: Date) -> String
+    {
+        return "since-" + date.toFormat("yyyyMMdd")
+    }
+    
+    static func getDate(fromString dateString: String, dateFormat format: String ) -> Date?
+    {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = format
+        
+        return formatter.date(from: dateString)
+    }
 }
