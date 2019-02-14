@@ -71,7 +71,7 @@ class DisplayPlayerInjuryViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        injuryView.rowHeight = CGFloat(100.0)
+        injuryView.rowHeight = CGFloat(75.0)
         
         var playerName = ""
         var position = ""
