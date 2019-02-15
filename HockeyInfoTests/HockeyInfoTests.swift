@@ -23,6 +23,12 @@ class HockeyInfoTests: XCTestCase
     {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        //  Given....let x = 2
+        
+        //  When something happens...
+        
+        //  Then assert something ...
     }
 
     func testPerformanceExample()

@@ -108,10 +108,10 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func refreshTableData()
     {
+        networkManager.updateGameLogs()
         networkManager.saveRosters()
         networkManager.saveStandings()
         networkManager.updateSchedule()
-        networkManager.updateGameLogs()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 4)
         {
@@ -242,10 +242,10 @@ extension MainMenuViewController
     {
         self.presentUpdatingTablesAlert()
         
+        networkManager.updateGameLogs()
         networkManager.saveRosters()
         networkManager.saveStandings()
         networkManager.updateSchedule()
-        networkManager.updateGameLogs()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 4)
         {

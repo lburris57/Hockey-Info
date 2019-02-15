@@ -146,8 +146,6 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         
         print("Selected game id is: \(selectedGameId)")
         
-        //networkManager.downLoadScoringSummary(forGameId: selectedGameId)
-        
         networkManager.saveScoringSummary(forGameId: selectedGameId)
         
         SVProgressHUD.show(withStatus: "Loading...")
@@ -172,20 +170,5 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
-    private func downLoadScoringSummary(forGameId selectedGameId: Int)
-    {
-//        firstly {
-//            networkManager.downLoadScoringSummary(forGameId: selectedGameId)
-//            }.then { creds in
-//                fetch(avatar: creds.user)
-//            }.then { image in
-//                self.imageView = image
-//            }.catch { error in
-//                print("Error: \(error)")
-//            }.always {
-//                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        }
     }
 }

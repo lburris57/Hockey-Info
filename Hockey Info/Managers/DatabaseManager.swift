@@ -94,6 +94,25 @@ class DatabaseManager
         viewController.performSegue(withIdentifier: "displayGameLog", sender: gameLogResult)
     }
     
+    func displayGameLog(_ viewController: DisplayScoresViewController, _ gameId: Int)
+    {
+        var gameLogResult: NHLGameLog?
+        
+        do
+        {
+            try realm.write
+            {
+                gameLogResult = realm.objects(NHLGameLog.self).filter("id ==\(gameId)").first
+            }
+        }
+        catch
+        {
+            print("Error retrieving game log!")
+        }
+        
+        viewController.performSegue(withIdentifier: "displayGameLog", sender: gameLogResult)
+    }
+    
     func displayStandings(_ viewController: MainMenuViewController)
     {
         var standingsResult: Results<TeamStandings>?

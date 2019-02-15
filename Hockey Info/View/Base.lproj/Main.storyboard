@@ -1737,7 +1737,7 @@
                                 <rect key="frame" x="0.0" y="416" width="414" height="276"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" rowHeight="130" id="Uad-Lo-dCA" customClass="ScoreCell" customModule="Hockey_Info">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="scoreCell" rowHeight="130" id="Uad-Lo-dCA" customClass="ScoreCell" customModule="Hockey_Info">
                                         <rect key="frame" x="0.0" y="28" width="414" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uad-Lo-dCA" id="5vs-fh-mYi">
@@ -1791,11 +1791,12 @@
                         <outlet property="scoreView" destination="lWR-PS-ktP" id="i1D-Q6-Yo8"/>
                         <outlet property="separatorViewTopConstraint" destination="TRf-6s-BYd" id="hQd-VO-Qzb"/>
                         <outlet property="showTodayButton" destination="S5L-vy-kBi" id="Ptz-lf-aKv"/>
+                        <segue destination="ARt-Zr-qMg" kind="show" identifier="displayGameLog" id="x8j-H2-VTc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="816-a1-4rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4032" y="786"/>
+            <point key="canvasLocation" x="2170" y="1815"/>
         </scene>
     </scenes>
     <resources>
@@ -1806,4 +1807,7 @@
         <image name="text-align-left-7" width="30" height="30"/>
         <image name="text-align-right-7" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="x8j-H2-VTc"/>
+    </inferredMetricsTieBreakers>
 </document>

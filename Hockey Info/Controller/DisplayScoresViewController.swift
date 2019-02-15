@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import JTAppleCalendar
+import SVProgressHUD
 
 class DisplayScoresViewController: UIViewController
 {
@@ -22,6 +23,8 @@ class DisplayScoresViewController: UIViewController
     let networkManager = NetworkManager()
     
     var nhlSchedules: Results<NHLSchedule>? = nil
+    
+    var selectedGameId = 0
     
     // MARK: Config
     let formatter = DateFormatter()
@@ -344,14 +347,14 @@ extension DisplayScoresViewController: JTAppleCalendarViewDelegate
 }
 
 // MARK: UITableViewDataSource
-extension DisplayScoresViewController : UITableViewDataSource
+extension DisplayScoresViewController : UITableViewDataSource, UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if(nhlSchedules?.count == 0)
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "detail", for: indexPath) as! ScheduleTableViewCell
-            cell.selectionStyle = .none
+            cell.selectionStyle = .default
             cell.noteLabel.text = "No games scheduled"
             cell.startTimeLabel.text = ""
             cell.endTimeLabel.text = ""
@@ -366,17 +369,68 @@ extension DisplayScoresViewController : UITableViewDataSource
         }
         else
         {
+            let schedule = nhlSchedules![indexPath.row]
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath) as! ScoreCell
-            cell.selectionStyle = .none
-            cell.scheduledGame = nhlSchedules?[indexPath.row]
+            cell.scheduledGame = schedule
+            
             scoreView.rowHeight = CGFloat(130.0)
+            
+            if(schedule.playedStatus == PlayedStatusEnum.completed.rawValue)
+            {
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .blue
+                tableView.allowsSelection = true
+            }
+            else
+            {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
+                tableView.allowsSelection = false
+            }
             
             return cell
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return nhlSchedules?.count == 0 ? 1 : nhlSchedules?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let schedule = nhlSchedules![indexPath.row]
+        
+        selectedGameId = schedule.id
+        
+        print("Selected gameId is: \(selectedGameId)")
+        
+        networkManager.saveScoringSummary(forGameId: selectedGameId)
+        
+        SVProgressHUD.show(withStatus: "Loading...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+        {
+            self.databaseManager.displayGameLog(self, self.selectedGameId)
+            SVProgressHUD.dismiss()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let displayGameLogViewController = segue.destination as! DisplayGameLogViewController
+        
+        print("Selected game id in prepare for segue is \(selectedGameId)")
+        
+        displayGameLogViewController.gameLogResult = sender as? NHLGameLog
+        
+        displayGameLogViewController.selectedGameId = selectedGameId
     }
 }
