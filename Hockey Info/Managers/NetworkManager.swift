@@ -960,14 +960,12 @@ class NetworkManager
         
         guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestDatePlayed(), dateFormat: "EEEE, MMM dd, yyyy") else { return }
         
-        let fromDate = dateCreated.adding(.day, value: 1)
-        
-        if(fromDate >= Date())
+        if(dateCreated > Date())
         {
             return
         }
         
-        let dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: fromDate)
+        let dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: dateCreated)
         
         print("URL string is: https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games.json?team=\(teamString)&date=\(dateRange)")
         
@@ -1069,14 +1067,12 @@ class NetworkManager
         
         guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestDatePlayed(), dateFormat: "EEEE, MMM dd, yyyy") else { return }
         
-        let fromDate = dateCreated.adding(.day, value: 1)
-        
-        if(fromDate >= Date())
+        if(dateCreated > Date())
         {
             return
         }
         
-        let dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: fromDate)
+        let dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: dateCreated)
         
         var gameLogDictionary = [Int:NHLGameLog]()
         
