@@ -16,7 +16,7 @@ class TimeAndDateUtils
         
         var date = Date()
         
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.dateFormat = Constants.GMT_FORMAT
         
         if TimeZone.current.isDaylightSavingTime()
         {
@@ -27,7 +27,7 @@ class TimeAndDateUtils
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
         
-        return date.toFormat("EEEE, MMM dd, yyyy")
+        return date.toFormat(Constants.LONG_DATE_FORMAT)
     }
     
     static func getTime(_ timestamp: String) -> String
@@ -36,7 +36,7 @@ class TimeAndDateUtils
         
         var date = Date()
         
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.dateFormat = Constants.GMT_FORMAT
         
         if TimeZone.current.isDaylightSavingTime()
         {
@@ -56,7 +56,7 @@ class TimeAndDateUtils
         
         var date = Date()
         
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.dateFormat = Constants.GMT_FORMAT
         
         if TimeZone.current.isDaylightSavingTime()
         {
@@ -67,7 +67,7 @@ class TimeAndDateUtils
             date = (formatter.date(from: timestamp)?.addingTimeInterval(-(10*60*60)))!
         }
         
-        return (date.toFormat("EEEE, MMM dd, yyyy"), date.toFormat("hh:mm a"))
+        return (date.toFormat(Constants.LONG_DATE_FORMAT), date.toFormat("hh:mm a"))
     }
     
     static func getCurrentTimeRemainingString(_ currentPeriodSecondsRemaining: Int) -> String
@@ -127,27 +127,27 @@ class TimeAndDateUtils
     
     static func getCurrentDateAsString() -> String
     {
-        return (Date().toFormat("EEEE, MMM dd, yyyy"))
+        return (Date().toFormat(Constants.LONG_DATE_FORMAT))
     }
     
     static func getDateAsString(_ date: Date) -> String
     {
-        return (date.toFormat("EEEE, MMM dd, yyyy"))
+        return (date.toFormat(Constants.LONG_DATE_FORMAT))
     }
     
     static func getCurrentDateAsStringInWebServiceFormat() -> String
     {
-        return (Date().toFormat("yyyyMMdd"))
+        return (Date().toFormat(Constants.SHORT_DATE_FORMAT))
     }
     
     static func createDateStringInWebServiceFormat(from beginDate: Date, to endDate: Date) -> String
     {
-        return (beginDate.toFormat("yyyyMMdd")) + "-" + (endDate.toFormat("yyyyMMdd"))
+        return (beginDate.toFormat(Constants.SHORT_DATE_FORMAT)) + "-" + (endDate.toFormat(Constants.SHORT_DATE_FORMAT))
     }
     
     static func createUpdateDateStringInWebServiceFormat(from date: Date) -> String
     {
-        return "since-" + date.toFormat("yyyyMMdd")
+        return "since-" + date.toFormat(Constants.SHORT_DATE_FORMAT)
     }
     
     static func getDate(fromString dateString: String, dateFormat format: String ) -> Date?

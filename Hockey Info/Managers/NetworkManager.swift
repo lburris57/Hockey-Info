@@ -23,7 +23,7 @@ class NetworkManager
     let timeFormatter = DateFormatter()
     let dateStringFormatter = DateFormatter()
     
-    let userId = "6faa8a21-d219-433a-914b-fcd2d4:MYSPORTSFEEDS"
+    let userId = Constants.USER_ID
     
     //  Create a new Realm database
     let realm = try! Realm()
@@ -349,7 +349,7 @@ class NetworkManager
     
     func updateScheduleForDate(_ date :Date)
     {
-        shortDateFormatter.dateFormat = "yyyyMMdd"
+        shortDateFormatter.dateFormat = Constants.SHORT_DATE_FORMAT
         
         let scheduleDate = shortDateFormatter.string(from: date)
         
@@ -578,8 +578,6 @@ class NetworkManager
         }
     }
     
-    
-    
     func savePlayerStats()
     {
         let playerResultList: Results<NHLPlayer> = databaseManager.retrieveAllPlayers()
@@ -797,7 +795,7 @@ class NetworkManager
     
     func saveGameLogs()
     {
-        let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"
+        let teamString = Constants.ALL_TEAMS
         
         var gameLogDictionary = [Int:NHLGameLog]()
         
@@ -954,13 +952,15 @@ class NetworkManager
      // MARK: Update methods
     func updateSchedule()
     {
-        let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"
+        let teamString = Constants.ALL_TEAMS
+        
+        var updatedCount = 0
         
         print("Last date played value is \(databaseManager.getLatestDatePlayed())")
         
-        guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestDatePlayed(), dateFormat: "EEEE, MMM dd, yyyy") else { return }
+        guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestDatePlayed(), dateFormat: Constants.LONG_DATE_FORMAT) else { return }
         
-        if(dateCreated > Date())
+        if(dateCreated >= Date())
         {
             return
         }
@@ -997,9 +997,11 @@ class NetworkManager
                         
                         print("Size of game list is \(seasonSchedule.gameList.count)")
                         
+                        updatedCount = seasonSchedule.gameList.count
+                        
                         DispatchQueue.main.async
                         {
-                            print("Populating game data...")
+                            print("Updating schedule data...")
                             
                             for scheduledGame in seasonSchedule.gameList
                             {
@@ -1035,7 +1037,7 @@ class NetworkManager
                                 {
                                     self.realm.add(scheduledGames, update: true)
                                     
-                                    print("Scheduled games have successfully been updated in the database!!")
+                                    print("\(updatedCount) scheduled records have successfully been updated in the database!!")
                                 }
                             }
                             catch
@@ -1048,12 +1050,12 @@ class NetworkManager
                     }
                     catch
                     {
-                        print("Error decoding JSON data in reloadSchedule method...")
+                        print("Error decoding JSON data in updateSchedule method...")
                     }
                 }
                 else
                 {
-                    print("Error retrieving data in reloadSchedule method...\(err.debugDescription)")
+                    print("Error retrieving data in updateSchedule method...\(err.debugDescription)")
                 }
             }.resume()
         }
@@ -1061,13 +1063,15 @@ class NetworkManager
     
     func updateGameLogs()
     {
-        let teamString = "ANA,ARI,BOS,BUF,CGY,CAR,CHI,COL,CBJ,DAL,DET,EDM,FLO,LAK,MIN,MTL,NSH,NJD,NYI,NYR,OTT,PHI,PIT,SJS,STL,TBL,TOR,VAN,VGK,WSH,WPJ"
+        let teamString = Constants.ALL_TEAMS
         
-        print("Last date played value is \(databaseManager.getLatestDatePlayed())")
+        var updatedCount = 0
         
-        guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestDatePlayed(), dateFormat: "EEEE, MMM dd, yyyy") else { return }
+        print("Last date played value is \(databaseManager.getLatestGameLogDate())")
         
-        if(dateCreated > Date())
+        guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestGameLogDate(), dateFormat: Constants.LONG_DATE_FORMAT) else { return }
+        
+        if(dateCreated >= Date())
         {
             return
         }
@@ -1106,7 +1110,9 @@ class NetworkManager
                         
                         print("Size of gameLogDataList list is \(gameLog.gameLogDataList.count )")
                         
-                        print("Reloading game log data...")
+                        updatedCount = gameLog.gameLogDataList.count
+                        
+                        print("Updating game log data...")
                         
                         DispatchQueue.main.async
                         {
@@ -1209,7 +1215,7 @@ class NetworkManager
                                 //  Save the entire gameLogList to the database
                                 self.realm.add(gameLogList, update: true)
                                 
-                                print("Game log data successfully reloaded for all teams!")
+                                print("\(updatedCount) game log records have been successfully updated for all teams!")
                             }
                         }
                         
@@ -1217,12 +1223,12 @@ class NetworkManager
                     }
                     catch
                     {
-                        print("Error decoding JSON data in reloadGameLogs method for all teams...")
+                        print("Error decoding JSON data in updateGameLogs method for all teams...")
                     }
                 }
                 else
                 {
-                    print("Error retrieving data in reloadGameLogs method...\(err.debugDescription)")
+                    print("Error retrieving data in updateGameLogs method...\(err.debugDescription)")
                 }
             }.resume()
         }

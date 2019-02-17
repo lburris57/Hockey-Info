@@ -6,16 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hockey Info/Managers/DatabaseManager.swift"
-            timestampString = "572033156.3064359"
+            filePath = "Hockey Info/Controller/DisplayTeamScheduleViewController.swift"
+            timestampString = "572052920.94036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "961"
-            endingLineNumber = "961"
-            landmarkName = "getLatestDatePlayed()"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "completedScheduleViewCellDidTapGameLog(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hockey Info/Controller/DisplayTeamScheduleViewController.swift"
+            timestampString = "572052920.9403909"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "completedScheduleViewCellDidTapGameLog(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

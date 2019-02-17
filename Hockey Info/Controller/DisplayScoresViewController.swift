@@ -376,7 +376,7 @@ extension DisplayScoresViewController : UITableViewDataSource, UITableViewDelega
             
             scoreView.rowHeight = CGFloat(130.0)
             
-            if(schedule.playedStatus == PlayedStatusEnum.completed.rawValue)
+            if(schedule.playedStatus == PlayedStatusEnum.completed.rawValue && schedule.date != TimeAndDateUtils.getCurrentDateAsString())
             {
                 cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .blue

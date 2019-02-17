@@ -54,8 +54,10 @@ class DisplayTeamInfoTabBarViewController: UITabBarController
             statsArray.append(stats)
         }
         
+        let today = TimeAndDateUtils.getCurrentDateAsString()
+        
         //  Load the schedule arrays
-        completedGamesArray = teams[0].schedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue})
-        gamesRemainingArray = teams[0].schedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue})
+        completedGamesArray = teams[0].schedules.filter({$0.playedStatus == PlayedStatusEnum.completed.rawValue && $0.date != today})
+        gamesRemainingArray = teams[0].schedules.filter({$0.playedStatus != PlayedStatusEnum.completed.rawValue || $0.date == today})
     }
 }

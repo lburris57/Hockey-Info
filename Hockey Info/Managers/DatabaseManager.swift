@@ -581,7 +581,7 @@ class DatabaseManager
         }
         catch
         {
-            print("Error retrieving roster!")
+            print("Error retrieving teams!")
         }
         
         return teamResult!
@@ -955,9 +955,17 @@ class DatabaseManager
     
     func getLatestDatePlayed() -> String
     {
-        let scheduleResult = realm.objects(NHLSchedule.self).filter("playedStatus == 'COMPLETED'")
+        let scheduleResult = realm.objects(NHLSchedule.self).filter("playedStatus == '\(PlayedStatusEnum.completed.rawValue)'")
         let sortedScheduleResult = scheduleResult.sorted(byKeyPath: "id", ascending: false)
         
         return sortedScheduleResult[0].date
+    }
+    
+    func getLatestGameLogDate() -> String
+    {
+        let maxValue =  realm.objects(NHLGameLog.self).max(ofProperty: "id") as Int?
+        let gameLogResult = realm.objects(NHLGameLog.self).filter("id == \(maxValue ?? 0)")
+        
+        return gameLogResult[0].date
     }
 }
