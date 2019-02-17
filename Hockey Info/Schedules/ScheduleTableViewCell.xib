@@ -25,12 +25,6 @@
                             <constraint firstAttribute="width" constant="2" id="tk8-HN-jzI"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwf-73-3Hp">
-                        <rect key="frame" x="90" y="25" width="0.0" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xoa-ft-hCM">
                         <rect key="frame" x="62.5" y="25" width="27.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
@@ -47,6 +41,12 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwf-73-3Hp" userLabel="Playoff Game Label">
+                        <rect key="frame" x="20" y="6" width="70" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="o1r-DN-LJR" firstAttribute="leading" secondItem="Nwf-73-3Hp" secondAttribute="trailing" constant="10" id="Klj-BO-IwF"/>
@@ -54,7 +54,6 @@
                     <constraint firstItem="uFF-NC-Lfh" firstAttribute="leading" secondItem="dQg-Sj-Kyg" secondAttribute="leading" id="ULj-aS-k9a"/>
                     <constraint firstItem="dQg-Sj-Kyg" firstAttribute="leading" secondItem="o1r-DN-LJR" secondAttribute="trailing" constant="10" id="YOM-1K-sis"/>
                     <constraint firstItem="uFF-NC-Lfh" firstAttribute="top" secondItem="dQg-Sj-Kyg" secondAttribute="bottom" constant="-2" id="kXf-CY-BSY"/>
-                    <constraint firstItem="Nwf-73-3Hp" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oya-Hi-dgr"/>
                     <constraint firstItem="Xoa-ft-hCM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yUN-uI-1lY"/>
                 </constraints>
             </tableViewCellContentView>
