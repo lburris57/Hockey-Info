@@ -205,8 +205,10 @@ class DisplayTeamScheduleViewController: UITableViewController, CompletedSchedul
     {
         if let schedules = teamSchedules
         {
-            completedGamesArray = schedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue})
-            gamesRemainingArray = schedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue})
+            let today = TimeAndDateUtils.getCurrentDateAsString()
+            
+            completedGamesArray = schedules.filter({$0.playedStatus  == PlayedStatusEnum.completed.rawValue && $0.date != today})
+            gamesRemainingArray = schedules.filter({$0.playedStatus  != PlayedStatusEnum.completed.rawValue || $0.date == today})
         }
     }
 }

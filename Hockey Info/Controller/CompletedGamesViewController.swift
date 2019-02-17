@@ -7,7 +7,6 @@
 //
 import UIKit
 import RealmSwift
-import PromiseKit
 import SVProgressHUD
 
 class CompletedGamesViewController: UITableViewController, CompletedScheduleViewCellDelegate
@@ -143,8 +142,6 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         guard let tappedIndexPath = tableView.indexPath(for: sender) else { return }
         
         selectedGameId = completedGamesArray[tappedIndexPath.row].id
-        
-        print("Selected game id is: \(selectedGameId)")
         
         networkManager.saveScoringSummary(forGameId: selectedGameId)
         

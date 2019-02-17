@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 import SwifterSwift
 import Kingfisher
-import PromiseKit
 import Alamofire
 
 class NetworkManager
@@ -113,23 +112,6 @@ class NetworkManager
                     print("Error retrieving data in saveRosters method...\(err.debugDescription)")
                 }
             }.resume()
-        }
-    }
-    
-    func downloadScoringSummary(forGameId gameId: Int) throws ->  Promise<ScoringSummary>
-    {
-        //  Set the URL
-        let url = URL(string: "https://api.mysportsfeeds.com/v2.0/pull/nhl/2018-2019-regular/games/\(gameId)/boxscore.json?teamstats=none&playerstats=none")
-        var request = URLRequest(url: url!)
-
-        request.addValue("Basic " + userId.toBase64()!, forHTTPHeaderField: "Authorization")
-
-        return firstly
-        {
-            URLSession.shared.dataTask(.promise, with: url!)
-        }.compactMap
-        {
-            return try JSONDecoder().decode(ScoringSummary.self, from: $0.data)
         }
     }
     
@@ -1063,20 +1045,29 @@ class NetworkManager
     
     func updateGameLogs()
     {
+        var dateRange = ""
+        
         let teamString = Constants.ALL_TEAMS
         
         var updatedCount = 0
         
         print("Last date played value is \(databaseManager.getLatestGameLogDate())")
         
-        guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestGameLogDate(), dateFormat: Constants.LONG_DATE_FORMAT) else { return }
-        
-        if(dateCreated >= Date())
+        if(!databaseManager.gameLogRequiresSaving())
+        {
+            guard let dateCreated = TimeAndDateUtils.getDate(fromString: databaseManager.getLatestGameLogDate(), dateFormat: Constants.LONG_DATE_FORMAT) else { return }
+            
+            if(dateCreated >= Date())
+            {
+                return
+            }
+            
+            dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: dateCreated)
+        }
+        else
         {
             return
         }
-        
-        let dateRange = TimeAndDateUtils.createUpdateDateStringInWebServiceFormat(from: dateCreated)
         
         var gameLogDictionary = [Int:NHLGameLog]()
         

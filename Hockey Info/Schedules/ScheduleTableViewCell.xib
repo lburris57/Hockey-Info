@@ -26,34 +26,39 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xoa-ft-hCM">
-                        <rect key="frame" x="62.5" y="25" width="27.5" height="15"/>
+                        <rect key="frame" x="62" y="25" width="28" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Washington Capitals @ Boston Bruins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQg-Sj-Kyg">
-                        <rect key="frame" x="112" y="5" width="227.5" height="16"/>
+                        <rect key="frame" x="112" y="5" width="228" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TD Garden" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFF-NC-Lfh">
-                        <rect key="frame" x="112" y="19" width="63.5" height="15"/>
+                        <rect key="frame" x="112" y="19" width="64" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwf-73-3Hp" userLabel="Playoff Game Label">
-                        <rect key="frame" x="20" y="6" width="70" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwf-73-3Hp" userLabel="Start Time Label">
+                        <rect key="frame" x="20" y="5" width="70" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12.5"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Xoa-ft-hCM" firstAttribute="top" secondItem="Nwf-73-3Hp" secondAttribute="bottom" constant="4" id="63O-Ix-mmD"/>
+                    <constraint firstItem="Nwf-73-3Hp" firstAttribute="bottom" secondItem="dQg-Sj-Kyg" secondAttribute="bottom" id="8Vo-wy-YH4"/>
                     <constraint firstItem="o1r-DN-LJR" firstAttribute="leading" secondItem="Nwf-73-3Hp" secondAttribute="trailing" constant="10" id="Klj-BO-IwF"/>
                     <constraint firstItem="o1r-DN-LJR" firstAttribute="leading" secondItem="Xoa-ft-hCM" secondAttribute="trailing" constant="10" id="RuL-iX-ceJ"/>
                     <constraint firstItem="uFF-NC-Lfh" firstAttribute="leading" secondItem="dQg-Sj-Kyg" secondAttribute="leading" id="ULj-aS-k9a"/>
                     <constraint firstItem="dQg-Sj-Kyg" firstAttribute="leading" secondItem="o1r-DN-LJR" secondAttribute="trailing" constant="10" id="YOM-1K-sis"/>
+                    <constraint firstItem="Nwf-73-3Hp" firstAttribute="top" secondItem="o1r-DN-LJR" secondAttribute="top" id="Yto-Rn-Vu3"/>
+                    <constraint firstItem="Nwf-73-3Hp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="j0n-tz-2RJ"/>
                     <constraint firstItem="uFF-NC-Lfh" firstAttribute="top" secondItem="dQg-Sj-Kyg" secondAttribute="bottom" constant="-2" id="kXf-CY-BSY"/>
+                    <constraint firstItem="Nwf-73-3Hp" firstAttribute="centerY" secondItem="dQg-Sj-Kyg" secondAttribute="centerY" id="qtB-w8-5tC"/>
                     <constraint firstItem="Xoa-ft-hCM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yUN-uI-1lY"/>
                 </constraints>
             </tableViewCellContentView>

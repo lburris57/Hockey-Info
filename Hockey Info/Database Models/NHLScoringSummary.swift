@@ -20,7 +20,6 @@ class NHLScoringSummary: Object
     @objc dynamic var numberOfPeriods : Int = 0
     @objc dynamic var dateCreated: String = ""
 
-    var parentTeam = LinkingObjects(fromType: NHLTeam.self, property: "scoringSummaries")
     var periodScoringList = List<NHLPeriodScoringData>()
     
     override static func primaryKey() -> String?

@@ -130,6 +130,11 @@ class TimeAndDateUtils
         return (Date().toFormat(Constants.LONG_DATE_FORMAT))
     }
     
+    static func getCurrentDateAsStringInGMTFormat() -> String
+    {
+        return (Date().toFormat(Constants.GMT_FORMAT))
+    }
+    
     static func getDateAsString(_ date: Date) -> String
     {
         return (date.toFormat(Constants.LONG_DATE_FORMAT))
