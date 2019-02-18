@@ -340,10 +340,3 @@ extension DisplayCalendarViewController : UITableViewDataSource
     }
 }
 
-// MARK: UITableViewDelegate
-extension DisplayCalendarViewController : UITableViewDelegate
-{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {}
-}
-

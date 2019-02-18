@@ -8,7 +8,6 @@
 import UIKit
 import RealmSwift
 import JTAppleCalendar
-import SVProgressHUD
 
 class DisplayScoresViewController: UIViewController
 {
@@ -25,6 +24,11 @@ class DisplayScoresViewController: UIViewController
     var nhlSchedules: Results<NHLSchedule>? = nil
     
     var selectedGameId = 0
+    
+    let progressBar = TYProgressBar()
+    
+    var timer: Timer!
+    var counter: Double = 0.0
     
     // MARK: Config
     let formatter = DateFormatter()
@@ -65,6 +69,8 @@ class DisplayScoresViewController: UIViewController
     {
         super.viewDidLoad()
         
+        setupProgressBar()
+        
         setupViewNibs()
         showTodayButton.target = self
         showTodayButton.action = #selector(showTodayWithAnimate)
@@ -89,6 +95,18 @@ class DisplayScoresViewController: UIViewController
 
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshScoreData(_:)), for: .valueChanged)
+    }
+    
+    func setupProgressBar()
+    {
+        progressBar.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
+        progressBar.center = view.center
+        progressBar.gradients = [#colorLiteral(red: 0.6862745098, green: 0.3215686275, blue: 0.8705882353, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
+        progressBar.lineDashPattern = [4, 2]
+        progressBar.textColor = .purple
+        progressBar.lineHeight = 10
+        progressBar.isHidden = true
+        self.view.addSubview(progressBar)
     }
     
     @objc private func refreshScoreData(_ sender: Any)
@@ -411,23 +429,43 @@ extension DisplayScoresViewController : UITableViewDataSource, UITableViewDelega
         
         selectedGameId = schedule.id
         
-        print("Selected gameId is: \(selectedGameId)")
-        
         networkManager.saveScoringSummary(forGameId: selectedGameId)
         
-        SVProgressHUD.show(withStatus: "Loading...")
+        displayTimer()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
         {
             self.databaseManager.displayGameLog(self, self.selectedGameId)
-            SVProgressHUD.dismiss()
+            self.progressBar.isHidden = true
         }
+    }
+    
+    @objc func displayTimer()
+    {
+        progressBar.isHidden = false
+        
+        progressBar.progress = 0
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ticker), userInfo: nil, repeats: true)
+    }
+    
+    @objc func ticker()
+    {
+        if counter > 1
+        {
+            timer.invalidate()
+            counter = 0
+            return
+        }
+        
+        counter += 0.10
+        
+        progressBar.progress = counter
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let displayGameLogViewController = segue.destination as! DisplayGameLogViewController
-        
-        print("Selected game id in prepare for segue is \(selectedGameId)")
         
         displayGameLogViewController.gameLogResult = sender as? NHLGameLog
         

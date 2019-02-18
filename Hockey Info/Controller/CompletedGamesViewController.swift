@@ -20,6 +20,11 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
     
     var selectedGameId = 0
     
+    let progressBar = TYProgressBar()
+    
+    var timer: Timer!
+    var counter: Double = 0.0
+    
     let databaseManager = DatabaseManager()
     let networkManager = NetworkManager()
     
@@ -36,6 +41,18 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
 
         let myNib = UINib(nibName: "CompletedScheduleViewCell", bundle: Bundle.main)
         completeScheduleView.register(myNib, forCellReuseIdentifier: "completedScheduleViewCell")
+    }
+    
+    func setupProgressBar()
+    {
+        progressBar.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
+        progressBar.center = view.center
+        progressBar.gradients = [#colorLiteral(red: 0.6862745098, green: 0.3215686275, blue: 0.8705882353, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
+        progressBar.lineDashPattern = [4, 2]
+        progressBar.textColor = .purple
+        progressBar.lineHeight = 10
+        progressBar.isHidden = true
+        self.view.addSubview(progressBar)
     }
 
     // MARK: - Table view data source
@@ -145,12 +162,38 @@ class CompletedGamesViewController: UITableViewController, CompletedScheduleView
         
         networkManager.saveScoringSummary(forGameId: selectedGameId)
         
+        //displayTimer()
+        
         SVProgressHUD.show(withStatus: "Loading...")
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
         {
             self.databaseManager.displayGameLog(self, self.selectedGameId)
             SVProgressHUD.dismiss()
         }
+    }
+    
+    @objc func displayTimer()
+    {
+        progressBar.isHidden = false
+        
+        progressBar.progress = 0
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ticker), userInfo: nil, repeats: true)
+    }
+    
+    @objc func ticker()
+    {
+        if counter > 1
+        {
+            timer.invalidate()
+            counter = 0
+            return
+        }
+        
+        counter += 0.10
+        
+        progressBar.progress = counter
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

@@ -120,6 +120,7 @@
 		76F118C121A4C4C1009E5F67 /* NHLTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C021A4C4C1009E5F67 /* NHLTeam.swift */; };
 		76F118C321A4C719009E5F67 /* NHLPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C221A4C719009E5F67 /* NHLPlayer.swift */; };
 		76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C521A4D537009E5F67 /* NetworkManager.swift */; };
+		76F21B6C221A3D31005E9B43 /* TYProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */; };
 		772B6025421B3DE3331C384B /* Pods_Hockey_Info.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */; };
 /* End PBXBuildFile section */
 
@@ -252,6 +253,7 @@
 		76F118C021A4C4C1009E5F67 /* NHLTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHLTeam.swift; sourceTree = "<group>"; };
 		76F118C221A4C719009E5F67 /* NHLPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHLPlayer.swift; sourceTree = "<group>"; };
 		76F118C521A4D537009E5F67 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYProgressBar.swift; sourceTree = "<group>"; };
 		96E07D2F0940FA8A3635712C /* Pods-Hockey Info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.debug.xcconfig"; sourceTree = "<group>"; };
 		E3619F0A6A1F92A56F6525C4 /* Pods-Hockey Info.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -478,6 +480,7 @@
 		76D60B58219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXGroup;
 			children = (
+				76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */,
 				760246AD21FE3E4A007A709B /* Error Enums */,
 				760246AA21FD6A48007A709B /* Alerts */,
 				76F0AD07219FCD0000249F28 /* Models */,
@@ -784,6 +787,7 @@
 				76045B6A21B3673500980C63 /* TeamStandingsData.swift in Sources */,
 				760246A921FD50ED007A709B /* NetworkErrorEnum.swift in Sources */,
 				760D138921DD698300AD40A4 /* DisplayGameLogViewController.swift in Sources */,
+				76F21B6C221A3D31005E9B43 /* TYProgressBar.swift in Sources */,
 				7640585D21C2F91900695D68 /* LeagueStandingsViewController.swift in Sources */,
 				76BDDDAA21D443B700614AFA /* PlayerStatistics.swift in Sources */,
 				76045B5421B3369100980C63 /* VenueData.swift in Sources */,

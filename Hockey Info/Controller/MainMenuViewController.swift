@@ -78,6 +78,7 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if (!databaseManager.teamRosterRequiresSaving() && databaseManager.tablesRequireReload())
         {
+            print("Reloading tables...")
             self.reloadTables()
         }
         else
