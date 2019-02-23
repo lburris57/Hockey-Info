@@ -14,7 +14,10 @@ class DivisionStandingsViewController: UITableViewController
     
     let databaseManager = DatabaseManager()
     
-    let sections = ["Atlantic Division", "Metropolitan Division", "Central Division", "Pacific Division"]
+    let sections = ["Atlantic Division         GP         W            L          OTL      PTS",
+                        "Metro Division            GP         W            L          OTL      PTS",
+                        "Central Division         GP         W            L          OTL      PTS",
+                        "Pacific Division          GP         W            L          OTL      PTS"]
     
     var teamStandings: Results<TeamStandings>?
     var teamArray = [TeamStandings]()
@@ -26,6 +29,9 @@ class DivisionStandingsViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        let myNib = UINib(nibName: "StandingsCell", bundle: Bundle.main)
+        divisionView.register(myNib, forCellReuseIdentifier: "standingsCell")
         
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
         teamStandings = displayStandingsTabViewController.teamStandingsResults
@@ -44,7 +50,7 @@ class DivisionStandingsViewController: UITableViewController
         view.tintColor = UIColor.purple
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.white
-        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        header.textLabel?.font = UIFont.init(name: "Helvetica Neue", size: 14)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
@@ -56,6 +62,7 @@ class DivisionStandingsViewController: UITableViewController
     {
         view.tintColor = UIColor.white
         let footer = view as! UITableViewHeaderFooterView
+
         footer.textLabel?.textColor = UIColor.white
         footer.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
     }
@@ -94,19 +101,22 @@ class DivisionStandingsViewController: UITableViewController
                 teamArray = pacificTeamArray
         }
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "divisionViewCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "standingsCell", for: indexPath) as! StandingsCell
         
-        if cell == nil
-        {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "divisionViewCell")
-        }
+        let gamesPlayed = String(teamArray[indexPath.row].gamesPlayed)
+        let gamesWon = String(teamArray[indexPath.row].wins)
+        let gamesLost = String(teamArray[indexPath.row].losses)
+        let overtimeLosses = String(teamArray[indexPath.row].overtimeLosses)
+        let totalPoints = String(teamArray[indexPath.row].points)
         
-        cell?.textLabel?.text = TeamManager.getTeamCityName(teamArray[indexPath.row].abbreviation)
-        cell?.detailTextLabel?.text = String(teamArray[indexPath.row].gamesPlayed) + "\t\t" +
-        String(teamArray[indexPath.row].wins) + "\t\t" + String(teamArray[indexPath.row].losses) + "\t\t" +
-        String(teamArray[indexPath.row].overtimeLosses) + "\t\t" + String(teamArray[indexPath.row].points)
+        cell.city.text = TeamManager.getTeamCityName(teamArray[indexPath.row].abbreviation)
+        cell.gamesPlayed.text = gamesPlayed.count == 2 ? gamesPlayed : " " + gamesPlayed
+        cell.gamesWon.text = gamesWon.count == 2 ? gamesWon : " " + gamesWon
+        cell.gamesLost.text = gamesLost.count == 2 ? gamesLost : " " + gamesLost
+        cell.overtimeLosses.text = overtimeLosses.count == 2 ? overtimeLosses : "  " + overtimeLosses
+        cell.totalPoints.text = totalPoints.count == 3 ? totalPoints : " " + totalPoints
         
-        return cell!
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

@@ -145,7 +145,7 @@ class DisplayScoresViewController: UIViewController
     func setupViewNibs()
     {
         let myNib = UINib(nibName: "CellView", bundle: Bundle.main)
-       calendarView.register(myNib, forCellWithReuseIdentifier: calendarCellIdentifier)
+        calendarView.register(myNib, forCellWithReuseIdentifier: calendarCellIdentifier)
         
         let myNib2 = UINib(nibName: "ScoreCell", bundle: Bundle.main)
         scoreView.register(myNib2, forCellReuseIdentifier: scoreCellIdentifier)

@@ -121,6 +121,8 @@
 		76F118C321A4C719009E5F67 /* NHLPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C221A4C719009E5F67 /* NHLPlayer.swift */; };
 		76F118C621A4D537009E5F67 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F118C521A4D537009E5F67 /* NetworkManager.swift */; };
 		76F21B6C221A3D31005E9B43 /* TYProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */; };
+		76F21B702221D418005E9B43 /* StandingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B6E2221D418005E9B43 /* StandingsCell.swift */; };
+		76F21B712221D418005E9B43 /* StandingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F21B6F2221D418005E9B43 /* StandingsCell.xib */; };
 		772B6025421B3DE3331C384B /* Pods_Hockey_Info.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB8FFEEF99AE5B713D0CA3 /* Pods_Hockey_Info.framework */; };
 /* End PBXBuildFile section */
 
@@ -254,6 +256,8 @@
 		76F118C221A4C719009E5F67 /* NHLPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHLPlayer.swift; sourceTree = "<group>"; };
 		76F118C521A4D537009E5F67 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYProgressBar.swift; sourceTree = "<group>"; };
+		76F21B6E2221D418005E9B43 /* StandingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsCell.swift; sourceTree = "<group>"; };
+		76F21B6F2221D418005E9B43 /* StandingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StandingsCell.xib; sourceTree = "<group>"; };
 		96E07D2F0940FA8A3635712C /* Pods-Hockey Info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.debug.xcconfig"; sourceTree = "<group>"; };
 		E3619F0A6A1F92A56F6525C4 /* Pods-Hockey Info.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hockey Info.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hockey Info/Pods-Hockey Info.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -387,6 +391,8 @@
 				76BDDDC021D59C7F00614AFA /* FutureScheduleViewCell.xib */,
 				7618B19721F6669200C7ECBF /* ScoreSummaryCell.swift */,
 				7618B19821F6669200C7ECBF /* ScoreSummaryCell.xib */,
+				76F21B6E2221D418005E9B43 /* StandingsCell.swift */,
+				76F21B6F2221D418005E9B43 /* StandingsCell.xib */,
 			);
 			path = "Cells Created With XIB";
 			sourceTree = "<group>";
@@ -480,7 +486,7 @@
 		76D60B58219D060F0058EEB0 /* Hockey Info */ = {
 			isa = PBXGroup;
 			children = (
-				76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */,
+				76F21B6D2221D3AC005E9B43 /* Progress Bar */,
 				760246AD21FE3E4A007A709B /* Error Enums */,
 				760246AA21FD6A48007A709B /* Alerts */,
 				76F0AD07219FCD0000249F28 /* Models */,
@@ -577,6 +583,14 @@
 				76F0AD1521A249D200249F28 /* TeamManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		76F21B6D2221D3AC005E9B43 /* Progress Bar */ = {
+			isa = PBXGroup;
+			children = (
+				76F21B6B221A3D31005E9B43 /* TYProgressBar.swift */,
+			);
+			path = "Progress Bar";
 			sourceTree = "<group>";
 		};
 		94206E9051B91E02CF05169A /* Frameworks */ = {
@@ -691,6 +705,7 @@
 				7618B19A21F6669200C7ECBF /* ScoreSummaryCell.xib in Resources */,
 				769F46E8219E543000E89895 /* ScoreCell.xib in Resources */,
 				7673FB3021AE3486001FF044 /* Assets.xcassets in Resources */,
+				76F21B712221D418005E9B43 /* StandingsCell.xib in Resources */,
 				76590DE821BDC09B0080E0CD /* ScheduleTableViewCell.xib in Resources */,
 				76D60B5F219D060F0058EEB0 /* Main.storyboard in Resources */,
 				76BDDDC221D59C7F00614AFA /* FutureScheduleViewCell.xib in Resources */,
@@ -872,6 +887,7 @@
 				760246AF21FE3E85007A709B /* DatabaseErrorEnum.swift in Sources */,
 				76BDDDB621D44FF600614AFA /* PlayerStatData.swift in Sources */,
 				76590DEC21BDCAA70080E0CD /* DisplayCalendarViewController.swift in Sources */,
+				76F21B702221D418005E9B43 /* StandingsCell.swift in Sources */,
 				76045B5221B3362F00980C63 /* TeamData.swift in Sources */,
 				760E2C9C2218FC5B0068B4D0 /* Constants.swift in Sources */,
 				76045B7221B36B9100980C63 /* ConferenceRankData.swift in Sources */,

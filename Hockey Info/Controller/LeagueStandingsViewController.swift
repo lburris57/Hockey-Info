@@ -22,6 +22,9 @@ class LeagueStandingsViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        let myNib = UINib(nibName: "StandingsCell", bundle: Bundle.main)
+        leagueView.register(myNib, forCellReuseIdentifier: "standingsCell")
+        
         let displayStandingsTabViewController = self.tabBarController  as! DisplayStandingsTabViewController
         teamStandings = displayStandingsTabViewController.teamStandingsResults
         
@@ -39,12 +42,12 @@ class LeagueStandingsViewController: UITableViewController
         view.tintColor = UIColor.purple
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.white
-        header.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        header.textLabel?.font = UIFont.init(name: "Helvetica Neue", size: 14)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "League Standings"
+        return "League Standings     GP         W            L          OTL       PTS"
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
@@ -67,19 +70,22 @@ class LeagueStandingsViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "leagueViewCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "standingsCell", for: indexPath) as! StandingsCell
         
-        if cell == nil
-        {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "leagueViewCell")
-        }
+        let gamesPlayed = String(teamArray[indexPath.row].gamesPlayed)
+        let gamesWon = String(teamArray[indexPath.row].wins)
+        let gamesLost = String(teamArray[indexPath.row].losses)
+        let overtimeLosses = String(teamArray[indexPath.row].overtimeLosses)
+        let totalPoints = String(teamArray[indexPath.row].points)
         
-        cell?.textLabel?.text = TeamManager.getTeamCityName(teamArray[indexPath.row].abbreviation)
-        cell?.detailTextLabel?.text = String(teamArray[indexPath.row].gamesPlayed) + "\t\t" +
-            String(teamArray[indexPath.row].wins) + "\t\t" + String(teamArray[indexPath.row].losses) + "\t\t" +
-            String(teamArray[indexPath.row].overtimeLosses) + "\t\t" + String(teamArray[indexPath.row].points)
+        cell.city.text = TeamManager.getTeamCityName(teamArray[indexPath.row].abbreviation)
+        cell.gamesPlayed.text = gamesPlayed.count == 2 ? gamesPlayed : " " + gamesPlayed
+        cell.gamesWon.text = gamesWon.count == 2 ? gamesWon : " " + gamesWon
+        cell.gamesLost.text = gamesLost.count == 2 ? gamesLost : " " + gamesLost
+        cell.overtimeLosses.text = overtimeLosses.count == 2 ? overtimeLosses : "  " + overtimeLosses
+        cell.totalPoints.text = totalPoints.count == 3 ? totalPoints : " " + totalPoints
         
-        return cell!
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
