@@ -26,7 +26,7 @@ class DisplayTeamsViewController: UITableViewController
     
     var segueId = ""
     
-    let sections = ["Atlantic", "Metropolitan", "Central", "Pacific"]
+    let sections = ["Atlantic Division", "Metropolitan Division", "Central Division", "Pacific Division"]
     
     var atlanticTeamArray = [NHLTeam]()
     var metropolitanTeamArray = [NHLTeam]()
