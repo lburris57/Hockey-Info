@@ -130,6 +130,8 @@ extension DisplayCalendarViewController
 {
     @objc func showTodayWithAnimate()
     {
+        calendarView.deselectAllDates()
+        
         showToday(animate: true)
     }
     

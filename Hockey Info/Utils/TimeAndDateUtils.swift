@@ -20,7 +20,7 @@ class TimeAndDateUtils
         
         if TimeZone.current.isDaylightSavingTime()
         {
-            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(9*60*60)))!
+            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(8*60*60)))!
         }
         else
         {
@@ -40,7 +40,7 @@ class TimeAndDateUtils
         
         if TimeZone.current.isDaylightSavingTime()
         {
-            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(9*60*60)))!
+            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(8*60*60)))!
         }
         else
         {
@@ -60,7 +60,7 @@ class TimeAndDateUtils
         
         if TimeZone.current.isDaylightSavingTime()
         {
-            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(9*60*60)))!
+            date = (formatter.date(from: timestamp)?.addingTimeInterval(-(8*60*60)))!
         }
         else
         {

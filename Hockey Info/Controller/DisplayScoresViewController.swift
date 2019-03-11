@@ -191,6 +191,8 @@ extension DisplayScoresViewController
 {
     @objc func showTodayWithAnimate()
     {
+        calendarView.deselectAllDates()
+        
         showToday(animate: true)
     }
     
