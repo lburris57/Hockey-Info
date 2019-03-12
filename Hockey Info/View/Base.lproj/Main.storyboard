@@ -295,7 +295,7 @@
                             <outlet property="delegate" destination="Ofp-7K-3gE" id="rmh-Vz-b4Q"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Games Left" id="0lf-DG-eFI"/>
+                    <tabBarItem key="tabBarItem" title="Games Left" image="icons8-hashtag_large" id="0lf-DG-eFI"/>
                     <connections>
                         <outlet property="remainingScheduleView" destination="v4h-3h-pKj" id="3Pi-5R-qRW"/>
                     </connections>
@@ -336,7 +336,7 @@
                             <outlet property="delegate" destination="y82-MO-IDe" id="kUS-Ip-HFb"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Injuries" id="Qar-8h-FRh"/>
+                    <tabBarItem key="tabBarItem" title="Injuries" image="icons8-broken_bone" id="Qar-8h-FRh"/>
                     <connections>
                         <outlet property="injuryView" destination="Hbz-XD-M1q" id="imE-Ld-k3l"/>
                     </connections>
@@ -399,7 +399,7 @@
                             <outlet property="delegate" destination="cca-Xn-ftj" id="Bzt-Tb-yg3"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Completed Games" id="Xgb-Ix-7rx"/>
+                    <tabBarItem key="tabBarItem" title="Completed Games" image="icons8-rubiks_cube" id="Xgb-Ix-7rx"/>
                     <connections>
                         <outlet property="completeScheduleView" destination="h3n-cw-ZkG" id="gz5-HD-O3B"/>
                         <segue destination="ARt-Zr-qMg" kind="show" identifier="displayGameLog" id="pSY-kD-X95"/>
@@ -453,7 +453,7 @@
                             <outlet property="delegate" destination="meV-re-9g3" id="3tI-jR-UaM"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Roster" id="sRd-eK-GXJ"/>
+                    <tabBarItem key="tabBarItem" title="Roster" image="icons8-queue" id="sRd-eK-GXJ"/>
                     <connections>
                         <segue destination="8fp-Vq-WKt" kind="show" identifier="displayPlayer" id="gcQ-UI-ce9"/>
                     </connections>
@@ -485,7 +485,7 @@
                             <outlet property="delegate" destination="36h-A8-c8P" id="fDc-s2-VZh"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Stats" id="76F-66-mLn"/>
+                    <tabBarItem key="tabBarItem" title="Stats" image="icons8-bar_chart" id="76F-66-mLn"/>
                     <connections>
                         <outlet property="statsView" destination="xsu-yR-nTW" id="NAq-vG-hCh"/>
                     </connections>
@@ -1685,12 +1685,17 @@
     <resources>
         <image name="BUF" width="150" height="100"/>
         <image name="WSH" width="150" height="100"/>
+        <image name="icons8-bar_chart" width="25" height="25"/>
+        <image name="icons8-broken_bone" width="25" height="25"/>
+        <image name="icons8-hashtag_large" width="25" height="25"/>
+        <image name="icons8-queue" width="25" height="25"/>
+        <image name="icons8-rubiks_cube" width="25" height="25"/>
         <image name="photo-not-available" width="100" height="100"/>
         <image name="text-align-center-7" width="30" height="30"/>
         <image name="text-align-left-7" width="30" height="30"/>
         <image name="text-align-right-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="x8j-H2-VTc"/>
+        <segue reference="pSY-kD-X95"/>
     </inferredMetricsTieBreakers>
 </document>
