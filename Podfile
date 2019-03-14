@@ -12,5 +12,6 @@ pod 'JTAppleCalendar', '~> 7.0'
 pod 'SwiftDate', '~> 5.0'
 pod 'Alamofire'
 pod 'SVProgressHUD'
+pod 'SwiftDateTools'
 
 end

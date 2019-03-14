@@ -303,7 +303,7 @@ class NetworkManager
                                 
                                 try self.realm.write
                                 {
-                                    self.realm.add(scheduledGames)
+                                    self.realm.add(scheduledGames, update: true)
 
                                     print("Scheduled games have successfully been added to the database!!")
                                 }
@@ -1228,3 +1228,17 @@ class NetworkManager
 
 
 
+/*
+ func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
+ 
+ guard let context = context else {
+ throw FFTError.noContext
+ }
+ guard let inputData = inputData else {
+ throw FFTError.noInputData
+ }
+ 
+ // use context and input to compute the frequencies
+ return frequencies
+ }
+ */

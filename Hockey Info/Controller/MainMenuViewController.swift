@@ -12,6 +12,8 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
 {
     @IBOutlet weak var mainMenuView: UITableView!
     
+    let dispatchGroup = DispatchGroup()
+    
     var refreshControl = UIRefreshControl()
     
     var categories = [MenuCategory]()
@@ -109,15 +111,23 @@ class MainMenuViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func refreshTableData()
     {
+        dispatchGroup.enter()
+        
         networkManager.updateGameLogs()
         networkManager.saveRosters()
         networkManager.saveStandings()
         networkManager.updateSchedule()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4)
+        dispatchGroup.leave()
+        
+        dispatchGroup.notify(queue: .main)
         {
+            print("Notified....")
+            
             self.refreshControl.endRefreshing()
             self.linkTables()
+            
+            print("Complete....")
         }
     }
     
@@ -280,3 +290,16 @@ extension MainMenuViewController
         self.alert?.dismiss(animated: false, completion: nil)
     }
 }
+
+
+/*
+ lazy var locationManager = makeLocationManager()
+ 
+ private func makeLocationManager() -> CLLocationManager {
+ let manager = CLLocationManager()
+ manager.desiredAccuracy = kCLLocationAccuracyBest
+ manager.delegate = self
+ manager.requestAlwaysAuthorization()
+ return manager
+ }
+ */

@@ -16,3 +16,11 @@ enum PeriodEnum : String
     case tripleOvertime = "F/3OT"
     case quadrupleOvertime = "F/4OT"
 }
+
+
+/*
+ // North = "North", ... West = "West"
+ enum CompassPoint: String {
+ case North, South, East, West
+ }
+ */
